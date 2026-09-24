@@ -21,7 +21,7 @@ import com.piptechnologies.openchat.ui.theme.sans
 /**
  * §4.11 (ruling R15): "Exclude chats" and a 52 row per known conversation (avatar 30, name, switch; on =
  * excluded). The notification listener skips excluded chats from then on; the count feeds the tool
- * settings row.
+ * settings row. An unsaved sender's number stays left-to-right ([displayTitle]).
  */
 @Composable
 fun ExcludeChatsSheetContent(chats: List<ExcludableChat>, onToggle: (ExcludableChat) -> Unit) {
@@ -48,7 +48,7 @@ fun ExcludeChatsSheetContent(chats: List<ExcludableChat>, onToggle: (ExcludableC
                             size = 30.dp,
                             textStyle = AvatarInitial30,
                         )
-                        SheetRowLabel(text = chat.title, color = c.ink)
+                        SheetRowLabel(text = displayTitle(chat.title), color = c.ink)
                         OcSwitch(checked = chat.excluded)
                     }
                 }

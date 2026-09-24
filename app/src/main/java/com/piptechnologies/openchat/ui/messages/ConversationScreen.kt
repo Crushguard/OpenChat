@@ -22,6 +22,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,26 +31,30 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.messages.CapturedMessage
 import com.piptechnologies.openchat.core.messages.InboxMode
-import com.piptechnologies.openchat.core.phone.RelativeTime
 import com.piptechnologies.openchat.ui.components.HintLine
 import com.piptechnologies.openchat.ui.components.LocalMediaThumbnail
 import com.piptechnologies.openchat.ui.components.OcTopBar
 import com.piptechnologies.openchat.ui.components.ScreenSurface
 import com.piptechnologies.openchat.ui.components.SecondaryButton
+import com.piptechnologies.openchat.ui.components.TimeFormatter
+import com.piptechnologies.openchat.ui.components.asString
+import com.piptechnologies.openchat.ui.components.rememberTimeFormatter
 import com.piptechnologies.openchat.ui.icons.AppGlyph
 import com.piptechnologies.openchat.ui.icons.AppGlyphImage
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
 import com.piptechnologies.openchat.ui.theme.OcTheme
-import java.util.TimeZone
+import java.util.Locale
 
 private val BubbleShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp, bottomEnd = 16.dp, bottomStart = 6.dp)
 private val PhotoShape = RoundedCornerShape(10.dp)
@@ -57,9 +62,10 @@ private const val DAY_MS = 86_400_000L
 
 /**
  * Conversation (design map §4.9): two-line bar, a day pill over each day's messages, incoming bubbles
- * (at most 80 % wide) with the "Deleted by sender" label on deleted ones, and the footer with "Open chat in
- * WhatsApp" and the mode's hint. A photo whose image was copied shows through [thumbnail]
- * (200 × 130, radius 10) and opens Media detail ([onOpenMedia]) while its copy exists.
+ * (at most 80 % wide, at the start edge) with the "Deleted by sender" label on deleted ones, and the footer
+ * with "Open chat in WhatsApp" and the mode's hint. A photo whose image was copied shows through [thumbnail]
+ * (200 × 130, radius 10) and opens Media detail ([onOpenMedia]) while its copy exists. Day pills and times
+ * are in the UI language.
  */
 @Composable
 fun ConversationScreen(
@@ -70,7 +76,7 @@ fun ConversationScreen(
     thumbnail: @Composable (localPath: String?, modifier: Modifier) -> Unit = { p, m -> LocalMediaThumbnail(p, m) },
 ) {
     ScreenSurface {
-        OcTopBar(title = state.title, onBack = onBack, subtitle = state.subtitle)
+        OcTopBar(title = displayTitle(state.title), onBack = onBack, subtitle = state.subtitle.asString())
         MessageList(state = state, onOpenMedia = onOpenMedia, thumbnail = thumbnail, modifier = Modifier.weight(1f))
         Footer(mode = state.mode, onOpenInWhatsApp = onOpenInWhatsApp)
     }
@@ -92,8 +98,8 @@ private fun MessageList(
     thumbnail: @Composable (localPath: String?, modifier: Modifier) -> Unit,
     modifier: Modifier,
 ) {
-    val today = stringResource(R.string.conversation_today)
-    val rows = remember(state.messages, state.nowMs, today) { listRows(state.messages, state.nowMs, today) }
+    val formatter = rememberTimeFormatter()
+    val rows = remember(state.messages, state.nowMs, formatter) { listRows(state.messages, state.nowMs, formatter) }
     val listState = rememberLazyListState()
     // Long conversations open on their latest message, once; later arrivals do not yank the list.
     var openedAtEnd by rememberSaveable { mutableStateOf(false) }
@@ -114,6 +120,7 @@ private fun MessageList(
                 is ListRow.Day -> DayPill(label = row.label)
                 is ListRow.Message -> MessageBubble(
                     message = row.message,
+                    time = formatter.clock(row.message.timestamp),
                     localPath = row.message.mediaId?.let { state.thumbnails[it] },
                     onOpenMedia = onOpenMedia,
                     thumbnail = thumbnail,
@@ -127,20 +134,18 @@ private fun MessageList(
 }
 
 /**
- * The messages with a day pill before the first message of each local day: "Today" for the day of [nowMs],
- * else [RelativeTime.dayLabel] ("Yesterday", "Mon 21 Sep").
+ * The messages with a day pill before the first message of each local day of [formatter]'s time zone,
+ * labelled by [TimeFormatter.dayLabel] ("Today", "Yesterday", "Mon 21 Sep" in English).
  */
-private fun listRows(messages: List<CapturedMessage>, nowMs: Long, today: String): List<ListRow> {
-    val zone = TimeZone.getDefault()
+private fun listRows(messages: List<CapturedMessage>, nowMs: Long, formatter: TimeFormatter): List<ListRow> {
+    val zone = formatter.timeZone
     fun localDay(ms: Long): Long = Math.floorDiv(ms + zone.getOffset(ms), DAY_MS)
-    val todayIndex = localDay(nowMs)
     val rows = ArrayList<ListRow>(messages.size + 1)
     var previousDay: Long? = null
     for (message in messages) {
         val day = localDay(message.timestamp)
         if (day != previousDay) {
-            val label = if (day == todayIndex) today else RelativeTime.dayLabel(message.timestamp, nowMs)
-            rows += ListRow.Day(label = label, key = "day-$day")
+            rows += ListRow.Day(label = formatter.dayLabel(message.timestamp, nowMs), key = "day-$day")
             previousDay = day
         }
         rows += ListRow.Message(message = message, key = message.id)
@@ -148,13 +153,13 @@ private fun listRows(messages: List<CapturedMessage>, nowMs: Long, today: String
     return rows
 }
 
-/** Date pill: mono 10/600 .06em uppercase, muted on subtle, padding 4 9, centred. */
+/** Date pill: mono 10/600 .06em uppercase (in scripts that have case), muted on subtle, padding 4 9, centred. */
 @Composable
 private fun DayPill(label: String) {
     val c = OcTheme.colors
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
         Text(
-            text = label.uppercase(),
+            text = label.uppercase(uiLocale()),
             style = OcTheme.type.eyebrow10.copy(letterSpacing = 0.06.em),
             color = c.muted,
             modifier = Modifier
@@ -165,10 +170,15 @@ private fun DayPill(label: String) {
     }
 }
 
-/** An incoming bubble: optional "Deleted by sender" label, then text or photo, then the time. */
+/**
+ * An incoming bubble: optional "Deleted by sender" label, then text or photo, then the [time]. The message
+ * text takes its own direction (TextDirection.Content), so an English message in a right-to-left UI, or an
+ * Arabic one in a left-to-right UI, keeps its punctuation in place.
+ */
 @Composable
 private fun MessageBubble(
     message: CapturedMessage,
+    time: String,
     localPath: String?,
     onOpenMedia: (Long) -> Unit,
     thumbnail: @Composable (localPath: String?, modifier: Modifier) -> Unit,
@@ -195,10 +205,10 @@ private fun MessageBubble(
                     thumbnail(localPath, Modifier.matchParentSize())
                 }
             } else {
-                Text(text = message.text, style = OcTheme.type.body14_5, color = c.ink)
+                Text(text = message.text, style = OcTheme.type.body14_5.copy(textDirection = TextDirection.Content), color = c.ink)
             }
             Text(
-                text = RelativeTime.clock(message.timestamp),
+                text = time,
                 style = OcTheme.type.mono10_5,
                 color = c.muted,
                 modifier = Modifier
@@ -219,9 +229,17 @@ private fun DeletedLabel() {
         horizontalArrangement = Arrangement.spacedBy(5.dp),
     ) {
         LucideIconImage(icon = LucideIcon.MessageSquareDashed, size = 12.dp, tint = c.amber, strokeWidth = 2f)
-        Text(text = stringResource(R.string.conversation_deleted_label).uppercase(), style = OcTheme.type.eyebrow9_5, color = c.amber)
+        Text(text = stringResource(R.string.conversation_deleted_label).uppercase(uiLocale()), style = OcTheme.type.eyebrow9_5, color = c.amber)
     }
 }
+
+/**
+ * The UI language's locale, read as rememberTimeFormatter reads it, for upper-casing labels by its rules
+ * (Turkish "i" becomes "İ"); scripts without case are left as they are.
+ */
+@Composable
+@ReadOnlyComposable
+private fun uiLocale(): Locale = LocalConfiguration.current.locales[0]?.takeIf { it.language.isNotEmpty() } ?: Locale.getDefault()
 
 /** White footer under a soft top border: "Open chat in WhatsApp" with the glyph 18, then the mode's hint. */
 @Composable

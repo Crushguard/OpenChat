@@ -2,11 +2,16 @@ package com.piptechnologies.openchat.screenshots
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.messages.InboxBuilder
 import com.piptechnologies.openchat.core.messages.InboxMode
 import com.piptechnologies.openchat.ui.components.ConfirmSheetContent
 import com.piptechnologies.openchat.ui.components.HatchedPlaceholder
 import com.piptechnologies.openchat.ui.components.SheetPreviewFrame
+import com.piptechnologies.openchat.ui.components.UiText
+import com.piptechnologies.openchat.ui.components.ltr
+import com.piptechnologies.openchat.ui.components.pluralText
+import com.piptechnologies.openchat.ui.components.uiText
 import com.piptechnologies.openchat.ui.messages.ConversationScreen
 import com.piptechnologies.openchat.ui.messages.ConversationUiState
 import com.piptechnologies.openchat.ui.messages.MessagesCallbacks
@@ -21,6 +26,9 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+
+/** The number the design shows in Ayu's conversation bar ("+62 812 3456 7890 · seen by no one"). */
+private const val AYU_NUMBER = "+62 812 3456 7890"
 
 /**
  * Messages inbox (All / Deleted only / empty), the conversation in both modes, the tool settings sheet
@@ -61,7 +69,7 @@ class MessagesScreenshotTests {
     @Test
     fun unseen_conversation() = snapshot {
         ConversationScreen(
-            state = ayu(InboxMode.ALL, "+62 812 3456 7890 · seen by no one"),
+            state = ayu(InboxMode.ALL, uiText(R.string.conversation_subtitle_all, ltr(AYU_NUMBER))),
             onBack = {},
             onOpenInWhatsApp = {},
             onOpenMedia = {},
@@ -72,7 +80,7 @@ class MessagesScreenshotTests {
     @Test
     fun recover_messages_conversation() = snapshot {
         ConversationScreen(
-            state = ayu(InboxMode.DELETED, "+62 812 3456 7890 · 2 deleted"),
+            state = ayu(InboxMode.DELETED, pluralText(R.plurals.conversation_subtitle_deleted, 2, ltr(AYU_NUMBER), 2)),
             onBack = {},
             onOpenInWhatsApp = {},
             onOpenMedia = {},
@@ -130,8 +138,8 @@ class MessagesScreenshotTests {
         excludedCount = 0,
     )
 
-    /** Ayu Lestari's conversation (+62 812 3456 7890): 4 messages, 2 of them deleted, one a photo (media item 1). */
-    private fun ayu(mode: InboxMode, subtitle: String): ConversationUiState {
+    /** Ayu Lestari's conversation ([AYU_NUMBER]): 4 messages, 2 of them deleted, one a photo (media item 1). */
+    private fun ayu(mode: InboxMode, subtitle: UiText): ConversationUiState {
         val messages = Fakes.messages.filter { it.conversationKey == Fakes.ayuKey }
         return ConversationUiState(
             mode = mode,

@@ -14,6 +14,8 @@ import com.piptechnologies.openchat.core.send.MessagingApp
 import com.piptechnologies.openchat.data.repo.MediaRepository
 import com.piptechnologies.openchat.data.repo.MessagesRepository
 import com.piptechnologies.openchat.platform.ExternalLinks
+import com.piptechnologies.openchat.ui.components.UiText
+import com.piptechnologies.openchat.ui.components.uiText
 import com.piptechnologies.openchat.ui.navigation.Routes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -31,7 +33,8 @@ import kotlinx.coroutines.launch
 /**
  * One conversation (design map §4.9), read from the `mode` and `key` navigation arguments. Opening it
  * marks its messages seen here, once (§5.2); nothing is ever sent to WhatsApp until the user taps
- * "Open chat in WhatsApp".
+ * "Open chat in WhatsApp". The application context only launches WhatsApp; the bar subtitle and the
+ * toast are [UiText], resolved in the UI language by the screen and [ConversationRoute].
  */
 @HiltViewModel
 class ConversationViewModel @Inject constructor(
@@ -42,10 +45,10 @@ class ConversationViewModel @Inject constructor(
 ) : ViewModel() {
     private val mode: InboxMode = inboxModeArg(savedStateHandle.get<String>(Routes.ARG_MODE))
     private val key: String = conversationKeyArg(savedStateHandle.get<String>(Routes.ARG_KEY))
-    private val _toasts = MutableSharedFlow<String>(extraBufferCapacity = 1)
+    private val _toasts = MutableSharedFlow<UiText>(extraBufferCapacity = 1)
 
     /** "Opening WhatsApp…" once the chat (or the app) was launched. */
-    val toasts: SharedFlow<String> = _toasts.asSharedFlow()
+    val toasts: SharedFlow<UiText> = _toasts.asSharedFlow()
 
     val state: StateFlow<ConversationUiState> = messages.observeConversation(key)
         .distinctUntilChanged()
@@ -56,7 +59,7 @@ class ConversationViewModel @Inject constructor(
             initialValue = ConversationUiState(
                 mode = mode,
                 title = "",
-                subtitle = "",
+                subtitle = UiText.Raw(""),
                 messages = emptyList(),
                 thumbnails = emptyMap(),
                 phoneDigits = null,
@@ -75,23 +78,17 @@ class ConversationViewModel @Inject constructor(
     fun openInWhatsApp() {
         val app = if (key.substringBefore('|') == NotificationText.WHATSAPP_BUSINESS) MessagingApp.WHATSAPP_BUSINESS else MessagingApp.WHATSAPP
         if (ExternalLinks.openWhatsAppChat(context, state.value.phoneDigits, app)) {
-            _toasts.tryEmit(context.getString(R.string.toast_opening_whatsapp))
+            _toasts.tryEmit(uiText(R.string.toast_opening_whatsapp))
         }
     }
 
     private suspend fun buildState(conversation: List<CapturedMessage>): ConversationUiState {
         val summary = InboxBuilder.build(conversation, InboxMode.ALL).firstOrNull()
         val shown = conversationMessages(conversation, mode)
-        val title = summary?.title.orEmpty()
-        val who = summary?.phoneNumber?.let(::displayPhoneNumber) ?: title
-        val status = when (mode) {
-            InboxMode.ALL -> context.getString(R.string.conversation_seen_by_no_one)
-            InboxMode.DELETED -> context.getString(R.string.conversation_deleted_count, summary?.deletedCount ?: 0)
-        }
         return ConversationUiState(
             mode = mode,
-            title = title,
-            subtitle = "$who · $status",
+            title = summary?.title.orEmpty(),
+            subtitle = conversationSubtitle(summary, mode),
             messages = shown,
             thumbnails = thumbnailsOf(shown),
             phoneDigits = summary?.phoneNumber,

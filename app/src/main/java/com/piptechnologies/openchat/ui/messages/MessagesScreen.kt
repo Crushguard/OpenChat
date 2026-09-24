@@ -30,6 +30,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
@@ -38,7 +39,6 @@ import androidx.compose.ui.unit.dp
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.messages.ConversationSummary
 import com.piptechnologies.openchat.core.messages.InboxMode
-import com.piptechnologies.openchat.core.phone.RelativeTime
 import com.piptechnologies.openchat.ui.components.ChipState
 import com.piptechnologies.openchat.ui.components.CountBadge
 import com.piptechnologies.openchat.ui.components.EmptyState
@@ -49,6 +49,7 @@ import com.piptechnologies.openchat.ui.components.OcTopBar
 import com.piptechnologies.openchat.ui.components.ScreenSurface
 import com.piptechnologies.openchat.ui.components.StateChip
 import com.piptechnologies.openchat.ui.components.TopBarIconButton
+import com.piptechnologies.openchat.ui.components.rememberTimeFormatter
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
@@ -106,7 +107,7 @@ private fun ModeChips(mode: InboxMode, unreadTotal: Int, deletedTotal: Int, onMo
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         FilterPill(
-            label = stringResource(R.string.messages_chip_all, unreadTotal),
+            label = pluralStringResource(R.plurals.messages_chip_all, unreadTotal, unreadTotal),
             selected = mode == InboxMode.ALL,
             onClick = { onMode(InboxMode.ALL) },
         )
@@ -118,10 +119,14 @@ private fun ModeChips(mode: InboxMode, unreadTotal: Int, deletedTotal: Int, onMo
     }
 }
 
-/** The card of conversation rows (one lazy item per row, each drawing its slice of the card), then the info callout. */
+/**
+ * The card of conversation rows (one lazy item per row, each drawing its slice of the card), then the info callout.
+ * Row times are in the UI language ("14:26", "Yesterday", "Mon", "22 Sep" in English).
+ */
 @Composable
 private fun ConversationList(state: MessagesUiState, onOpen: (ConversationSummary) -> Unit, modifier: Modifier) {
     val c = OcTheme.colors
+    val formatter = rememberTimeFormatter()
     val lastIndex = state.conversations.lastIndex
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
@@ -132,7 +137,7 @@ private fun ConversationList(state: MessagesUiState, onOpen: (ConversationSummar
                 ConversationRow(
                     conversation = conversation,
                     mode = state.mode,
-                    time = RelativeTime.conversationTime(conversation.lastTimestamp, state.nowMs),
+                    time = formatter.conversationTime(conversation.lastTimestamp, state.nowMs),
                     onClick = { onOpen(conversation) },
                 )
                 if (index != lastIndex) HairlineDivider()
@@ -148,8 +153,9 @@ private fun ConversationList(state: MessagesUiState, onOpen: (ConversationSummar
 }
 
 /**
- * Row 12/14 padding, 12 gap: avatar 42, name (ellipsis) and time on one baseline, then the preview with
- * the deleted mark first in Deleted only, and the badge (unread in All, deleted in Deleted only; none at 0).
+ * Row 12/14 padding, 12 gap: avatar 42, name (ellipsis; an unsaved sender's number kept left-to-right,
+ * [displayTitle]) and time on one baseline, then the preview with the deleted mark first in Deleted only,
+ * and the badge (unread in All, deleted in Deleted only; none at 0).
  */
 @Composable
 private fun ConversationRow(conversation: ConversationSummary, mode: InboxMode, time: String, onClick: () -> Unit) {
@@ -172,7 +178,7 @@ private fun ConversationRow(conversation: ConversationSummary, mode: InboxMode, 
         Column(modifier = Modifier.weight(1f)) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(
-                    text = conversation.title,
+                    text = displayTitle(conversation.title),
                     style = OcTheme.type.label14_5,
                     color = c.ink,
                     maxLines = 1,

@@ -1,6 +1,5 @@
 package com.piptechnologies.openchat.ui.messages
 
-import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,8 +9,9 @@ import com.piptechnologies.openchat.core.messages.InboxBuilder
 import com.piptechnologies.openchat.core.messages.InboxMode
 import com.piptechnologies.openchat.data.prefs.SettingsRepository
 import com.piptechnologies.openchat.data.repo.MessagesRepository
+import com.piptechnologies.openchat.ui.components.UiText
+import com.piptechnologies.openchat.ui.components.uiText
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -37,12 +37,11 @@ import kotlinx.coroutines.sync.withLock
  * and clear-all confirmation (§4.20). One ViewModel serves both entries: the route sets the [InboxMode]
  * the user came in with through [setMode], and the chips switch it.
  *
- * Takes the application context (for toast texts) like the other toast-emitting ViewModels; it needs no
- * MediaRepository, since [MessagesRepository.clearAll] already deletes the notification image copies.
+ * Toasts are [UiText], resolved by [MessagesRoute] in the UI language. It needs no MediaRepository, since
+ * [MessagesRepository.clearAll] already deletes the notification image copies.
  */
 @HiltViewModel
 class MessagesViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val messages: MessagesRepository,
     private val settings: SettingsRepository,
 ) : ViewModel() {
@@ -51,10 +50,10 @@ class MessagesViewModel @Inject constructor(
 
     /** Serializes the pause and exclude toggles, so a double tap flips twice instead of racing. */
     private val toggleLock = Mutex()
-    private val _toasts = MutableSharedFlow<String>(extraBufferCapacity = 1)
+    private val _toasts = MutableSharedFlow<UiText>(extraBufferCapacity = 1)
 
     /** Toast texts: "Recovery paused" / "Recovery resumed" and "Cleared". */
-    val toasts: SharedFlow<String> = _toasts.asSharedFlow()
+    val toasts: SharedFlow<UiText> = _toasts.asSharedFlow()
 
     /** The grouped inbox for the current mode, built off the main thread. */
     private val inbox: Flow<Inbox> = combine(messages.observeAll(), mode) { all, m ->
@@ -166,7 +165,7 @@ class MessagesViewModel @Inject constructor(
     }
 
     private suspend fun toast(@StringRes text: Int) {
-        _toasts.emit(context.getString(text))
+        _toasts.emit(uiText(text))
     }
 
     private data class Inbox(val mode: InboxMode, val conversations: List<ConversationSummary>, val unreadTotal: Int, val deletedTotal: Int)

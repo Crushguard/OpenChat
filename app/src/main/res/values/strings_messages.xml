@@ -1,40 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Messages inbox (design map §4.8) -->
+    <!-- Title of the Messages screen (the recovered WhatsApp messages) and of its tool settings sheet. -->
     <string name="messages_title">Messages</string>
-    <string name="messages_chip_all">All · %d unread</string>
+    <!-- Filter chip on the Messages screen that lists every chat. %d is the number of messages not yet read in this app. Keep it short: both filter chips share one row. -->
+    <plurals name="messages_chip_all">
+        <item quantity="one">All · %d unread</item>
+        <item quantity="other">All · %d unread</item>
+    </plurals>
+    <!-- Filter chip on the Messages screen that lists only the messages their sender deleted. %d is how many were kept; the number stands alone after the separator (no noun follows it), so this text has no plural forms. Keep it short: both filter chips share one row. -->
     <string name="messages_chip_deleted">Deleted only · %d</string>
+    <!-- Note under the chat list in the "All" filter. "blue ticks" are WhatsApp's read receipts: use the term WhatsApp uses in your language. Do not translate "WhatsApp". -->
     <string name="messages_info_all">Read here and WhatsApp shows no blue ticks. Photos appear when the notification carries a preview; voice notes and files show by name.</string>
+    <!-- Note under the chat list in the "Deleted only" filter. -->
     <string name="messages_info_deleted">Only messages the sender deleted are kept. Excluded chats are skipped entirely.</string>
+    <!-- Title of the empty Messages screen, shown before any message was captured. -->
     <string name="messages_empty_title">Nothing here yet</string>
+    <!-- Text of the empty Messages screen. "Deleted only" is the name of the filter chip (messages_chip_deleted): use the same words. -->
     <string name="messages_empty_body">New messages land here as they arrive. Deleted ones stay in \"Deleted only\".</string>
+    <!-- Accessibility label (read by screen readers) of the sliders button in the Messages top bar; it opens the tool settings sheet (pause, exclude chats, clear). -->
     <string name="messages_tool_settings">Tool settings</string>
 
     <!-- Conversation (design map §4.9) -->
-    <string name="conversation_seen_by_no_one">seen by no one</string>
-    <string name="conversation_deleted_count">%d deleted</string>
-    <string name="conversation_today">Today</string>
+    <!-- Second line of a conversation's top bar in the "All" filter. %1$s is the sender's phone number or name; "seen by no one" means no read receipt was sent. -->
+    <string name="conversation_subtitle_all">%1$s · seen by no one</string>
+    <!-- Second line of a conversation's top bar in the "Deleted only" filter. %1$s is the sender's phone number or name, %2$d how many of this chat's messages the sender deleted. -->
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · %2$d deleted</item>
+        <item quantity="other">%1$s · %2$d deleted</item>
+    </plurals>
+    <!-- Small label above a message bubble whose sender deleted the message; shown in capital letters where the script has them. Keep it short (about 20 characters). -->
     <string name="conversation_deleted_label">Deleted by sender</string>
+    <!-- Button at the bottom of a conversation that opens this chat in the WhatsApp app (which then sends read receipts). Do not translate "WhatsApp" (brand name). -->
     <string name="conversation_open">Open chat in WhatsApp</string>
+    <!-- Hint under the "Open chat in WhatsApp" button in the "All" filter. "read receipts" are WhatsApp's blue ticks: use WhatsApp's own term in your language. Do not translate "WhatsApp". -->
     <string name="conversation_hint_all">Opening the chat in WhatsApp sends read receipts.</string>
+    <!-- Hint under the "Open chat in WhatsApp" button in the "Deleted only" filter: the chat can only be read in this app, and replying happens in WhatsApp. Do not translate "WhatsApp". -->
     <string name="conversation_hint_deleted">Read-only here. Replies happen in WhatsApp.</string>
 
     <!-- Tool settings sheet (§4.10, shared with Deleted media), exclude chats sheet (§4.11), clear confirmations (§4.20) -->
+    <!-- Row with a switch in the tool settings sheet (Messages and Deleted media); while it is on, nothing new is recovered. One line: keep it short (about 25 characters). -->
     <string name="tool_settings_pause">Pause recovery</string>
+    <!-- Row in the tool settings sheet (Messages and Deleted media) that opens the list of chats to skip; the number of excluded chats shows at the end of the row. One line: keep it short (about 25 characters). -->
     <string name="tool_settings_exclude">Exclude chats</string>
+    <!-- Destructive row in the Messages tool settings sheet: deletes every message this app kept. One line: keep it short (about 30 characters). -->
     <string name="tool_settings_clear_messages">Clear all kept messages</string>
+    <!-- Destructive row in the Deleted media tool settings sheet: deletes every media file this app recovered. One line: keep it short (about 30 characters). -->
     <string name="tool_settings_clear_media">Delete all recovered media</string>
+    <!-- Title of the sheet that lists the chats; a switch on a chat's row stops recovering its messages. -->
     <string name="exclude_title">Exclude chats</string>
+    <!-- Shown in the Exclude chats sheet while no chat has been seen yet. -->
     <string name="exclude_empty">Chats show up here after their first message.</string>
+    <!-- Title of the confirmation sheet before deleting every kept message. -->
     <string name="clear_messages_title">Clear all recovered messages?</string>
+    <!-- Title of the confirmation sheet before deleting every recovered media file. -->
     <string name="clear_media_title">Delete all recovered media?</string>
+    <!-- Text of the clear-all confirmation sheets (messages and media): only this app's copies are deleted. Do not translate "WhatsApp". -->
     <string name="clear_body">Deletes this app’s copies. WhatsApp is not affected.</string>
+    <!-- Cancel button of the delete and clear-all confirmation sheets (Messages, Deleted media, media detail): nothing is deleted. -->
     <string name="keep">Keep</string>
+    <!-- Confirm button (destructive) of the clear-all confirmation sheets (Messages, Deleted media): deletes everything. -->
     <string name="clear">Clear</string>
 
     <!-- Toasts (§4.9, §4.10) -->
+    <!-- Toast after the "Pause recovery" switch is turned on (Messages and Deleted media). -->
     <string name="toast_paused">Recovery paused</string>
+    <!-- Toast after the "Pause recovery" switch is turned off (Messages and Deleted media). -->
     <string name="toast_resumed">Recovery resumed</string>
+    <!-- Toast after a clear-all confirmation deleted everything (Messages and Deleted media). -->
     <string name="toast_cleared">Cleared</string>
+    <!-- Toast while WhatsApp opens after "Open chat in WhatsApp". Do not translate "WhatsApp". -->
     <string name="toast_opening_whatsapp">Opening WhatsApp…</string>
 </resources>
