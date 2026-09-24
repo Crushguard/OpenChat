@@ -73,6 +73,16 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
+        <!-- Keeps the second account's WhatsApp Web session alive while linked (§5.4); started only by this app. -->
+        <service
+            android:name=".service.WebSessionService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Keeps a WhatsApp Web session linked while the user runs a second account" />
+        </service>
     </application>
 
 </manifest>

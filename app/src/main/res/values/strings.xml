@@ -38,4 +38,10 @@
     <string name="gate_bar_messages">Messages</string>
     <string name="gate_bar_media">Deleted media</string>
     <string name="gate_bar_settings">Notification access</string>
+
+    <!-- Second-account foreground service notification (design map §4.14, §5.4) -->
+    <string name="second_notification_channel">Second account</string>
+    <string name="second_notification_title">Second account linked</string>
+    <string name="second_notification_text">Tap to open OpenChat</string>
+    <string name="second_notification_open">Open</string>
 </resources>
