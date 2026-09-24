@@ -19,6 +19,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +33,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -45,13 +47,16 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.phone.DialCountry
 import com.piptechnologies.openchat.core.phone.PhoneNumberNormalizer
+import com.piptechnologies.openchat.ui.components.ltr
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
@@ -66,6 +71,10 @@ import com.piptechnologies.openchat.ui.theme.OcTheme
  * The field keeps its own [TextFieldValue] so the caret is right: an edit typed here keeps its caret,
  * and digits that arrive from elsewhere (Paste, a refilled recent, clear) put it at the end
  * ([reconciledWith]). Every text change is passed on raw to [onDigitsChange], which filters it.
+ *
+ * A phone number reads left to right in every language, so the row is laid out left to right in
+ * right-to-left languages too: chip, digits, Paste / clear. Only the Paste pill's own icon and label
+ * follow the UI direction.
  */
 @Composable
 internal fun PhoneField(
@@ -86,52 +95,58 @@ internal fun PhoneField(
     // After a reconciliation (paste, refill, clear) the field state adopts the reconciled value, so a later refill of
     // the same digits does not resurrect a stale caret.
     SideEffect { if (edited != value) edited = value }
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .background(c.surface, shape)
-            .border(width = if (focused) 1.5.dp else 1.dp, color = if (focused) c.green else c.border, shape = shape)
-            .pointerInput(focusRequester) { detectTapGestures { focusRequester.requestFocusSafely() } }
-            .padding(horizontal = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-    ) {
-        CountryChip(country = country, onClick = onCountryClick)
-        BasicTextField(
-            value = value,
-            onValueChange = { next ->
-                edited = next
-                if (next.text != value.text) onDigitsChange(next.text)
-            },
-            modifier = Modifier
-                .weight(1f)
-                .focusRequester(focusRequester)
-                .onFocusChanged { focused = it.isFocused },
-            textStyle = OcTheme.type.mono22.copy(color = c.ink),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-            singleLine = true,
-            visualTransformation = PhoneGroupingTransformation,
-            cursorBrush = SolidColor(c.green),
-            decorationBox = { innerTextField ->
-                Box(contentAlignment = Alignment.CenterStart) {
-                    if (digits.isEmpty()) {
-                        Text(
-                            text = stringResource(R.string.home_phone_placeholder),
-                            style = OcTheme.type.body17,
-                            color = c.placeholder,
-                            maxLines = 1,
-                            modifier = Modifier.padding(start = 3.dp),
-                        )
+    val uiDirection = LocalLayoutDirection.current
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .background(c.surface, shape)
+                .border(width = if (focused) 1.5.dp else 1.dp, color = if (focused) c.green else c.border, shape = shape)
+                .pointerInput(focusRequester) { detectTapGestures { focusRequester.requestFocusSafely() } }
+                .padding(horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            CountryChip(country = country, onClick = onCountryClick)
+            BasicTextField(
+                value = value,
+                onValueChange = { next ->
+                    edited = next
+                    if (next.text != value.text) onDigitsChange(next.text)
+                },
+                modifier = Modifier
+                    .weight(1f)
+                    .focusRequester(focusRequester)
+                    .onFocusChanged { focused = it.isFocused },
+                textStyle = OcTheme.type.mono22.copy(color = c.ink),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                singleLine = true,
+                visualTransformation = PhoneGroupingTransformation,
+                cursorBrush = SolidColor(c.green),
+                decorationBox = { innerTextField ->
+                    Box(contentAlignment = Alignment.CenterStart) {
+                        if (digits.isEmpty()) {
+                            // Next to the chip, where the digits start; its own words keep their direction.
+                            Text(
+                                text = stringResource(R.string.home_phone_placeholder),
+                                style = OcTheme.type.body17.copy(textDirection = TextDirection.Content),
+                                color = c.placeholder,
+                                maxLines = 1,
+                                modifier = Modifier.padding(start = 3.dp),
+                            )
+                        }
+                        innerTextField()
                     }
-                    innerTextField()
+                },
+            )
+            if (digits.isEmpty()) {
+                CompositionLocalProvider(LocalLayoutDirection provides uiDirection) {
+                    PastePill(onClick = onPaste)
                 }
-            },
-        )
-        if (digits.isEmpty()) {
-            PastePill(onClick = onPaste)
-        } else {
-            ClearButton(onClick = onClear)
+            } else {
+                ClearButton(onClick = onClear)
+            }
         }
     }
 }
@@ -207,7 +222,7 @@ private fun CountryChip(country: DialCountry, onClick: () -> Unit) {
         horizontalArrangement = Arrangement.spacedBy(7.dp),
     ) {
         FlagEmoji(country = country, width = 26.dp, height = 18.dp, fontSize = 19.sp)
-        Text(text = country.dialLabel, style = OcTheme.type.mono16, color = c.ink, maxLines = 1)
+        Text(text = ltr(country.dialLabel), style = OcTheme.type.mono16, color = c.ink, maxLines = 1)
         LucideIconImage(icon = LucideIcon.ChevronDown, size = 16.dp, tint = c.ink2, strokeWidth = 2f)
     }
 }
@@ -257,6 +272,8 @@ private fun ClearButton(onClick: () -> Unit) {
 /**
  * Message field: min 56 / 14, white, 1 px border, body 15 at line height 1.4 in ink, placeholder
  * "Message (optional)". The whole card is the text field's touch target and it grows with the text.
+ * The message takes the direction of its first strong character, else the UI direction, and spans
+ * the field: an English message in a right-to-left UI reads left to right from the left edge.
  */
 @Composable
 internal fun MessageField(message: String, onMessageChange: (String) -> Unit, modifier: Modifier = Modifier) {
@@ -267,7 +284,7 @@ internal fun MessageField(message: String, onMessageChange: (String) -> Unit, mo
         value = message,
         onValueChange = onMessageChange,
         modifier = modifier.fillMaxWidth(),
-        textStyle = style,
+        textStyle = style.copy(textDirection = TextDirection.Content),
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
         cursorBrush = SolidColor(c.green),
         decorationBox = { innerTextField ->
@@ -284,10 +301,20 @@ internal fun MessageField(message: String, onMessageChange: (String) -> Unit, mo
                 if (message.isEmpty()) {
                     Text(text = stringResource(R.string.home_message_placeholder), style = style, color = c.placeholder)
                 }
-                innerTextField()
+                FullWidthInnerTextField(innerTextField)
             }
         },
     )
+}
+
+/**
+ * A text field's inner text as wide as the space it is given. On its own it is only as wide as its text (at least
+ * ten "H"), pinned to the UI's start edge, so text that reads the other way than the UI (English in Arabic) would
+ * sit inside it at the wrong end, mid-field; spanning the width, each line starts at its own edge.
+ */
+@Composable
+internal fun FullWidthInnerTextField(innerTextField: @Composable () -> Unit) {
+    Box(modifier = Modifier.fillMaxWidth(), propagateMinConstraints = true) { innerTextField() }
 }
 
 /** A flag emoji (ruling R8) centred in a [width] × [height] slot: 26×18 in the chip, 30×20 in the picker. */

@@ -67,7 +67,8 @@ fun SendWithMenuContent(
             .padding(6.dp),
     ) {
         Text(
-            text = stringResource(R.string.home_send_with).uppercase(),
+            // Capitals by the UI language's rules (Turkish "i" → "İ").
+            text = stringResource(R.string.home_send_with).uppercase(uiLocale()),
             style = OcTheme.type.eyebrow10,
             color = c.muted,
             modifier = Modifier.padding(start = 10.dp, top = 8.dp, end = 10.dp, bottom = 6.dp),

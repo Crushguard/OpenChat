@@ -32,9 +32,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,10 +47,12 @@ import com.piptechnologies.openchat.platform.CountrySource
 import com.piptechnologies.openchat.platform.DetectedCountry
 import com.piptechnologies.openchat.ui.components.SectionEyebrow
 import com.piptechnologies.openchat.ui.components.TopBarIconButton
+import com.piptechnologies.openchat.ui.components.ltr
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
 import com.piptechnologies.openchat.ui.theme.OcTheme
+import java.text.Collator
 import java.text.Normalizer
 import java.util.Locale
 
@@ -61,6 +65,7 @@ private val CountryRowHeight = 54.dp
  * border), "All countries" / "N results", the countries as 54 high card rows (flag 30×20, name, dial
  * code, green check on [current]) and, under the card, where the default country came from
  * ([detected]). A blank [query] lists every country with [current] and then the detected one first.
+ * Countries are named and ordered in the UI language ([pickerCountries]).
  */
 @Composable
 fun CountryPickerSheetContent(
@@ -72,13 +77,17 @@ fun CountryPickerSheetContent(
     onClose: () -> Unit,
 ) {
     val c = OcTheme.colors
-    val countries = remember(query, current, detected) { countryPickerList(query, current, detected?.country) }
-    val eyebrow = when {
-        query.isBlank() -> stringResource(R.string.country_all)
-        countries.size == 1 -> stringResource(R.string.country_result_one)
-        else -> stringResource(R.string.country_results, countries.size)
+    val locale = uiLocale()
+    val all = remember(locale) { pickerCountries(locale) }
+    val countries = remember(query, current, detected, all, locale) {
+        countryPickerList(query, current, detected?.country, all, locale)
     }
-    val detectedLine = detected?.let { detectedLabel(it) }
+    val eyebrow = if (query.isBlank()) {
+        stringResource(R.string.country_all)
+    } else {
+        pluralStringResource(R.plurals.country_results, countries.size, countries.size)
+    }
+    val detectedLine = detected?.let { detectedLabel(it, locale) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -113,10 +122,10 @@ fun CountryPickerSheetContent(
                 .fillMaxWidth(),
             contentPadding = PaddingValues(bottom = 20.dp),
         ) {
-            itemsIndexed(countries, key = { _, country -> country.iso2 }) { index, country ->
+            itemsIndexed(countries, key = { _, entry -> entry.country.iso2 }) { index, entry ->
                 CountryRow(
-                    country = country,
-                    selected = country.iso2 == current.iso2,
+                    entry = entry,
+                    selected = entry.country.iso2 == current.iso2,
                     index = index,
                     count = countries.size,
                     onPick = onPick,
@@ -139,18 +148,23 @@ fun CountryPickerSheetContent(
     }
 }
 
-/** "Detected from your SIM: Indonesia · +62" (network / locale by [DetectedCountry.source]). */
+/** "Detected from your SIM: Indonesia · +62" (network / locale by [DetectedCountry.source]), the name in [locale]. */
 @Composable
-private fun detectedLabel(detected: DetectedCountry): String {
+private fun detectedLabel(detected: DetectedCountry, locale: Locale): String {
     val res = when (detected.source) {
         CountrySource.SIM -> R.string.country_detected_sim
         CountrySource.NETWORK -> R.string.country_detected_network
         CountrySource.LOCALE -> R.string.country_detected_locale
     }
-    return stringResource(res, detected.country.name, detected.country.dialLabel)
+    return stringResource(res, countryName(detected.country, locale), ltr(detected.country.dialLabel))
 }
 
-/** Search 44 / 12 with a 1 px green border: search 18 muted, then the query in body 15. */
+/**
+ * Search 44 / 12 with a 1 px green border: search 18 muted, then the query in body 15. The query takes the direction of
+ * its first strong character, and one without any (a calling code) reads left to right: "+62", not "62+" in a
+ * right-to-left language. The empty field keeps the UI direction, so the cursor starts where the placeholder does.
+ * The text spans the field, so a query that reads the other way than the UI starts at its own edge.
+ */
 @Composable
 private fun CountrySearchField(query: String, onQuery: (String) -> Unit) {
     val c = OcTheme.colors
@@ -160,7 +174,7 @@ private fun CountrySearchField(query: String, onQuery: (String) -> Unit) {
         value = query,
         onValueChange = onQuery,
         modifier = Modifier.fillMaxWidth(),
-        textStyle = style,
+        textStyle = style.copy(textDirection = if (query.isEmpty()) TextDirection.Content else TextDirection.ContentOrLtr),
         singleLine = true,
         cursorBrush = SolidColor(c.green),
         decorationBox = { innerTextField ->
@@ -179,7 +193,7 @@ private fun CountrySearchField(query: String, onQuery: (String) -> Unit) {
                     if (query.isEmpty()) {
                         Text(text = stringResource(R.string.country_search), style = style, color = c.placeholder, maxLines = 1)
                     }
-                    innerTextField()
+                    FullWidthInnerTextField(innerTextField)
                 }
             }
         },
@@ -188,7 +202,8 @@ private fun CountrySearchField(query: String, onQuery: (String) -> Unit) {
 
 /** A 54 high country row: flag 30×20, name 14.5/600, dial code mono 14 in ink 2, check 18 when [selected]. */
 @Composable
-private fun CountryRow(country: DialCountry, selected: Boolean, index: Int, count: Int, onPick: (DialCountry) -> Unit) {
+private fun CountryRow(entry: PickerCountry, selected: Boolean, index: Int, count: Int, onPick: (DialCountry) -> Unit) {
+    val country = entry.country
     val c = OcTheme.colors
     val first = index == 0
     val last = index == count - 1
@@ -212,14 +227,14 @@ private fun CountryRow(country: DialCountry, selected: Boolean, index: Int, coun
     ) {
         FlagEmoji(country = country, width = 30.dp, height = 20.dp, fontSize = 21.sp)
         Text(
-            text = country.name,
+            text = entry.name,
             style = OcTheme.type.label14_5,
             color = c.ink,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f),
         )
-        Text(text = country.dialLabel, style = OcTheme.type.mono14, color = c.ink2, maxLines = 1)
+        Text(text = ltr(country.dialLabel), style = OcTheme.type.mono14, color = c.ink2, maxLines = 1)
         if (selected) {
             LucideIconImage(icon = LucideIcon.Check, size = 18.dp, tint = c.green, strokeWidth = 2.2f)
         }
@@ -249,28 +264,62 @@ private fun Modifier.cardSlice(index: Int, count: Int, border: Color, hairline: 
     }
 }
 
+/** A picker row: the country and its [name] in the UI language ([countryName]). */
+internal data class PickerCountry(val country: DialCountry, val name: String)
+
 /**
- * The picker's rows. A blank [query] lists every country with [current] and then [detected] pinned
- * first; otherwise the countries whose name starts with the query (ignoring case and accents) or whose
- * dial code starts with it (any "+" ignored, so "+" alone matches every code), in name order.
+ * Every country named in [locale] and in that language's alphabetical order ([Collator]). English keeps the dataset's
+ * names and order, the design's list (a collator would move "Åland Islands" from the end to second place).
  */
-internal fun countryPickerList(query: String, current: DialCountry, detected: DialCountry?): List<DialCountry> {
+internal fun pickerCountries(locale: Locale): List<PickerCountry> {
+    val named = DialCountries.all.map { PickerCountry(it, countryName(it, locale)) }
+    if (usesDatasetNames(locale)) return named
+    val collator = Collator.getInstance(locale)
+    return named.sortedWith { a, b -> collator.compare(a.name, b.name) }
+}
+
+/**
+ * The picker's rows, in the order of [countries] ([pickerCountries]). A blank [query] lists every country with [current]
+ * and then [detected] pinned first; otherwise the countries whose name in the UI language or English name starts with the
+ * query (case and accents folded in [locale]) or whose dial code starts with it (any "+" ignored, so "+" alone matches
+ * every code; digits of any script count, "٦٢" finds +62).
+ */
+internal fun countryPickerList(
+    query: String,
+    current: DialCountry,
+    detected: DialCountry?,
+    countries: List<PickerCountry>,
+    locale: Locale,
+): List<PickerCountry> {
     val q = query.trim()
     if (q.isEmpty()) {
-        val pinned = listOfNotNull(current, detected).distinctBy { it.iso2 }
-        return pinned + DialCountries.all.filter { country -> pinned.none { it.iso2 == country.iso2 } }
+        val pinned = listOfNotNull(current, detected).distinctBy { it.iso2 }.map { country ->
+            countries.firstOrNull { it.country.iso2 == country.iso2 } ?: PickerCountry(country, countryName(country, locale))
+        }
+        return pinned + countries.filter { entry -> pinned.none { it.country.iso2 == entry.country.iso2 } }
     }
-    val name = foldForSearch(q)
-    val dial = q.replace("+", "")
-    return DialCountries.all.filter { country ->
-        foldForSearch(country.name).startsWith(name) || country.dialCode.startsWith(dial)
+    val name = foldForSearch(q, locale)
+    val dial = asciiDigits(q).replace("+", "")
+    return countries.filter { entry ->
+        foldForSearch(entry.name, locale).startsWith(name) ||
+            foldForSearch(entry.country.name, locale).startsWith(name) ||
+            entry.country.dialCode.startsWith(dial)
     }
 }
 
-/** Lower case without diacritics: "Åland Islands" → "aland islands", "Türkiye" → "turkiye". */
-private fun foldForSearch(text: String): String =
-    Normalizer.normalize(text, Normalizer.Form.NFD)
+/**
+ * Lower case in [locale] without diacritics, dotless ı read as i: "Åland Islands" → "aland islands", "Türkiye" →
+ * "turkiye", Turkish "İsveç" → "isvec" and "Irak" → "irak" (so a search typed with or without Turkish letters finds them).
+ */
+private fun foldForSearch(text: String, locale: Locale): String =
+    Normalizer.normalize(text.lowercase(locale), Normalizer.Form.NFD)
         .replace(CombiningMarks, "")
-        .lowercase(Locale.ROOT)
+        .replace('ı', 'i')
 
 private val CombiningMarks = Regex("\\p{Mn}+")
+
+/** [text] with every decimal digit (Arabic-Indic "٦٢", Persian "۶۲", Devanagari, …) as its ASCII digit. */
+private fun asciiDigits(text: String): String =
+    buildString(text.length) {
+        for (char in text) append(if (char.isDigit()) '0' + Character.digit(char, 10) else char)
+    }

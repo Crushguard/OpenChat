@@ -4,11 +4,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.unit.dp
+import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.send.MessagingApp
 import com.piptechnologies.openchat.platform.CountrySource
 import com.piptechnologies.openchat.platform.DetectedCountry
 import com.piptechnologies.openchat.ui.components.ConfirmSheetContent
 import com.piptechnologies.openchat.ui.components.SheetPreviewFrame
+import com.piptechnologies.openchat.ui.components.pluralText
+import com.piptechnologies.openchat.ui.components.uiText
 import com.piptechnologies.openchat.ui.home.CountryPickerSheetContent
 import com.piptechnologies.openchat.ui.home.HomeCallbacks
 import com.piptechnologies.openchat.ui.home.HomeScreen
@@ -43,20 +46,20 @@ class HomeScreenshotTests {
 
     private val allApps = listOf(MessagingApp.WHATSAPP, MessagingApp.WHATSAPP_BUSINESS, MessagingApp.TELEGRAM)
 
-    /** Tool rows before notification access and before a second account is linked. */
+    /** Tool rows before notification access and before a second account is linked ("Read here. WhatsApp shows nothing", …). */
     private val setUpTools = listOf(
-        HomeToolStatus(HomeTool.UNSEEN, "Read here. WhatsApp shows nothing"),
-        HomeToolStatus(HomeTool.DELETED_MESSAGES, "Keeps what the sender deleted"),
-        HomeToolStatus(HomeTool.MEDIA, "Photos, videos, voice notes, documents"),
-        HomeToolStatus(HomeTool.SECOND, "A second WhatsApp inside this app"),
+        HomeToolStatus(HomeTool.UNSEEN, uiText(R.string.tool_unseen_status_off)),
+        HomeToolStatus(HomeTool.DELETED_MESSAGES, uiText(R.string.tool_deleted_status_off)),
+        HomeToolStatus(HomeTool.MEDIA, uiText(R.string.tool_media_status_off)),
+        HomeToolStatus(HomeTool.SECOND, uiText(R.string.tool_second_status_off)),
     )
 
     /** Tool rows with access granted: the Fakes totals (7 unread, 4 deleted, 9 media) and a linked second account. */
     private val liveTools = listOf(
-        HomeToolStatus(HomeTool.UNSEEN, "7 unread, seen by no one"),
-        HomeToolStatus(HomeTool.DELETED_MESSAGES, "4 messages the sender deleted"),
-        HomeToolStatus(HomeTool.MEDIA, "9 items recovered this week"),
-        HomeToolStatus(HomeTool.SECOND, "Linked"),
+        HomeToolStatus(HomeTool.UNSEEN, pluralText(R.plurals.tool_unseen_status_granted, 7)),
+        HomeToolStatus(HomeTool.DELETED_MESSAGES, pluralText(R.plurals.tool_deleted_status_granted, 4)),
+        HomeToolStatus(HomeTool.MEDIA, pluralText(R.plurals.tool_media_status_granted, 9)),
+        HomeToolStatus(HomeTool.SECOND, uiText(R.string.tool_second_status_linked)),
     )
 
     /** First run: Indonesia, empty field, no recents, tools in their set-up state. */

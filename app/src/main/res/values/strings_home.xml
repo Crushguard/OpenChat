@@ -1,60 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home (design map §4.3) -->
+    <!-- Placeholder in the empty phone number field, between the country code chip ("+62") and the Paste button. Max ~20 characters. -->
     <string name="home_phone_placeholder">Phone number</string>
+    <!-- Button in the empty phone number field: pastes a phone number from the clipboard. A verb, one word if possible, max ~10 characters. -->
     <string name="home_paste">Paste</string>
+    <!-- Placeholder in the message field under the phone number: the text sent with the chat is optional. -->
     <string name="home_message_placeholder">Message (optional)</string>
+    <!-- Main button: opens a chat with the typed number in the chosen app (WhatsApp, WhatsApp Business or Telegram). A verb phrase, max ~22 characters. -->
     <string name="home_send">Send Message</string>
+    <!-- Heading of the small menu that picks the app the Send button opens (WhatsApp, WhatsApp Business, Telegram). Shown in capital letters. Max ~24 characters. -->
     <string name="home_send_with">Send with</string>
+    <!-- Hint under the Send button until the first number is sent. -->
     <string name="home_first_run_hint">Opens the chat in the app you pick. Nothing is saved to your contacts.</string>
+    <!-- Section heading above the list of recently used phone numbers. Shown in capital letters. One or two words. -->
     <string name="home_recent">Recent</string>
+    <!-- Button uncovered when a recent number is swiped aside: removes that number from the list. A verb, max ~10 characters. -->
     <string name="home_delete">Delete</string>
+    <!-- Accessibility label (read by TalkBack, never shown) of the gear button at the top of Home that opens Settings. -->
     <string name="home_settings_cd">Settings</string>
+    <!-- Accessibility label (read by TalkBack, never shown) of the country code chip ("+62") that opens the list of countries. -->
     <string name="home_country_cd">Country</string>
+    <!-- Accessibility label (read by TalkBack, never shown) of the x button that erases the typed phone number. A verb. -->
     <string name="home_clear_cd">Clear</string>
+    <!-- Accessibility label (read by TalkBack, never shown) of the app icon button next to Send that opens the Send-with menu. -->
     <string name="home_choose_app_cd">Choose app</string>
 
-    <!-- Home tool row statuses (design map §4.3); the counted ones are plurals so a count of 1 reads right -->
+    <!-- Home tool rows (design map §4.3): the grey status line under each tool's title, on one line (max ~40 characters).
+         The counted ones are plurals so a count of 1 reads right. -->
+    <!-- Status under "Read without blue ticks" once notification access is on. %d = number of unread messages the user can read here without the sender seeing blue ticks. -->
     <plurals name="tool_unseen_status_granted">
         <item quantity="one">%d unread, seen by no one</item>
         <item quantity="other">%d unread, seen by no one</item>
     </plurals>
+    <!-- Status under "Read without blue ticks" while the user has paused message recovery. A status word. -->
     <string name="tool_unseen_status_paused">Paused</string>
+    <!-- Status under "Read without blue ticks" before notification access is on: messages are read in this app, and WhatsApp shows the sender nothing (no blue ticks). -->
     <string name="tool_unseen_status_off">Read here. WhatsApp shows nothing</string>
+    <!-- Status under "Recover deleted messages" once notification access is on. %d = number of messages their senders deleted, kept here. -->
     <plurals name="tool_deleted_status_granted">
         <item quantity="one">%d message the sender deleted</item>
         <item quantity="other">%d messages the sender deleted</item>
     </plurals>
+    <!-- Status under "Recover deleted messages" before notification access is on: what the tool does. -->
     <string name="tool_deleted_status_off">Keeps what the sender deleted</string>
+    <!-- Status under "Recover deleted media" once notification access is on. %d = number of photos, videos and other files recovered in the last 7 days. -->
     <plurals name="tool_media_status_granted">
         <item quantity="one">%d item recovered this week</item>
         <item quantity="other">%d items recovered this week</item>
     </plurals>
+    <!-- Status under "Recover deleted media" before notification access is on: the kinds of files it recovers. -->
     <string name="tool_media_status_off">Photos, videos, voice notes, documents</string>
+    <!-- Status under "Open a second account" once a second WhatsApp account is linked in the app. A status word. -->
     <string name="tool_second_status_linked">Linked</string>
+    <!-- Status under "Open a second account" before one is linked: what the tool does. -->
     <string name="tool_second_status_off">A second WhatsApp inside this app</string>
 
-    <!-- Country picker sheet (design map §4.4) -->
+    <!-- Country picker sheet (design map §4.4). Country names come from the system, in the app's language. -->
+    <!-- Title of the sheet that lists the countries and their calling codes. -->
     <string name="country_title">Country</string>
+    <!-- Placeholder of the search field in the country sheet: the user can type a country name or a calling code such as +62. -->
     <string name="country_search">Search country or code</string>
+    <!-- Heading above the full list of countries (nothing typed in the search field). Shown in capital letters. -->
     <string name="country_all">All countries</string>
-    <string name="country_results">%d results</string>
-    <string name="country_result_one">1 result</string>
+    <!-- Heading above the search results in the country sheet. Shown in capital letters. %d = number of countries that match the search. -->
+    <plurals name="country_results">
+        <item quantity="one">%d result</item>
+        <item quantity="other">%d results</item>
+    </plurals>
+    <!-- Line under the country list saying where the preselected country came from (the SIM card). %1$s = country name, e.g. Indonesia; %2$s = its calling code, e.g. +62. -->
     <string name="country_detected_sim">Detected from your SIM: %1$s · %2$s</string>
+    <!-- Line under the country list saying where the preselected country came from (the mobile network). %1$s = country name, e.g. Indonesia; %2$s = its calling code, e.g. +62. -->
     <string name="country_detected_network">Detected from your network: %1$s · %2$s</string>
+    <!-- Line under the country list saying where the preselected country came from (the phone's language and region setting). %1$s = country name, e.g. Indonesia; %2$s = its calling code, e.g. +62. -->
     <string name="country_detected_locale">Detected from your locale: %1$s · %2$s</string>
+    <!-- Accessibility label (read by TalkBack, never shown) of the x button that closes the country sheet. -->
     <string name="country_close_cd">Close</string>
 
-    <!-- Not on WhatsApp confirmation sheet (design map §4.6) -->
+    <!-- Not on WhatsApp confirmation sheet (design map §4.6): shown when the user comes straight back from WhatsApp, which usually means the number has no WhatsApp account. -->
+    <!-- Title of the sheet. -->
     <string name="not_on_wa_title">This number is not on WhatsApp</string>
+    <!-- Body of the sheet. %s = the phone number with its calling code, e.g. +62 812 3456 7890. -->
     <string name="not_on_wa_body">%s has no WhatsApp account. Check the digits, or send the same message on Telegram.</string>
+    <!-- Button: closes the sheet and puts the cursor back in the phone number field to fix the number. Two buttons share one row: max ~16 characters. -->
     <string name="not_on_wa_edit">Edit number</string>
+    <!-- Button: sends the same number and message with Telegram instead (Telegram is a brand name, keep it). Two buttons share one row: max ~16 characters. -->
     <string name="not_on_wa_telegram">Try Telegram</string>
 
-    <!-- Home toasts (design map §5.1) -->
+    <!-- Home toasts (design map §5.1): short messages shown for a moment at the bottom of the screen. -->
+    <!-- Toast after Send while the chat opens. %s = the app's name: WhatsApp, WhatsApp Business or Telegram (brand names, not translated). -->
     <string name="toast_opening">Opening %s…</string>
+    <!-- Toast after a pasted number's calling code changed the selected country. %s = the country's name, e.g. Indonesia. -->
     <string name="toast_pasted_country">Pasted · country set to %s</string>
+    <!-- Toast after a phone number was pasted from the clipboard (the country did not change). One word. -->
     <string name="toast_pasted">Pasted</string>
+    <!-- Toast when Paste finds no phone number on the clipboard. -->
     <string name="toast_clipboard_empty">Clipboard is empty</string>
+    <!-- Toast when no app on the phone (not even a browser) can open the chat for this number. -->
     <string name="toast_no_app">No app can open this number</string>
 </resources>

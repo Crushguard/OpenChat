@@ -44,11 +44,12 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.phone.PhoneNumberNormalizer
-import com.piptechnologies.openchat.core.phone.RelativeTime
 import com.piptechnologies.openchat.core.send.RecentNumber
 import com.piptechnologies.openchat.ui.components.CardColumn
 import com.piptechnologies.openchat.ui.components.HairlineDivider
 import com.piptechnologies.openchat.ui.components.SectionEyebrow
+import com.piptechnologies.openchat.ui.components.ltr
+import com.piptechnologies.openchat.ui.components.rememberTimeFormatter
 import com.piptechnologies.openchat.ui.icons.AppGlyphImage
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
@@ -63,8 +64,9 @@ private val RevealFlingVelocity = 400.dp
 
 /**
  * "Recent" eyebrow and the card of numbers (design map §4.3), newest first. Rows are 52 high: app
- * glyph 20, "+62 812 3456 7890" in mono 14.5, time label in mono 11.5 ("2h", "Yesterday") measured
- * from [nowMs]. The row [revealedId] is slid 96 dp towards the start over its Delete panel.
+ * glyph 20, "+62 812 3456 7890" in mono 14.5 (left to right in every language), time label in mono
+ * 11.5 ("2h", "Yesterday") measured from [nowMs] and worded in the UI language. The row [revealedId]
+ * is slid 96 dp towards the start over its Delete panel.
  */
 @Composable
 internal fun RecentsSection(
@@ -76,6 +78,7 @@ internal fun RecentsSection(
     onDelete: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val time = rememberTimeFormatter()
     Column(modifier = modifier.fillMaxWidth()) {
         SectionEyebrow(text = stringResource(R.string.home_recent))
         Spacer(Modifier.height(8.dp))
@@ -85,7 +88,7 @@ internal fun RecentsSection(
                 key(recent.id) {
                     RecentRow(
                         recent = recent,
-                        timeLabel = RelativeTime.label(recent.usedAt, nowMs),
+                        timeLabel = time.label(recent.usedAt, nowMs),
                         revealed = recent.id == revealedId,
                         onTap = onTap,
                         onReveal = onReveal,
@@ -174,7 +177,7 @@ private fun RecentRow(
         ) {
             AppGlyphImage(glyph = recent.app.glyph, size = 20.dp, tint = c.inkMuted)
             Text(
-                text = PhoneNumberNormalizer.displayInternational(recent.dialCode, recent.nationalNumber),
+                text = ltr(PhoneNumberNormalizer.displayInternational(recent.dialCode, recent.nationalNumber)),
                 style = OcTheme.type.mono14_5,
                 color = c.ink,
                 maxLines = 1,

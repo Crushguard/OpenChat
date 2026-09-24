@@ -2,6 +2,7 @@ package com.piptechnologies.openchat.ui.home
 
 import android.content.Context
 import android.os.Build
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.piptechnologies.openchat.R
@@ -24,11 +25,15 @@ import com.piptechnologies.openchat.platform.DetectedCountry
 import com.piptechnologies.openchat.platform.ExternalLinks
 import com.piptechnologies.openchat.platform.InstalledMessagingApps
 import com.piptechnologies.openchat.platform.NotificationAccess
+import com.piptechnologies.openchat.ui.components.UiText
+import com.piptechnologies.openchat.ui.components.pluralText
+import com.piptechnologies.openchat.ui.components.uiText
 import com.piptechnologies.openchat.ui.navigation.HomeTool
 import com.piptechnologies.openchat.ui.settings.RatingFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
+import java.util.Locale
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
@@ -58,6 +63,10 @@ import kotlinx.coroutines.launch
  * completed send arms the rating sheet ([rating], design map §4.19), which opens 1.8 s after the next
  * resume (the user is back from the chat) and which the route draws; [rateOnPlay] and [sendFeedback] do
  * what the same buttons do in Settings.
+ *
+ * Nothing here resolves user-visible text: the tool statuses in [state] and the [toasts] are [UiText], which
+ * the screen and [HomeRoute] resolve in the UI language (the application context does not carry the per-app
+ * language on API 24–32, and a resolved string would stay in the old language after a switch).
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
@@ -88,8 +97,8 @@ class HomeViewModel @Inject constructor(
     private val _state = MutableStateFlow(initialState())
     val state: StateFlow<HomeUiState> = _state.asStateFlow()
 
-    private val _toasts = MutableSharedFlow<String>(extraBufferCapacity = 4)
-    val toasts: SharedFlow<String> = _toasts.asSharedFlow()
+    private val _toasts = MutableSharedFlow<UiText>(extraBufferCapacity = 4)
+    val toasts: SharedFlow<UiText> = _toasts.asSharedFlow()
 
     private val _sendCompleted = MutableSharedFlow<Int>(extraBufferCapacity = 4)
 
@@ -202,7 +211,7 @@ class HomeViewModel @Inject constructor(
     fun paste() {
         val raw = ClipboardText.read(context)
         if (raw == null) {
-            toast(context.getString(R.string.toast_clipboard_empty))
+            toast(uiText(R.string.toast_clipboard_empty))
             return
         }
         applyPaste(raw, fromPill = true)
@@ -231,10 +240,11 @@ class HomeViewModel @Inject constructor(
         val sent = pendingSend?.takeIf { it.link == link }
         pendingSend = null
         if (!success) {
-            toast(context.getString(R.string.toast_no_app))
+            toast(uiText(R.string.toast_no_app))
             return
         }
-        toast(context.getString(R.string.toast_opening, link.app.label))
+        // The app's name is a brand name, the same in every language.
+        toast(uiText(R.string.toast_opening, link.app.label))
         lastLaunch = if (link.app in installed) Launch(app = link.app, atMs = System.currentTimeMillis()) else null
         if (sent == null) return
         viewModelScope.launch {
@@ -334,7 +344,7 @@ class HomeViewModel @Inject constructor(
     fun rateOnPlay() {
         rating.close()
         val opened = ExternalLinks.openPlayStore(context)
-        toast(context.getString(if (opened) R.string.toast_play else R.string.toast_no_app_can_open))
+        toast(uiText(if (opened) R.string.toast_play else R.string.toast_no_app_can_open))
     }
 
     /**
@@ -347,12 +357,14 @@ class HomeViewModel @Inject constructor(
         val current = rating.state.value ?: return
         val note = current.feedback.trim()
         if (note.isEmpty()) {
-            toast(context.getString(R.string.toast_write_first))
+            toast(uiText(R.string.toast_write_first))
             return
         }
+        // Read by the team: besides the note, the email stays English (untranslatable strings), digits included.
+        fun english(@StringRes id: Int, vararg args: Any): String = String.format(Locale.US, context.getString(id), *args)
         val body = note + "\n\n" +
-            context.getString(R.string.feedback_rating_line, current.rating) + "\n" +
-            context.getString(R.string.feedback_versions, AppVersion.label(context), Build.VERSION.RELEASE)
+            english(R.string.feedback_rating_line, current.rating) + "\n" +
+            english(R.string.feedback_versions, AppVersion.label(context), Build.VERSION.RELEASE)
         val opened = ExternalLinks.composeEmail(
             context = context,
             to = context.getString(R.string.support_email),
@@ -361,7 +373,7 @@ class HomeViewModel @Inject constructor(
         )
         if (!opened) {
             rating.close()
-            toast(context.getString(R.string.toast_no_email))
+            toast(uiText(R.string.toast_no_email))
             return
         }
         rating.sendFeedback()
@@ -385,14 +397,15 @@ class HomeViewModel @Inject constructor(
         val pasted = PhoneNumberNormalizer.normalizePaste(raw, before.country)
         if (pasted.nationalDigits.isEmpty()) {
             // Nothing that reads as a number: the field stays as it was.
-            if (fromPill) toast(context.getString(R.string.toast_clipboard_empty))
+            if (fromPill) toast(uiText(R.string.toast_clipboard_empty))
             return
         }
         val country = pasted.country ?: before.country
         _state.update { it.copy(country = country, nationalDigits = pasted.nationalDigits) }
         when {
-            country != before.country -> toast(context.getString(R.string.toast_pasted_country, country.name))
-            fromPill -> toast(context.getString(R.string.toast_pasted))
+            // The country's name is resolved with the text, in the UI language.
+            country != before.country -> toast(uiText(R.string.toast_pasted_country, CountryNameArg(country)))
+            fromPill -> toast(uiText(R.string.toast_pasted))
         }
     }
 
@@ -437,7 +450,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun toast(text: String) {
+    private fun toast(text: UiText) {
         _toasts.tryEmit(text)
     }
 
@@ -467,23 +480,22 @@ class HomeViewModel @Inject constructor(
 
     /** The tool rows' status lines (design map §4.3). */
     private fun toolStatuses(counts: ToolCounts, granted: Boolean): List<HomeToolStatus> {
-        val res = context.resources
         val unseen = when {
-            !granted -> res.getString(R.string.tool_unseen_status_off)
-            counts.paused -> res.getString(R.string.tool_unseen_status_paused)
-            else -> res.getQuantityString(R.plurals.tool_unseen_status_granted, counts.unseen, counts.unseen)
+            !granted -> uiText(R.string.tool_unseen_status_off)
+            counts.paused -> uiText(R.string.tool_unseen_status_paused)
+            else -> pluralText(R.plurals.tool_unseen_status_granted, counts.unseen)
         }
         val deleted = if (granted) {
-            res.getQuantityString(R.plurals.tool_deleted_status_granted, counts.deleted, counts.deleted)
+            pluralText(R.plurals.tool_deleted_status_granted, counts.deleted)
         } else {
-            res.getString(R.string.tool_deleted_status_off)
+            uiText(R.string.tool_deleted_status_off)
         }
         val recovered = if (granted) {
-            res.getQuantityString(R.plurals.tool_media_status_granted, counts.recovered, counts.recovered)
+            pluralText(R.plurals.tool_media_status_granted, counts.recovered)
         } else {
-            res.getString(R.string.tool_media_status_off)
+            uiText(R.string.tool_media_status_off)
         }
-        val second = res.getString(if (counts.secondLinked) R.string.tool_second_status_linked else R.string.tool_second_status_off)
+        val second = uiText(if (counts.secondLinked) R.string.tool_second_status_linked else R.string.tool_second_status_off)
         return listOf(
             HomeToolStatus(HomeTool.UNSEEN, unseen),
             HomeToolStatus(HomeTool.DELETED_MESSAGES, deleted),

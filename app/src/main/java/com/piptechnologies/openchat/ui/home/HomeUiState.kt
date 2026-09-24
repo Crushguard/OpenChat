@@ -4,11 +4,12 @@ import com.piptechnologies.openchat.core.phone.DialCountry
 import com.piptechnologies.openchat.core.send.MessagingApp
 import com.piptechnologies.openchat.core.send.RecentNumber
 import com.piptechnologies.openchat.platform.DetectedCountry
+import com.piptechnologies.openchat.ui.components.UiText
 import com.piptechnologies.openchat.ui.icons.AppGlyph
 import com.piptechnologies.openchat.ui.navigation.HomeTool
 
-/** One Home tool row: which tool, and the status line under its title (design map §4.3). */
-data class HomeToolStatus(val tool: HomeTool, val status: String)
+/** One Home tool row: which tool, and the status line under its title (design map §4.3), resolved where it is shown. */
+data class HomeToolStatus(val tool: HomeTool, val status: UiText)
 
 /**
  * Everything Home shows (design map §4.3–§4.6).
@@ -17,7 +18,7 @@ data class HomeToolStatus(val tool: HomeTool, val status: String)
  * [app] is the app Send opens, one of [availableApps]. [firstRun] is true while there are no
  * [recents]. [countrySheetOpen], [menuOpen] and [notOnWhatsApp] are the three overlays;
  * [revealedRecentId] is the recent row slid open over its Delete panel. [nowMs] is the time the
- * recent rows' "2h" / "Yesterday" labels are measured from.
+ * recent rows' "2h" / "Yesterday" labels are measured from; the screen words them in the UI language.
  */
 data class HomeUiState(
     val country: DialCountry,

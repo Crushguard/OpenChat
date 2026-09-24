@@ -21,6 +21,7 @@ import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.ui.components.CardColumn
 import com.piptechnologies.openchat.ui.components.HairlineDivider
 import com.piptechnologies.openchat.ui.components.IconBox
+import com.piptechnologies.openchat.ui.components.asString
 import com.piptechnologies.openchat.ui.icons.LUCIDE_STROKE
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
@@ -72,7 +73,7 @@ private fun ToolRow(item: HomeToolStatus, onClick: () -> Unit) {
             )
             Spacer(Modifier.height(2.dp))
             Text(
-                text = item.status,
+                text = item.status.asString(),
                 style = OcTheme.type.body12,
                 color = c.muted,
                 maxLines = 1,

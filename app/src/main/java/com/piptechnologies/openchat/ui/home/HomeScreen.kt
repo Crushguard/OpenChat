@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -45,6 +46,7 @@ import com.piptechnologies.openchat.ui.components.BrandMark
 import com.piptechnologies.openchat.ui.components.ConfirmSpec
 import com.piptechnologies.openchat.ui.components.HintLine
 import com.piptechnologies.openchat.ui.components.TopBarIconButton
+import com.piptechnologies.openchat.ui.components.ltr
 import com.piptechnologies.openchat.ui.icons.AppGlyphImage
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.theme.OcTheme
@@ -153,12 +155,16 @@ fun HomeScreen(
             )
             val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
             Box(
-                modifier = Modifier.absoluteOffset {
-                    val anchor = menuAnchor.value
-                    // The card's end edge lines up with the split button's end edge (its left edge in RTL).
-                    val x = if (rtl) anchor.left else anchor.right - SendWithMenuWidth.roundToPx()
-                    IntOffset(x, anchor.bottom + SendWithMenuGap.roundToPx())
-                },
+                modifier = Modifier
+                    // The anchor is in absolute pixels, so the card is placed from the top-left corner in both
+                    // directions (the Box default, TopStart, is the top-right corner in RTL).
+                    .align(AbsoluteAlignment.TopLeft)
+                    .absoluteOffset {
+                        val anchor = menuAnchor.value
+                        // The card's end edge lines up with the split button's end edge (its left edge in RTL).
+                        val x = if (rtl) anchor.left else anchor.right - SendWithMenuWidth.roundToPx()
+                        IntOffset(x, anchor.bottom + SendWithMenuGap.roundToPx())
+                    },
             ) {
                 SendWithMenuContent(
                     apps = state.availableApps,
@@ -202,7 +208,10 @@ private fun BrandBar(onSettings: () -> Unit) {
     }
 }
 
-/** The not-on-WhatsApp confirmation (design map §4.6): message-circle-off in amber, "Edit number" / "Try Telegram" (green). */
+/**
+ * The not-on-WhatsApp confirmation (design map §4.6): message-circle-off in amber, "Edit number" / "Try Telegram" (green).
+ * The number in the body stays one left-to-right unit inside right-to-left text.
+ */
 @Composable
 fun notOnWhatsAppSpec(dialCode: String, national: String): ConfirmSpec {
     val c = OcTheme.colors
@@ -210,7 +219,7 @@ fun notOnWhatsAppSpec(dialCode: String, national: String): ConfirmSpec {
         icon = LucideIcon.MessageCircleOff,
         tint = ToolTint(bg = c.amberTint, fg = c.amber),
         title = stringResource(R.string.not_on_wa_title),
-        body = stringResource(R.string.not_on_wa_body, PhoneNumberNormalizer.displayInternational(dialCode, national)),
+        body = stringResource(R.string.not_on_wa_body, ltr(PhoneNumberNormalizer.displayInternational(dialCode, national))),
         cancelLabel = stringResource(R.string.not_on_wa_edit),
         confirmLabel = stringResource(R.string.not_on_wa_telegram),
         destructive = false,

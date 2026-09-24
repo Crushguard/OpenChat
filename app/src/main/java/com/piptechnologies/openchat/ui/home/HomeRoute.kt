@@ -33,6 +33,7 @@ import com.piptechnologies.openchat.ui.components.ConfirmSheet
 import com.piptechnologies.openchat.ui.components.DarkToastHost
 import com.piptechnologies.openchat.ui.components.LocalToastHost
 import com.piptechnologies.openchat.ui.components.OcModalSheet
+import com.piptechnologies.openchat.ui.components.asString
 import com.piptechnologies.openchat.ui.components.rememberToastHostState
 import com.piptechnologies.openchat.ui.icons.AppGlyphImage
 import com.piptechnologies.openchat.ui.navigation.HomeTool
@@ -47,7 +48,8 @@ private const val CountrySheetFraction = 0.86f
 /**
  * Binds [HomeViewModel] to [HomeScreen] and shows what the screen does not draw itself: the country
  * sheet, the not-on-WhatsApp sheet, the rating sheet (design map §4.19, once, on the return from the third send) and
- * the dark toast, which goes to the app-level host ([LocalToastHost]) when there is one. Sends are
+ * the dark toast, which goes to the app-level host ([LocalToastHost]) when there is one; toasts are resolved
+ * here, with the Activity context, so they are in the app's language. Sends are
  * opened here with the Activity context (LocalContext), so the chat opens in the app's own task and
  * Back returns to OpenChat, which the not-on-WhatsApp heuristic relies on. [onTool] gets the tool and
  * whether notification access is granted, so the caller can open the gate or the tool.
@@ -65,6 +67,7 @@ fun HomeRoute(
     val appToast = LocalToastHost.current
     val toast = appToast ?: rememberToastHostState()
     val focusRequester = remember { FocusRequester() }
+    val currentContext by rememberUpdatedState(context)
     val currentOnSettings by rememberUpdatedState(onSettings)
     val currentOnTool by rememberUpdatedState(onTool)
 
@@ -73,7 +76,7 @@ fun HomeRoute(
         onPauseOrDispose { }
     }
     LaunchedEffect(viewModel) {
-        viewModel.toasts.collect { toast.show(it) }
+        viewModel.toasts.collect { toast.show(it.asString(currentContext)) }
     }
     LaunchedEffect(viewModel, context) {
         viewModel.launchRequests.collect { link ->
