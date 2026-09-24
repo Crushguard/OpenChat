@@ -19,13 +19,16 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 /**
- * Stores the messages of posted chat notifications and marks the ones their sender deleted (§5.2).
+ * Stores the messages of posted chat notifications and marks the ones their sender deleted (§5.2). Deletions are
+ * detected only when a notification is posted; a removal only updates the bookkeeping below.
  *
- * The deleted check only compares a notification with the stored messages it can still show: a conversation's window,
- * the messages captured since its notification was last removed (the chat was read, the notification dismissed …),
- * among its latest 25 (MessagingStyle keeps at most 25). A stored message the notification shows verbatim (same own
- * timestamp and text) is in the window too, e.g. an unread message WhatsApp shows again after a dismissal. Without a
- * window for a conversation (the process restarted since its notification was posted), all of its latest 25 are.
+ * A notification is compared only with the stored messages it can still show: its conversation's window, the
+ * messages captured since the chat was opened or WhatsApp withdrew its notification ([RESET_REASONS]), among the
+ * conversation's latest 25 (MessagingStyle keeps at most 25). A notification the user dismisses keeps its window:
+ * WhatsApp shows the unread messages again with the next one. A stored message also joins the window when the
+ * notification shows it verbatim (same own timestamp and text) or shows a deleted placeholder with exactly its
+ * timestamp (WhatsApp keeps a message's time when it replaces the text). Without a window for a conversation (the
+ * process restarted since its notification was posted), all of its latest 25 are in it.
  *
  * Calls are handled one at a time (a mutex: a suspended call must not interleave with the next notification), in
  * the order they arrive. One instance per process, so the windows survive a rebind of the listener.
@@ -42,17 +45,14 @@ class NotificationIngestor @Inject constructor(
     /** Notification key → conversation key, for the notifications showing now. */
     private val conversationOf = HashMap<String, String>()
 
-    /** Conversation key → the (kept) lines of its last posted notification. */
-    private val lastLines = HashMap<String, List<NotificationLine>>()
-
-    /** Conversation key → ids of its stored messages its notification can still show (see the class comment). */
+    /** Conversation key → ids of the stored messages its notification can still show (see the class comment). */
     private val windowIds = HashMap<String, MutableSet<Long>>()
 
     suspend fun onPosted(parsed: ParsedNotification, images: List<NotificationImage>) {
         mutex.withLock { ingest(parsed, images) }
     }
 
-    /** [reason] is a `NotificationListenerService.REASON_*` value (API 26+). */
+    /** [reason] is a `NotificationListenerService.REASON_*` value (API 26+). Marks nothing: see the class comment. */
     suspend fun onRemoved(sbnKey: String, reason: Int) {
         mutex.withLock { forget(sbnKey, reason) }
     }
@@ -72,8 +72,9 @@ class NotificationIngestor @Inject constructor(
         val recent = messages.latestForConversation(key, WINDOW_SIZE)
         val window = windowIds.getOrPut(key) { recent.mapTo(LinkedHashSet()) { it.id } }
         window.retainAll(recent.mapTo(HashSet()) { it.id })
-        recent.filter { message -> lines.any { it.timestamp == message.timestamp && it.text == message.text } }
-            .mapTo(window) { it.id }
+        recent.filter { message ->
+            lines.any { it.timestamp == message.timestamp && (it.text == message.text || NotificationText.isDeletedPattern(it.text)) }
+        }.mapTo(window) { it.id }
         val stored = recent.filter { it.id in window }
 
         val imageOfLine = images.filter { it.lineIndex != null }.associateBy { it.lineIndex }
@@ -96,35 +97,25 @@ class NotificationIngestor @Inject constructor(
         }
 
         markDeleted(DeletedMessageDetector.detect(stored, lines))
-        lastLines[key] = lines
     }
 
-    /** On an app cancel after a deleted placeholder, checks the last lines again; then the conversation's window starts afresh. */
-    private suspend fun forget(sbnKey: String, reason: Int) {
+    /** The notification is gone. After a [RESET_REASONS] removal the conversation's window starts afresh; a dismissal keeps it. */
+    private fun forget(sbnKey: String, reason: Int) {
         val key = conversationOf.remove(sbnKey) ?: return
-        val lines = lastLines.remove(key)
-        try {
-            if (reason == REASON_APP_CANCEL && lines != null && lines.any { NotificationText.isDeletedPattern(it.text) } &&
-                !settings.recoveryPaused.first() && !messages.isExcluded(key)
-            ) {
-                val recent = messages.latestForConversation(key, WINDOW_SIZE)
-                val window = windowIds[key]
-                val stored = if (window == null) recent else recent.filter { it.id in window }
-                markDeleted(DeletedMessageDetector.detect(stored, lines))
-            }
-        } finally {
-            windowIds[key] = LinkedHashSet()
-        }
+        if (reason in RESET_REASONS) windowIds[key] = LinkedHashSet()
     }
 
     /** Copies [image], records the copy as notification media and links it to message [messageId]. */
     private suspend fun attachImage(messageId: Long, image: NotificationImage, parsed: ParsedNotification, timestamp: Long) {
-        val file = image.uri?.let { imageStore.saveFromUri(it) } ?: image.bitmap?.let { imageStore.saveBitmap(it) } ?: return
+        val copied = image.uri?.let { imageStore.saveFromUri(it) }
+        val file = copied ?: image.bitmap?.let { imageStore.saveBitmap(it) } ?: return
+        // A URI's content is copied as it is; a bitmap is written as a JPEG.
+        val mimeType = if (copied != null) image.mimeType ?: JPEG_MIME else JPEG_MIME
         val mediaId = media.insertCopy(
             originalPath = "notification:${parsed.sbnKey}:$timestamp",
             localPath = file.absolutePath,
-            displayName = "IMG-${SimpleDateFormat("yyyyMMdd-HHmmss", Locale.US).format(Date(timestamp))}.jpg",
-            mimeType = JPEG_MIME,
+            displayName = "IMG-${SimpleDateFormat("yyyyMMdd-HHmmss", Locale.US).format(Date(timestamp))}.${extensionFor(mimeType)}",
+            mimeType = mimeType,
             category = MediaCategory.PHOTO,
             sizeBytes = file.length(),
             originalModifiedAt = timestamp,
@@ -159,9 +150,30 @@ class NotificationIngestor @Inject constructor(
 
     private fun isAppLabel(title: String): Boolean = APP_LABELS.any { it.equals(title.trim(), ignoreCase = true) }
 
+    /** The display name's extension: the image subtype ("png", "webp", "gif"), else "jpg". */
+    private fun extensionFor(mimeType: String): String {
+        val subtype = mimeType.substringAfter('/').substringBefore(';').trim().lowercase(Locale.US)
+        return if (subtype.isEmpty() || subtype == "jpeg" || !subtype.all { it.isLetterOrDigit() }) "jpg" else subtype
+    }
+
     private companion object {
-        /** `NotificationListenerService.REASON_APP_CANCEL` (API 26): the app itself cancelled its notification. */
-        const val REASON_APP_CANCEL = 8
+        /**
+         * `NotificationListenerService.REASON_*` values (API 26+) after which a conversation's next notification can
+         * only show messages captured from then on: the chat was opened, or WhatsApp or the system withdrew the
+         * notification. Dismissals (CANCEL 2, CANCEL_ALL 3, GROUP_SUMMARY_CANCELED 12), SNOOZED 18, TIMEOUT 19 and
+         * every other reason keep the window.
+         */
+        val RESET_REASONS = setOf(
+            1, // REASON_CLICK
+            5, // REASON_PACKAGE_CHANGED
+            6, // REASON_USER_STOPPED
+            7, // REASON_PACKAGE_BANNED
+            8, // REASON_APP_CANCEL
+            9, // REASON_APP_CANCEL_ALL
+            10, // REASON_LISTENER_CANCEL
+            11, // REASON_LISTENER_CANCEL_ALL
+            15, // REASON_PROFILE_TURNED_OFF
+        )
 
         /** MessagingStyle keeps at most 25 messages, so a notification never shows more stored messages than that. */
         const val WINDOW_SIZE = 25

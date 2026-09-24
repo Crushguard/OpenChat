@@ -27,9 +27,10 @@ data class ParsedNotification(
 
 /**
  * An image a posted notification carries: the image [uri] of a MessagingStyle message, whose line is
- * `ParsedNotification.lines[lineIndex]`, or the big picture [bitmap] (EXTRA_PICTURE), with [lineIndex] null.
+ * `ParsedNotification.lines[lineIndex]`, with the message's data [mimeType]; or the big picture [bitmap]
+ * (EXTRA_PICTURE), with [lineIndex] and [mimeType] null.
  */
-data class NotificationImage(val lineIndex: Int?, val uri: Uri?, val bitmap: Bitmap?)
+data class NotificationImage(val lineIndex: Int?, val uri: Uri?, val bitmap: Bitmap?, val mimeType: String? = null)
 
 private typealias StyleMessage = NotificationCompat.MessagingStyle.Message
 
@@ -69,7 +70,9 @@ class NotificationParser @Inject constructor() {
         val found = ArrayList<NotificationImage>()
         NotificationCompat.MessagingStyle.extractMessagingStyleFromNotification(notification)?.let { style ->
             messagesWithText(style).forEachIndexed { index, (message, _) ->
-                imageUriOf(message)?.let { uri -> found += NotificationImage(lineIndex = index, uri = uri, bitmap = null) }
+                imageUriOf(message)?.let { uri ->
+                    found += NotificationImage(lineIndex = index, uri = uri, bitmap = null, mimeType = message.dataMimeType)
+                }
             }
         }
         val extras = notification.extras
