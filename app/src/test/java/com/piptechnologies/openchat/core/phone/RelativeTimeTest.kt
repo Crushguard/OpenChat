@@ -51,4 +51,41 @@ class RelativeTimeTest {
         val twoMorningsLater = at(2026, 3, 10, 8, 0)
         assertEquals("Sun", RelativeTime.label(message, twoMorningsLater, nyc, Locale.US))
     }
+
+    // Localized labels: the words come from TimeWords, weekday and month names from the locale.
+    private val french = TimeWords(
+        now = "À l’instant",
+        today = "Aujourd’hui",
+        yesterday = "Hier",
+        minutesAgo = { "$it min" },
+        hoursAgo = { "$it h" },
+    )
+
+    @Test fun `french labels`() {
+        assertEquals("À l’instant", RelativeTime.label(now - 30_000, now, utc, Locale.FRENCH, french))
+        assertEquals("5 min", RelativeTime.label(now - 5 * 60_000, now, utc, Locale.FRENCH, french))
+        assertEquals("2 h", RelativeTime.label(now - 2 * h, now, utc, Locale.FRENCH, french))
+        assertEquals("Hier", RelativeTime.label(now - 24 * h, now, utc, Locale.FRENCH, french))
+        assertEquals("sam.", RelativeTime.label(now - 2 * 24 * h, now, utc, Locale.FRENCH, french))
+        assertEquals("lun.", RelativeTime.label(now, now + 2 * 24 * h, utc, Locale.FRENCH, french))
+        assertEquals("1 sept.", RelativeTime.label(now - 20 * 24 * h, now, utc, Locale.FRENCH, french))
+    }
+
+    @Test fun `french conversation time and day labels`() {
+        assertEquals("12:13", RelativeTime.conversationTime(now - 2 * h, now, utc, Locale.FRENCH, french))
+        assertEquals("Hier", RelativeTime.conversationTime(now - 24 * h, now, utc, Locale.FRENCH, french))
+        assertEquals("sam.", RelativeTime.conversationTime(now - 2 * 24 * h, now, utc, Locale.FRENCH, french))
+        assertEquals("Aujourd’hui", RelativeTime.dayLabel(now - h, now, utc, Locale.FRENCH, french))
+        assertEquals("Hier", RelativeTime.dayLabel(now - 24 * h, now, utc, Locale.FRENCH, french))
+        assertEquals("sam. 19 sept.", RelativeTime.dayLabel(now - 2 * 24 * h, now, utc, Locale.FRENCH, french))
+    }
+
+    @Test fun `day-month patterns are parameters`() {
+        assertEquals("1 septembre", RelativeTime.label(now - 20 * 24 * h, now, utc, Locale.FRENCH, french, dayMonthPattern = "d MMMM"))
+        assertEquals("Sep 1", RelativeTime.conversationTime(now - 20 * 24 * h, now, utc, Locale.US, dayMonthPattern = "MMM d"))
+        assertEquals(
+            "samedi 19 septembre",
+            RelativeTime.dayLabel(now - 2 * 24 * h, now, utc, Locale.FRENCH, french, weekdayDayMonthPattern = "EEEE d MMMM"),
+        )
+    }
 }

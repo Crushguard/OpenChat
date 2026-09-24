@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OpenChat</string>
+    <string name="app_name" translatable="false">OpenChat</string>
 
     <!-- Links, sharing and feedback (rulings R11, R16) -->
     <string name="support_email" translatable="false">support@piptechnologies.com</string>
     <string name="privacy_policy_url" translatable="false">https://piptechnologies.com/openchat/privacy</string>
     <string name="share_app_text">OpenChat opens a chat with any number, no contact saved. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
-    <string name="feedback_subject">OpenChat feedback</string>
+    <!-- Support-facing (read by the team, rulings R11, R16): stays English in every language. -->
+    <string name="feedback_subject" translatable="false">OpenChat feedback</string>
 
     <!-- Launch and onboarding (design map §4.1, §4.2) -->
     <string name="splash_honesty">Free · No ads · No account</string>
@@ -44,4 +45,17 @@
     <string name="second_notification_title">Second account linked</string>
     <string name="second_notification_text">Tap to open OpenChat</string>
     <string name="second_notification_open">Open</string>
+
+    <!-- Time labels (§5.1), put together in ui/components/TimeFormat.kt. Weekday and month names ("Mon", "22 Sep")
+         and the clock ("14:26") come from the language's own date formats, not from here. -->
+    <!-- Time label at the end of a Recent numbers row for a number used less than a minute ago. A compact label in a list: keep it short. -->
+    <string name="time_now">Now</string>
+    <!-- Day header over the items from today, e.g. in Deleted media ("Today · 2"). -->
+    <string name="time_today">Today</string>
+    <!-- Time label and day header for anything from yesterday: Recent numbers rows, Messages inbox rows, day headers. A compact label in a list: keep it short. -->
+    <string name="time_yesterday">Yesterday</string>
+    <!-- Time label at the end of a Recent numbers row: minutes since the number was used today (%d = 1 to 59), e.g. "5m". A compact label in a list, not a sentence: use the language's shortest abbreviation for minutes. -->
+    <string name="time_minutes_short">%dm</string>
+    <!-- Time label at the end of a Recent numbers row: hours since the number was used today (%d = 1 to 23), e.g. "2h". A compact label in a list, not a sentence: use the language's shortest abbreviation for hours. -->
+    <string name="time_hours_short">%dh</string>
 </resources>

@@ -7,10 +7,10 @@
     <string name="media_empty_body">Files someone deletes for everyone are kept here as long as they were received first.</string>
     <string name="media_allow">Allow media access</string>
     <string name="media_access_off">Media access is off, so new files are not kept.</string>
-    <string name="media_day_count">%1$s · %2$d</string>
+    <string name="media_day_count" translatable="false">%1$s · %2$d</string>
 
     <!-- Media detail (design map §4.13) -->
-    <string name="media_counter">%1$d / %2$d</string>
+    <string name="media_counter" translatable="false">%1$d / %2$d</string>
     <string name="media_save">Save to gallery</string>
     <string name="media_share">Share</string>
     <string name="media_delete">Delete</string>

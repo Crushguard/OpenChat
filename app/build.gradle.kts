@@ -20,6 +20,14 @@ android {
         versionCode = 1
         versionName = "1.0.0"
         vectorDrawables { useSupportLibrary = true }
+
+        // The 19 UI languages (res/xml/locales_config.xml): library translations (AndroidX, Material) outside
+        // them are stripped, like Status Saver's localeFilters. Resource-folder notation, as our values-<qualifier>
+        // folders are named (in = Indonesian, iw = Hebrew: Android resolves those, never values-id / values-he).
+        // Languages.all's qualifiers, in order: LocalesConfigTest parses this list.
+        resourceConfigurations += listOf(
+            "en", "in", "pt-rBR", "pt", "ur", "hi", "tr", "es", "ar", "fa", "ps", "iw", "fr", "de", "it", "ru", "zh", "ha", "my",
+        )
     }
 
     buildTypes {

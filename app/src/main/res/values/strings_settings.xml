@@ -48,10 +48,11 @@
     <string name="toast_no_email">No email app found</string>
     <string name="toast_no_app_can_open">No app can open this</string>
 
-    <!-- Lines of the feedback email body (Contact us and the rating sheet, ruling R11) -->
-    <string name="feedback_reply_to">Reply to: %s</string>
-    <string name="feedback_versions">%1$s · Android %2$s</string>
-    <string name="feedback_rating_line">Rating: %d/5</string>
+    <!-- Lines of the feedback email body (Contact us and the rating sheet, ruling R11). Support-facing (read by the
+         team, like feedback_subject): they stay English in every language. -->
+    <string name="feedback_reply_to" translatable="false">Reply to: %s</string>
+    <string name="feedback_versions" translatable="false">%1$s · Android %2$s</string>
+    <string name="feedback_rating_line" translatable="false">Rating: %d/5</string>
 
     <!-- Rating sheet (design map §4.19, ruling R12) -->
     <string name="rating_title">Enjoying OpenChat?</string>

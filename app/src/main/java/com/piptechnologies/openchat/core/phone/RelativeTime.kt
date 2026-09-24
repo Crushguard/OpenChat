@@ -5,62 +5,85 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
-/** Formats timestamps into the short labels the recents row, chat header and media groups use (§5.1). */
+/**
+ * Formats timestamps into the short labels the recents row, chat header and media groups use (§5.1).
+ *
+ * Every function defaults to the design's English: [TimeWords.ENGLISH], [Locale.US] and the
+ * [DAY_MONTH_PATTERN] / [WEEKDAY_DAY_MONTH_PATTERN] patterns. `locale` supplies the weekday and month
+ * names and the digits, `words` the rest. The UI passes all of them for the app language through
+ * ui/components/TimeFormat.kt.
+ */
 object RelativeTime {
+
+    /** The design's day-month pattern: "22 Sep". */
+    const val DAY_MONTH_PATTERN: String = "d MMM"
+
+    /** The design's weekday-day-month pattern: "Mon 22 Sep". */
+    const val WEEKDAY_DAY_MONTH_PATTERN: String = "EEE d MMM"
 
     private const val MINUTE_MS = 60_000L
     private const val HOUR_MS = 3_600_000L
 
-    /** Recent rows: "Now" (<60 s), "5m", "2h" (same calendar day), "Yesterday", weekday "Mon" (<7 days), else "22 Sep". */
+    /**
+     * Recent rows: [TimeWords.now] "Now" (<60 s), [TimeWords.minutesAgo] "5m", [TimeWords.hoursAgo] "2h"
+     * (same calendar day), [TimeWords.yesterday] "Yesterday", weekday "Mon" (<7 days), else
+     * [dayMonthPattern] "22 Sep".
+     */
     fun label(
         timestampMs: Long,
         nowMs: Long,
         timeZone: TimeZone = TimeZone.getDefault(),
         locale: Locale = Locale.US,
+        words: TimeWords = TimeWords.ENGLISH,
+        dayMonthPattern: String = DAY_MONTH_PATTERN,
     ): String {
         val dayDiff = dayDifference(timestampMs, nowMs, timeZone)
         if (dayDiff == 0) {
             val elapsed = nowMs - timestampMs
             return when {
-                elapsed < MINUTE_MS -> "Now"
-                elapsed < HOUR_MS -> "${elapsed / MINUTE_MS}m"
-                else -> "${elapsed / HOUR_MS}h"
+                elapsed < MINUTE_MS -> words.now
+                elapsed < HOUR_MS -> words.minutesAgo(elapsed / MINUTE_MS)
+                else -> words.hoursAgo(elapsed / HOUR_MS)
             }
         }
-        return dayBucketLabel(dayDiff, timestampMs, timeZone, locale)
+        return dayBucketLabel(dayDiff, timestampMs, timeZone, locale, words, dayMonthPattern)
     }
 
-    /** "14:26" (24 h clock). */
+    /** "14:26" (24 h clock, the design's, in every language; [locale] only picks the digits). */
     fun clock(
         timestampMs: Long,
         timeZone: TimeZone = TimeZone.getDefault(),
         locale: Locale = Locale.US,
     ): String = format(timestampMs, timeZone, locale, "HH:mm")
 
-    /** Inbox rows: "14:26" today, "Yesterday", "Mon" (<7 days), else "22 Sep". */
+    /** Inbox rows: "14:26" today, [TimeWords.yesterday] "Yesterday", "Mon" (<7 days), else [dayMonthPattern] "22 Sep". */
     fun conversationTime(
         timestampMs: Long,
         nowMs: Long,
         timeZone: TimeZone = TimeZone.getDefault(),
         locale: Locale = Locale.US,
+        words: TimeWords = TimeWords.ENGLISH,
+        dayMonthPattern: String = DAY_MONTH_PATTERN,
     ): String {
         val dayDiff = dayDifference(timestampMs, nowMs, timeZone)
         if (dayDiff == 0) return clock(timestampMs, timeZone, locale)
-        return dayBucketLabel(dayDiff, timestampMs, timeZone, locale)
+        return dayBucketLabel(dayDiff, timestampMs, timeZone, locale, words, dayMonthPattern)
     }
 
-    /** Media day groups: "Today", "Yesterday", else "Mon 22 Sep". */
+    /** Media day groups: [TimeWords.today] "Today", [TimeWords.yesterday] "Yesterday", else [weekdayDayMonthPattern] "Mon 22 Sep". */
     fun dayLabel(
         timestampMs: Long,
         nowMs: Long,
         timeZone: TimeZone = TimeZone.getDefault(),
         locale: Locale = Locale.US,
+        words: TimeWords = TimeWords.ENGLISH,
+        weekdayDayMonthPattern: String = WEEKDAY_DAY_MONTH_PATTERN,
     ): String {
         val dayDiff = dayDifference(timestampMs, nowMs, timeZone)
         return when (dayDiff) {
-            0 -> "Today"
-            1 -> "Yesterday"
-            else -> format(timestampMs, timeZone, locale, "EEE d MMM")
+            0 -> words.today
+            1 -> words.yesterday
+            else -> format(timestampMs, timeZone, locale, weekdayDayMonthPattern)
         }
     }
 
@@ -77,12 +100,19 @@ object RelativeTime {
     private fun dayDifference(timestampMs: Long, nowMs: Long, timeZone: TimeZone): Int =
         (localDayIndex(nowMs, timeZone) - localDayIndex(timestampMs, timeZone)).toInt()
 
-    /** The "Yesterday" / weekday / "d MMM" tail shared by [label] and [conversationTime] once same-day is ruled out. */
-    private fun dayBucketLabel(dayDiff: Int, timestampMs: Long, timeZone: TimeZone, locale: Locale): String =
+    /** The yesterday / weekday / day-month tail shared by [label] and [conversationTime] once same-day is ruled out. */
+    private fun dayBucketLabel(
+        dayDiff: Int,
+        timestampMs: Long,
+        timeZone: TimeZone,
+        locale: Locale,
+        words: TimeWords,
+        dayMonthPattern: String,
+    ): String =
         when (dayDiff) {
-            1 -> "Yesterday"
+            1 -> words.yesterday
             in 2..6 -> format(timestampMs, timeZone, locale, "EEE")
-            else -> format(timestampMs, timeZone, locale, "d MMM")
+            else -> format(timestampMs, timeZone, locale, dayMonthPattern)
         }
 
     private fun format(ms: Long, timeZone: TimeZone, locale: Locale, pattern: String): String {
