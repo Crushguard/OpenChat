@@ -17,3 +17,6 @@
 /tools/jvmcheck/build/
 /tools/jvmcheck/.gradle/
 .kotlin/
+
+# Python bytecode (tools/)
+__pycache__/
