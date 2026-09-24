@@ -9,6 +9,7 @@ import com.piptechnologies.openchat.core.messages.NotificationText
 import com.piptechnologies.openchat.core.phone.DialCountries
 import com.piptechnologies.openchat.core.phone.PhoneNumberNormalizer
 import com.piptechnologies.openchat.ui.components.UiText
+import com.piptechnologies.openchat.ui.components.isolate
 import com.piptechnologies.openchat.ui.components.ltr
 import com.piptechnologies.openchat.ui.components.pluralText
 import com.piptechnologies.openchat.ui.components.uiText
@@ -41,11 +42,13 @@ internal fun isPhotoBubble(message: CapturedMessage): Boolean = message.kind == 
  * The bar's second line for [summary] (null while the conversation is empty): the sender's number
  * ("+62 812 3456 7890") or, for a saved contact, its title, then "seen by no one" in All or "N deleted" in
  * Deleted only. The number is a left-to-right isolate ([ltr]) so a right-to-left language keeps its digits
- * in order; the isolate is for display only and never reaches the database or an intent.
+ * in order, and a contact name is a first-strong isolate ([isolate]) so a Hebrew or Arabic name does not
+ * reorder an English sentence (or a Latin name an Arabic one); isolates are for display only and never
+ * reach the database or an intent.
  */
 internal fun conversationSubtitle(summary: ConversationSummary?, mode: InboxMode): UiText {
     val title = summary?.title.orEmpty()
-    val who = summary?.phoneNumber?.let { digits -> ltr(displayPhoneNumber(digits) ?: title) } ?: title
+    val who = summary?.phoneNumber?.let { digits -> ltr(displayPhoneNumber(digits) ?: title) } ?: isolate(title)
     return when (mode) {
         InboxMode.ALL -> uiText(R.string.conversation_subtitle_all, who)
         InboxMode.DELETED -> {

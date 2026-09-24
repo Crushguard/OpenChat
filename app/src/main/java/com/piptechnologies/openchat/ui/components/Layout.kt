@@ -26,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -97,7 +96,7 @@ fun OcTopBar(
 @Composable
 fun SectionEyebrow(text: String, modifier: Modifier = Modifier) {
     Text(
-        text = text.uppercase(LocalConfiguration.current.locales[0]),
+        text = text.uppercase(currentUiLocale()),
         style = OcTheme.type.eyebrow11,
         color = OcTheme.colors.muted,
         modifier = modifier.padding(horizontal = 2.dp),

@@ -17,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -120,7 +119,7 @@ fun CountBadge(count: Int, modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center,
     ) {
         // The UI language's digits, like the numbers in translated strings (e.g. Persian ۷).
-        val locale = LocalConfiguration.current.locales[0]
+        val locale = currentUiLocale()
         val digits = remember(count, locale) { NumberFormat.getIntegerInstance(locale).format(count) }
         Text(text = digits, style = OcTheme.type.badge10_5, color = androidx.compose.ui.graphics.Color.White)
     }

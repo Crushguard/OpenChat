@@ -79,7 +79,7 @@
          and the clock ("14:26") come from the language's own date formats, not from here. -->
     <!-- Time label at the end of a Recent numbers row for a number used less than a minute ago. A compact label in a list: keep it short. -->
     <string name="time_now">Now</string>
-    <!-- Day header over the items from today, e.g. in Deleted media ("Today · 2"). -->
+    <!-- Day header over the items from today: Deleted media ("Today · 2") and the day pill in a conversation, which shows it in capitals ("TODAY"). -->
     <string name="time_today">Today</string>
     <!-- Time label and day header for anything from yesterday: Recent numbers rows, Messages inbox rows, day headers. A compact label in a list: keep it short. -->
     <string name="time_yesterday">Yesterday</string>
