@@ -1,0 +1,18 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build/
+/app/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+/out/
+# Paparazzi record output (published to the screenshots branch by CI, never committed here)
+/app/src/test/snapshots/
+/app/build/reports/paparazzi/
+# Superpowers plan workspace
+/.superpowers/
+/tools/jvmcheck/build/
+/tools/jvmcheck/.gradle/

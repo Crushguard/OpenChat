@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#EAECF1}
+a{color:#0A7E3A;text-decoration:none}
+a:hover{color:#086B31}
+input,button,textarea{font-family:inherit}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes sheetup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+<div style="display:flex;justify-content:center;align-items:flex-start;flex-wrap:wrap;gap:36px;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#1E2128;-webkit-font-smoothing:antialiased">
+<sc-if value="{{ showMap }}" hint-placeholder-val="{{ false }}">
+<div style="width:300px;flex:none;display:flex;flex-direction:column;gap:22px;padding:44px 0 0 32px">
+  <div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><div style="width:34px;height:34px;border-radius:10px;background:#0A7E3A;display:flex;align-items:center;justify-content:center;color:#fff">{{ ic.markLg }}</div><div><div style="font:800 17px 'Hanken Grotesk';letter-spacing:-.01em">Direct Chat</div><div style="font:400 12px 'Hanken Grotesk';color:#8b929d">Interactive prototype</div></div></div>
+    <div style="font:400 13px/1.5 'Hanken Grotesk';color:#626873;text-wrap:pretty">Tap through the phone, or jump to any screen. Every state on the Screens page is reachable from here.</div>
+  </div>
+  <sc-for list="{{ mapGroups }}" as="g" hint-placeholder-count="4">
+    <div>
+      <div style="font:600 11px 'JetBrains Mono';letter-spacing:.08em;color:#8b929d;text-transform:uppercase;margin-bottom:8px">{{ g.title }}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ g.items }}" as="m" hint-placeholder-count="4"><button onClick="{{ m.go }}" style="{{ m.style }}">{{ m.label }}</button></sc-for></div>
+    </div>
+  </sc-for>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+    <button onClick="{{ resetProto }}" style="height:40px;padding:0 16px;border-radius:12px;background:#1E2128;color:#fff;font:600 13px 'Hanken Grotesk';border:none;cursor:pointer;display:flex;align-items:center;gap:8px">{{ ic.reset }}<span>Reset prototype</span></button>
+    <a href="./Screens.dc.html" style="height:40px;padding:0 14px;border-radius:12px;background:#fff;border:1px solid #E1E5EB;color:#3d4550;font:600 13px 'Hanken Grotesk';display:flex;align-items:center">Screens</a>
+    <a href="./Design%20System.dc.html" style="height:40px;padding:0 14px;border-radius:12px;background:#fff;border:1px solid #E1E5EB;color:#3d4550;font:600 13px 'Hanken Grotesk';display:flex;align-items:center">Design System</a>
+  </div>
+  <div style="background:#fff;border:1px solid #E1E5EB;border-radius:16px;padding:14px 16px;display:flex;gap:10px"><span style="color:#0A7E3A;display:flex;flex:none;margin-top:1px">{{ ic.okCircle }}</span><div style="font:400 12.5px/1.5 'Hanken Grotesk';color:#626873"><strong style="font-weight:700;color:#1E2128">Simulate</strong> a number that is not on WhatsApp from the Tweaks panel. Send adds to Recent; the tools run their permission, link and rating flows with real delays.</div></div>
+</div>
+</sc-if>
+<div data-screen-label="{{ screenLabel }}" style="width:390px;height:844px;flex:none;background:#FAFBFC;border:1px solid #DDE1E8;border-radius:30px;overflow:hidden;display:flex;flex-direction:column;position:relative;box-shadow:0 1px 3px rgba(20,22,28,.05);margin:{{ frameMargin }}">
+<div style="height:38px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px 0 26px;font:700 12.5px 'Hanken Grotesk'"><div>9:41</div><div style="display:flex;gap:6px;align-items:center">{{ ic.signal }}{{ ic.wifi }}{{ ic.battery }}</div></div>
+
+<sc-if value="{{ is.splash }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:0 24px 30px;animation:fade .4s">
+  <div style="width:88px;height:88px;border-radius:26px;background:#0A7E3A;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 14px 34px -12px rgba(10,126,58,.55)">{{ ic.splashMark }}</div>
+  <div style="font:800 24px 'Hanken Grotesk';letter-spacing:-.02em;color:#171A20;margin-top:6px">Direct Chat</div>
+  <div style="color:#0A7E3A;display:flex;margin-top:14px">{{ splashSpinner }}</div>
+</div>
+<div style="flex:none;display:flex;align-items:center;justify-content:center;gap:6px;font:400 12px 'Hanken Grotesk';color:#99A0AC;padding-bottom:34px">{{ ic.handshake }}<span>Free · No ads · No account</span></div>
+</sc-if>
+
+<sc-if value="{{ is.onboarding }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;padding:4px 24px 26px;min-height:0">
+  <div style="height:40px;flex:none;display:flex;justify-content:flex-end;align-items:center">
+    <sc-if value="{{ ob.first }}" hint-placeholder-val="{{ true }}"><button onClick="{{ ob.skip }}" style="height:36px;padding:0 12px;border:none;background:none;font:600 13.5px 'Hanken Grotesk';color:#626873;cursor:pointer;border-radius:10px">Skip</button></sc-if>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:26px;min-height:0">
+    <sc-if value="{{ ob.first }}" hint-placeholder-val="{{ true }}">
+      <div style="width:100%;max-width:342px;flex:none;display:flex;flex-direction:column;gap:10px;text-align:left;animation:fadeup .35s">
+        <div style="height:60px;background:#fff;border:1px solid #E7EAEF;border-radius:14px;display:flex;align-items:center;gap:10px;padding:0 8px;box-shadow:0 14px 30px -18px rgba(20,22,28,.25)"><div style="height:44px;padding:0 8px;border-radius:10px;background:#F3F5F8;display:flex;align-items:center;gap:7px;color:#626873">{{ country.flagEl }}<span style="font:500 16px 'JetBrains Mono';color:#1E2128">+62</span>{{ ic.chevDown }}</div><span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;font:500 22px 'JetBrains Mono';color:#1E2128;letter-spacing:.01em">812 3456 7890</span></div>
+        <div style="display:flex;gap:2px;height:52px"><div style="flex:1;border-radius:14px 6px 6px 14px;background:#0A7E3A;color:#fff;font:600 16px 'Hanken Grotesk';display:flex;align-items:center;justify-content:center">Send Message</div><div style="width:62px;border-radius:6px 14px 14px 6px;background:#DDFAE4;border:1px solid #ACE8BE;color:#0A7E3A;display:flex;align-items:center;justify-content:center;gap:3px">{{ appGlyph }}{{ ic.chevDownSm }}</div></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px;padding:0 4px"><span style="display:flex;color:#0A7E3A">{{ ic.checkSm }}</span><span style="font:400 12.5px 'Hanken Grotesk';color:#626873">Not added to your contacts</span></div>
+      </div>
+      <div><div style="font:800 26px/1.15 'Hanken Grotesk';letter-spacing:-.02em;color:#171A20">Chat with any number</div><div style="font:400 15px/1.55 'Hanken Grotesk';color:#565C67;margin-top:10px;text-wrap:pretty">Type or paste a number, tap Send. It opens in WhatsApp, WhatsApp Business or Telegram. Nothing is saved to your contacts.</div></div>
+    </sc-if>
+    <sc-if value="{{ ob.second }}" hint-placeholder-val="{{ false }}">
+      <div style="width:300px;flex:none;background:#fff;border:1px solid #EEF0F4;border-radius:16px;overflow:hidden;text-align:left;box-shadow:0 14px 30px -18px rgba(20,22,28,.25);animation:fadeup .35s">
+        <sc-for list="{{ tools }}" as="t" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:13px;padding:12px 14px;box-shadow:0 1px 0 #F2F4F7"><span style="width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:none;background:{{ t.bg }};color:{{ t.fg }}">{{ t.icon }}</span><div style="flex:1;min-width:0;font:600 14.5px 'Hanken Grotesk';color:#1E2128">{{ t.title }}</div><span style="display:flex;flex:none;color:#B4BAC4">{{ ic.chevron }}</span></div></sc-for>
+      </div>
+      <div><div style="font:800 26px/1.15 'Hanken Grotesk';letter-spacing:-.02em;color:#171A20">Four tools, one permission</div><div style="font:400 15px/1.55 'Hanken Grotesk';color:#565C67;margin-top:10px;text-wrap:pretty">Read without blue ticks, recover what senders delete, run a second account. Everything stays on this phone.</div></div>
+    </sc-if>
+  </div>
+  <div style="display:flex;justify-content:center;gap:6px;margin:10px 0 22px;flex:none">
+    <div style="height:8px;border-radius:999px;transition:all .2s;width:{{ ob.dot1w }};background:{{ ob.dot1c }}"></div>
+    <div style="height:8px;border-radius:999px;transition:all .2s;width:{{ ob.dot2w }};background:{{ ob.dot2c }}"></div>
+  </div>
+  <button onClick="{{ ob.next }}" style="height:52px;border-radius:14px;background:#0A7E3A;color:#fff;font:600 16px 'Hanken Grotesk';border:none;cursor:pointer;width:100%;flex:none">{{ ob.cta }}</button>
+  <div style="display:flex;align-items:center;justify-content:center;gap:6px;font:400 12px 'Hanken Grotesk';color:#99A0AC;margin-top:14px;flex:none">{{ ic.handshake }}<span>Free · No ads · No account</span></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ is.home }}" hint-placeholder-val="{{ true }}">
+<div style="height:52px;flex:none;display:flex;align-items:center;gap:2px;padding:0 10px 0 20px">
+  <div style="flex:1;min-width:0;display:flex;align-items:center;gap:9px"><div style="width:28px;height:28px;border-radius:9px;background:#0A7E3A;display:flex;align-items:center;justify-content:center;color:#fff;flex:none">{{ ic.mark }}</div><div style="font:800 19px 'Hanken Grotesk';letter-spacing:-.02em;color:#171A20;white-space:nowrap">Direct Chat</div></div>
+  <button onClick="{{ go.settings }}" aria-label="Settings" style="width:44px;height:44px;flex:none;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#3d4550;cursor:pointer;padding:0">{{ ic.gear }}</button>
+</div>
+<div onClick="{{ blur }}" style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;padding:6px 20px 20px;display:flex;flex-direction:column;gap:12px">
+  <div onClick="{{ focusNum }}" style="position:relative;height:60px;flex:none;background:#fff;border:1px solid #E7EAEF;border-radius:14px;display:flex;align-items:center;gap:10px;padding:0 8px;cursor:text">
+    <sc-if value="{{ focused }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:-1px;border:1.5px solid #0A7E3A;border-radius:14px;pointer-events:none"></div></sc-if>
+    <button onClick="{{ openCountry }}" aria-label="Country" style="height:44px;flex:none;padding:0 8px;border-radius:10px;background:#F3F5F8;border:none;display:flex;align-items:center;gap:7px;cursor:pointer;color:#626873">{{ country.flagEl }}<span style="font:500 16px 'JetBrains Mono';color:#1E2128">{{ country.dial }}</span>{{ ic.chevDown }}</button>
+    <div style="flex:1;min-width:0;display:flex;align-items:center;white-space:nowrap;overflow:hidden">
+      <sc-if value="{{ numEmpty }}" hint-placeholder-val="{{ true }}"><sc-if value="{{ focused }}" hint-placeholder-val="{{ false }}"><span style="width:2px;height:24px;background:#0A7E3A;border-radius:1px;flex:none;animation:blink 1.1s steps(1) infinite"></span></sc-if><span style="font:400 17px 'Hanken Grotesk';color:#A2A9B4;margin-left:3px">Phone number</span></sc-if>
+      <sc-if value="{{ numFilled }}" hint-placeholder-val="{{ false }}"><span style="font:500 22px 'JetBrains Mono';color:#1E2128;letter-spacing:.01em">{{ numFmt }}</span><sc-if value="{{ focused }}" hint-placeholder-val="{{ false }}"><span style="width:2px;height:24px;background:#0A7E3A;border-radius:1px;flex:none;margin-left:2px;animation:blink 1.1s steps(1) infinite"></span></sc-if></sc-if>
+    </div>
+    <sc-if value="{{ numEmpty }}" hint-placeholder-val="{{ true }}"><button onClick="{{ paste }}" style="height:36px;flex:none;padding:0 12px 0 10px;border-radius:999px;background:#DDFAE4;border:1px solid #ACE8BE;color:#0A7E3A;font:600 13px 'Hanken Grotesk';display:flex;align-items:center;gap:6px;cursor:pointer">{{ ic.clipboard }}<span>Paste</span></button></sc-if>
+    <sc-if value="{{ numFilled }}" hint-placeholder-val="{{ false }}"><button onClick="{{ clearNum }}" aria-label="Clear" style="width:36px;height:36px;flex:none;border-radius:50%;background:#F3F5F8;border:none;display:flex;align-items:center;justify-content:center;color:#626873;cursor:pointer;padding:0">{{ ic.x }}</button></sc-if>
+  </div>
+  <div style="min-height:56px;flex:none;background:#fff;border:1px solid #E7EAEF;border-radius:14px;padding:6px 14px;display:flex;align-items:center"><textarea value="{{ msg }}" onChange="{{ setMsg }}" onFocus="{{ blurKb }}" placeholder="Message (optional)" rows="{{ 1 }}" style="width:100%;border:none;outline:none;resize:none;background:none;font:400 15px/1.4 'Hanken Grotesk';color:#1E2128;padding:8px 0;display:block"></textarea></div>
+  <div style="position:relative;flex:none">
+    <sc-if value="{{ splitM3 }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;gap:2px;height:52px">
+        <sc-if value="{{ cantSend }}" hint-placeholder-val="{{ true }}"><div style="flex:1;display:flex;opacity:.45"><button style="flex:1;border:none;border-radius:14px 6px 6px 14px;background:#0A7E3A;color:#fff;font:600 16px 'Hanken Grotesk';display:flex;align-items:center;justify-content:center;cursor:default;padding:0">Send Message</button></div></sc-if>
+        <sc-if value="{{ canSend }}" hint-placeholder-val="{{ false }}"><div style="flex:1;display:flex"><button onClick="{{ send }}" style="flex:1;border:none;border-radius:14px 6px 6px 14px;background:#0A7E3A;color:#fff;font:600 16px 'Hanken Grotesk';display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0">Send Message</button></div></sc-if>
+        <button onClick="{{ toggleMenu }}" aria-label="Choose app" style="width:62px;flex:none;border-radius:6px 14px 14px 6px;background:#DDFAE4;border:1px solid #ACE8BE;color:#0A7E3A;display:flex;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:0 0 0 2px">{{ appGlyph }}{{ ic.chevDownSm }}</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ splitFused }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;height:52px;border-radius:14px;background:#0A7E3A;overflow:hidden">
+        <sc-if value="{{ cantSend }}" hint-placeholder-val="{{ true }}"><div style="flex:1;display:flex;opacity:.45"><button style="flex:1;border:none;background:none;color:#fff;font:600 16px 'Hanken Grotesk';display:flex;align-items:center;justify-content:center;cursor:default;padding:0">Send Message</button></div></sc-if>
+        <sc-if value="{{ canSend }}" hint-placeholder-val="{{ false }}"><div style="flex:1;display:flex"><button onClick="{{ send }}" style="flex:1;border:none;background:none;color:#fff;font:600 16px 'Hanken Grotesk';display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0">Send Message</button></div></sc-if>
+        <div style="width:1px;background:rgba(255,255,255,.32);margin:10px 0;flex:none"></div>
+        <button onClick="{{ toggleMenu }}" aria-label="Choose app" style="width:60px;flex:none;border:none;background:none;color:#fff;display:flex;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:0">{{ appGlyph }}{{ ic.chevDownSm }}</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ stop }}" style="position:absolute;right:0;top:calc(100% + 8px);width:238px;background:#fff;border:1px solid #E7EAEF;border-radius:14px;padding:6px;box-shadow:0 12px 32px -10px rgba(20,30,60,.28);z-index:6;animation:fadeup .15s">
+        <div style="font:600 10px 'JetBrains Mono';letter-spacing:.08em;color:#8b929d;text-transform:uppercase;padding:8px 10px 6px">Send with</div>
+        <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="3"><button onClick="{{ m.pick }}" style="width:100%;height:46px;display:flex;align-items:center;gap:11px;padding:0 10px;border:none;background:none;border-radius:10px;cursor:pointer;text-align:left" style-hover="background:#F3F5F8"><span style="display:flex;flex:none;color:#3d4550">{{ m.glyph }}</span><span style="flex:1;font:600 14.5px 'Hanken Grotesk';color:#1E2128">{{ m.label }}</span><sc-if value="{{ m.on }}" hint-placeholder-val="{{ false }}"><span style="display:flex;flex:none;color:#0A7E3A">{{ ic.check }}</span></sc-if></button></sc-for>
+      </div>
+    </sc-if>
+  </div>
+  <sc-if value="{{ firstRun }}" hint-placeholder-val="{{ false }}"><div style="text-align:center;font:400 11.5px 'Hanken Grotesk';color:#99A0AC;margin-top:-2px">Opens the chat in the app you pick. Nothing is saved to your contacts.</div></sc-if>
+  <sc-if value="{{ hasRecents }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+      <div style="font:700 11px 'JetBrains Mono';letter-spacing:.08em;color:#8b929d;text-transform:uppercase;padding:0 2px">Recent</div>
+      <div style="background:#fff;border:1px solid #EEF0F4;border-radius:16px;overflow:hidden">
+        <sc-for list="{{ recents }}" as="r" hint-placeholder-count="3">
+          <div style="position:relative;overflow:hidden;box-shadow:0 1px 0 #F2F4F7">
+            <sc-if value="{{ r.swiped }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ r.remove }}" style="position:absolute;inset:0;border:none;background:#FBEFEC;display:flex;align-items:center;justify-content:flex-end;gap:6px;padding-right:18px;color:#C4553D;font:600 13px 'Hanken Grotesk';cursor:pointer">{{ ic.trash }}<span>Delete</span></button>
+              <div onClick="{{ r.unswipe }}" style="position:relative;display:flex;align-items:center;gap:12px;padding:0 14px;height:52px;background:#fff;transform:translateX(-96px);transition:transform .2s;cursor:pointer"><span style="display:flex;flex:none;color:#565C67">{{ r.glyph }}</span><span style="flex:1;min-width:0;font:500 14.5px 'JetBrains Mono';color:#1E2128;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.num }}</span><span style="font:400 11.5px 'JetBrains Mono';color:#8b929d;flex:none">{{ r.time }}</span></div>
+            </sc-if>
+            <sc-if value="{{ r.still }}" hint-placeholder-val="{{ true }}">
+              <div onClick="{{ r.refill }}" onContextMenu="{{ r.swipe }}" style="display:flex;align-items:center;gap:12px;padding:0 14px;height:52px;background:#fff;cursor:pointer" title="Tap to refill · right-click to delete"><span style="display:flex;flex:none;color:#565C67">{{ r.glyph }}</span><span style="flex:1;min-width:0;font:500 14.5px 'JetBrains Mono';color:#1E2128;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.num }}</span><span style="font:400 11.5px 'JetBrains Mono';color:#8b929d;flex:none">{{ r.time }}</span></div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+  <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+    <sc-if value="{{ toolsList }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#fff;border:1px solid #EEF0F4;border-radius:16px;overflow:hidden">
+        <sc-for list="{{ tools }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.go }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:12px 14px;border:none;background:none;box-shadow:0 1px 0 #F2F4F7;cursor:pointer;text-align:left"><span style="width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:none;background:{{ t.bg }};color:{{ t.fg }}">{{ t.icon }}</span><div style="flex:1;min-width:0"><div style="font:600 14.5px 'Hanken Grotesk';color:#1E2128">{{ t.title }}</div><div style="font:400 12px 'Hanken Grotesk';color:#8b929d;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.status }}</div></div><span style="display:flex;flex:none;color:#B4BAC4">{{ ic.chevron }}</span></button></sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ toolsStrip }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <sc-for list="{{ tools }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.go }}" style="background:#fff;border:1px solid #E7EAEF;border-radius:16px;padding:12px 10px 12px 12px;display:flex;flex-direction:column;align-items:flex-start;gap:12px;text-align:left;cursor:pointer;min-width:0"><span style="width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex:none;background:{{ t.bg }};color:{{ t.fg }}">{{ t.icon }}</span><div style="min-width:0"><div style="font:600 13px 'Hanken Grotesk';color:#1E2128">{{ t.short }}</div><div style="font:400 10.5px 'JetBrains Mono';color:#8b929d;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.micro }}</div></div></button></sc-for>
+      </div>
+    </sc-if>
+  </div>
+</div>
+<sc-if value="{{ kb }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:none;background:#E9EBEF;padding:6px 6px 10px;display:flex;flex-direction:column;gap:6px;animation:sheetup .2s ease-out">
+    <div style="height:36px;display:flex;align-items:center;gap:8px;padding:0 6px;color:#626873">{{ ic.clipboardSm }}<button onClick="{{ paste }}" style="height:30px;padding:0 12px;border-radius:8px;background:#fff;border:none;display:flex;align-items:center;font:500 12.5px 'JetBrains Mono';color:#1E2128;cursor:pointer">+62 812-3456-7890</button></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+      <sc-for list="{{ keys }}" as="k" hint-placeholder-count="12"><button onClick="{{ k.tap }}" style="height:46px;border-radius:8px;border:none;background:#fff;display:flex;align-items:center;justify-content:center;font:500 22px 'Hanken Grotesk';color:#1E2128;box-shadow:0 1px 0 rgba(0,0,0,.08);cursor:pointer;padding:0">{{ k.label }}</button></sc-for>
+    </div>
+  </div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ is.gate }}" hint-placeholder-val="{{ false }}">
+<div style="height:52px;flex:none;display:flex;align-items:center;gap:4px;padding:0 12px"><button onClick="{{ back }}" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#1E2128;cursor:pointer;padding:0">{{ ic.arrowLeft }}</button><div style="flex:1;min-width:0;font:700 16px 'Hanken Grotesk'">{{ gateTitle }}</div></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 28px 20px">
+  <div style="width:64px;height:64px;border-radius:20px;background:#D2EBFF;color:#1F74BF;display:flex;align-items:center;justify-content:center">{{ ic.bell30 }}</div>
+  <div style="font:800 22px/1.2 'Hanken Grotesk';letter-spacing:-.02em;color:#171A20;margin-top:18px">Allow notification access</div>
+  <div style="font:400 15px/1.5 'Hanken Grotesk';color:#565C67;margin-top:8px;max-width:300px;text-wrap:pretty">Deleted messages and media are kept from WhatsApp notifications. Nothing leaves your phone.</div>
+  <sc-if value="{{ notGranted }}" hint-placeholder-val="{{ true }}"><div style="margin-top:18px;height:32px;padding:0 12px 0 10px;border-radius:999px;background:#FEFBF5;border:1px solid #F0DFC4;color:#B8792A;font:600 13px 'Hanken Grotesk';display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;border-radius:50%;background:#B8792A"></span>Off</div></sc-if>
+  <sc-if value="{{ granted }}" hint-placeholder-val="{{ false }}"><div style="margin-top:18px;height:32px;padding:0 12px 0 9px;border-radius:999px;background:#DDFAE4;border:1px solid #ACE8BE;color:#0A7E3A;font:600 13px 'Hanken Grotesk';display:flex;align-items:center;gap:6px;animation:fade .3s">{{ ic.checkSm }}Active</div></sc-if>
+</div>
+<div style="flex:none;padding:12px 20px 4px">
+  <sc-if value="{{ notGranted }}" hint-placeholder-val="{{ true }}"><button onClick="{{ grant }}" style="width:100%;height:52px;border-radius:14px;border:none;background:#0A7E3A;color:#fff;font:600 16px 'Hanken Grotesk';display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer">{{ grantIcon }}<span>{{ grantLabel }}</span></button><div style="text-align:center;font:400 11.5px 'Hanken Grotesk';color:#99A0AC;margin-top:10px">One grant covers Message Recovery and Media Recovery.</div></sc-if>
+  <sc-if value="{{ granted }}" hint-placeholder-val="{{ false }}"><button onClick="{{ gateContinue }}" style="width:100%;height:52px;border-radius:14px;border:none;background:#0A7E3A;color:#fff;font:600 16px 'Hanken Grotesk';cursor:pointer">Continue</button><div style="text-align:center;font:400 11.5px 'Hanken Grotesk';color:#99A0AC;margin-top:10px">Turn it off anytime in Settings.</div></sc-if>
+</div>
+<div style="flex:none;padding:8px 20px 14px"><div style="height:50px;border:1px dashed #D3D8E0;border-radius:10px;background:#F6F7F9;display:flex;align-items:center;justify-content:center;font:500 9.5px 'JetBrains Mono';letter-spacing:.06em;color:#A2A9B4">AD BANNER SLOT · 320×50</div></div>
+</sc-if>
+
+<sc-if value="{{ is.recovery }}" hint-placeholder-val="{{ false }}">
+<div style="height:52px;flex:none;display:flex;align-items:center;gap:4px;padding:0 12px"><button onClick="{{ back }}" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#1E2128;cursor:pointer;padding:0">{{ ic.arrowLeft }}</button><div style="flex:1;min-width:0;font:700 16px 'Hanken Grotesk'">Messages</div><sc-if value="{{ notPaused }}" hint-placeholder-val="{{ true }}"><div style="height:28px;padding:0 10px 0 8px;border-radius:999px;background:#DDFAE4;border:1px solid #ACE8BE;color:#0A7E3A;font:600 12px 'Hanken Grotesk';display:flex;align-items:center;gap:5px">{{ ic.checkXs }}Active</div></sc-if><sc-if value="{{ paused }}" hint-placeholder-val="{{ false }}"><div style="height:28px;padding:0 10px 0 8px;border-radius:999px;background:#FEFBF5;border:1px solid #F0DFC4;color:#B8792A;font:600 12px 'Hanken Grotesk';display:flex;align-items:center;gap:5px">{{ ic.pauseXs }}Paused</div></sc-if><button onClick="{{ openToolSettings }}" aria-label="Tool settings" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#3d4550;cursor:pointer;padding:0">{{ ic.sliders }}</button></div>
+<div style="flex:none;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 20px 12px"><sc-for list="{{ modeChips }}" as="t" hint-placeholder-count="2"><button onClick="{{ t.select }}" style="{{ t.style }}">{{ t.label }}</button></sc-for></div>
+<sc-if value="{{ hasConvos }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;padding:0 20px 12px;display:flex;flex-direction:column;gap:12px">
+  <div style="background:#fff;border:1px solid #EEF0F4;border-radius:16px;overflow:hidden">
+    <sc-for list="{{ convos }}" as="c" hint-placeholder-count="5"><button onClick="{{ c.open }}" style="width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;border:none;background:none;box-shadow:0 1px 0 #F2F4F7;cursor:pointer;text-align:left"><span style="width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 15px 'Hanken Grotesk';background:{{ c.bg }};color:{{ c.fg }}">{{ c.initial }}</span><div style="flex:1;min-width:0"><div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font:600 14.5px 'Hanken Grotesk';color:#1E2128;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.name }}</span><span style="font:400 11px 'JetBrains Mono';color:#8b929d;flex:none">{{ c.time }}</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:3px"><sc-if value="{{ c.showMark }}" hint-placeholder-val="{{ false }}"><span style="display:flex;flex:none;color:#B8792A">{{ ic.deletedXs }}</span></sc-if><span style="flex:1;min-width:0;font:400 13px 'Hanken Grotesk';color:#626873;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.preview }}</span><sc-if value="{{ c.hasUnread }}" hint-placeholder-val="{{ false }}"><span style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#0A7E3A;color:#fff;font:700 10.5px 'Hanken Grotesk';display:flex;align-items:center;justify-content:center;flex:none">{{ c.badge }}</span></sc-if></div></div></button></sc-for>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:9px;background:#F6F7F9;border:1px solid #EBEEF2;border-radius:14px;padding:12px 14px"><span style="color:#8b929d;display:flex;flex:none;margin-top:1px">{{ ic.infoSm }}</span><div style="font:400 12px/1.5 'Hanken Grotesk';color:#626873"><sc-if value="{{ allMode }}" hint-placeholder-val="{{ false }}">Read here and WhatsApp shows no blue ticks. Photos appear when the notification carries a preview; voice notes and files show by name.</sc-if><sc-if value="{{ deletedMode }}" hint-placeholder-val="{{ true }}">Only messages the sender deleted are kept. Excluded chats are skipped entirely.</sc-if></div></div>
+</div>
+</sc-if>
+<sc-if value="{{ noConvos }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 32px 40px"><div style="width:56px;height:56px;border-radius:16px;background:#F3F5F8;display:flex;align-items:center;justify-content:center;color:#B4BAC4;margin-bottom:14px">{{ ic.deletedBig }}</div><div style="font:700 17px 'Hanken Grotesk'">Nothing here yet</div><div style="font:400 13.5px/1.5 'Hanken Grotesk';color:#8b929d;margin-top:5px;max-width:240px;text-wrap:pretty">New messages land here as they arrive. Deleted ones stay in "Deleted only".</div></div>
+</sc-if>
+<div style="flex:none;padding:8px 20px 14px"><div style="height:50px;border:1px dashed #D3D8E0;border-radius:10px;background:#F6F7F9;display:flex;align-items:center;justify-content:center;font:500 9.5px 'JetBrains Mono';letter-spacing:.06em;color:#A2A9B4">AD BANNER SLOT · 320×50</div></div>
+</sc-if>
+
+<sc-if value="{{ is.conversation }}" hint-placeholder-val="{{ false }}">
+<div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 12px"><button onClick="{{ back }}" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#1E2128;cursor:pointer;padding:0">{{ ic.arrowLeft }}</button><div style="flex:1;min-width:0"><div style="font:700 16px 'Hanken Grotesk'">{{ convo.name }}</div><div style="font:400 11.5px 'JetBrains Mono';color:#8b929d;margin-top:1px">{{ convo.sub }}</div></div></div>
+<div style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;padding:6px 20px 12px;display:flex;flex-direction:column;gap:10px">
+  <div style="align-self:center;font:600 10px 'JetBrains Mono';letter-spacing:.06em;color:#8b929d;background:#F3F5F8;padding:4px 9px;border-radius:999px;text-transform:uppercase">Today</div>
+  <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="4">
+    <div style="max-width:80%;align-self:flex-start;display:flex;flex-direction:column;gap:5px">
+      <sc-if value="{{ m.deleted }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:5px;font:600 9.5px 'JetBrains Mono';letter-spacing:.06em;text-transform:uppercase;color:#B8792A;padding-left:4px">{{ ic.deletedXs }}<span>Deleted by sender</span></div></sc-if>
+      <div style="background:#fff;border:1px solid #E7EAEF;border-radius:16px 16px 16px 6px;padding:10px 12px 7px">
+        <sc-if value="{{ m.isText }}" hint-placeholder-val="{{ true }}"><div style="font:400 14.5px/1.4 'Hanken Grotesk';color:#1E2128">{{ m.text }}</div></sc-if>
+        <sc-if value="{{ m.isPhoto }}" hint-placeholder-val="{{ false }}"><button onClick="{{ go.mediaDetail }}" style="width:200px;height:130px;border-radius:10px;background:repeating-linear-gradient(135deg,#EEF1F5 0 6px,#F6F7F9 6px 12px);border:1px solid #E7EAEF;display:flex;align-items:center;justify-content:center;font:500 9.5px 'JetBrains Mono';letter-spacing:.06em;color:#A2A9B4;cursor:pointer">PHOTO · IN MEDIA RECOVERY</button></sc-if>
+        <div style="font:400 10.5px 'JetBrains Mono';color:#8b929d;text-align:right;margin-top:5px">{{ m.time }}</div>
+      </div>
+    </div>
+  </sc-for>
+</div>
+<div style="flex:none;padding:12px 20px 4px;border-top:1px solid #EEF0F4;background:#fff"><button onClick="{{ openInWa }}" style="width:100%;height:48px;border-radius:13px;background:#F3F5F8;border:1px solid #E7EAEF;color:#1E2128;font:600 14.5px 'Hanken Grotesk';display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer">{{ ic.wa18 }}<span>Open chat in WhatsApp</span></button><div style="text-align:center;font:400 11.5px 'Hanken Grotesk';color:#99A0AC;margin-top:8px">{{ convoFooterHint }}</div></div>
+<div style="flex:none;padding:8px 20px 14px;background:#fff"><div style="height:50px;border:1px dashed #D3D8E0;border-radius:10px;background:#F6F7F9;display:flex;align-items:center;justify-content:center;font:500 9.5px 'JetBrains Mono';letter-spacing:.06em;color:#A2A9B4">AD BANNER SLOT · 320×50</div></div>
+</sc-if>
+
+<sc-if value="{{ is.media }}" hint-placeholder-val="{{ false }}">
+<div style="height:52px;flex:none;display:flex;align-items:center;gap:4px;padding:0 12px"><button onClick="{{ back }}" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#1E2128;cursor:pointer;padding:0">{{ ic.arrowLeft }}</button><div style="flex:1;min-width:0;font:700 16px 'Hanken Grotesk'">Deleted media</div><button onClick="{{ openToolSettings }}" aria-label="Tool settings" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#3d4550;cursor:pointer;padding:0">{{ ic.sliders }}</button></div>
+<div style="flex:none;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 20px 12px"><sc-for list="{{ mediaTabs }}" as="t" hint-placeholder-count="5"><button onClick="{{ t.select }}" style="{{ t.style }}">{{ t.label }}</button></sc-for></div>
+<sc-if value="{{ hasTiles }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;padding:0 20px 12px">
+  <div style="font:700 11px 'JetBrains Mono';letter-spacing:.08em;color:#8b929d;text-transform:uppercase;margin:2px 2px 8px">{{ todayLabel }}</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><sc-for list="{{ tilesToday }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.open }}" style="aspect-ratio:1;border-radius:14px;position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#EEF1F5 0 6px,#F6F7F9 6px 12px);border:1px solid #E7EAEF;cursor:pointer;padding:0"><sc-if value="{{ t.video }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#626873">{{ ic.play }}</span></sc-if><span style="position:absolute;left:8px;bottom:7px;font:500 9.5px 'JetBrains Mono';color:#626873;background:rgba(255,255,255,.85);padding:2px 5px;border-radius:5px">{{ t.time }}</span></button></sc-for></div>
+  <div style="font:700 11px 'JetBrains Mono';letter-spacing:.08em;color:#8b929d;text-transform:uppercase;margin:16px 2px 8px">{{ yestLabel }}</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><sc-for list="{{ tilesYest }}" as="t" hint-placeholder-count="6"><button onClick="{{ t.open }}" style="aspect-ratio:1;border-radius:14px;position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#EEF1F5 0 6px,#F6F7F9 6px 12px);border:1px solid #E7EAEF;cursor:pointer;padding:0"><sc-if value="{{ t.video }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#626873">{{ ic.play }}</span></sc-if><span style="position:absolute;left:8px;bottom:7px;font:500 9.5px 'JetBrains Mono';color:#626873;background:rgba(255,255,255,.85);padding:2px 5px;border-radius:5px">{{ t.time }}</span></button></sc-for></div>
+</div>
+</sc-if>
+<sc-if value="{{ noTiles }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 32px 40px"><div style="width:56px;height:56px;border-radius:16px;background:#F3F5F8;display:flex;align-items:center;justify-content:center;color:#B4BAC4;margin-bottom:14px">{{ ic.imageBig }}</div><div style="font:700 17px 'Hanken Grotesk'">{{ emptyMediaTitle }}</div><div style="font:400 13.5px/1.5 'Hanken Grotesk';color:#8b929d;margin-top:5px;max-width:240px;text-wrap:pretty">Files someone deletes for everyone are kept here as long as they were received first.</div></div>
+</sc-if>
+<div style="flex:none;padding:8px 20px 14px"><div style="height:50px;border:1px dashed #D3D8E0;border-radius:10px;background:#F6F7F9;display:flex;align-items:center;justify-content:center;font:500 9.5px 'JetBrains Mono';letter-spacing:.06em;color:#A2A9B4">AD BANNER SLOT · 320×50</div></div>
+</sc-if>
+
+<sc-if value="{{ is.mediaDetail }}" hint-placeholder-val="{{ false }}">
+<div style="height:52px;flex:none;display:flex;align-items:center;gap:4px;padding:0 12px"><button onClick="{{ back }}" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#1E2128;cursor:pointer;padding:0">{{ ic.arrowLeft }}</button><div style="flex:1;min-width:0;font:700 16px 'Hanken Grotesk'">{{ detail.kind }}</div><span style="font:400 12px 'JetBrains Mono';color:#8b929d;padding-right:8px">{{ detail.counter }}</span></div>
+<div style="flex:1;min-height:0;margin:0 20px;border-radius:20px;background:repeating-linear-gradient(135deg,#262A33 0 8px,#1E2128 8px 16px);display:flex;align-items:center;justify-content:center;font:500 10px 'JetBrains Mono';letter-spacing:.06em;color:#8b929d">{{ detail.label }}</div>
+<div style="flex:none;display:flex;align-items:center;gap:8px;padding:14px 20px 0"><span style="display:flex;flex:none;color:#B8792A">{{ ic.deletedXs }}</span><span style="font:400 12.5px 'Hanken Grotesk';color:#626873">{{ detail.meta }}</span></div>
+<div style="flex:none;display:flex;gap:8px;padding:12px 20px 4px"><button onClick="{{ saveMedia }}" style="flex:1;height:52px;border-radius:14px;border:none;background:#0A7E3A;color:#fff;font:600 16px 'Hanken Grotesk';display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer">{{ ic.download }}<span>Save to gallery</span></button><button onClick="{{ shareMedia }}" aria-label="Share" style="width:52px;height:52px;border-radius:14px;background:#F3F5F8;border:1px solid #E7EAEF;color:#1E2128;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0">{{ ic.share }}</button><button onClick="{{ askDeleteMedia }}" aria-label="Delete" style="width:52px;height:52px;border-radius:14px;background:#fff;border:1px solid #EEDAD3;color:#C4553D;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0">{{ ic.trash }}</button></div>
+<div style="flex:none;padding:8px 20px 14px"><div style="height:50px;border:1px dashed #D3D8E0;border-radius:10px;background:#F6F7F9;display:flex;align-items:center;justify-content:center;font:500 9.5px 'JetBrains Mono';letter-spacing:.06em;color:#A2A9B4">AD BANNER SLOT · 320×50</div></div>
+</sc-if>
+
+<sc-if value="{{ is.dual }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ notLinked }}" hint-placeholder-val="{{ true }}">
+<div style="height:52px;flex:none;display:flex;align-items:center;gap:4px;padding:0 12px"><button onClick="{{ back }}" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#1E2128;cursor:pointer;padding:0">{{ ic.arrowLeft }}</button><div style="flex:1;min-width:0;font:700 16px 'Hanken Grotesk'">Second account</div></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 28px 12px">
+  <div style="width:64px;height:64px;border-radius:20px;background:#C6F2F4;color:#008892;display:flex;align-items:center;justify-content:center">{{ ic.qr }}</div>
+  <div style="font:800 22px/1.2 'Hanken Grotesk';letter-spacing:-.02em;color:#171A20;margin-top:18px">A second WhatsApp, in here</div>
+  <div style="font:400 15px/1.5 'Hanken Grotesk';color:#565C67;margin-top:8px;max-width:300px;text-wrap:pretty">Links a WhatsApp Web session inside this app. Use it for a second account, or the same account on a second phone.</div>
+  <div style="display:flex;align-items:flex-start;gap:9px;background:#F6F7F9;border:1px solid #EBEEF2;border-radius:14px;padding:12px 14px;margin-top:22px;text-align:left"><span style="color:#8b929d;display:flex;flex:none;margin-top:1px">{{ ic.phoneSm }}</span><div style="font:400 12.5px/1.5 'Hanken Grotesk';color:#626873">You need the other phone. A QR code appears here; scan it there under WhatsApp › Linked devices › Link a device.</div></div>
+</div>
+<div style="flex:none;padding:12px 20px 4px"><button onClick="{{ link }}" style="width:100%;height:52px;border-radius:14px;border:none;background:#0A7E3A;color:#fff;font:600 16px 'Hanken Grotesk';display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer">{{ linkIcon }}<span>{{ linkLabel }}</span></button><div style="text-align:center;font:400 11.5px 'Hanken Grotesk';color:#99A0AC;margin-top:10px">A notification stays visible while linked. Android requires it.</div></div>
+<div style="flex:none;padding:8px 20px 14px"><div style="height:50px;border:1px dashed #D3D8E0;border-radius:10px;background:#F6F7F9;display:flex;align-items:center;justify-content:center;font:500 9.5px 'JetBrains Mono';letter-spacing:.06em;color:#A2A9B4">AD BANNER SLOT · 320×50</div></div>
+</sc-if>
+<sc-if value="{{ linked }}" hint-placeholder-val="{{ false }}">
+<div style="height:52px;flex:none;display:flex;align-items:center;gap:4px;padding:0 12px;border-bottom:1px solid #EEF0F4;background:#fff"><button onClick="{{ back }}" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#1E2128;cursor:pointer;padding:0">{{ ic.arrowLeft }}</button><div style="flex:1;min-width:0;font:700 16px 'Hanken Grotesk'">Second account</div><div style="height:28px;padding:0 10px 0 8px;border-radius:999px;background:#DDFAE4;border:1px solid #ACE8BE;color:#0A7E3A;font:600 12px 'Hanken Grotesk';display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#0A7E3A"></span>Linked</div><button onClick="{{ reload }}" aria-label="Reload" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#3d4550;cursor:pointer;padding:0">{{ ic.reload }}</button><button onClick="{{ askLogout }}" aria-label="Log out" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#3d4550;cursor:pointer;padding:0">{{ ic.logout }}</button></div>
+<div style="flex:1;min-height:0;background:repeating-linear-gradient(135deg,#EEF1F5 0 8px,#F6F7F9 8px 16px);display:flex;align-items:center;justify-content:center;font:500 10px 'JetBrains Mono';letter-spacing:.06em;color:#A2A9B4">WHATSAPP WEB · WEBVIEW · FULL HEIGHT</div>
+<div style="flex:none;padding:8px 20px 14px;border-top:1px solid #EEF0F4;background:#fff"><div style="height:50px;border:1px dashed #D3D8E0;border-radius:10px;background:#F6F7F9;display:flex;align-items:center;justify-content:center;font:500 9.5px 'JetBrains Mono';letter-spacing:.06em;color:#A2A9B4">AD BANNER SLOT · 320×50</div></div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ is.settings }}" hint-placeholder-val="{{ false }}">
+<div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 12px"><button onClick="{{ back }}" style="width:40px;height:40px;border-radius:11px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#1E2128;cursor:pointer;padding:0">{{ ic.arrowLeft }}</button><div style="font:700 17px 'Hanken Grotesk'">Settings</div></div>
+<div style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;padding:2px 18px 18px;display:flex;flex-direction:column;gap:20px">
+  <button onClick="{{ go.gateFromSettings }}" style="background:#fff;border:1px solid #E7EAEF;border-radius:18px;padding:18px;display:flex;align-items:center;gap:13px;cursor:pointer;text-align:left;width:100%">
+    <div style="width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none;background:{{ st.accessBg }};color:{{ st.accessFg }}">{{ ic.bell }}</div>
+    <div style="flex:1;min-width:0"><div style="font:700 16px 'Hanken Grotesk'">Notification access</div><div style="font:400 13px/1.4 'Hanken Grotesk';color:#626873;margin-top:2px">{{ st.accessSub }}</div></div>
+    <span style="color:#B4BAC4;display:flex;flex:none">{{ ic.chevron }}</span>
+  </button>
+  <div><div style="font:600 11px 'JetBrains Mono';letter-spacing:.08em;color:#8b929d;text-transform:uppercase;margin:0 2px 8px">Preferences</div><div style="background:#fff;border:1px solid #EEF0F4;border-radius:16px;overflow:hidden">
+    <button onClick="{{ openDefaultApp }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px;border:none;background:none;border-bottom:1px solid #F2F4F7;cursor:pointer;text-align:left"><span style="color:#565C67;display:flex;flex:none">{{ appGlyph20 }}</span><div style="flex:1;min-width:0;font:600 14.5px 'Hanken Grotesk';color:#1E2128">Default app</div><span style="font:400 13.5px 'Hanken Grotesk';color:#8b929d;flex:none">{{ appLabel }}</span><span style="color:#B4BAC4;display:flex;flex:none">{{ ic.chevron }}</span></button>
+    <button onClick="{{ go.language }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px;border:none;background:none;border-bottom:1px solid #F2F4F7;cursor:pointer;text-align:left"><span style="color:#565C67;display:flex;flex:none">{{ ic.languages }}</span><div style="flex:1;min-width:0;font:600 14.5px 'Hanken Grotesk';color:#1E2128">Language</div><span style="font:400 13.5px 'Hanken Grotesk';color:#8b929d;flex:none">{{ st.langLabel }}</span><span style="color:#B4BAC4;display:flex;flex:none">{{ ic.chevron }}</span></button>
+    <button onClick="{{ askClearRecents }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px;border:none;background:none;cursor:pointer;text-align:left"><span style="color:#565C67;display:flex;flex:none">{{ ic.trash }}</span><div style="flex:1;min-width:0;font:600 14.5px 'Hanken Grotesk';color:#1E2128">Clear recent numbers</div><span style="font:400 13.5px 'Hanken Grotesk';color:#8b929d;flex:none">{{ st.recentsCount }}</span><span style="color:#B4BAC4;display:flex;flex:none">{{ ic.chevron }}</span></button>
+  </div></div>
+  <div><div style="font:600 11px 'JetBrains Mono';letter-spacing:.08em;color:#8b929d;text-transform:uppercase;margin:0 2px 8px">About</div><div style="background:#fff;border:1px solid #EEF0F4;border-radius:16px;overflow:hidden">
+    <button onClick="{{ openRate }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px;border:none;background:none;border-bottom:1px solid #F2F4F7;cursor:pointer;text-align:left"><span style="color:#565C67;display:flex;flex:none">{{ ic.star }}</span><div style="flex:1;min-width:0;font:600 14.5px 'Hanken Grotesk';color:#1E2128">Rate us</div><span style="color:#B4BAC4;display:flex;flex:none">{{ ic.chevron }}</span></button>
+    <button onClick="{{ go.contact }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px;border:none;background:none;border-bottom:1px solid #F2F4F7;cursor:pointer;text-align:left"><span style="color:#565C67;display:flex;flex:none">{{ ic.mail }}</span><div style="flex:1;min-width:0;font:600 14.5px 'Hanken Grotesk';color:#1E2128">Contact us</div><span style="color:#B4BAC4;display:flex;flex:none">{{ ic.chevron }}</span></button>
+    <button onClick="{{ shareApp }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px;border:none;background:none;border-bottom:1px solid #F2F4F7;cursor:pointer;text-align:left"><span style="color:#565C67;display:flex;flex:none">{{ ic.share }}</span><div style="flex:1;min-width:0;font:600 14.5px 'Hanken Grotesk';color:#1E2128">Share app</div><span style="color:#B4BAC4;display:flex;flex:none">{{ ic.chevron }}</span></button>
+    <button onClick="{{ openExternal }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px;border:none;background:none;border-bottom:1px solid #F2F4F7;cursor:pointer;text-align:left"><span style="color:#565C67;display:flex;flex:none">{{ ic.grid }}</span><div style="flex:1;min-width:0;font:600 14.5px 'Hanken Grotesk';color:#1E2128"><span style="display:inline-flex;align-items:center;gap:8px">More apps<span style="font:600 9px 'JetBrains Mono';letter-spacing:.06em;color:#626873;background:#F3F5F8;border:1px solid #E7EAEF;padding:2px 6px;border-radius:5px">AD</span></span></div><span style="color:#B4BAC4;display:flex;flex:none">{{ ic.external }}</span></button>
+    <button onClick="{{ openExternal }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px;border:none;background:none;border-bottom:1px solid #F2F4F7;cursor:pointer;text-align:left"><span style="color:#565C67;display:flex;flex:none">{{ ic.shield }}</span><div style="flex:1;min-width:0;font:600 14.5px 'Hanken Grotesk';color:#1E2128">Privacy policy</div><span style="color:#B4BAC4;display:flex;flex:none">{{ ic.external }}</span></button>
+    <div style="width:100%;display:flex;align-items:center;gap:13px;padding:15px"><span style="color:#565C67;display:flex;flex:none">{{ ic.info }}</span><div style="flex:1;min-width:0;font:600 14.5px 'Hanken Grotesk';color:#1E2128">Version</div><span style="font:400 12px 'JetBrains Mono';color:#8b929d">1.0.0 (1)</span></div>
+  </div></div>
+  <div style="background:#DDFAE4;border-radius:14px;padding:14px 15px;display:flex;gap:10px"><span style="color:#0A7E3A;display:flex;flex:none;margin-top:1px">{{ ic.handshakeSm }}</span><div style="font:400 12.5px/1.5 'Hanken Grotesk';color:#565C67">Direct Chat is free. No ads, no account, no tracking. Numbers, messages and media never leave your phone.</div></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ is.language }}" hint-placeholder-val="{{ false }}">
+<div style="height:52px;flex:none;display:flex;align-items:center;gap:4px;padding:0 12px"><button onClick="{{ back }}" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#1E2128;cursor:pointer;padding:0">{{ ic.arrowLeft }}</button><div style="flex:1;font:700 16px 'Hanken Grotesk'">Language</div></div>
+<div style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;padding:4px 20px 20px">
+  <div style="font:400 13.5px/1.5 'Hanken Grotesk';color:#8b929d;margin:0 0 12px">Changes the app. Messages you send are typed by you, in any language.</div>
+  <div style="background:#fff;border:1px solid #EEF0F4;border-radius:16px;overflow:hidden">
+    <sc-for list="{{ langs }}" as="l" hint-placeholder-count="8"><button onClick="{{ l.select }}" style="width:100%;display:flex;align-items:center;gap:12px;padding:0 15px;height:58px;border:none;background:none;box-shadow:0 1px 0 #F2F4F7;cursor:pointer;text-align:left"><div style="flex:1;min-width:0"><div style="font:600 14.5px 'Hanken Grotesk';color:#1E2128">{{ l.native }}</div><div style="font:400 11.5px 'Hanken Grotesk';color:#99A0AC;margin-top:1px">{{ l.name }}</div></div><sc-if value="{{ l.rtl }}" hint-placeholder-val="{{ false }}"><span style="font:600 9px 'JetBrains Mono';color:#8b929d;background:#F3F5F8;padding:3px 6px;border-radius:5px;flex:none">RTL</span></sc-if><sc-if value="{{ l.on }}" hint-placeholder-val="{{ false }}"><span style="color:#0A7E3A;display:flex;flex:none">{{ ic.checkMd }}</span></sc-if></button></sc-for>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ is.contact }}" hint-placeholder-val="{{ false }}">
+<div style="height:52px;flex:none;display:flex;align-items:center;gap:4px;padding:0 12px"><button onClick="{{ back }}" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#1E2128;cursor:pointer;padding:0">{{ ic.arrowLeft }}</button><div style="flex:1;font:700 16px 'Hanken Grotesk'">Contact us</div></div>
+<div style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;padding:4px 20px 12px;display:flex;flex-direction:column;gap:14px">
+  <div style="font:400 14px/1.5 'Hanken Grotesk';color:#626873;text-wrap:pretty">A number that will not open, a message that did not recover, an idea. It goes straight to the team.</div>
+  <div style="background:#fff;border:1px solid #E7EAEF;border-radius:14px;padding:12px 14px"><textarea value="{{ ct.text }}" onChange="{{ ct.setText }}" placeholder="What happened, and on which screen?" rows="{{ 6 }}" style="width:100%;display:block;border:none;outline:none;resize:none;background:none;font:400 15px/1.5 'Hanken Grotesk';color:#1E2128;padding:0"></textarea></div>
+  <div><div style="font:600 12.5px 'Hanken Grotesk';color:#626873;margin-bottom:6px">Email · optional, only if you want a reply</div><div style="height:50px;display:flex;align-items:center;padding:0 14px;background:#fff;border:1px solid #E7EAEF;border-radius:12px"><input value="{{ ct.email }}" onChange="{{ ct.setEmail }}" type="email" placeholder="you@example.com" style="flex:1;min-width:0;border:none;background:none;outline:none;font:400 15px 'Hanken Grotesk';color:#1E2128;padding:0"></div></div>
+  <div style="display:flex;gap:9px;background:#F6F7F9;border:1px solid #EBEEF2;border-radius:14px;padding:12px 14px"><span style="color:#8b929d;display:flex;flex:none;margin-top:1px">{{ ic.infoSm }}</span><div style="font:400 12px/1.5 'Hanken Grotesk';color:#626873">Sent with the app version and Android version. Never your numbers or messages.</div></div>
+</div>
+<div style="flex:none;padding:12px 20px 20px;border-top:1px solid #EEF0F4;background:#fff"><button onClick="{{ ct.send }}" style="{{ ct.sendStyle }}">Send</button></div>
+</sc-if>
+
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:20px;right:20px;bottom:90px;display:flex;justify-content:center;pointer-events:none;animation:fadeup .2s;z-index:7"><div style="display:inline-flex;align-items:center;gap:9px;background:#1E2128;color:#fff;font:600 13.5px 'Hanken Grotesk';padding:12px 16px;border-radius:13px;box-shadow:0 10px 28px -8px rgba(20,30,60,.35);max-width:100%"><span style="color:#4CB98A;display:flex">{{ ic.checkSm }}</span><span>{{ toast }}</span></div></div>
+</sc-if>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}"><div onClick="{{ closeMenu }}" style="position:absolute;inset:0;z-index:4"></div></sc-if>
+
+<sc-if value="{{ sh.country }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(20,22,28,.42);display:flex;align-items:flex-end;z-index:5;animation:fade .2s">
+  <div onClick="{{ stop }}" style="width:100%;height:86%;background:#fff;border-radius:24px 24px 30px 30px;padding:10px 20px 0;display:flex;flex-direction:column;animation:sheetup .3s cubic-bezier(.2,.7,.2,1)">
+    <div style="width:36px;height:4px;border-radius:2px;background:#E1E5EB;margin:0 auto 10px;flex:none"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 12px;flex:none"><div style="font:700 18px 'Hanken Grotesk'">Country</div><button onClick="{{ closeSheet }}" aria-label="Close" style="width:40px;height:40px;border-radius:12px;border:none;background:none;display:flex;align-items:center;justify-content:center;color:#626873;cursor:pointer;padding:0;margin-right:-8px">{{ ic.x }}</button></div>
+    <div style="height:44px;flex:none;display:flex;align-items:center;gap:9px;padding:0 14px;background:#fff;border:1px solid #0A7E3A;border-radius:12px;color:#8b929d">{{ ic.searchSm }}<input value="{{ cq }}" onChange="{{ setCq }}" autoFocus="{{ true }}" placeholder="Search country or code" style="flex:1;min-width:0;border:none;background:none;outline:none;font:400 15px 'Hanken Grotesk';color:#1E2128;padding:0"></div>
+    <div style="font:700 11px 'JetBrains Mono';letter-spacing:.08em;color:#8b929d;text-transform:uppercase;margin:16px 2px 8px;flex:none">{{ countryEyebrow }}</div>
+    <div style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;padding-bottom:20px">
+      <div style="background:#fff;border:1px solid #EEF0F4;border-radius:16px;overflow:hidden">
+        <sc-for list="{{ countries }}" as="c" hint-placeholder-count="6"><button onClick="{{ c.pick }}" style="width:100%;display:flex;align-items:center;gap:12px;padding:0 14px;height:54px;border:none;background:none;box-shadow:0 1px 0 #F2F4F7;cursor:pointer;text-align:left">{{ c.flagEl }}<span style="flex:1;font:600 14.5px 'Hanken Grotesk';color:#1E2128">{{ c.name }}</span><span style="font:500 14px 'JetBrains Mono';color:#626873">{{ c.dial }}</span><sc-if value="{{ c.on }}" hint-placeholder-val="{{ false }}"><span style="display:flex;flex:none;color:#0A7E3A">{{ ic.check }}</span></sc-if></button></sc-for>
+      </div>
+      <div style="font:400 12px/1.5 'Hanken Grotesk';color:#99A0AC;margin-top:14px;text-align:center">Detected from your SIM: Indonesia · +62</div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ sh.toolSettings }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(20,22,28,.42);display:flex;align-items:flex-end;z-index:5;animation:fade .2s">
+  <div onClick="{{ stop }}" style="background:#fff;border-radius:24px 24px 30px 30px;padding:14px 12px 20px;width:100%;animation:sheetup .32s cubic-bezier(.2,.7,.2,1)">
+    <div style="width:36px;height:4px;border-radius:2px;background:#E1E5EB;margin:0 auto 12px"></div>
+    <div style="font:700 15px 'Hanken Grotesk';padding:4px 12px 10px">{{ toolTitle }}</div>
+    <button onClick="{{ togglePause }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:0 12px;height:52px;border:none;background:none;cursor:pointer;text-align:left"><span style="color:#565C67;display:flex;flex:none">{{ ic.pause }}</span><div style="flex:1;font:600 14.5px 'Hanken Grotesk';color:#1E2128">Pause recovery</div><span style="{{ pauseSwitch }}"><span style="{{ pauseKnob }}"></span></span></button>
+    <button onClick="{{ excludeChats }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:0 12px;height:52px;border:none;background:none;cursor:pointer;text-align:left"><span style="color:#565C67;display:flex;flex:none">{{ ic.eyeOff }}</span><div style="flex:1;font:600 14.5px 'Hanken Grotesk';color:#1E2128">Exclude chats</div><span style="font:400 13.5px 'Hanken Grotesk';color:#8b929d">2</span><span style="color:#B4BAC4;display:flex;flex:none">{{ ic.chevron }}</span></button>
+    <button onClick="{{ askClearAll }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:0 12px;height:52px;border:none;background:none;cursor:pointer;text-align:left;color:#C4553D"><span style="display:flex;flex:none">{{ ic.trash }}</span><div style="flex:1;font:600 14.5px 'Hanken Grotesk'">{{ clearAllLabel }}</div></button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ sh.defaultApp }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(20,22,28,.42);display:flex;align-items:flex-end;z-index:5;animation:fade .2s">
+  <div onClick="{{ stop }}" style="background:#fff;border-radius:24px 24px 30px 30px;padding:14px 12px 20px;width:100%;animation:sheetup .32s cubic-bezier(.2,.7,.2,1)">
+    <div style="width:36px;height:4px;border-radius:2px;background:#E1E5EB;margin:0 auto 12px"></div>
+    <div style="font:700 15px 'Hanken Grotesk';padding:4px 12px 10px">Default app</div>
+    <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="3"><button onClick="{{ m.pickAndClose }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:0 12px;height:50px;border:none;background:none;cursor:pointer;text-align:left;border-radius:12px"><span style="color:#3d4550;display:flex;flex:none">{{ m.glyph }}</span><div style="flex:1;font:600 14.5px 'Hanken Grotesk';color:#1E2128">{{ m.label }}</div><sc-if value="{{ m.on }}" hint-placeholder-val="{{ false }}"><span style="display:flex;flex:none;color:#0A7E3A">{{ ic.check }}</span></sc-if></button></sc-for>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ hasDialog }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ dialog.cancel }}" style="position:absolute;inset:0;background:rgba(20,26,40,.4);display:flex;align-items:flex-end;z-index:6;animation:fade .2s ease">
+  <div onClick="{{ stop }}" style="width:100%;background:#fff;border-radius:26px 26px 30px 30px;padding:24px 22px 22px;animation:sheetup .3s cubic-bezier(.2,.7,.2,1)">
+    <div style="width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;background:{{ dialog.iconBg }};color:{{ dialog.iconFg }}">{{ dialog.icon }}</div>
+    <div style="font:700 18px/1.3 'Hanken Grotesk';color:#1E2128;margin-bottom:6px">{{ dialog.title }}</div>
+    <div style="font:400 13.5px/1.5 'Hanken Grotesk';color:#626873;margin-bottom:20px;text-wrap:pretty">{{ dialog.body }}</div>
+    <div style="display:flex;gap:10px">
+      <button onClick="{{ dialog.cancel }}" style="flex:1;height:50px;border-radius:13px;background:#F3F5F8;border:1px solid #E7EAEF;color:#1E2128;font:600 15px 'Hanken Grotesk';cursor:pointer">{{ dialog.cancelLabel }}</button>
+      <button onClick="{{ dialog.confirm }}" style="flex:1;height:50px;border-radius:13px;border:none;color:#fff;font:600 15px 'Hanken Grotesk';cursor:pointer;background:{{ dialog.confirmBg }}">{{ dialog.confirmLabel }}</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ hasRate }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ rt.close }}" style="position:absolute;inset:0;background:rgba(20,26,40,.4);display:flex;align-items:flex-end;z-index:6;animation:fade .2s ease">
+  <div onClick="{{ stop }}" style="width:100%;background:#fff;border-radius:26px 26px 30px 30px;padding:10px 22px 24px;animation:sheetup .3s cubic-bezier(.2,.7,.2,1)">
+    <div style="width:38px;height:5px;border-radius:999px;background:#E7EAEF;margin:2px auto 16px"></div>
+    <sc-if value="{{ rt.isStars }}" hint-placeholder-val="{{ true }}">
+      <div style="text-align:center">
+        <div style="width:64px;height:64px;border-radius:19px;margin:0 auto;background:#DDFAE4;display:flex;align-items:center;justify-content:center;color:#0A7E3A">{{ ic.star32 }}</div>
+        <div style="margin-top:14px;font:700 20px 'Hanken Grotesk';letter-spacing:-.01em;color:#1E2128">Enjoying Direct Chat?</div>
+        <div style="font:400 13.5px/1.5 'Hanken Grotesk';color:#626873;max-width:290px;margin:6px auto 0;text-wrap:pretty">Your honest rating helps other people find an app that opens any number in one tap.</div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:8px;margin:22px 0 6px"><sc-for list="{{ rt.stars }}" as="sr" hint-placeholder-count="5"><button onClick="{{ sr.pick }}" aria-label="{{ sr.label }}" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;color:{{ sr.color }}">{{ sr.icon }}</button></sc-for></div>
+      <div style="text-align:center;font:400 11.5px 'Hanken Grotesk';color:#8b929d;min-height:16px">{{ rt.hint }}</div>
+      <button onClick="{{ rt.close }}" style="margin-top:14px;width:100%;height:46px;border-radius:12px;background:none;color:#626873;font:600 14.5px 'Hanken Grotesk';border:none;cursor:pointer">Maybe later</button>
+    </sc-if>
+    <sc-if value="{{ rt.isStore }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center">
+        <div style="width:64px;height:64px;border-radius:19px;margin:0 auto;background:#E2F3EA;display:flex;align-items:center;justify-content:center;color:#2E9E6B">{{ ic.party }}</div>
+        <div style="display:flex;justify-content:center;gap:5px;margin-top:14px;color:#E0A64B"><sc-for list="{{ rt.five }}" as="fs" hint-placeholder-count="5">{{ fs.icon }}</sc-for></div>
+        <div style="margin-top:14px;font:700 20px 'Hanken Grotesk';letter-spacing:-.01em;color:#1E2128">Thank you!</div>
+        <div style="font:400 13.5px/1.5 'Hanken Grotesk';color:#626873;max-width:290px;margin:6px auto 0;text-wrap:pretty">Would you share that on Google Play? It helps a small app grow.</div>
+      </div>
+      <button onClick="{{ rt.store }}" style="margin-top:20px;width:100%;height:54px;border-radius:15px;background:#0A7E3A;border:none;color:#fff;font:600 16px 'Hanken Grotesk';cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px">{{ ic.externalBig }}<span>Rate on Google Play</span></button>
+      <button onClick="{{ rt.close }}" style="margin-top:10px;width:100%;height:46px;border-radius:12px;background:none;color:#626873;font:600 14.5px 'Hanken Grotesk';border:none;cursor:pointer">Not now</button>
+    </sc-if>
+    <sc-if value="{{ rt.isFeedback }}" hint-placeholder-val="{{ false }}">
+      <div style="width:52px;height:52px;border-radius:15px;background:#DDFAE4;display:flex;align-items:center;justify-content:center;color:#0A7E3A;margin-bottom:14px">{{ ic.msgText }}</div>
+      <div style="font:700 19px 'Hanken Grotesk';letter-spacing:-.01em;color:#1E2128">How can we do better?</div>
+      <div style="margin-top:6px;font:400 13.5px/1.5 'Hanken Grotesk';color:#626873;text-wrap:pretty">Tell us what fell short. It goes straight to the team, not a public review, and we read every one.</div>
+      <textarea value="{{ rt.text }}" onChange="{{ rt.setText }}" placeholder="What would have made this a 5-star app?" style="margin-top:14px;width:100%;height:104px;resize:none;border-radius:14px;border:1px solid #E7EAEF;background:#fff;color:#1E2128;padding:13px 14px;font:400 14px/1.5 'Hanken Grotesk';outline:none;display:block"></textarea>
+      <button onClick="{{ rt.send }}" style="{{ rt.sendStyle }}">{{ ic.send }}<span>Send feedback</span></button>
+      <button onClick="{{ rt.close }}" style="margin-top:10px;width:100%;height:46px;border-radius:12px;background:none;color:#626873;font:600 14.5px 'Hanken Grotesk';border:none;cursor:pointer">Cancel</button>
+    </sc-if>
+    <sc-if value="{{ rt.isThanks }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;padding:8px 0 4px">
+        <div style="width:64px;height:64px;border-radius:19px;margin:0 auto;background:#E2F3EA;display:flex;align-items:center;justify-content:center;color:#2E9E6B">{{ ic.checkBig }}</div>
+        <div style="margin-top:14px;font:700 20px 'Hanken Grotesk';letter-spacing:-.01em;color:#1E2128">Thank you, we hear you</div>
+        <div style="font:400 13.5px/1.5 'Hanken Grotesk';color:#626873;max-width:290px;margin:6px auto 0;text-wrap:pretty">Your note is on its way to the team. It shapes what we build next.</div>
+      </div>
+      <button onClick="{{ rt.close }}" style="margin-top:20px;width:100%;height:52px;border-radius:14px;background:#0A7E3A;border:none;color:#fff;font:600 16px 'Hanken Grotesk';cursor:pointer">Done</button>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;screen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;splash&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;splash&quot;,&quot;onboarding&quot;,&quot;home&quot;,&quot;gate&quot;,&quot;unseen&quot;,&quot;recovery&quot;,&quot;conversation&quot;,&quot;media&quot;,&quot;mediaDetail&quot;,&quot;dual&quot;,&quot;settings&quot;,&quot;language&quot;,&quot;contact&quot;],&quot;section&quot;:&quot;Start&quot;},&quot;preset&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;fresh&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;fresh&quot;,&quot;active&quot;],&quot;section&quot;:&quot;Start&quot;},&quot;scenario&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;normal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;normal&quot;,&quot;no-whatsapp&quot;],&quot;section&quot;:&quot;Simulate&quot;},&quot;toolsLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;list&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;list&quot;,&quot;strip&quot;],&quot;section&quot;:&quot;Home&quot;},&quot;split&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;m3&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;m3&quot;,&quot;fused&quot;],&quot;section&quot;:&quot;Home&quot;},&quot;embedded&quot;:{&quot;editor&quot;:null,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;hold&quot;:{&quot;editor&quot;:null,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;slide&quot;:{&quot;editor&quot;:null,&quot;default&quot;:0,&quot;tsType&quot;:&quot;number&quot;},&quot;overlay&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;none&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;filled&quot;:{&quot;editor&quot;:null,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;keyboard&quot;:{&quot;editor&quot;:null,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;granted&quot;:{&quot;editor&quot;:null,&quot;default&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;linked&quot;:{&quot;editor&quot;:null,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;rateStage&quot;:{&quot;editor&quot;:null,&quot;default&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;defaultApp&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;whatsapp&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;swiped&quot;:{&quot;editor&quot;:null,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;msgMode&quot;:{&quot;editor&quot;:null,&quot;default&quot;:null,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.timers = [];
+    this.COUNTRIES = [{ iso: 'ID', name: 'Indonesia', dial: '+62' }, { iso: 'IN', name: 'India', dial: '+91' }, { iso: 'BR', name: 'Brazil', dial: '+55' }, { iso: 'PK', name: 'Pakistan', dial: '+92' }, { iso: 'TR', name: 'Türkiye', dial: '+90' }, { iso: 'MX', name: 'Mexico', dial: '+52' }, { iso: 'ZA', name: 'South Africa', dial: '+27' }, { iso: 'MY', name: 'Malaysia', dial: '+60' }, { iso: 'NG', name: 'Nigeria', dial: '+234' }, { iso: 'EG', name: 'Egypt', dial: '+20' }, { iso: 'SA', name: 'Saudi Arabia', dial: '+966' }, { iso: 'AE', name: 'United Arab Emirates', dial: '+971' }, { iso: 'US', name: 'United States', dial: '+1' }, { iso: 'GB', name: 'United Kingdom', dial: '+44' }, { iso: 'DE', name: 'Germany', dial: '+49' }, { iso: 'FR', name: 'France', dial: '+33' }, { iso: 'ES', name: 'Spain', dial: '+34' }, { iso: 'PH', name: 'Philippines', dial: '+63' }, { iso: 'BD', name: 'Bangladesh', dial: '+880' }, { iso: 'KE', name: 'Kenya', dial: '+254' }];
+    this.HUE = { 250: ['#D2EBFF', '#1F74BF'], 300: ['#ECE2FF', '#7F5BB6'], 200: ['#C6F2F4', '#008892'], 45: ['#FFDFD0', '#B2511E'], 150: ['#D4F1D8', '#1C8742'] };
+    this.CONVOS = [
+      { id: 1, name: 'Ayu Lestari', last: 'Sorry, wrong chat', deletedPreview: 'I can do 300k if you ship today', time: '14:26', unread: 3, deleted: 2, hue: 250, num: '+62 812 3456 7890' },
+      { id: 2, name: '+62 813 9922 0417', last: 'Ok deal, 350k transfer tonight', deletedPreview: 'Ok deal, 350k transfer tonight', time: '11:02', unread: 1, deleted: 1, hue: 150, num: '+62 813 9922 0417' },
+      { id: 3, name: 'Budi · Tokopedia', last: 'Order is on the way', deletedPreview: 'Photo', time: 'Yesterday', unread: 2, deleted: 0, hue: 45, num: '+62 811 700 2210' },
+      { id: 4, name: 'Rani', last: 'Voice note · 0:12', deletedPreview: 'Voice note · 0:12', time: 'Yesterday', unread: 1, deleted: 1, hue: 300, num: '+62 856 4410 9087' },
+      { id: 5, name: 'Toko Sinar Jaya', last: 'Can you send the address again?', deletedPreview: '', time: 'Mon', unread: 0, deleted: 0, hue: 200, num: '+62 821 5567 3390' }];
+    this.LANGS = [{ id: 'en', native: 'English', name: 'English' }, { id: 'id', native: 'Bahasa Indonesia', name: 'Indonesian' }, { id: 'pt', native: 'Português (Brasil)', name: 'Portuguese' }, { id: 'ur', native: 'اردو', name: 'Urdu', rtl: true }, { id: 'hi', native: 'हिन्दी', name: 'Hindi' }, { id: 'tr', native: 'Türkçe', name: 'Turkish' }, { id: 'es', native: 'Español (México)', name: 'Spanish' }, { id: 'zu', native: 'isiZulu', name: 'Zulu' }];
+    this.state = this.initialState(props || {});
+  }
+  initialState(p) {
+    const scr = p.screen || 'splash'; const launch = scr === 'splash' || scr === 'onboarding';
+    const active = !launch && (p.preset === 'active' || (p.preset !== 'fresh' && scr !== 'home'));
+    const stacks = { splash: ['splash'], onboarding: ['onboarding'], home: ['home'], gate: ['home', 'gate'], unseen: ['home', 'recovery'], recovery: ['home', 'recovery'], conversation: ['home', 'recovery', 'conversation'], media: ['home', 'media'], mediaDetail: ['home', 'media', 'mediaDetail'], dual: ['home', 'dual'], settings: ['home', 'settings'], language: ['home', 'settings', 'language'], contact: ['home', 'settings', 'contact'] };
+    const ov = p.overlay || 'none';
+    const recents = active ? [{ num: '+62 812 3456 7890', app: 'whatsapp', time: '2h' }, { num: '+62 813 9922 0417', app: 'whatsapp', time: 'Yesterday' }, { num: '+62 878 1201 5566', app: 'telegram', time: 'Yesterday' }, { num: '+60 12 345 6789', app: 'business', time: 'Mon' }] : [];
+    return {
+      stack: stacks[scr] || ['home'], slide: Number(p.slide) || 0, num: p.filled ? '81234567890' : '', msg: p.filled ? 'Hi! Is the blue one still available?' : '', country: this.COUNTRIES[0], app: p.defaultApp || 'whatsapp',
+      kb: !!p.keyboard, focused: !!p.keyboard, menuOpen: ov === 'menu', sheet: ov === 'country' ? 'country' : ov === 'toolSettings' ? 'toolSettings' : null,
+      dialog: ov === 'dialog' ? 'notOnWa' : null, toast: null, recents, swiped: p.swiped ? 2 : -1,
+      granted: p.granted !== undefined ? !!p.granted : active, granting: false, pendingTool: 'recovery', msgMode: scr === 'unseen' || p.msgMode === 'all' ? 'all' : 'deleted', paused: false, convos: this.CONVOS.slice(), tiles: this.freshTiles(), mediaTab: 'photos', detail: null,
+      linked: scr === 'dual' && p.linked === true, linking: false, lang: 'en', cq: '', rate: ov === 'rate' ? (p.rateStage || 'stars') : null, rating: p.rateStage === 'store' ? 5 : p.rateStage === 'feedback' ? 3 : 0, rateText: '', contact: { text: '', email: '' }, sends: 0
+    };
+  }
+  freshTiles() { return [{ id: 't1', day: 'today', time: '14:25' }, { id: 't2', day: 'today', time: '09:41' }, { id: 't3', day: 'today', time: '08:12', video: true }, { id: 'y1', day: 'yest', time: '21:07' }, { id: 'y2', day: 'yest', time: '19:33', video: true }, { id: 'y3', day: 'yest', time: '18:50' }, { id: 'y4', day: 'yest', time: '16:02' }, { id: 'y5', day: 'yest', time: '12:44' }, { id: 'y6', day: 'yest', time: '10:19' }]; }
+  componentDidMount() { this.waitLucide(); this.armSplash(); }
+  armSplash() { if (this.cur() === 'splash' && !(this.props && this.props.hold)) this.later(() => { if (this.cur() === 'splash') this.setState({ stack: ['onboarding'], slide: 0 }); }, 1600); }
+  componentDidUpdate(prev) { const p = this.props || {}, q = prev || {}; if (['screen', 'preset', 'overlay', 'filled', 'keyboard', 'granted', 'linked', 'rateStage', 'defaultApp', 'swiped', 'msgMode', 'slide', 'hold'].some(k => p[k] !== q[k])) this.setState(this.initialState(p), () => this.armSplash()); }
+  componentWillUnmount() { this.timers.forEach(t => clearTimeout(t)); if (this._lt) clearTimeout(this._lt); }
+  waitLucide() { if (window.lucide) { this.forceUpdate(); return; } this._lt = setTimeout(() => this.waitLucide(), 100); }
+  later(fn, ms) { const t = setTimeout(fn, ms); this.timers.push(t); return t; }
+  icon(name, size, o) {
+    const L = window.lucide; if (!L) return null; o = o || {};
+    const find = n => { const pas = n.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(''); const node = (L.icons && L.icons[pas]) || L[pas]; return Array.isArray(node) ? node : null; };
+    const node = find(name) || (o.alt && find(o.alt)) || find('circle');
+    const kids = node.map((n, i) => React.createElement(n[0], Object.assign({}, n[1], { key: i })));
+    return React.createElement('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: o.fill || 'none', stroke: 'currentColor', strokeWidth: o.sw || 1.75, strokeLinecap: 'round', strokeLinejoin: 'round', style: { display: 'block', flex: 'none' } }, kids);
+  }
+  bubble(size, inner) { return React.createElement('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.9, strokeLinecap: 'round', strokeLinejoin: 'round', style: { display: 'block', flex: 'none' } }, React.createElement('path', { key: 'b', d: 'M7.9 20A9 9 0 1 0 4 16.1L2 22Z' }), inner); }
+  waGlyph(size) { const phone = 'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'; return this.bubble(size, React.createElement('path', { key: 'p', d: phone, fill: 'currentColor', stroke: 'none', transform: 'translate(6.5 6.5) scale(0.46)' })); }
+  wabGlyph(size) { return this.bubble(size, React.createElement('path', { key: 'B', d: 'M9.5 8v8M9.5 8h2.5a2 2 0 0 1 0 4H9.5M9.5 12h3a2 2 0 0 1 0 4H9.5', strokeWidth: 2.1 })); }
+  appGlyph(app, size) { if (app === 'telegram') return this.icon('send', size); if (app === 'business') return this.wabGlyph(size); return this.waGlyph(size); }
+  appLabel(app) { return app === 'telegram' ? 'Telegram' : app === 'business' ? 'WhatsApp Business' : 'WhatsApp'; }
+  spinner(size) { return React.createElement('span', { style: { width: size, height: size, borderRadius: '50%', border: '2px solid currentColor', borderRightColor: 'transparent', animation: 'spin .9s linear infinite', display: 'inline-block', flex: 'none' } }); }
+  fmt(n) { if (!n) return ''; const a = n.slice(0, 3), b = n.slice(3, 7), c = n.slice(7); return [a, b, c].filter(Boolean).join(' '); }
+  cur() { const s = this.state.stack; return s[s.length - 1]; }
+  push(scr) { this.setState(s => ({ stack: s.stack.concat([scr]), menuOpen: false, sheet: null, kb: false, focused: false })); }
+  back() { this.setState(s => ({ stack: s.stack.length > 1 ? s.stack.slice(0, -1) : s.stack, sheet: null, dialog: null, menuOpen: false })); }
+  toast(msg) { this.setState({ toast: msg }); if (this._tt) clearTimeout(this._tt); this._tt = this.later(() => this.setState({ toast: null }), 2200); }
+  addRecent(app) { const s = this.state; const num = s.country.dial + ' ' + this.fmt(s.num); const rest = s.recents.filter(r => r.num !== num); this.setState({ recents: [{ num, app, time: 'Now' }].concat(rest).slice(0, 5), kb: false, focused: false, menuOpen: false, sends: s.sends + 1 }); this.toast('Opening ' + this.appLabel(app) + '…'); if (s.sends + 1 === 3) this.later(() => this.setState({ rate: 'stars', rating: 0 }), 1800); }
+  send() { const s = this.state; if (!s.num) return; if ((this.props && this.props.scenario) === 'no-whatsapp' && s.app !== 'telegram') { this.setState({ dialog: 'notOnWa', kb: false, focused: false, menuOpen: false }); return; } this.addRecent(s.app); }
+  renderVals() {
+    const s = this.state, p = this.props || {};
+    const I = (n, z, o) => this.icon(n, z, o);
+    const scr = this.cur(), embedded = !!p.embedded;
+    const flag = iso => 'https://flagcdn.com/w40/' + iso.toLowerCase() + '.png';
+    const flagEl = (iso, name, w, h) => React.createElement('img', { src: flag(iso), alt: name, draggable: false, style: { width: w, height: h, borderRadius: 4, objectFit: 'cover', display: 'block', flex: 'none', boxShadow: '0 0 0 1px rgba(0,0,0,.08)' } });
+    const stop = e => { if (e && e.stopPropagation) e.stopPropagation(); };
+    const first = s.recents.length === 0;
+    const filled = s.num.length > 0;
+    const layout = p.toolsLayout || 'list', split = p.split || 'm3';
+    const goTool = (tool, mode) => () => { const target = tool === 'unseen' ? 'recovery' : tool; if (mode) this.setState({ msgMode: mode }); if (tool === 'dual') this.push('dual'); else if (s.granted) this.push(target); else this.setState({ pendingTool: target, msgMode: mode || s.msgMode }, () => this.push('gate')); };
+    const unreadTotal = s.convos.reduce((a, c) => a + c.unread, 0), deletedTotal = s.convos.reduce((a, c) => a + c.deleted, 0);
+    const tools = [
+      { title: 'Read without blue ticks', short: 'No blue ticks', status: s.granted ? (s.paused ? 'Paused' : unreadTotal + ' unread, seen by no one') : 'Read here. WhatsApp shows nothing', micro: s.granted ? unreadTotal + ' unread' : 'Set up', icon: I('check-check', 20, { sw: 2 }), bg: '#D4F1D8', fg: '#1C8742', go: goTool('unseen', 'all') },
+      { title: 'Recover deleted messages', short: 'Deleted texts', status: s.granted ? deletedTotal + ' messages the sender deleted' : 'Keeps what the sender deleted', micro: s.granted ? deletedTotal + ' kept' : 'Set up', icon: I('archive-restore', 20, { alt: 'rotate-ccw' }), bg: '#D2EBFF', fg: '#1F74BF', go: goTool('recovery', 'deleted') },
+      { title: 'Recover deleted media', short: 'Deleted media', status: s.granted ? s.tiles.length + ' items recovered this week' : 'Photos, videos, voice notes, documents', micro: s.granted ? s.tiles.length + ' items' : 'Set up', icon: I('image', 20), bg: '#ECE2FF', fg: '#7F5BB6', go: goTool('media') },
+      { title: 'Open a second account', short: 'Second account', status: s.linked ? 'Linked · +62 878 1201 5566' : 'A second WhatsApp inside this app', micro: s.linked ? 'Linked' : 'Not linked', icon: I('qr-code', 20), bg: '#C6F2F4', fg: '#008892', go: goTool('dual') }
+    ];
+    const allMode = s.msgMode === 'all';
+    const modeChips = [{ id: 'all', label: 'All · ' + unreadTotal + ' unread' }, { id: 'deleted', label: 'Deleted only · ' + deletedTotal }].map(m => ({ label: m.label, select: () => this.setState({ msgMode: m.id }), style: 'height:36px;padding:0 15px;border-radius:999px;font:600 13px "Hanken Grotesk";display:flex;align-items:center;flex:none;cursor:pointer;' + (s.msgMode === m.id ? 'background:#DDFAE4;color:#0A7E3A;border:1px solid #0A7E3A' : 'background:#fff;color:#626873;border:1px solid #E7EAEF') }));
+    const recents = s.recents.map((r, i) => Object.assign({}, r, { glyph: this.appGlyph(r.app, 20), swiped: s.swiped === i, still: s.swiped !== i, refill: () => { const digits = r.num.replace(/\D/g, ''); const c = this.COUNTRIES.find(x => r.num.indexOf(x.dial + ' ') === 0) || s.country; this.setState({ country: c, num: digits.slice(c.dial.length - 1), app: r.app, focused: true, kb: true, swiped: -1 }); }, swipe: e => { if (e && e.preventDefault) e.preventDefault(); this.setState({ swiped: i }); }, unswipe: () => this.setState({ swiped: -1 }), remove: () => this.setState(st => ({ recents: st.recents.filter((_, j) => j !== i), swiped: -1 })) }));
+    const menuItems = ['whatsapp', 'business', 'telegram'].map(id => ({ id, label: this.appLabel(id), glyph: this.appGlyph(id, 20), on: id === s.app, pick: e => { stop(e); this.setState({ app: id, menuOpen: false }); }, pickAndClose: () => { this.setState({ app: id, sheet: null }); this.toast('Default app: ' + this.appLabel(id)); } }));
+    const q = s.cq.trim().toLowerCase();
+    const countries = this.COUNTRIES.filter(c => !q || c.name.toLowerCase().indexOf(q) === 0 || c.dial.replace('+', '').indexOf(q.replace('+', '')) === 0).map(c => Object.assign({}, c, { flag: flag(c.iso), flagEl: flagEl(c.iso, c.name, 30, 20), on: c.iso === s.country.iso, pick: () => { this.setState({ country: c, sheet: null, cq: '' }); } }));
+    const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '0'].map(k => ({ label: k, tap: e => { stop(e); if (k === '+') return; this.setState(st => ({ num: (st.num + k).slice(0, 13), focused: true })); } })).concat([{ label: I('delete', 22), tap: e => { stop(e); this.setState(st => ({ num: st.num.slice(0, -1) })); } }]);
+    const convos = s.convos.filter(c => allMode || c.deleted > 0).map(c => Object.assign({}, c, { initial: c.name.charAt(0) === '+' ? '#' : c.name.charAt(0), bg: this.HUE[c.hue][0], fg: this.HUE[c.hue][1], preview: allMode ? c.last : c.deletedPreview, showMark: !allMode, badge: allMode ? c.unread : c.deleted, hasUnread: (allMode ? c.unread : c.deleted) > 0, open: () => { this.setState(st => ({ convos: st.convos.map(x => x.id === c.id ? Object.assign({}, x, { unread: 0 }) : x), convo: c })); this.push('conversation'); } }));
+    const convo = s.convo || this.CONVOS[0];
+    const msgs = [{ text: 'Hi kak, is the blue one still available?', time: '14:20' }, { text: 'I can do 300k if you ship today', time: '14:24', deleted: true }, { photo: true, time: '14:25', deleted: true }, { text: convo.last, time: '14:26' }].filter(m => allMode || m.deleted).map(m => ({ text: m.text || '', time: m.time, deleted: !!m.deleted, isText: !m.photo, isPhoto: !!m.photo }));
+    const tabs = ['photos', 'videos', 'audio', 'documents', 'stickers'];
+    const mediaTabs = tabs.map(t => ({ label: t.charAt(0).toUpperCase() + t.slice(1), select: () => this.setState({ mediaTab: t }), style: 'height:36px;padding:0 15px;border-radius:999px;font:600 13px "Hanken Grotesk";display:flex;align-items:center;flex:none;cursor:pointer;' + (s.mediaTab === t ? 'background:#DDFAE4;color:#0A7E3A;border:1px solid #0A7E3A' : 'background:#fff;color:#626873;border:1px solid #E7EAEF') }));
+    const vis = s.tiles.filter(t => s.mediaTab === 'photos' ? !t.video : s.mediaTab === 'videos' ? t.video : false);
+    const mkTile = t => Object.assign({}, t, { video: !!t.video, open: () => { this.setState({ detail: t }); this.push('mediaDetail'); } });
+    const tilesToday = vis.filter(t => t.day === 'today').map(mkTile), tilesYest = vis.filter(t => t.day === 'yest').map(mkTile);
+    const det = s.detail || s.tiles[0] || { time: '14:25', video: false };
+    const detail = { kind: det.video ? 'Video' : 'Photo', counter: (vis.indexOf(vis.find(t => t.id === det.id)) + 1 || 1) + ' / ' + (vis.length || 1), label: det.video ? 'VIDEO · TAP TO PLAY · 0:14' : 'PHOTO · FULL PREVIEW · PINCH TO ZOOM', meta: 'From Ayu Lestari · Today ' + det.time + ' · Deleted ' + det.time.replace(/:(\d\d)$/, (m, mm) => ':' + String(Math.min(59, +mm + 1)).padStart(2, '0')) };
+    const dialogs = {
+      notOnWa: { icon: I('message-circle-off', 22, { alt: 'phone-off' }), iconBg: '#FEFBF5', iconFg: '#B8792A', title: 'This number is not on WhatsApp', body: s.country.dial + ' ' + this.fmt(s.num) + ' has no WhatsApp account. Check the digits, or send the same message on Telegram.', cancelLabel: 'Edit number', confirmLabel: 'Try Telegram', confirmBg: '#0A7E3A', cancel: () => this.setState({ dialog: null, focused: true, kb: true }), confirm: () => { this.setState({ dialog: null, app: 'telegram' }, () => this.addRecent('telegram')); } },
+      clearRecents: { icon: I('trash-2', 22), iconBg: '#FBEFEC', iconFg: '#C4553D', title: 'Clear recent numbers?', body: 'Removes the ' + s.recents.length + ' numbers on Home. Nothing changes in WhatsApp.', cancelLabel: 'Keep', confirmLabel: 'Clear', confirmBg: '#C4553D', cancel: () => this.setState({ dialog: null }), confirm: () => { this.setState({ dialog: null, recents: [] }); this.toast('Recent numbers cleared'); } },
+      clearAll: { icon: I('trash-2', 22), iconBg: '#FBEFEC', iconFg: '#C4553D', title: scr === 'media' ? 'Delete all recovered media?' : 'Clear all recovered messages?', body: 'Deletes this app\u2019s copies. WhatsApp is not affected.', cancelLabel: 'Keep', confirmLabel: 'Clear', confirmBg: '#C4553D', cancel: () => this.setState({ dialog: null }), confirm: () => { this.setState(scr === 'media' ? { dialog: null, sheet: null, tiles: [] } : { dialog: null, sheet: null, convos: [] }); this.toast('Cleared'); } },
+      deleteMedia: { icon: I('trash-2', 22), iconBg: '#FBEFEC', iconFg: '#C4553D', title: 'Delete this ' + detail.kind.toLowerCase() + '?', body: 'It is removed from Media Recovery. If you saved it to the gallery, that copy stays.', cancelLabel: 'Keep', confirmLabel: 'Delete', confirmBg: '#C4553D', cancel: () => this.setState({ dialog: null }), confirm: () => { this.setState(st => ({ dialog: null, tiles: st.tiles.filter(t => t.id !== det.id) })); this.back(); this.toast('Deleted'); } },
+      logout: { icon: I('log-out', 22), iconBg: '#FBEFEC', iconFg: '#C4553D', title: 'Log out of the linked account?', body: 'The session ends on this phone. The other phone keeps working.', cancelLabel: 'Stay', confirmLabel: 'Log out', confirmBg: '#C4553D', cancel: () => this.setState({ dialog: null }), confirm: () => { this.setState({ dialog: null, linked: false }); this.toast('Logged out'); } }
+    };
+    const rating = s.rating;
+    const rt = {
+      isStars: s.rate === 'stars', isStore: s.rate === 'store', isFeedback: s.rate === 'feedback', isThanks: s.rate === 'thanks',
+      stars: [1, 2, 3, 4, 5].map(v => ({ label: v + ' stars', color: v <= rating ? '#E0A64B' : '#D8DCE3', icon: I('star', 38, v <= rating ? { fill: '#E0A64B' } : null), pick: () => { this.setState({ rating: v }); this.later(() => this.setState({ rate: v >= 4 ? 'store' : 'feedback' }), 350); } })),
+      five: [1, 2, 3, 4, 5].map(() => ({ icon: I('star', 22, { fill: '#E0A64B' }) })),
+      hint: rating ? ['', 'Sorry to hear that', 'We can do better', 'Thanks, tell us more', 'Glad it works', 'Thank you!'][rating] : 'Tap a star',
+      text: s.rateText, setText: e => this.setState({ rateText: e.target.value }),
+      sendStyle: 'margin-top:14px;width:100%;height:52px;border-radius:14px;background:#0A7E3A;border:none;color:#fff;font:600 16px "Hanken Grotesk";display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;' + (s.rateText.trim() ? '' : 'opacity:.45;pointer-events:none'),
+      send: () => this.setState({ rate: 'thanks' }), store: () => { this.setState({ rate: null }); this.toast('Opening Google Play…'); }, close: () => this.setState({ rate: null, rating: 0, rateText: '' })
+    };
+    const langs = this.LANGS.map(l => Object.assign({ rtl: false }, l, { on: l.id === s.lang, select: () => { this.setState({ lang: l.id }); this.toast('Language: ' + l.name); } }));
+    const ct = { text: s.contact.text, email: s.contact.email, setText: e => this.setState(st => ({ contact: Object.assign({}, st.contact, { text: e.target.value }) })), setEmail: e => this.setState(st => ({ contact: Object.assign({}, st.contact, { email: e.target.value }) })), sendStyle: 'width:100%;height:52px;border-radius:14px;border:none;background:#0A7E3A;color:#fff;font:600 16px "Hanken Grotesk";cursor:pointer;' + (s.contact.text.trim() ? '' : 'opacity:.45;pointer-events:none'), send: () => { this.setState({ contact: { text: '', email: '' } }); this.back(); this.toast('Sent. Thank you.'); } };
+    const slide = s.slide || 0;
+    const toHome = () => this.setState({ stack: ['home'], slide: 0, kb: true, focused: true });
+    const ob = { first: slide === 0, second: slide === 1, skip: toHome, next: () => { if (slide === 0) this.setState({ slide: 1 }); else toHome(); }, cta: slide === 0 ? 'Next' : 'Get started', dot1w: slide === 0 ? '22px' : '8px', dot1c: slide === 0 ? '#0A7E3A' : '#D8DCE3', dot2w: slide === 1 ? '22px' : '8px', dot2c: slide === 1 ? '#0A7E3A' : '#D8DCE3' };
+    const labels = { splash: 'Launch', onboarding: 'Onboarding · ' + (slide + 1), home: 'Home', gate: 'Notification access', recovery: allMode ? 'Messages · no blue ticks' : 'Messages · deleted only', conversation: 'Conversation', media: 'Deleted media', mediaDetail: 'Media detail', dual: s.linked ? 'Second account · linked' : 'Second account', settings: 'Settings', language: 'Language', contact: 'Contact' };
+    const jump = (scr2, extra) => () => this.setState(Object.assign(this.initialState(Object.assign({}, p, { screen: scr2, preset: 'active' })), extra || {}), () => this.armSplash());
+    const mk = (label, scr2, extra) => ({ label, go: jump(scr2, extra), style: 'height:32px;padding:0 11px;border-radius:9px;border:1px solid ' + (scr === scr2 && !extra ? '#0A7E3A;background:#DDFAE4;color:#0A7E3A' : '#E1E5EB;background:#fff;color:#3d4550') + ';font:600 12px "Hanken Grotesk";cursor:pointer' });
+    const mapGroups = [
+      { title: 'Launch', items: [mk('Loading', 'splash'), mk('Onboarding · 1', 'onboarding'), mk('Onboarding · 2', 'onboarding', { slide: 1 })] },
+      { title: 'Direct Chat', items: [mk('Home · first run', 'home', { recents: [], granted: false, kb: true, focused: true }), mk('Home · recents', 'home'), mk('Country picker', 'home', { sheet: 'country' }), mk('App menu', 'home', { menuOpen: true, num: '81234567890' }), mk('Not on WhatsApp', 'home', { dialog: 'notOnWa', num: '81234567890' })] },
+      { title: 'Tools', items: [mk('Access gate', 'gate', { granted: false }), mk('No blue ticks · inbox', 'recovery', { msgMode: 'all' }), mk('Deleted messages', 'recovery', { msgMode: 'deleted' }), mk('Conversation', 'conversation', { msgMode: 'all' }), mk('Deleted media', 'media'), mk('Media detail', 'mediaDetail'), mk('Second account · entry', 'dual'), mk('Second account · linked', 'dual', { linked: true })] },
+      { title: 'Settings', items: [mk('Settings', 'settings'), mk('Language', 'language'), mk('Contact', 'contact'), mk('Rating · stars', 'settings', { rate: 'stars' }), mk('Rating · store', 'settings', { rate: 'store', rating: 5 }), mk('Rating · feedback', 'settings', { rate: 'feedback', rating: 3 })] }
+    ];
+    return {
+      showMap: !embedded, splashSpinner: this.spinner(22), ob, frameMargin: embedded ? '0' : '44px 32px 60px 0', screenLabel: labels[scr] || scr,
+      ic: { splashMark: I('send-horizontal', 40, { alt: 'send', sw: 2 }), shieldXs: I('shield-check', 13), handshake: I('heart-handshake', 12), handshakeSm: I('heart-handshake', 16), markLg: I('send-horizontal', 18, { alt: 'send', sw: 2 }), mark: I('send-horizontal', 15, { alt: 'send', sw: 2 }), signal: I('signal', 14), wifi: I('wifi', 14), battery: I('battery', 16), gear: I('settings', 22), chevDown: I('chevron-down', 16, { sw: 2 }), chevDownSm: I('chevron-down', 14, { sw: 2.2 }), clipboard: I('clipboard', 14, { sw: 2 }), clipboardSm: I('clipboard', 16), x: I('x', 18), check: I('check', 18, { sw: 2.2 }), checkMd: I('check', 20, { sw: 2.2 }), checkSm: I('check', 16, { sw: 2.4 }), checkXs: I('check', 14, { sw: 2.6 }), checkBig: I('check', 32, { sw: 2.4 }), chevron: I('chevron-right', 18), searchSm: I('search', 18), trash: I('trash-2', 20), arrowLeft: I('arrow-left', 22), bell30: I('bell', 30), bell: I('bell', 22), sliders: I('sliders-horizontal', 20), deletedXs: I('message-square-dashed', 12, { alt: 'message-square', sw: 2 }), deletedBig: I('message-square-dashed', 28, { alt: 'message-square' }), imageBig: I('image', 28), infoSm: I('info', 14), info: I('info', 20), pause: I('pause', 20), pauseXs: I('pause', 12, { sw: 2.4 }), eyeOff: I('eye-off', 20), download: I('download', 18), share: I('share-2', 20), qr: I('qr-code', 30), phoneSm: I('smartphone', 14), reload: I('rotate-cw', 20), logout: I('log-out', 20), play: I('play', 20, { fill: 'currentColor' }), wa18: this.waGlyph(18), languages: I('languages', 20), star: I('star', 20), star32: I('star', 32), mail: I('mail', 20), grid: I('layout-grid', 20), external: I('arrow-up-right', 18), externalBig: I('external-link', 18), shield: I('shield', 20), shieldSm: I('shield-check', 16), party: I('party-popper', 30), msgText: I('message-square-text', 24), send: I('send', 16), reset: I('rotate-ccw', 16), okCircle: I('circle-check', 18, { alt: 'check-circle' }) },
+      is: { splash: scr === 'splash', onboarding: scr === 'onboarding', home: scr === 'home', gate: scr === 'gate', recovery: scr === 'recovery', conversation: scr === 'conversation', media: scr === 'media', mediaDetail: scr === 'mediaDetail', dual: scr === 'dual', settings: scr === 'settings', language: scr === 'language', contact: scr === 'contact' },
+      go: { settings: () => this.push('settings'), language: () => this.push('language'), contact: () => this.push('contact'), mediaDetail: () => { this.setState({ detail: s.tiles[0] || null }); this.push('mediaDetail'); }, gateFromSettings: () => { this.setState({ pendingTool: 'recovery' }); this.push('gate'); } },
+      back: () => this.back(), stop, blur: () => { if (s.kb) this.setState({ kb: false, focused: false, menuOpen: false }); }, blurKb: () => this.setState({ kb: false, focused: false }),
+      focusNum: e => { stop(e); this.setState({ kb: true, focused: true, menuOpen: false }); },
+      country: Object.assign({}, s.country, { flag: flag(s.country.iso), flagEl: flagEl(s.country.iso, s.country.name, 26, 18) }), numEmpty: !filled, numFilled: filled, numFmt: this.fmt(s.num), focused: s.focused, kb: s.kb,
+      paste: e => { stop(e); this.setState({ country: this.COUNTRIES[0], num: '81234567890', focused: true }); this.toast('Pasted · country set to Indonesia'); },
+      clearNum: e => { stop(e); this.setState({ num: '', focused: true, kb: true }); },
+      msg: s.msg, setMsg: e => this.setState({ msg: e.target.value }),
+      canSend: filled, cantSend: !filled, splitM3: split !== 'fused', splitFused: split === 'fused', send: () => this.send(),
+      appGlyph: this.appGlyph(s.app, 22), appGlyph20: this.appGlyph(s.app, 20), appLabel: this.appLabel(s.app), toggleMenu: e => { stop(e); this.setState({ menuOpen: !s.menuOpen, kb: false, focused: false }); }, closeMenu: () => this.setState({ menuOpen: false }), menuOpen: s.menuOpen, menuItems,
+      firstRun: first, hasRecents: !first, recents, tools, toolsList: layout !== 'strip', toolsStrip: layout === 'strip', keys,
+      openCountry: e => { stop(e); this.setState({ sheet: 'country', kb: false, focused: false, menuOpen: false }); }, closeSheet: () => this.setState({ sheet: null, cq: '' }), sh: { country: s.sheet === 'country', toolSettings: s.sheet === 'toolSettings', defaultApp: s.sheet === 'defaultApp' }, cq: s.cq, setCq: e => this.setState({ cq: e.target.value }), countries, countryEyebrow: q ? countries.length + (countries.length === 1 ? ' result' : ' results') : 'All countries',
+      gateTitle: s.pendingTool === 'media' ? 'Deleted media' : 'Messages', modeChips, allMode, deletedMode: !allMode, convoFooterHint: allMode ? 'Opening the chat in WhatsApp sends read receipts.' : 'Read-only here. Replies happen in WhatsApp.', granted: s.granted, notGranted: !s.granted, grant: () => { if (s.granting) return; this.setState({ granting: true }); this.later(() => this.setState({ granting: false, granted: true }), 1300); }, grantIcon: s.granting ? this.spinner(16) : I('external-link', 18), grantLabel: s.granting ? 'Waiting for Android…' : 'Open settings', gateContinue: () => this.setState(st => ({ stack: st.stack.slice(0, -1).concat([st.pendingTool]) })),
+      notPaused: !s.paused, paused: s.paused, openToolSettings: () => this.setState({ sheet: 'toolSettings' }), toolTitle: scr === 'media' ? 'Deleted media' : 'Messages', togglePause: () => { this.setState({ paused: !s.paused }); this.toast(s.paused ? 'Recovery resumed' : 'Recovery paused'); }, pauseSwitch: 'width:48px;height:28px;border-radius:999px;position:relative;flex:none;display:block;transition:background .2s;background:' + (s.paused ? '#0A7E3A' : '#D8DCE3'), pauseKnob: 'position:absolute;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:left .2s;left:' + (s.paused ? '23px' : '3px'), excludeChats: () => this.toast('Pick chats to skip · 2 excluded'), askClearAll: () => this.setState({ dialog: 'clearAll' }), clearAllLabel: scr === 'media' ? 'Delete all recovered media' : 'Clear all kept messages',
+      hasConvos: convos.length > 0, noConvos: convos.length === 0, convos, convo: { name: convo.name, sub: convo.num + (allMode ? ' · seen by no one' : ' · ' + convo.deleted + ' deleted') }, msgs, openInWa: () => this.toast('Opening WhatsApp…'),
+      mediaTabs, hasTiles: vis.length > 0, noTiles: vis.length === 0, tilesToday, tilesYest, todayLabel: 'Today · ' + tilesToday.length, yestLabel: 'Yesterday · ' + tilesYest.length, emptyMediaTitle: s.mediaTab === 'photos' || s.mediaTab === 'videos' ? 'Nothing recovered yet' : 'No ' + s.mediaTab + ' yet', detail, saveMedia: () => this.toast('Saved to gallery'), shareMedia: () => this.toast('Opening share sheet…'), askDeleteMedia: () => this.setState({ dialog: 'deleteMedia' }),
+      notLinked: !s.linked, linked: s.linked, link: () => { if (s.linking) return; this.setState({ linking: true }); this.later(() => { this.setState({ linking: false, linked: true }); this.toast('Linked'); }, 1600); }, linkIcon: s.linking ? this.spinner(16) : I('qr-code', 18), linkLabel: s.linking ? 'Waiting for the other phone…' : 'Scan QR', reload: () => this.toast('Reloading…'), askLogout: () => this.setState({ dialog: 'logout' }),
+      st: { accessBg: s.granted ? '#D2EBFF' : '#FEFBF5', accessFg: s.granted ? '#1F74BF' : '#B8792A', accessSub: s.granted ? 'Active · messages and media tools' : 'Off · needed for the messages and media tools', langLabel: (this.LANGS.find(l => l.id === s.lang) || {}).name, recentsCount: String(s.recents.length) },
+      openDefaultApp: () => this.setState({ sheet: 'defaultApp' }), askClearRecents: () => this.setState({ dialog: 'clearRecents' }), openRate: () => this.setState({ rate: 'stars', rating: 0 }), shareApp: () => this.toast('Opening share sheet…'), openExternal: () => this.toast('Opens in the browser'),
+      langs, ct, hasToast: !!s.toast, toast: s.toast,
+      hasDialog: !!s.dialog, dialog: dialogs[s.dialog] || dialogs.notOnWa, hasRate: !!s.rate, rt,
+      mapGroups, resetProto: () => this.setState(this.initialState(Object.assign({}, p, { screen: 'splash', preset: 'fresh' })), () => this.armSplash())
+    };
+  }
+}
+</script>
+</body>
+</html>

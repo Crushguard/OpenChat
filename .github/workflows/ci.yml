@@ -1,0 +1,108 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+env:
+  GRADLE_OPTS: -Dorg.gradle.daemon=false
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Assemble debug APK and run unit tests
+        run: ./gradlew assembleDebug testDebugUnitTest --stacktrace
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+      - name: Upload unit test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-reports
+          path: app/build/reports/tests
+          if-no-files-found: ignore
+
+  screenshots:
+    name: screenshots
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Record Paparazzi screenshots
+        run: ./gradlew recordPaparazziDebug --stacktrace
+      - name: Collect screenshots and write index
+        run: |
+          set -euo pipefail
+          mkdir -p out/screenshots
+          shopt -s nullglob
+          count=0
+          for f in app/src/test/snapshots/images/*.png; do
+            base=$(basename "$f")
+            name=${base##*ScreenshotTests_}
+            cp "$f" "out/screenshots/$name"
+            count=$((count + 1))
+          done
+          echo "collected $count screenshots"
+          test "$count" -gt 0
+          {
+            echo "# OpenChat screenshots"
+            echo
+            echo "One PNG per screen and state, rendered by Paparazzi (no emulator) from commit ${GITHUB_SHA} on $(date -u +%Y-%m-%dT%H:%MZ)."
+            echo
+            echo "| Screen · state | File |"
+            echo "|---|---|"
+            for f in out/screenshots/*.png; do
+              n=$(basename "$f")
+              echo "| ${n%.png} | [screenshots/$n](screenshots/$n) |"
+            done
+            echo
+            for f in out/screenshots/*.png; do
+              n=$(basename "$f")
+              echo "## ${n%.png}"
+              echo
+              echo "![${n%.png}](screenshots/$n)"
+              echo
+            done
+          } > out/README.md
+      - name: Upload screenshots artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: out
+      - name: Force-push the screenshots branch
+        if: github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd out
+          git init -b screenshots
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Screenshots from ${GITHUB_SHA}"
+          git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/screenshots
