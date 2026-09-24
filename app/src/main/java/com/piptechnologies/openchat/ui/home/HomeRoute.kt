@@ -153,7 +153,7 @@ fun HomeRoute(
     }
     // The rating sheet waits until the other sheets are closed, so modals never stack (it stays pending meanwhile).
     val ratingState = rating
-    if (ratingState != null && !state.countrySheetOpen && !state.notOnWhatsApp) {
+    if (ratingState != null && !state.countrySheetOpen && !state.notOnWhatsApp && !state.menuOpen) {
         RatingSheet(
             state = ratingState,
             onStar = viewModel.rating::star,

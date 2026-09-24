@@ -326,17 +326,22 @@ class HomeViewModel @Inject constructor(
         persistApp(MessagingApp.TELEGRAM)
     }
 
-    /** "Rate on Google Play": toasts "Opening Google Play…", opens the store listing (ruling R12) and closes the sheet. */
+    /**
+     * "Rate on Google Play": closes the sheet, opens the store listing (ruling R12) and toasts
+     * "Opening Google Play…", or "No app can open this" when neither the store nor a browser opens. The same
+     * as in Settings.
+     */
     fun rateOnPlay() {
-        toast(context.getString(R.string.toast_play))
-        ExternalLinks.openPlayStore(context)
         rating.close()
+        val opened = ExternalLinks.openPlayStore(context)
+        toast(context.getString(if (opened) R.string.toast_play else R.string.toast_no_app_can_open))
     }
 
     /**
      * "Send feedback": the note, the rating and the versions go to the email composer (ruling R11), then
-     * the sheet moves to Thanks. With no email app the sheet stays put and says so; with nothing typed it
-     * asks for a note (the button is disabled in that case anyway). The same as in Settings.
+     * the sheet moves to Thanks. With no email app the sheet closes and the toast says so (it would be
+     * hidden under the sheet otherwise); with nothing typed it asks for a note (the button is disabled in
+     * that case anyway). The same as in Settings.
      */
     fun sendFeedback() {
         val current = rating.state.value ?: return
@@ -355,6 +360,7 @@ class HomeViewModel @Inject constructor(
             body = body,
         )
         if (!opened) {
+            rating.close()
             toast(context.getString(R.string.toast_no_email))
             return
         }
