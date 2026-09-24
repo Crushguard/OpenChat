@@ -26,4 +26,16 @@
     <string name="tool_deleted_title">Recover deleted messages</string>
     <string name="tool_media_title">Recover deleted media</string>
     <string name="tool_second_title">Open a second account</string>
+
+    <!-- Notification access gate (design map §4.7) -->
+    <string name="gate_title">Allow notification access</string>
+    <string name="gate_body">Deleted messages and media are kept from WhatsApp notifications. Nothing leaves your phone.</string>
+    <string name="gate_open_settings">Open settings</string>
+    <string name="gate_waiting">Waiting for Android…</string>
+    <string name="gate_hint_before">One grant covers Message Recovery and Media Recovery.</string>
+    <string name="gate_continue">Continue</string>
+    <string name="gate_hint_after">Turn it off anytime in Settings.</string>
+    <string name="gate_bar_messages">Messages</string>
+    <string name="gate_bar_media">Deleted media</string>
+    <string name="gate_bar_settings">Notification access</string>
 </resources>
