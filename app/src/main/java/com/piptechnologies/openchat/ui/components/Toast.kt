@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -68,6 +69,13 @@ class ToastHostState {
 
 @Composable
 fun rememberToastHostState(): ToastHostState = remember { ToastHostState() }
+
+/**
+ * The app-level toast host, provided by AppRoot above the NavHost so a toast outlives the route that showed it
+ * (design map §4.21: the toast shows over any screen). Null where nothing provides it (screenshot tests); routes
+ * then fall back to their own host: `LocalToastHost.current ?: rememberToastHostState()`.
+ */
+val LocalToastHost = staticCompositionLocalOf<ToastHostState?> { null }
 
 /** Dark toast: ink background, white 13.5/600, check 16 (sw 2.4) greenSoft, 12/16 padding, 13 radius, 90 dp above the bottom, auto-hides after 2200 ms. Place inside a Box over the screen. */
 @Composable
