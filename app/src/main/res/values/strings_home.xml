@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (design map §4.3) -->
+    <string name="home_phone_placeholder">Phone number</string>
+    <string name="home_paste">Paste</string>
+    <string name="home_message_placeholder">Message (optional)</string>
+    <string name="home_send">Send Message</string>
+    <string name="home_send_with">Send with</string>
+    <string name="home_first_run_hint">Opens the chat in the app you pick. Nothing is saved to your contacts.</string>
+    <string name="home_recent">Recent</string>
+    <string name="home_delete">Delete</string>
+    <string name="home_settings_cd">Settings</string>
+    <string name="home_country_cd">Country</string>
+    <string name="home_clear_cd">Clear</string>
+    <string name="home_choose_app_cd">Choose app</string>
+
+    <!-- Home tool row statuses (design map §4.3); the counted ones are plurals so a count of 1 reads right -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">%d unread, seen by no one</item>
+        <item quantity="other">%d unread, seen by no one</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">Paused</string>
+    <string name="tool_unseen_status_off">Read here. WhatsApp shows nothing</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">%d message the sender deleted</item>
+        <item quantity="other">%d messages the sender deleted</item>
+    </plurals>
+    <string name="tool_deleted_status_off">Keeps what the sender deleted</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">%d item recovered this week</item>
+        <item quantity="other">%d items recovered this week</item>
+    </plurals>
+    <string name="tool_media_status_off">Photos, videos, voice notes, documents</string>
+    <string name="tool_second_status_linked">Linked</string>
+    <string name="tool_second_status_off">A second WhatsApp inside this app</string>
+
+    <!-- Country picker sheet (design map §4.4) -->
+    <string name="country_title">Country</string>
+    <string name="country_search">Search country or code</string>
+    <string name="country_all">All countries</string>
+    <string name="country_results">%d results</string>
+    <string name="country_result_one">1 result</string>
+    <string name="country_detected_sim">Detected from your SIM: %1$s · %2$s</string>
+    <string name="country_detected_network">Detected from your network: %1$s · %2$s</string>
+    <string name="country_detected_locale">Detected from your locale: %1$s · %2$s</string>
+    <string name="country_close_cd">Close</string>
+
+    <!-- Not on WhatsApp confirmation sheet (design map §4.6) -->
+    <string name="not_on_wa_title">This number is not on WhatsApp</string>
+    <string name="not_on_wa_body">%s has no WhatsApp account. Check the digits, or send the same message on Telegram.</string>
+    <string name="not_on_wa_edit">Edit number</string>
+    <string name="not_on_wa_telegram">Try Telegram</string>
+
+    <!-- Home toasts (design map §5.1) -->
+    <string name="toast_opening">Opening %s…</string>
+    <string name="toast_pasted_country">Pasted · country set to %s</string>
+    <string name="toast_pasted">Pasted</string>
+    <string name="toast_clipboard_empty">Clipboard is empty</string>
+    <string name="toast_no_app">No app can open this number</string>
+</resources>
