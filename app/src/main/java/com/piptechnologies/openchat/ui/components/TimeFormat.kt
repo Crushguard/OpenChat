@@ -57,16 +57,16 @@ class TimeFormatter(
 
 /**
  * A [TimeFormatter] for the current UI language: words from the time_* string resources, locale
- * LocalConfiguration.current.locales[0]. Remembered per configuration (so a language change rebuilds it)
- * and [timeZone].
+ * [currentUiLocale] (the supported UI language, US English when the app falls back to English). Remembered
+ * per configuration (so a language change rebuilds it) and [timeZone].
  */
 @Composable
 fun rememberTimeFormatter(timeZone: TimeZone = TimeZone.getDefault()): TimeFormatter {
     val configuration = LocalConfiguration.current
     val resources = LocalContext.current.resources
-    return remember(configuration, timeZone) {
-        // An empty locale list (possible in tools that render without a locale) falls back to the JVM default.
-        val locale = configuration.locales[0]?.takeIf { it.language.isNotEmpty() } ?: Locale.getDefault()
+    // The supported UI language (English when the app falls back to it), so dates match the strings around them.
+    val locale = currentUiLocale()
+    return remember(configuration, locale, timeZone) {
         TimeFormatter(words = timeWords(resources, locale), locale = locale, timeZone = timeZone)
     }
 }
