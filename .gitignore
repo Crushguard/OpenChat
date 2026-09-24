@@ -16,3 +16,4 @@
 /.superpowers/
 /tools/jvmcheck/build/
 /tools/jvmcheck/.gradle/
+.kotlin/
