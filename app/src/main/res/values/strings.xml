@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OpenChat</string>
+
+    <!-- Links, sharing and feedback (rulings R11, R16) -->
+    <string name="support_email" translatable="false">support@piptechnologies.com</string>
+    <string name="privacy_policy_url" translatable="false">https://piptechnologies.com/openchat/privacy</string>
+    <string name="share_app_text">OpenChat opens a chat with any number, no contact saved. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+    <string name="feedback_subject">OpenChat feedback</string>
 </resources>
