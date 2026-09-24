@@ -21,6 +21,11 @@ android {
         versionName = "1.0.0"
         vectorDrawables { useSupportLibrary = true }
 
+        // Emulator end-to-end suite (app/src/androidTest/.../e2e, run by .github/workflows/device.yml): each test runs
+        // in its own instrumentation under the AndroidX Test Orchestrator, which clears the app's data before it.
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
+
         // The 19 UI languages (res/xml/locales_config.xml): library translations (AndroidX, Material) outside
         // them are stripped, like Status Saver's localeFilters. Resource-folder notation, as our values-<qualifier>
         // folders are named (in = Indonesian, iw = Hebrew: Android resolves those, never values-id / values-he).
@@ -50,6 +55,8 @@ android {
     }
     testOptions {
         unitTests.isReturnDefaultValues = true
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        animationsDisabled = true
     }
 }
 
@@ -91,4 +98,17 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.test.core.ktx)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    // Keeps Espresso (pulled in by the Compose test rule) on the same release train as the androidx.test libraries.
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.uiautomator)
+    androidTestUtil(libs.androidx.test.orchestrator)
+    androidTestUtil(libs.androidx.test.services)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

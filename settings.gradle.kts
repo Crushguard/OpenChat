@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "OpenChat"
 include(":app")
+// CI-only stand-in app for the emulator end-to-end suite (debug builds only; .github/workflows/device.yml).
+include(":e2e-fixture")

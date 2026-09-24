@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CI-only stand-in (see build.gradle.kts). Label only, no icon or logo. Components:
+    LauncherActivity  - a launcher entry, so OpenChat sees the app as installed (getLaunchIntentForPackage).
+    ChatLinkActivity  - receives https://wa.me/* and whatsapp://send links, records them in
+                        <externalMediaDirs[0]>/e2e/sends.txt and closes at once unless e2e/stay exists.
+    CommandReceiver   - driven by `am broadcast -n com.whatsapp/com.piptechnologies.openchat.e2efixture.CommandReceiver`.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:allowBackup="false"
+        android:label="E2E stand-in"
+        android:supportsRtl="true">
+
+        <activity
+            android:name=".LauncherActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ChatLinkActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:theme="@android:style/Theme.Material.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="wa.me"
+                    android:scheme="https" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="send"
+                    android:scheme="whatsapp" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".CommandReceiver"
+            android:exported="true" />
+    </application>
+
+</manifest>
