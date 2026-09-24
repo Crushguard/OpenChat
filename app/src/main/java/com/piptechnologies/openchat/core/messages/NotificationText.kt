@@ -38,7 +38,7 @@ object NotificationText {
         "This message was deleted by admin",
     ).map { deletedCore(it) }
 
-    /** True for bundle summaries and status lines: "12 messages from 2 chats", "You have 3 new messages", "Checking for new messages", "You may have new messages", "N new messages", titles equal to "WhatsApp"/"WhatsApp Business" with such text, "Tap to view", "Backup in progress", "Finished backup", "Restoring", "Calling…", "Incoming voice call", "Ongoing voice call". */
+    /** True for bundle summaries and status lines: "12 messages from 2 chats", "You have 3 new messages", "Checking for new messages", "You may have new messages", "N new messages", titles equal to "WhatsApp"/"WhatsApp Business" with such text, "Tap to view", "Backup in progress", "Finished backup", "Restoring", "Calling…", "Incoming voice call", "Ongoing voice call". Meant for notifications whose title is the app label or that carry no MessagingStyle, so a contact's chat lines are never filtered by it. */
     fun isSummaryOrNoise(title: String, text: String): Boolean {
         val body = clean(text)
         if (noisePatterns.any { it.containsMatchIn(body) }) return true

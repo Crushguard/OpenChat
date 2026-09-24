@@ -30,6 +30,32 @@ class DeletedMessageDetectorEdgeCasesTest {
         assertEquals(listOf(1L), detect(sameSecond, listOf(line(PLACEHOLDER, 1000), line(PHOTO, 1000), line(PHOTO, 1000))))
         assertEquals(listOf(2L), detect(sameSecond, listOf(line(PHOTO, 1000), line(PLACEHOLDER, 1000), line(PHOTO, 1000))))
     }
+    @Test fun `a burst that scrolls past the notification keeps the newest photo and marks the right one`() {
+        val stored = (1L..8L).map { message(it, PHOTO, 1000 + 300 * it) }
+        val shown = listOf(line(PHOTO, 1900), line(PHOTO, 2200), line(PLACEHOLDER, 2500), line(PHOTO, 2800),
+            line(PHOTO, 3100), line(PHOTO, 3400), line(PHOTO, 3700))       // m1-m2 scrolled out, m5 deleted, m9 new
+        assertEquals(listOf(5L), detect(stored, shown))
+        assertEquals(listOf(PHOTO to 3700L), fresh(stored, shown))
+        assertEquals(listOf(PHOTO to 3400L), fresh(stored.take(7), (2L..8L).map { line(PHOTO, 1000 + 300 * it) }))
+    }
+    @Test fun `placeholders at their own timestamps anchor a burst`() {
+        // Both photos were deleted; a third arriving 1 s later must stay new, not be taken for one of them.
+        val bothDeleted = listOf(message(1, PHOTO, 2000, deletedAt = 2100), message(2, PHOTO, 3000, deletedAt = 3100))
+        val shown = listOf(line(PLACEHOLDER, 2000), line(PLACEHOLDER, 3000), line(PHOTO, 4000))
+        assertTrue(detect(bothDeleted, shown).isEmpty())
+        assertEquals(listOf(PHOTO to 4000L), fresh(bothDeleted, shown))
+        // The oldest photo scrolled out: the placeholder keeps its own photo, the scrolled-out one is not marked.
+        val scrolled = listOf(message(1, PHOTO, 1000), message(2, PHOTO, 1300, deletedAt = 1400))
+        val window = listOf(line(PLACEHOLDER, 1300), line(PHOTO, 1600))
+        assertTrue(detect(scrolled, window).isEmpty())
+        assertEquals(listOf(PHOTO to 1600L), fresh(scrolled, window))
+    }
+    @Test fun `a text match outweighs a placeholder pairing`() {
+        val stored = listOf(message(1, "x", 1000))
+        val incoming = listOf(line(PLACEHOLDER), line("x"))
+        assertTrue(detect(stored, incoming).isEmpty())
+        assertTrue(fresh(stored, incoming).isEmpty())
+    }
     @Test fun `re-posted placeholder is absorbed by the message it already deleted`() {
         // Untimestamped single line: the re-post must not move on to the previous message.
         assertTrue(detect(listOf(message(1, "a", 1000), message(2, "b", 2000, deletedAt = 2100)), listOf(line(PLACEHOLDER))).isEmpty())
@@ -102,7 +128,7 @@ class DeletedMessageDetectorEdgeCasesTest {
         assertEquals(listOf(1L), detect(listOf(message(1, "a", 1000), message(1, "a", 1000)), listOf(line(PLACEHOLDER, 1000), line(PLACEHOLDER, 1000))))
     }
     @Test(timeout = 10_000) fun `a long conversation is aligned quickly`() {
-        // Untimestamped lines with a placeholder can pair with every stored message: the largest table.
+        // Far more than the 25 messages the listener passes; untimestamped lines with a placeholder pair with every one: the largest table.
         val stored = (1L..5000L).map { message(it, "message $it", it * 60_000) }
         val incoming = (4976L..5000L).map { line(if (it == 4990L) PLACEHOLDER else "message $it") }
         assertEquals(listOf(4990L), detect(stored, incoming))

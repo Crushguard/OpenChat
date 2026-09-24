@@ -13,13 +13,15 @@ import kotlin.math.abs
  * - a deleted-pattern line ([NotificationText.isDeletedPattern]) pairs with the message it replaced, any
  *   text; an already deleted message takes its own placeholder back without being reported again;
  * - a line with a timestamp only pairs with a message whose timestamp is within the tolerance.
- * The alignment keeps as many regular pairs as possible, then as many deleted pairs, then the smallest total
- * time difference, and gives any remaining tie to the latest messages. So a timestamped placeholder takes the
- * closest message, and an untimestamped one the message at the same position from the end among those the
- * notification no longer shows verbatim.
+ * The alignment keeps as many pairs with identical timestamps as possible (regular or placeholder: WhatsApp keeps a
+ * message's time when it replaces the text), then as many regular pairs, then as many deleted pairs, then the
+ * smallest total time difference, and gives any remaining tie to the latest messages. Identical timestamps come first
+ * so that a burst of identical texts less than the tolerance apart does not slide by one message when its oldest
+ * line scrolls out of the notification. A timestamped placeholder takes the closest message, and an untimestamped
+ * one the message at the same position from the end among those the notification no longer shows verbatim.
  */
 object DeletedMessageDetector {
-    /** Ids of [stored] (not yet deleted) messages that the latest [incoming] lines show as deleted. Timestamped deleted lines match by |Δt| ≤ [toleranceMs]; untimestamped ones match the stored message at the same position from the end that is no longer present verbatim. */
+    /** Ids of [stored] (not yet deleted) messages that the latest [incoming] lines show as deleted. Timestamped deleted lines match by |Δt| ≤ [toleranceMs]; untimestamped ones match the stored message at the same position from the end that is no longer present verbatim. [stored] must hold only the messages that can still be in the notification: the caller (the listener) passes the messages captured since WhatsApp last cancelled that conversation's notification, capped at 25. */
     fun detect(stored: List<CapturedMessage>, incoming: List<NotificationLine>, toleranceMs: Long = 2_000): List<Long> {
         val partners = align(stored, incoming, toleranceMs)
         return incoming.indices
@@ -30,16 +32,20 @@ object DeletedMessageDetector {
             .distinct()
     }
 
-    /** Incoming lines that are neither deleted-pattern nor already stored (same trimmed text and, when both have timestamps, |Δt| ≤ tolerance). A stored message accounts for one line only, so a burst of identical lines ("📷 Photo" three times) stays three messages. */
+    /** Incoming lines that are neither deleted-pattern nor already stored (same trimmed text and, when both have timestamps, |Δt| ≤ tolerance). A stored message accounts for one line only, so a burst of identical lines ("📷 Photo" three times) stays three messages. [stored] must hold only the messages that can still be in the notification: the caller (the listener) passes the messages captured since WhatsApp last cancelled that conversation's notification, capped at 25. */
     fun newLines(stored: List<CapturedMessage>, incoming: List<NotificationLine>, toleranceMs: Long = 2_000): List<NotificationLine> {
         val partners = align(stored, incoming, toleranceMs)
         return incoming.filterIndexed { i, line -> partners[i] == null && !NotificationText.isDeletedPattern(line.text) }
     }
 
-    /** Quality of a partial alignment: more weight wins, then less drift (summed |Δt| of timestamped pairs). */
-    private data class Fit(val weight: Long, val drift: Long) {
-        fun beats(other: Fit) = weight > other.weight || (weight == other.weight && drift < other.drift)
-        operator fun plus(other: Fit) = Fit(weight + other.weight, drift + other.drift)
+    /** Quality of a partial alignment, compared in this order: more [exact] pairs (identical timestamps), more [weight], less [drift] (summed |Δt|). */
+    private data class Fit(val exact: Long, val weight: Long, val drift: Long) {
+        fun beats(other: Fit) = when {
+            exact != other.exact -> exact > other.exact
+            weight != other.weight -> weight > other.weight
+            else -> drift < other.drift
+        }
+        operator fun plus(other: Fit) = Fit(exact + other.exact, weight + other.weight, drift + other.drift)
     }
 
     /** For each line of [incoming], the stored message it pairs with, or null. */
@@ -53,10 +59,11 @@ object DeletedMessageDetector {
         val regularWeight = lines.size + 1L // one regular pair outweighs every possible deleted pair
         fun pairFit(i: Int, message: CapturedMessage): Fit? {
             val drift = lines[i].timestamp?.let { abs(it - message.timestamp) } ?: 0L
+            val exact = if (lines[i].timestamp == message.timestamp) 1L else 0L
             return when {
                 drift > toleranceMs -> null
-                deleted[i] -> Fit(1, drift)
-                texts[i] == message.text.trim() -> Fit(regularWeight, drift)
+                deleted[i] -> Fit(exact, 1, drift)
+                texts[i] == message.text.trim() -> Fit(exact, regularWeight, drift)
                 else -> null
             }
         }
@@ -65,7 +72,7 @@ object DeletedMessageDetector {
             .filter { message -> lines.indices.any { pairFit(it, message) != null } }
 
         // best[i][j]: the best alignment of lines[i..] with messages[j..].
-        val none = Fit(0, 0)
+        val none = Fit(0, 0, 0)
         val best = Array(lines.size + 1) { Array(messages.size + 1) { none } }
         for (i in lines.indices.reversed()) {
             for (j in messages.indices.reversed()) {
