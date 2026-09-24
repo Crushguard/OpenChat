@@ -58,4 +58,16 @@
     <string name="time_minutes_short">%dm</string>
     <!-- Time label at the end of a Recent numbers row: hours since the number was used today (%d = 1 to 23), e.g. "2h". A compact label in a list, not a sentence: use the language's shortest abbreviation for hours. -->
     <string name="time_hours_short">%dh</string>
+
+    <!-- Shared components (ui/components). -->
+    <!-- Accessibility label of the back arrow at the start of every top bar. Read by TalkBack, never shown. -->
+    <string name="cd_back">Back</string>
+    <!-- Status chip text: the tool is off because notification access is not granted (gate screen and top bars). Chip label, one or two words, max ~10 characters. -->
+    <string name="chip_off">Off</string>
+    <!-- Status chip text: notification access is granted and recovery is running (gate screen and top bars). Chip label, one word, max ~10 characters. -->
+    <string name="chip_active">Active</string>
+    <!-- Status chip text: the user paused recovery for this tool (Messages and Deleted media top bars). Chip label, one word, max ~10 characters. -->
+    <string name="chip_paused">Paused</string>
+    <!-- Status chip text: the second WhatsApp account is linked to this phone (Second account top bar). Chip label, one word, max ~10 characters. -->
+    <string name="chip_linked">Linked</string>
 </resources>

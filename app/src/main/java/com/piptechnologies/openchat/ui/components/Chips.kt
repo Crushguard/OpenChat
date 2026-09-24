@@ -16,8 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
@@ -37,12 +39,14 @@ fun StateChip(state: ChipState, modifier: Modifier = Modifier, small: Boolean = 
     val bg = if (amber) c.amberTint else c.greenTint
     val border = if (amber) c.amberTintBorder else c.greenTintBorder
     val fg = if (amber) c.amber else c.green
-    val label = when (state) {
-        ChipState.Off -> "Off"
-        ChipState.Active -> "Active"
-        ChipState.Paused -> "Paused"
-        ChipState.Linked -> "Linked"
-    }
+    val label = stringResource(
+        when (state) {
+            ChipState.Off -> R.string.chip_off
+            ChipState.Active -> R.string.chip_active
+            ChipState.Paused -> R.string.chip_paused
+            ChipState.Linked -> R.string.chip_linked
+        },
+    )
     val height = if (small) 28.dp else 32.dp
     val gap = when {
         state == ChipState.Off && !small -> 7.dp

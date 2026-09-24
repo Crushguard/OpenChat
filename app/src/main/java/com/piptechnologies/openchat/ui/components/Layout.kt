@@ -26,9 +26,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
@@ -73,7 +75,7 @@ fun OcTopBar(
         if (onBack != null) {
             TopBarIconButton(
                 icon = LucideIcon.ArrowLeft,
-                contentDescription = "Back",
+                contentDescription = stringResource(R.string.cd_back),
                 onClick = onBack,
                 tint = c.ink,
                 iconSize = 22.dp,
@@ -266,6 +268,7 @@ fun BrandMark(size: Dp, radius: Dp, iconSize: Dp, modifier: Modifier = Modifier)
             .background(OcTheme.colors.green),
         contentAlignment = Alignment.Center,
     ) {
-        LucideIconImage(icon = LucideIcon.SendHorizontal, size = iconSize, tint = Color.White, strokeWidth = 2f)
+        // A logo keeps its orientation in right-to-left layouts.
+        LucideIconImage(icon = LucideIcon.SendHorizontal, size = iconSize, tint = Color.White, strokeWidth = 2f, autoMirror = false)
     }
 }
