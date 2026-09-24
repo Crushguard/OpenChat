@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings (design map §4.15). support_email, feedback_subject and privacy_policy_url live in strings.xml. -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_back">Back</string>
+    <string name="settings_access">Notification access</string>
+    <string name="settings_access_on">Active · messages and media tools</string>
+    <string name="settings_access_off">Off · needed for the messages and media tools</string>
+    <string name="settings_preferences">Preferences</string>
+    <string name="settings_default_app">Default app</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_clear_recents">Clear recent numbers</string>
+    <string name="settings_about">About</string>
+    <string name="settings_rate">Rate us</string>
+    <string name="settings_contact">Contact us</string>
+    <string name="settings_share">Share app</string>
+    <string name="settings_privacy">Privacy policy</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_honesty">OpenChat is free. No ads, no account, no tracking. Numbers, messages and media never leave your phone.</string>
+
+    <!-- Clear recent numbers confirmation (design map §4.15, §4.20) -->
+    <string name="clear_recents_title">Clear recent numbers?</string>
+    <string name="clear_recents_body">Removes the %d numbers on Home. Nothing changes in WhatsApp.</string>
+    <string name="clear_recents_keep">Keep</string>
+    <string name="clear_recents_clear">Clear</string>
+    <string name="toast_recents_cleared">Recent numbers cleared</string>
+
+    <!-- Default app sheet (design map §4.16) -->
+    <string name="default_app_title">Default app</string>
+    <string name="toast_default_app">Default app: %s</string>
+
+    <!-- Language (design map §4.17, ruling R13) -->
+    <string name="language_title">Language</string>
+    <string name="language_intro">Changes the app. Messages you send are typed by you, in any language.</string>
+    <string name="language_rtl" translatable="false">RTL</string>
+    <string name="toast_language">Language: %s</string>
+
+    <!-- Contact us (design map §4.18, ruling R11) -->
+    <string name="contact_title">Contact us</string>
+    <string name="contact_intro">A number that will not open, a message that did not recover, an idea. It goes straight to the team.</string>
+    <string name="contact_placeholder">What happened, and on which screen?</string>
+    <string name="contact_email_label">Email · optional, only if you want a reply</string>
+    <string name="contact_email_placeholder" translatable="false">you@example.com</string>
+    <string name="contact_callout">Sent with the app version and Android version. Never your numbers or messages.</string>
+    <string name="contact_send">Send</string>
+    <string name="toast_sent">Sent. Thank you.</string>
+    <string name="toast_write_first">Write something first</string>
+    <string name="toast_no_email">No email app found</string>
+
+    <!-- Lines of the feedback email body (Contact us and the rating sheet, ruling R11) -->
+    <string name="feedback_reply_to">Reply to: %s</string>
+    <string name="feedback_versions">%1$s · Android %2$s</string>
+    <string name="feedback_rating_line">Rating: %d/5</string>
+
+    <!-- Rating sheet (design map §4.19, ruling R12) -->
+    <string name="rating_title">Enjoying OpenChat?</string>
+    <string name="rating_body">Your honest rating helps other people find an app that opens any number in one tap.</string>
+    <string name="rating_star_cd">%d of 5 stars</string>
+    <string name="rating_hint_tap">Tap a star</string>
+    <string name="rating_hint_1">Sorry to hear that</string>
+    <string name="rating_hint_2">We can do better</string>
+    <string name="rating_hint_3">Thanks, tell us more</string>
+    <string name="rating_hint_4">Glad it works</string>
+    <string name="rating_hint_5">Thank you!</string>
+    <string name="rating_later">Maybe later</string>
+    <string name="rating_store_title">Thank you!</string>
+    <string name="rating_store_body">Would you share that on Google Play? It helps a small app grow.</string>
+    <string name="rating_store_cta">Rate on Google Play</string>
+    <string name="rating_not_now">Not now</string>
+    <string name="rating_feedback_title">How can we do better?</string>
+    <string name="rating_feedback_body">Tell us what fell short. It goes straight to the team, not a public review, and we read every one.</string>
+    <string name="rating_feedback_placeholder">What would have made this a 5-star app?</string>
+    <string name="rating_feedback_send">Send feedback</string>
+    <string name="rating_cancel">Cancel</string>
+    <string name="rating_thanks_title">Thank you, we hear you</string>
+    <string name="rating_thanks_body">Your note is on its way to the team. It shapes what we build next.</string>
+    <string name="rating_done">Done</string>
+    <string name="toast_play">Opening Google Play…</string>
+</resources>

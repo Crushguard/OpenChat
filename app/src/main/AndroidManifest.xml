@@ -83,6 +83,16 @@
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Keeps a WhatsApp Web session linked while the user runs a second account" />
         </service>
+
+        <!-- Stores the per-app locale chosen on the Language screen (ruling R13) so AppCompat restores it on launch. -->
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
     </application>
 
 </manifest>
