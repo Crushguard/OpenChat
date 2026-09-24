@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account (design map §4.14): entry state -->
+    <string name="second_title">Second account</string>
+    <string name="second_entry_title">A second WhatsApp, in here</string>
+    <string name="second_entry_body">Links a WhatsApp Web session inside this app. Use it for a second account, or the same account on a second phone.</string>
+    <string name="second_entry_callout">You need the other phone. A QR code appears here; scan it there under WhatsApp › Linked devices › Link a device.</string>
+    <string name="second_scan">Scan QR</string>
+    <string name="second_waiting">Waiting for the other phone…</string>
+    <string name="second_entry_hint">A notification stays visible while linked. Android requires it.</string>
+
+    <!-- Second account: linking / linked bar -->
+    <string name="second_linking">Linking…</string>
+    <string name="second_reload">Reload</string>
+    <string name="second_log_out">Log out</string>
+
+    <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
+    <string name="logout_title">Log out of the linked account?</string>
+    <string name="logout_body">The session ends on this phone. The other phone keeps working.</string>
+    <string name="logout_stay">Stay</string>
+    <string name="logout_confirm">Log out</string>
+    <string name="toast_reloading">Reloading…</string>
+    <string name="toast_logged_out">Logged out</string>
+    <string name="toast_linked">Linked</string>
+</resources>
