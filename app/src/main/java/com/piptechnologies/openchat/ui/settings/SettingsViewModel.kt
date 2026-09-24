@@ -33,7 +33,9 @@ import kotlinx.coroutines.launch
  * [SettingsRepository], the recents count from [RecentsRepository]; the notification grant and the
  * installed apps are read from the platform when the ViewModel is created and again on every
  * [onResume], which the route calls on each resume, so a grant made in the system settings shows up
- * on the way back. The rating sheet is [rating], a [RatingFlow] on this ViewModel's scope.
+ * on the way back. The rating sheet is [rating], a [RatingFlow] on this ViewModel's scope. A toast
+ * that answers a tap inside the rating sheet is emitted after the sheet closes, since the sheet's
+ * window would hide it.
  */
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -60,7 +62,7 @@ class SettingsViewModel @Inject constructor(
 
     private val _toasts = MutableSharedFlow<String>(extraBufferCapacity = 1)
 
-    /** Toast texts for the route's dark toast. */
+    /** Toast texts for the toast host. */
     val toasts: SharedFlow<String> = _toasts.asSharedFlow()
 
     /** The rating sheet's state; the route forwards star taps, typing and Close to it directly. */
@@ -75,7 +77,7 @@ class SettingsViewModel @Inject constructor(
         local,
         rating.state,
     ) { sendApp, language, recentsCount, ui, ratingState ->
-        val app = sendApp ?: DEFAULT_APP
+        val app = resolveApp(sendApp, ui.installed)
         SettingsUiState(
             accessGranted = ui.accessGranted,
             app = app,
@@ -90,17 +92,19 @@ class SettingsViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS),
-        initialValue = SettingsUiState(
-            accessGranted = local.value.accessGranted,
-            app = DEFAULT_APP,
-            availableApps = availableApps(local.value.installed, DEFAULT_APP),
-            languageName = Languages.byTag(DEFAULT_LANGUAGE).english,
-            recentsCount = 0,
-            version = version,
-            defaultAppSheetOpen = false,
-            confirmClearRecents = false,
-            rating = null,
-        ),
+        initialValue = resolveApp(null, local.value.installed).let { app ->
+            SettingsUiState(
+                accessGranted = local.value.accessGranted,
+                app = app,
+                availableApps = availableApps(local.value.installed, app),
+                languageName = Languages.byTag(DEFAULT_LANGUAGE).english,
+                recentsCount = 0,
+                version = version,
+                defaultAppSheetOpen = false,
+                confirmClearRecents = false,
+                rating = null,
+            )
+        },
     )
 
     /** Re-reads the notification grant and the installed apps; the route calls it on every resume. */
@@ -154,17 +158,21 @@ class SettingsViewModel @Inject constructor(
         rating.open()
     }
 
-    /** Toasts "Opening Google Play…", opens the store listing (ruling R12) and closes the sheet. */
+    /**
+     * "Rate on Google Play": closes the sheet, opens the store listing (ruling R12) and toasts
+     * "Opening Google Play…", or "No app can open this" when neither the store nor a browser opens.
+     */
     fun rateOnPlay() {
-        _toasts.tryEmit(context.getString(R.string.toast_play))
-        ExternalLinks.openPlayStore(context)
         rating.close()
+        val opened = ExternalLinks.openPlayStore(context)
+        _toasts.tryEmit(context.getString(if (opened) R.string.toast_play else R.string.toast_no_app_can_open))
     }
 
     /**
      * "Send feedback": opens the email composer with the note, the rating and the versions (ruling
-     * R11), then moves the sheet to Thanks. With no email app the sheet stays put and says so; with
-     * nothing typed it asks for a note (the button is disabled in that case anyway).
+     * R11), then moves the sheet to Thanks. With no email app the sheet closes and the toast says so
+     * (it would be hidden under the sheet otherwise); with nothing typed it asks for a note (the
+     * button is disabled in that case anyway).
      */
     fun sendFeedback() {
         val current = rating.state.value ?: return
@@ -183,20 +191,23 @@ class SettingsViewModel @Inject constructor(
             body = body,
         )
         if (!opened) {
+            rating.close()
             _toasts.tryEmit(context.getString(R.string.toast_no_email))
             return
         }
         rating.sendFeedback()
     }
 
-    /** "Share app": the system share sheet with the store link. */
+    /** "Share app": the system share sheet with the store link (the chooser itself always opens). */
     fun share() {
         ExternalLinks.shareApp(context)
     }
 
-    /** "Privacy policy": the browser at privacy_policy_url (ruling R16). */
+    /** "Privacy policy": the browser at privacy_policy_url (ruling R16); "No app can open this" when none opens. */
     fun privacy() {
-        ExternalLinks.openUrl(context, context.getString(R.string.privacy_policy_url))
+        if (!ExternalLinks.openUrl(context, context.getString(R.string.privacy_policy_url))) {
+            _toasts.tryEmit(context.getString(R.string.toast_no_app_can_open))
+        }
     }
 
     private companion object {
@@ -204,6 +215,10 @@ class SettingsViewModel @Inject constructor(
         const val STOP_TIMEOUT_MS = 5_000L
         const val DEFAULT_LANGUAGE = "en"
         val DEFAULT_APP = MessagingApp.WHATSAPP
+
+        /** The chosen app, else the first installed one, else WhatsApp (as Home resolves it). */
+        fun resolveApp(chosen: MessagingApp?, installed: List<MessagingApp>): MessagingApp =
+            chosen ?: installed.firstOrNull() ?: DEFAULT_APP
 
         /** The installed apps in enum order, always including [current] so the sheet has a checked row. */
         fun availableApps(installed: List<MessagingApp>, current: MessagingApp): List<MessagingApp> =

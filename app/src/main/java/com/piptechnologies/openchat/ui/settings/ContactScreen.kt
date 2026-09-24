@@ -36,6 +36,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.ui.components.DarkToastHost
+import com.piptechnologies.openchat.ui.components.LocalToastHost
 import com.piptechnologies.openchat.ui.components.InfoCallout
 import com.piptechnologies.openchat.ui.components.OcTopBar
 import com.piptechnologies.openchat.ui.components.PrimaryButton
@@ -158,12 +159,12 @@ private fun EmailField(value: String, onValueChange: (String) -> Unit) {
     }
 }
 
-/** Binds [ContactViewModel] to [ContactScreen]: toasts show over the screen, and [onBack] runs once the note has been handed to the email app. */
+/** Binds [ContactViewModel] to [ContactScreen]: toasts go to the app-level toast host (own host when none is provided), and [onBack] runs once the note has been handed to the email app. */
 @Composable
 fun ContactRoute(onBack: () -> Unit, viewModel: ContactViewModel = hiltViewModel()) {
     val text by viewModel.text.collectAsStateWithLifecycle()
     val email by viewModel.email.collectAsStateWithLifecycle()
-    val toast = rememberToastHostState()
+    val toast = LocalToastHost.current ?: rememberToastHostState()
     val currentOnBack by rememberUpdatedState(onBack)
     LaunchedEffect(viewModel, toast) {
         viewModel.toasts.collect { toast.show(it) }
@@ -180,6 +181,6 @@ fun ContactRoute(onBack: () -> Unit, viewModel: ContactViewModel = hiltViewModel
             onEmailChange = viewModel::setEmail,
             onSend = viewModel::send,
         )
-        DarkToastHost(state = toast)
+        if (LocalToastHost.current == null) DarkToastHost(state = toast)
     }
 }

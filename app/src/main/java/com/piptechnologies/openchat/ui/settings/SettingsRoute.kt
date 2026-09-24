@@ -12,12 +12,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.piptechnologies.openchat.ui.components.DarkToastHost
+import com.piptechnologies.openchat.ui.components.LocalToastHost
 import com.piptechnologies.openchat.ui.components.rememberToastHostState
 
 /**
  * Binds [SettingsViewModel] to [SettingsScreen]. The access card opens the gate ([onOpenGate]), the
  * Language and Contact rows navigate ([onLanguage], [onContact]); everything else is handled by the
- * ViewModel, whose toasts show in the dark toast host over the screen. The grant and the installed
+ * ViewModel, whose toasts go to the app-level toast host (AppRoot's [LocalToastHost]) or, where none
+ * is provided (screenshots, previews), to a host drawn over the screen. The grant and the installed
  * apps are re-read on every resume.
  */
 @Composable
@@ -29,7 +31,7 @@ fun SettingsRoute(
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val toast = rememberToastHostState()
+    val toast = LocalToastHost.current ?: rememberToastHostState()
     val currentOnBack by rememberUpdatedState(onBack)
     val currentOnOpenGate by rememberUpdatedState(onOpenGate)
     val currentOnLanguage by rememberUpdatedState(onLanguage)
@@ -65,6 +67,6 @@ fun SettingsRoute(
     }
     Box(modifier = Modifier.fillMaxSize()) {
         SettingsScreen(state = state, callbacks = callbacks)
-        DarkToastHost(state = toast)
+        if (LocalToastHost.current == null) DarkToastHost(state = toast)
     }
 }

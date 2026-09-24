@@ -45,7 +45,8 @@ import com.piptechnologies.openchat.ui.theme.ToolTint
  * cards and the honesty callout, then the overlays the state asks for: the default-app sheet
  * ([SettingsUiState.defaultAppSheetOpen]), the clear-recents confirmation
  * ([SettingsUiState.confirmClearRecents]) and the rating sheet ([SettingsUiState.rating]). The
- * design's "More apps (AD)" row is not rendered (ruling R3), and the Version row is not tappable.
+ * design's "More apps (AD)" row is not rendered (ruling R3), the Version row is not tappable, and
+ * "Clear recent numbers" is disabled while there is nothing to clear.
  */
 @Composable
 fun SettingsScreen(state: SettingsUiState, callbacks: SettingsCallbacks) {
@@ -81,6 +82,7 @@ fun SettingsScreen(state: SettingsUiState, callbacks: SettingsCallbacks) {
                     title = stringResource(R.string.settings_clear_recents),
                     value = state.recentsCount.toString(),
                     onClick = callbacks.onAskClearRecents,
+                    enabled = state.recentsCount > 0,
                 )
             }
             SettingsSection(title = stringResource(R.string.settings_about)) {
@@ -214,7 +216,7 @@ private fun SettingsSection(title: String, rows: @Composable ColumnScope.() -> U
     }
 }
 
-/** A card row with a 20 dp Lucide glyph in inkMuted. */
+/** A card row with a 20 dp Lucide glyph in inkMuted (chevron colour when disabled). */
 @Composable
 private fun SettingsRow(
     icon: LucideIcon,
@@ -222,6 +224,7 @@ private fun SettingsRow(
     onClick: () -> Unit,
     value: String? = null,
     trailing: LucideIcon = LucideIcon.ChevronRight,
+    enabled: Boolean = true,
 ) {
     val c = OcTheme.colors
     SettingsRow(
@@ -229,11 +232,15 @@ private fun SettingsRow(
         onClick = onClick,
         value = value,
         trailing = trailing,
-        leading = { LucideIconImage(icon = icon, size = 20.dp, tint = c.inkMuted) },
+        enabled = enabled,
+        leading = { LucideIconImage(icon = icon, size = 20.dp, tint = if (enabled) c.inkMuted else c.chevron) },
     )
 }
 
-/** Card row: padding 15, gap 13, [leading] glyph, title label14_5, optional value 13.5 muted, [trailing] 18 chevron colour. */
+/**
+ * Card row: padding 15, gap 13, [leading] glyph, title label14_5, optional value 13.5 muted, [trailing]
+ * 18 chevron colour. Not [enabled]: no tap, title in muted, no trailing icon.
+ */
 @Composable
 private fun SettingsRow(
     title: String,
@@ -241,22 +248,25 @@ private fun SettingsRow(
     leading: @Composable () -> Unit,
     value: String? = null,
     trailing: LucideIcon = LucideIcon.ChevronRight,
+    enabled: Boolean = true,
 ) {
     val c = OcTheme.colors
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(role = Role.Button, onClick = onClick)
+            .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
             .padding(15.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(13.dp),
     ) {
         leading()
-        Text(text = title, style = OcTheme.type.label14_5, color = c.ink, modifier = Modifier.weight(1f))
+        Text(text = title, style = OcTheme.type.label14_5, color = if (enabled) c.ink else c.muted, modifier = Modifier.weight(1f))
         if (value != null) {
             Text(text = value, style = OcTheme.type.body13_5, color = c.muted)
         }
-        LucideIconImage(icon = trailing, size = 18.dp, tint = c.chevron)
+        if (enabled) {
+            LucideIconImage(icon = trailing, size = 18.dp, tint = c.chevron)
+        }
     }
 }
 

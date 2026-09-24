@@ -26,6 +26,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.ui.components.CardColumn
 import com.piptechnologies.openchat.ui.components.DarkToastHost
+import com.piptechnologies.openchat.ui.components.LocalToastHost
 import com.piptechnologies.openchat.ui.components.HairlineDivider
 import com.piptechnologies.openchat.ui.components.MonoTag
 import com.piptechnologies.openchat.ui.components.OcTopBar
@@ -92,16 +93,16 @@ private fun LanguageRow(option: LanguageOption, selected: Boolean, onClick: () -
     }
 }
 
-/** Binds [LanguageViewModel] to [LanguageScreen]; the "Language: …" toast shows in the dark toast host over the screen. */
+/** Binds [LanguageViewModel] to [LanguageScreen]; the "Language: …" toast goes to the app-level toast host (own host when none is provided). */
 @Composable
 fun LanguageRoute(onBack: () -> Unit, viewModel: LanguageViewModel = hiltViewModel()) {
     val current by viewModel.current.collectAsStateWithLifecycle()
-    val toast = rememberToastHostState()
+    val toast = LocalToastHost.current ?: rememberToastHostState()
     LaunchedEffect(viewModel, toast) {
         viewModel.toasts.collect { toast.show(it) }
     }
     Box(modifier = Modifier.fillMaxSize()) {
         LanguageScreen(current = current, onBack = onBack, onPick = viewModel::pick)
-        DarkToastHost(state = toast)
+        if (LocalToastHost.current == null) DarkToastHost(state = toast)
     }
 }
