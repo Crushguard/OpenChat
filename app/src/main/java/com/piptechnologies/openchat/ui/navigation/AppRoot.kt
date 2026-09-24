@@ -4,7 +4,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -13,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.piptechnologies.openchat.core.messages.InboxMode
+import com.piptechnologies.openchat.platform.NotificationAccess
 import com.piptechnologies.openchat.ui.components.DarkToastHost
 import com.piptechnologies.openchat.ui.components.LocalToastHost
 import com.piptechnologies.openchat.ui.components.rememberToastHostState
@@ -40,9 +47,10 @@ private const val NO_MEDIA_ID = -1L
  * to onboarding on the first run and to Home afterwards; both remove themselves from the back stack, so
  * Back on Home leaves the app. A Home tool row opens its screen when notification access is granted and
  * the gate otherwise; Continue on the gate replaces the gate with the pending tool, and the gate opened
- * from Settings just goes back. Every push is `launchSingleTop`, so a double tap cannot stack the same
- * screen twice, and a route's Back pops only while that route is still on top ([popFrom]), so a double
- * tap cannot pop the screen underneath as well.
+ * from Settings just goes back. The tool screens re-check the grant on every resume and hand over to the
+ * gate when it was revoked ([RequireNotificationAccess]). Every push is `launchSingleTop`, so a double
+ * tap cannot stack the same screen twice, and a route's Back pops only while that route is still on top
+ * ([popFrom]), so a double tap cannot pop the screen underneath as well.
  */
 @Composable
 fun AppRoot() {
@@ -101,11 +109,14 @@ fun AppRoot() {
                     route = Routes.MESSAGES,
                     arguments = listOf(navArgument(Routes.ARG_MODE) { type = NavType.StringType }),
                 ) { entry ->
-                    MessagesRoute(
-                        mode = inboxModeArg(entry.arguments?.getString(Routes.ARG_MODE)),
-                        onBack = { navController.popFrom(entry) },
-                        onOpenConversation = { mode, key -> navController.open(Routes.conversation(mode, key)) },
-                    )
+                    val mode = inboxModeArg(entry.arguments?.getString(Routes.ARG_MODE))
+                    RequireNotificationAccess(tool = gateToolFor(mode), replaceFrom = Routes.MESSAGES, navController = navController, entry = entry) {
+                        MessagesRoute(
+                            mode = mode,
+                            onBack = { navController.popFrom(entry) },
+                            onOpenConversation = { m, key -> navController.open(Routes.conversation(m, key)) },
+                        )
+                    }
                 }
                 composable(
                     route = Routes.CONVERSATION,
@@ -114,20 +125,26 @@ fun AppRoot() {
                         navArgument(Routes.ARG_KEY) { type = NavType.StringType },
                     ),
                 ) { entry ->
-                    // Navigation hands the key over URI-decoded; conversationKeyArg only decodes a key still in
-                    // its encoded form, so this is the same value the ViewModel reads from its SavedStateHandle.
-                    ConversationRoute(
-                        mode = inboxModeArg(entry.arguments?.getString(Routes.ARG_MODE)),
-                        key = conversationKeyArg(entry.arguments?.getString(Routes.ARG_KEY)),
-                        onBack = { navController.popFrom(entry) },
-                        onOpenMedia = { id -> navController.open(Routes.mediaDetail(id)) },
-                    )
+                    val mode = inboxModeArg(entry.arguments?.getString(Routes.ARG_MODE))
+                    // A conversation is only reached from Messages, which stays under it, so the gate replaces both.
+                    RequireNotificationAccess(tool = gateToolFor(mode), replaceFrom = Routes.MESSAGES, navController = navController, entry = entry) {
+                        // Navigation hands the key over URI-decoded; conversationKeyArg only decodes a key still in
+                        // its encoded form, so this is the same value the ViewModel reads from its SavedStateHandle.
+                        ConversationRoute(
+                            mode = mode,
+                            key = conversationKeyArg(entry.arguments?.getString(Routes.ARG_KEY)),
+                            onBack = { navController.popFrom(entry) },
+                            onOpenMedia = { id -> navController.open(Routes.mediaDetail(id)) },
+                        )
+                    }
                 }
                 composable(Routes.MEDIA) { entry ->
-                    MediaRoute(
-                        onBack = { navController.popFrom(entry) },
-                        onOpenDetail = { id -> navController.open(Routes.mediaDetail(id)) },
-                    )
+                    RequireNotificationAccess(tool = GateTool.MEDIA, replaceFrom = Routes.MEDIA, navController = navController, entry = entry) {
+                        MediaRoute(
+                            onBack = { navController.popFrom(entry) },
+                            onOpenDetail = { id -> navController.open(Routes.mediaDetail(id)) },
+                        )
+                    }
                 }
                 composable(
                     route = Routes.MEDIA_DETAIL,
@@ -159,6 +176,42 @@ fun AppRoot() {
         }
         DarkToastHost(state = toast, modifier = Modifier.matchParentSize())
     }
+}
+
+/**
+ * Design map §3: a tool screen re-checks notification access on every resume and, when it was revoked, hands
+ * over to the gate for [tool]. The gate replaces the stack from [replaceFrom] up (the tool screen, and for a
+ * conversation the Messages list under it), so Back from the gate returns to Home and Continue re-opens the
+ * tool through the gate's own Continue. Only the current entry acts, never one that already sits under the
+ * gate, and once per resumed period: the flag is reset on pause, so the next resume checks again.
+ */
+@Composable
+private fun RequireNotificationAccess(
+    tool: GateTool,
+    replaceFrom: String,
+    navController: NavHostController,
+    entry: NavBackStackEntry,
+    content: @Composable () -> Unit,
+) {
+    val context = LocalContext.current
+    var handedOver by remember { mutableStateOf(false) }
+    LifecycleResumeEffect(Unit) {
+        if (!handedOver && !NotificationAccess.isGranted(context) && navController.currentBackStackEntry?.id == entry.id) {
+            handedOver = true
+            navController.navigate(Routes.gate(tool)) {
+                popUpTo(replaceFrom) { inclusive = true }
+                launchSingleTop = true
+            }
+        }
+        onPauseOrDispose { handedOver = false }
+    }
+    content()
+}
+
+/** The gate a Messages screen hands over to: the unseen tool for All, the deleted-messages tool for Deleted only. */
+private fun gateToolFor(mode: InboxMode): GateTool = when (mode) {
+    InboxMode.ALL -> GateTool.UNSEEN
+    InboxMode.DELETED -> GateTool.DELETED_MESSAGES
 }
 
 /** Pushes [route] unless it is already on top, so a double tap does not open the same screen twice. */

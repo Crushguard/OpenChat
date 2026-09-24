@@ -55,8 +55,9 @@ import kotlinx.coroutines.launch
  * [send] emits the link on [launchRequests], [HomeRoute] opens it with the Activity context, then
  * reports [onLaunched], which toasts, records the recent, counts the send ([sendCompleted]) and
  * remembers the launch for the not-on-WhatsApp heuristic (ruling R6) checked in [onResume]. The third
- * completed send also schedules the rating sheet ([rating], design map §4.19), which the route draws;
- * [rateOnPlay] and [sendFeedback] do what the same buttons do in Settings.
+ * completed send arms the rating sheet ([rating], design map §4.19), which opens 1.8 s after the next
+ * resume (the user is back from the chat) and which the route draws; [rateOnPlay] and [sendFeedback] do
+ * what the same buttons do in Settings.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
@@ -92,13 +93,16 @@ class HomeViewModel @Inject constructor(
 
     private val _sendCompleted = MutableSharedFlow<Int>(extraBufferCapacity = 4)
 
-    /** The new send count after each successful launch; [promptRatingIfDue] watches it for the third. */
+    /** The new send count after each successful launch; [armRatingPrompt] watches it for the third. */
     val sendCompleted: SharedFlow<Int> = _sendCompleted.asSharedFlow()
 
-    /** The rating sheet (design map §4.19): opened once, 1.8 s after the third successful send. The route draws it. */
+    /** The rating sheet (design map §4.19): opened once, 1.8 s after Home resumes from the third successful send. The route draws it. */
     val rating = RatingFlow(viewModelScope)
 
-    /** Set once the prompt is scheduled, so a burst of sends cannot schedule it twice. */
+    /** Armed by the third completed send, in memory only; the next [onResume] turns it into the timed prompt. */
+    private var ratingPromptArmed = false
+
+    /** Set once the timed prompt is scheduled, so it can never be scheduled twice in this process. */
     private var ratingPromptScheduled = false
 
     private val _launchRequests = MutableSharedFlow<SendLink>(extraBufferCapacity = 4)
@@ -149,14 +153,15 @@ class HomeViewModel @Inject constructor(
             }
         }
         viewModelScope.launch {
-            sendCompleted.collect { count -> promptRatingIfDue(count) }
+            sendCompleted.collect { count -> armRatingPrompt(count) }
         }
     }
 
     /**
      * Re-reads notification access and the installed apps, moves the "this week" window and the time
      * the recent labels are measured from, and applies the not-on-WhatsApp heuristic (ruling R6) to
-     * the last launch: coming back within 7 s of opening WhatsApp or Business shows the sheet.
+     * the last launch: coming back within 7 s of opening WhatsApp or Business shows the sheet. Coming
+     * back from the third send's chat also starts the rating prompt's timer ([scheduleRatingPrompt]).
      */
     fun onResume() {
         val now = System.currentTimeMillis()
@@ -176,6 +181,7 @@ class HomeViewModel @Inject constructor(
                 notOnWhatsApp = it.notOnWhatsApp || bounced,
             )
         }
+        scheduleRatingPrompt()
     }
 
     /**
@@ -395,22 +401,34 @@ class HomeViewModel @Inject constructor(
     }
 
     /**
-     * The rating prompt (design map §4.19, §5.5): once [count] reaches [RATING_PROMPT_SENDS] and the sheet
-     * was never shown, it opens [RATING_PROMPT_DELAY_MS] later. `rating_shown` is written as it opens, so
-     * it never shows twice, even if the process dies right after; a process that dies during the wait
-     * leaves the flag unset, and the next send prompts instead.
+     * The rating prompt (design map §4.19, §5.5), part one: the third completed send arms it, unless the
+     * sheet was already shown (`rating_shown`) or the prompt was already scheduled in this process. Nothing
+     * is persisted here; a ViewModel cleared before the next resume loses the arm, and the next send re-arms.
      */
-    private suspend fun promptRatingIfDue(count: Int) {
-        if (count < RATING_PROMPT_SENDS || ratingPromptScheduled) return
+    private suspend fun armRatingPrompt(count: Int) {
+        if (count < RATING_PROMPT_SENDS || ratingPromptArmed || ratingPromptScheduled) return
         if (settings.ratingShown.first()) return
+        ratingPromptArmed = true
+    }
+
+    /**
+     * Part two, from [onResume]: the user is back from the chat the third send opened, so the sheet opens
+     * [RATING_PROMPT_DELAY_MS] later. `rating_shown` is written just before it opens, so it never shows
+     * twice, even across process deaths; [ratingPromptScheduled] keeps a later resume from scheduling it again.
+     */
+    private fun scheduleRatingPrompt() {
+        if (!ratingPromptArmed || ratingPromptScheduled) return
+        ratingPromptArmed = false
         ratingPromptScheduled = true
-        delay(RATING_PROMPT_DELAY_MS)
-        try {
-            settings.setRatingShown()
-        } catch (e: IOException) {
-            // Not remembered; the sheet still opens now, once for this process.
+        viewModelScope.launch {
+            delay(RATING_PROMPT_DELAY_MS)
+            try {
+                settings.setRatingShown()
+            } catch (e: IOException) {
+                // Not remembered; the sheet still opens now, once for this process.
+            }
+            rating.open()
         }
-        rating.open()
     }
 
     private fun toast(text: String) {
@@ -484,7 +502,7 @@ class HomeViewModel @Inject constructor(
         const val MINUTE_MS = 60_000L
         const val WEEK_MS = 7 * 24 * 60 * MINUTE_MS
 
-        /** The rating sheet comes once, after this many completed sends, this long after the third (design map §4.19). */
+        /** The rating sheet comes once, after this many completed sends, this long after Home resumes from that send's chat (design map §4.19). */
         const val RATING_PROMPT_SENDS = 3
         const val RATING_PROMPT_DELAY_MS = 1_800L
 

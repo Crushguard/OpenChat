@@ -46,7 +46,7 @@ private const val CountrySheetFraction = 0.86f
 
 /**
  * Binds [HomeViewModel] to [HomeScreen] and shows what the screen does not draw itself: the country
- * sheet, the not-on-WhatsApp sheet, the rating sheet (design map §4.19, once after the third send) and
+ * sheet, the not-on-WhatsApp sheet, the rating sheet (design map §4.19, once, on the return from the third send) and
  * the dark toast, which goes to the app-level host ([LocalToastHost]) when there is one. Sends are
  * opened here with the Activity context (LocalContext), so the chat opens in the app's own task and
  * Back returns to OpenChat, which the not-on-WhatsApp heuristic relies on. [onTool] gets the tool and
