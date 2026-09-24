@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -32,10 +33,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -179,7 +182,10 @@ private fun SlideText(title: String, body: String) {
     }
 }
 
-/** Slide 1: Home's phone field, split Send button and "not added" line, static and not interactive. */
+/**
+ * Slide 1: Home's phone field (laid out left to right in every language, as Home lays it out), split Send
+ * button and "not added" line, static and not interactive.
+ */
 @Composable
 private fun NumberEntryIllustration() {
     val c = OcTheme.colors
@@ -190,39 +196,44 @@ private fun NumberEntryIllustration() {
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .shadow(elevation = 10.dp, shape = fieldShape, ambientColor = Color.Transparent, spotColor = IllustrationShadow)
-                .background(c.surface, fieldShape)
-                .border(1.dp, c.border, fieldShape)
-                .padding(horizontal = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
+        // Like Home's phone field, the sample field reads left to right in every language: the dial code, then
+        // the digits. Its texts are then left-to-right paragraphs, so "+62" and "812 3456 7890" keep their order
+        // in a right-to-left layout too.
+        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
             Row(
                 modifier = Modifier
-                    .height(44.dp)
-                    .clip(RoundedCornerShape(OcRadius.sm))
-                    .background(c.subtle)
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .shadow(elevation = 10.dp, shape = fieldShape, ambientColor = Color.Transparent, spotColor = IllustrationShadow)
+                    .background(c.surface, fieldShape)
+                    .border(1.dp, c.border, fieldShape)
                     .padding(horizontal = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(7.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
             ) {
-                FlagEmoji(country = SampleCountry)
-                Text(text = SampleCountry.dialLabel, style = OcTheme.type.mono16, color = c.ink)
-                LucideIconImage(icon = LucideIcon.ChevronDown, size = 16.dp, tint = c.ink2, strokeWidth = 2f)
+                Row(
+                    modifier = Modifier
+                        .height(44.dp)
+                        .clip(RoundedCornerShape(OcRadius.sm))
+                        .background(c.subtle)
+                        .padding(horizontal = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(7.dp),
+                ) {
+                    FlagEmoji(country = SampleCountry)
+                    Text(text = SampleCountry.dialLabel, style = OcTheme.type.mono16, color = c.ink)
+                    LucideIconImage(icon = LucideIcon.ChevronDown, size = 16.dp, tint = c.ink2, strokeWidth = 2f)
+                }
+                Text(
+                    text = stringResource(R.string.onboarding_1_sample_number),
+                    style = OcTheme.type.mono22,
+                    color = c.ink,
+                    maxLines = 1,
+                    softWrap = false,
+                    overflow = TextOverflow.Clip,
+                    modifier = Modifier.weight(1f),
+                )
             }
-            Text(
-                text = stringResource(R.string.onboarding_1_sample_number),
-                style = OcTheme.type.mono22,
-                color = c.ink,
-                maxLines = 1,
-                softWrap = false,
-                overflow = TextOverflow.Clip,
-                modifier = Modifier.weight(1f),
-            )
         }
         SplitSendButton()
         Row(

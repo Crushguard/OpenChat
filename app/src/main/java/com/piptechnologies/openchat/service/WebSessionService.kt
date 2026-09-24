@@ -10,6 +10,7 @@ import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
+import android.os.LocaleList
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -17,6 +18,7 @@ import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.piptechnologies.openchat.MainActivity
 import com.piptechnologies.openchat.R
+import com.piptechnologies.openchat.ui.components.withAppLocale
 
 /**
  * The second account's foreground service (type specialUse, §4.14, §5.4). While the WhatsApp Web session is linked
@@ -24,19 +26,19 @@ import com.piptechnologies.openchat.R
  * [com.piptechnologies.openchat.ui.second.WhatsAppWebViewHolder], alive after the user leaves the screen. The
  * Second account screen decides when it runs: [start] once it sees the session linked, [stop] on logout.
  * POST_NOTIFICATIONS is requested by that screen (API 33+); the service runs either way.
+ *
+ * The notification and its channel name are in the app's language: they are resolved through [withAppLocale],
+ * because on API 24–32 a service's own context follows the device language, not the per-app one.
  */
 class WebSessionService : Service() {
-    private val notification: Notification by lazy { buildNotification() }
+    /** The notification this instance posts, and the locales its texts were resolved in ([localizedNotification]). */
+    private var notification: Notification? = null
+    private var notificationLocales: LocaleList? = null
 
     /** Whether a startForeground() of this instance has gone through. */
     private var inForeground = false
 
     override fun onBind(intent: Intent?): IBinder? = null
-
-    override fun onCreate() {
-        super.onCreate()
-        createChannel()
-    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == ACTION_STOP) {
@@ -57,7 +59,7 @@ class WebSessionService : Service() {
      */
     private fun enterForeground(startId: Int) {
         try {
-            ServiceCompat.startForeground(this, NOTIFICATION_ID, notification, foregroundServiceType())
+            ServiceCompat.startForeground(this, NOTIFICATION_ID, localizedNotification(), foregroundServiceType())
             inForeground = true
         } catch (e: RuntimeException) {
             // e.g. ForegroundServiceStartNotAllowedException (API 31+) for a start the system refuses. A service
@@ -75,20 +77,37 @@ class WebSessionService : Service() {
             0
         }
 
-    /** API 26+; re-creating an existing channel only refreshes its name. */
-    private fun createChannel() {
+    /**
+     * The notification in the app's current language. It is built on the first start of this instance and
+     * again only after a language change, so a repeated start posts an identical notification. Each build
+     * first creates the channel, or renames it into that language: the system settings list it by name.
+     */
+    private fun localizedNotification(): Notification {
+        val localized = withAppLocale()
+        val locales = localized.resources.configuration.locales
+        val built = notification
+        if (built != null && locales == notificationLocales) return built
+        createChannel(localized)
+        return buildNotification(localized).also {
+            notification = it
+            notificationLocales = locales
+        }
+    }
+
+    /** API 26+; re-creating an existing channel only refreshes its name. [localized] resolves the name. */
+    private fun createChannel(localized: Context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
         val channel = NotificationChannel(
             CHANNEL_ID,
-            getString(R.string.second_notification_channel),
+            localized.getString(R.string.second_notification_channel),
             NotificationManager.IMPORTANCE_LOW,
         )
         channel.setShowBadge(false)
         NotificationManagerCompat.from(this).createNotificationChannel(channel)
     }
 
-    /** Built once per service instance, so a repeated start posts an identical notification. */
-    private fun buildNotification(): Notification {
+    /** The ongoing notification, with its texts resolved in [localized]. */
+    private fun buildNotification(localized: Context): Notification {
         // The launcher's intent: brings the existing task back as it was, or starts the app.
         val open = Intent(this, MainActivity::class.java)
             .setAction(Intent.ACTION_MAIN)
@@ -102,10 +121,10 @@ class WebSessionService : Service() {
         )
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle(getString(R.string.second_notification_title))
-            .setContentText(getString(R.string.second_notification_text))
+            .setContentTitle(localized.getString(R.string.second_notification_title))
+            .setContentText(localized.getString(R.string.second_notification_text))
             .setContentIntent(openApp)
-            .addAction(0, getString(R.string.second_notification_open), openApp)
+            .addAction(0, localized.getString(R.string.second_notification_open), openApp)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .setOngoing(true)

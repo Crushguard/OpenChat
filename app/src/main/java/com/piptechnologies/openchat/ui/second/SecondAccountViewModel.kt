@@ -9,6 +9,8 @@ import com.piptechnologies.openchat.core.web.ProbeResult
 import com.piptechnologies.openchat.core.web.WebSession
 import com.piptechnologies.openchat.data.prefs.SettingsRepository
 import com.piptechnologies.openchat.service.WebSessionService
+import com.piptechnologies.openchat.ui.components.UiText
+import com.piptechnologies.openchat.ui.components.uiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
@@ -52,9 +54,9 @@ class SecondAccountViewModel @Inject constructor(
     private val _state = MutableStateFlow(SecondUiState(phase = SecondPhase.ENTRY, confirmLogout = false))
     val state: StateFlow<SecondUiState> = _state.asStateFlow()
 
-    /** Toast texts ("Linked", "Reloading…", "Logged out") for the route's toast host. */
-    private val _toasts = MutableSharedFlow<String>(extraBufferCapacity = 1)
-    val toasts: SharedFlow<String> = _toasts.asSharedFlow()
+    /** Toast texts ("Linked", "Reloading…", "Logged out"); the route resolves them in the UI language. */
+    private val _toasts = MutableSharedFlow<UiText>(extraBufferCapacity = 1)
+    val toasts: SharedFlow<UiText> = _toasts.asSharedFlow()
 
     /**
      * Counts finished probes. The route reads it in its AndroidView update block, so the block runs again
@@ -92,7 +94,7 @@ class SecondAccountViewModel @Inject constructor(
     /** Reloads WhatsApp Web and toasts "Reloading…". */
     fun reload() {
         holder.reload()
-        _toasts.tryEmit(context.getString(R.string.toast_reloading))
+        _toasts.tryEmit(uiText(R.string.toast_reloading))
     }
 
     /** Opens the "Log out of the linked account?" sheet. */
@@ -122,7 +124,7 @@ class SecondAccountViewModel @Inject constructor(
         _state.value = SecondUiState(phase = SecondPhase.ENTRY, confirmLogout = false)
         holder.logout()
         WebSessionService.stop(context)
-        _toasts.tryEmit(context.getString(R.string.toast_logged_out))
+        _toasts.tryEmit(uiText(R.string.toast_logged_out))
         viewModelScope.launch {
             withContext(NonCancellable) { persistLinked(false) }
         }
@@ -163,7 +165,7 @@ class SecondAccountViewModel @Inject constructor(
         linkConfirmed = true
         qrResultsInARow = 0
         _state.update { it.copy(phase = SecondPhase.LINKED) }
-        if (justLinked) _toasts.tryEmit(context.getString(R.string.toast_linked))
+        if (justLinked) _toasts.tryEmit(uiText(R.string.toast_linked))
         persistLinked(true)
         WebSessionService.start(context)
     }

@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Second account (design map §4.14): entry state -->
+    <!-- Top bar title of the Second account screen. Once linked, the bar also holds a status chip and two icon buttons, so keep it short (max ~16 characters). -->
     <string name="second_title">Second account</string>
+    <!-- Second account screen before linking: title (large, centred, up to two lines). "WhatsApp" is the app name: keep it. -->
     <string name="second_entry_title">A second WhatsApp, in here</string>
+    <!-- Second account screen before linking: text under the title. "WhatsApp Web" is WhatsApp's own product name: keep it. -->
     <string name="second_entry_body">Links a WhatsApp Web session inside this app. Use it for a second account, or the same account on a second phone.</string>
+    <!-- Second account screen before linking: info box next to a phone icon. "WhatsApp › Linked devices › Link a device" is the path through WhatsApp's own menus on the other phone: write each menu name exactly as WhatsApp shows it in your language (they are WhatsApp's words, not ours) and keep the › separators between them (right-to-left scripts show them pointing left by themselves). -->
     <string name="second_entry_callout">You need the other phone. A QR code appears here; scan it there under WhatsApp › Linked devices › Link a device.</string>
+    <!-- Second account screen: full-width main button, after a QR code icon; shows WhatsApp Web's QR code to scan with the other phone. Max ~30 characters. -->
     <string name="second_scan">Scan QR</string>
+    <!-- Second account screen: hint under the Scan QR button. While linked, Android requires the app to show an ongoing notification. -->
     <string name="second_entry_hint">A notification stays visible while linked. Android requires it.</string>
 
     <!-- Second account: linking / linked bar -->
+    <!-- Second account top bar: small grey status next to the buttons while WhatsApp Web shows its QR code and the account is not linked yet. Max ~12 characters. -->
     <string name="second_linking">Linking…</string>
+    <!-- Accessibility label of the reload button in the Second account top bar (reloads WhatsApp Web). Read by TalkBack, never shown. -->
     <string name="second_reload">Reload</string>
+    <!-- Accessibility label of the log-out button in the Second account top bar (opens the log-out confirmation). Read by TalkBack, never shown. -->
     <string name="second_log_out">Log out</string>
 
     <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
+    <!-- Title of the confirmation sheet opened by the log-out button of the Second account screen. -->
     <string name="logout_title">Log out of the linked account?</string>
+    <!-- Text of the log-out confirmation sheet. -->
     <string name="logout_body">The session ends on this phone. The other phone keeps working.</string>
+    <!-- Log-out confirmation: cancel button (half width) that closes the sheet and keeps the account linked. Max ~16 characters. -->
     <string name="logout_stay">Stay</string>
+    <!-- Log-out confirmation: red confirm button (half width) that ends the linked session on this phone. Max ~16 characters. -->
     <string name="logout_confirm">Log out</string>
+    <!-- Short message (toast) after the reload button is tapped, while WhatsApp Web reloads. -->
     <string name="toast_reloading">Reloading…</string>
+    <!-- Short message (toast) after the user logged out of the linked account. -->
     <string name="toast_logged_out">Logged out</string>
+    <!-- Short message (toast) the moment the second account becomes linked (the QR code was scanned on the other phone). -->
     <string name="toast_linked">Linked</string>
 </resources>

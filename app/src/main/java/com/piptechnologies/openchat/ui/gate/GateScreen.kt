@@ -30,6 +30,8 @@ import com.piptechnologies.openchat.ui.components.OcTopBar
 import com.piptechnologies.openchat.ui.components.PrimaryButton
 import com.piptechnologies.openchat.ui.components.ScreenSurface
 import com.piptechnologies.openchat.ui.components.StateChip
+import com.piptechnologies.openchat.ui.components.asString
+import com.piptechnologies.openchat.ui.components.uiText
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.navigation.GateTool
@@ -46,7 +48,7 @@ import com.piptechnologies.openchat.ui.theme.OcTheme
 fun GateScreen(state: GateUiState, onBack: () -> Unit, onOpenSettings: () -> Unit, onContinue: () -> Unit) {
     val c = OcTheme.colors
     ScreenSurface {
-        OcTopBar(title = state.title, onBack = onBack)
+        OcTopBar(title = state.title.asString(), onBack = onBack)
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -123,7 +125,7 @@ fun GateRoute(
     onContinue: (GateTool) -> Unit,
     viewModel: GateViewModel = hiltViewModel(),
 ) {
-    val title = stringResource(barTitle(tool))
+    val title = uiText(barTitle(tool))
     LaunchedEffect(viewModel, title) { viewModel.setTitle(title) }
     LifecycleResumeEffect(Unit) {
         viewModel.refresh()

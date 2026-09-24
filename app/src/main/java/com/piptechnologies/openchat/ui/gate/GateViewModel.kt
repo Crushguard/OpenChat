@@ -3,6 +3,7 @@ package com.piptechnologies.openchat.ui.gate
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.piptechnologies.openchat.platform.NotificationAccess
+import com.piptechnologies.openchat.ui.components.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -19,12 +20,12 @@ import kotlinx.coroutines.flow.update
 @HiltViewModel
 class GateViewModel @Inject constructor(@ApplicationContext private val context: Context) : ViewModel() {
     private val _state = MutableStateFlow(
-        GateUiState(title = "", granted = NotificationAccess.isGranted(context), waitingForSystem = false),
+        GateUiState(title = UiText.Raw(""), granted = NotificationAccess.isGranted(context), waitingForSystem = false),
     )
     val state: StateFlow<GateUiState> = _state.asStateFlow()
 
-    /** The bar title; the route resolves it from the tool the gate was opened for. */
-    fun setTitle(title: String) {
+    /** The bar title; the route picks it from the tool the gate was opened for. */
+    fun setTitle(title: UiText) {
         _state.update { it.copy(title = title) }
     }
 

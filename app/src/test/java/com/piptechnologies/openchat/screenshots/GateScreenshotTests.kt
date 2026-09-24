@@ -1,5 +1,7 @@
 package com.piptechnologies.openchat.screenshots
 
+import com.piptechnologies.openchat.R
+import com.piptechnologies.openchat.ui.components.uiText
 import com.piptechnologies.openchat.ui.gate.GateScreen
 import com.piptechnologies.openchat.ui.gate.GateUiState
 import com.piptechnologies.openchat.ui.theme.OpenChatTheme
@@ -16,7 +18,7 @@ class GateScreenshotTests {
         paparazzi.snapshot {
             OpenChatTheme {
                 GateScreen(
-                    state = GateUiState(title = "Messages", granted = false, waitingForSystem = false),
+                    state = GateUiState(title = uiText(R.string.gate_bar_messages), granted = false, waitingForSystem = false),
                     onBack = {},
                     onOpenSettings = {},
                     onContinue = {},
@@ -30,7 +32,7 @@ class GateScreenshotTests {
         paparazzi.snapshot {
             OpenChatTheme {
                 GateScreen(
-                    state = GateUiState(title = "Messages", granted = true, waitingForSystem = false),
+                    state = GateUiState(title = uiText(R.string.gate_bar_messages), granted = true, waitingForSystem = false),
                     onBack = {},
                     onOpenSettings = {},
                     onContinue = {},

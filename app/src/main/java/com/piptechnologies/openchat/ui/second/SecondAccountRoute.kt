@@ -14,26 +14,30 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.piptechnologies.openchat.ui.components.ConfirmSheet
 import com.piptechnologies.openchat.ui.components.DarkToastHost
+import com.piptechnologies.openchat.ui.components.asString
 import com.piptechnologies.openchat.ui.components.rememberToastHostState
 
 /**
  * Binds [SecondAccountViewModel] to [SecondAccountScreen]: the session WebView goes into the screen's web
- * slot, toasts into a [DarkToastHost], and the log-out confirmation is a [ConfirmSheet]. Scan QR first asks
- * for POST_NOTIFICATIONS on API 33+ (the permission only decides whether the "Second account linked"
- * notification is visible) and then scans whatever the answer was. Back ([onBack]) leaves the screen; the
- * session and its service keep running.
+ * slot, toasts (resolved here, in the UI language) into a [DarkToastHost], and the log-out confirmation is a
+ * [ConfirmSheet]. Scan QR first asks for POST_NOTIFICATIONS on API 33+ (the permission only decides whether
+ * the "Second account linked" notification is visible) and then scans whatever the answer was. Back
+ * ([onBack]) leaves the screen; the session and its service keep running.
  */
 @Composable
 fun SecondAccountRoute(onBack: () -> Unit, viewModel: SecondAccountViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val probeCount = viewModel.probeCount.collectAsStateWithLifecycle()
     val toast = rememberToastHostState()
-    LaunchedEffect(viewModel, toast) { viewModel.toasts.collect { toast.show(it) } }
+    // The Activity context carries the per-app language (the application context does not on API 24–32).
+    val context = LocalContext.current
+    LaunchedEffect(viewModel, toast) { viewModel.toasts.collect { toast.show(it.asString(context)) } }
     val notificationPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
         viewModel.scan()
     }
