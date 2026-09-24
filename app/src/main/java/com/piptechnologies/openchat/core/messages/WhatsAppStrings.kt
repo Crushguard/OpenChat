@@ -16,7 +16,12 @@ internal object WhatsAppStrings {
      * (a drawable there).
      */
     val deletedPlaceholders: Map<String, List<String>> = linkedMapOf(
-        "en" to listOf("This message was deleted"), // Android 2017, 2021 and current (high)
+        "en" to listOf(
+            "This message was deleted", // Android 2017, 2021 and current (high)
+            // The app's earlier entry, kept: WhatsApp appends the admin's name (see deletedByAdmin), but as an exact
+            // whole line it is harmless.
+            "This message was deleted by admin",
+        ),
         "id" to listOf(
             "Pesan ini dihapus", // current: Android exports 2022–2026, iOS (medium)
             "Pesan ini telah dihapus", // Android 2017, 2021 (high)

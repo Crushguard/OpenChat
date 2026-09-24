@@ -60,10 +60,12 @@ class NotificationIngestor @Inject constructor(
         mutex.withLock { forget(sbnKey, reason) }
     }
 
-    /** Returns false while recovery is paused and for system notifications, which are never read. */
+    /**
+     * Returns false while recovery is paused and for system notifications, group summaries included, which are never
+     * read; true once any other notification, a group summary too, has been handled.
+     */
     private suspend fun ingest(parsed: ParsedNotification, images: List<NotificationImage>): Boolean {
         if (settings.recoveryPaused.first()) return false
-        if (parsed.isGroupSummary) return true
         val title = parsed.conversationTitle
         val appLabel = NotificationText.isAppLabel(title)
         // Calls, progress bars, services, app-titled notices: never chat lines, whatever the phone's language (§5.2).
@@ -76,6 +78,7 @@ class NotificationIngestor @Inject constructor(
             titleIsAppLabel = appLabel,
         )
         if (system) return false
+        if (parsed.isGroupSummary) return true
         // The noise rules are broad ("backup"): a conversation's own MessagingStyle lines never go through them.
         val screen = !parsed.fromMessagingStyle || appLabel
         val kept = parsed.lines.withIndex().filterNot { screen && NotificationText.isSummaryOrNoise(title, it.value.text) }

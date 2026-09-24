@@ -14,8 +14,12 @@ object NotificationText {
     private const val NO_ENTRY = "🚫"
     private const val EMOJI_PRESENTATION = "\uFE0F"
 
-    /** What a name slot of a WhatsApp string matches: an admin's or a caller's name, 1–80 characters. */
-    private const val NAME = "(.{1,80})"
+    /**
+     * What a name slot of a WhatsApp string matches: an admin's or a caller's name, 1–80 characters without a line
+     * break or a question or exclamation mark in any script ("?", "!", Arabic "؟", full-width "？" and "！"), so that
+     * "This message was deleted by admin Zeeshan?" is someone's question, not the placeholder.
+     */
+    private const val NAME = """([^?!؟？！\n]{1,80})"""
 
     /** A number slot of a noise string: digits, the spaces around them optional ("12 条消息", "12条消息"). */
     private const val NUMBER = """ ?\p{Nd}+ ?"""
@@ -41,6 +45,9 @@ object NotificationText {
 
     /** Full stops a deleted placeholder may end with: Latin (also Hindi on iOS), Devanagari, Urdu, Chinese. */
     private val fullStops = setOf('.', '।', '۔', '。')
+
+    /** Line breaks: a deleted placeholder is always a single line. */
+    private val lineBreaks = setOf('\n', '\r', '\u000B', '\u000C', '\u0085', '\u2028', '\u2029')
 
     private val noisePatterns = listOf(
         Regex("""(?i)\d+\s+(new\s+)?messages?\s+from\s+\d+\s+chats?"""),
@@ -130,9 +137,11 @@ object NotificationText {
      * "This message was deleted" in every language of [WhatsAppStrings.deletedPlaceholders] (see docs/design-map.md
      * §5.2), and the admin variants of [WhatsAppStrings.deletedByAdmin] with any admin name. Exact after normalizing
      * both sides ([deletedCore]): invisible bidi marks and isolates, a leading 🚫, trailing full stops (".", "।", "۔",
-     * "。") and spaces do not count, Arabic yeh/kaf equal the Persian/Urdu letters, case does not count.
+     * "。") and spaces do not count, Arabic yeh/kaf equal the Persian/Urdu letters, case does not count. A text with a
+     * line break is never one (checked before folding turns the break into a space).
      */
     fun isDeletedPattern(text: String): Boolean {
+        if (clean(text).any { it in lineBreaks }) return false
         val core = deletedCore(text)
         if (core.isEmpty()) return false
         return placeholderCores.any { it.equals(core, ignoreCase = true) } || adminTemplates.any { it.matches(core) }
@@ -204,10 +213,23 @@ object NotificationText {
 
     /**
      * An admin variant as a regex over [deletedCore] text: the whole text, the template's words literal (any case) and
-     * each name slot 1–80 characters, so a sentence that merely contains the words never matches.
+     * each name slot a [NAME], so a sentence that merely contains the words never matches. Chinese puts no spaces
+     * between words, so a space between a name slot and a Chinese character is optional: "管理员 %@ 已删除这条消息" also
+     * reads "管理员张伟已删除这条消息".
      */
-    private fun adminTemplate(template: String): Regex =
-        Regex(deletedCore(template).split(slot).joinToString(NAME, "^", "\$") { literal(it) }, RegexOption.IGNORE_CASE)
+    private fun adminTemplate(template: String): Regex {
+        val pieces = deletedCore(template).split(slot)
+        val source = pieces.withIndex().joinToString(NAME, "^", "\$") { (index, piece) ->
+            val spaceBefore = index > 0 && piece.length > 1 && piece.first() == ' ' && isIdeograph(piece.codePointAt(1))
+            val spaceAfter = index < pieces.lastIndex && piece.length > 1 && piece.last() == ' ' &&
+                isIdeograph(piece.codePointBefore(piece.length - 1))
+            val words = piece.substring(if (spaceBefore) 1 else 0, piece.length - if (spaceAfter) 1 else 0)
+            (if (spaceBefore) " ?" else "") + literal(words) + (if (spaceAfter) " ?" else "")
+        }
+        return Regex(source, RegexOption.IGNORE_CASE)
+    }
+
+    private fun isIdeograph(codePoint: Int): Boolean = Character.isIdeographic(codePoint)
 
     /**
      * Regex source for a noise string, over [fold]ed text: its words literal, without its trailing "…", "..." or full

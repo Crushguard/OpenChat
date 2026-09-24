@@ -34,6 +34,7 @@ class DeletedPlaceholdersByLanguageTest {
 
     @Test fun `english`() {
         assertPlaceholder("This message was deleted", ".")
+        assertPlaceholder("This message was deleted by admin", ".") // the app's earlier exact entry, kept as a whole line
         assertAdmin(
             "This message was deleted by an admin", "This message was deleted by admin Zeeshan",
             "This message was deleted by admin Zeeshan.", "This message was deleted by admin \u2068+62 813-9922-0417\u2069",
@@ -41,8 +42,9 @@ class DeletedPlaceholdersByLanguageTest {
         )
         assertNotDeleted(
             "I think this message was deleted by admin Zeeshan", "Was this message deleted by an admin?",
-            "This message was deleted by an admin, right?", "This message was deleted by admin", "You deleted this message",
-            "You deleted this message as admin",
+            "This message was deleted by an admin, right?", "This message was deleted by admin because of spam?",
+            "This message was deleted by admin Zeeshan?", "This message was deleted by admin Zeeshan!",
+            "This message was deleted by admin?", "You deleted this message", "You deleted this message as admin",
         )
     }
 
@@ -50,7 +52,10 @@ class DeletedPlaceholdersByLanguageTest {
         assertPlaceholder("Pesan ini dihapus", ".")
         assertPlaceholder("Pesan ini telah dihapus", ".")
         assertAdmin("Pesan ini dihapus oleh admin.", "Pesan ini dihapus oleh admin Budi.")
-        assertNotDeleted("Kayaknya pesan ini dihapus oleh admin Budi", "Pesan ini dihapus oleh admin?", "Anda telah menghapus pesan ini")
+        assertNotDeleted(
+            "Kayaknya pesan ini dihapus oleh admin Budi", "Pesan ini dihapus oleh admin?", "Pesan ini dihapus oleh admin Budi?",
+            "Anda telah menghapus pesan ini",
+        )
     }
 
     @Test fun `portuguese brazil`() {
@@ -58,7 +63,10 @@ class DeletedPlaceholdersByLanguageTest {
         assertPlaceholder("Essa mensagem foi apagada", ".")
         assertPlaceholder("Esta mensagem foi apagada", ".")
         assertAdmin("Mensagem apagada por um admin", "Mensagem apagada por um admin (Ana)")
-        assertNotDeleted("Acho que a mensagem apagada por um admin era minha", "Mensagem apagada por um admin?", "Você apagou essa mensagem")
+        assertNotDeleted(
+            "Acho que a mensagem apagada por um admin era minha", "Mensagem apagada por um admin?",
+            "Mensagem apagada por um admin (Ana)?", "Mensagem apagada por um admin (Ana?)", "Você apagou essa mensagem",
+        )
     }
 
     @Test fun `portuguese portugal`() {
@@ -145,7 +153,8 @@ class DeletedPlaceholdersByLanguageTest {
         )
         assertNotDeleted(
             "Ce message a été supprimé par erreur", "Je crois que ce message a été supprimé par l'admin Julie",
-            "Vous avez supprimé ce message",
+            "Ce message a été supprimé par l'admin Julie ?", "Ce message a été supprimé par l'admin Julie\u00A0?",
+            "Ce message a été supprimé par l\u2019admin Julie?", "Vous avez supprimé ce message",
         )
     }
 
@@ -163,7 +172,10 @@ class DeletedPlaceholdersByLanguageTest {
         assertAdmin(
             "Questo messaggio è stato eliminato da un amministratore.", "Questo messaggio è stato eliminato dall'amministratore Luca.",
         )
-        assertNotDeleted("Perché questo messaggio è stato eliminato dall'amministratore Luca?", "Hai eliminato questo messaggio")
+        assertNotDeleted(
+            "Perché questo messaggio è stato eliminato dall'amministratore Luca?",
+            "Questo messaggio è stato eliminato dall'amministratore Luca?", "Hai eliminato questo messaggio",
+        )
     }
 
     @Test fun `russian`() {
@@ -174,7 +186,8 @@ class DeletedPlaceholdersByLanguageTest {
             "ДАННОЕ СООБЩЕНИЕ УДАЛЕНО АДМИНОМ (ИВАН).", // Unicode case folding in the admin regexes
         )
         assertNotDeleted(
-            "Данное сообщение удалено админом?", "Кажется, данное сообщение удалено админом (Иван)", "Вы удалили данное сообщение",
+            "Данное сообщение удалено админом?", "Кажется, данное сообщение удалено админом (Иван)",
+            "Данное сообщение удалено админом (Иван)?", "Данное сообщение удалено админом (Иван?)", "Вы удалили данное сообщение",
         )
     }
 
@@ -182,8 +195,15 @@ class DeletedPlaceholdersByLanguageTest {
         assertPlaceholder("这条消息已被删除", "。")
         assertPlaceholder("消息已删除", "。")
         assertPlaceholder("信息已删除", "。")
-        assertAdmin("管理员已删除这条消息。", "管理员 张伟 已删除这条消息。")
-        assertNotDeleted("为什么管理员已删除这条消息？", "您已删除这条消息")
+        // WhatsApp pads the name with spaces; Chinese text often has none, so they are optional.
+        assertAdmin(
+            "管理员已删除这条消息。", "管理员 张伟 已删除这条消息。", "管理员张伟已删除这条消息。", "管理员 张伟已删除这条消息",
+            "管理员张伟 已删除这条消息", "管理员 Wei Zhang 已删除这条消息。",
+        )
+        assertNotDeleted(
+            "为什么管理员已删除这条消息？", "为什么管理员张伟已删除这条消息", "管理员张伟已删除这条消息吗？", "管理员张伟？已删除这条消息",
+            "您已删除这条消息",
+        )
     }
 
     @Test fun `hausa`() {
@@ -210,6 +230,26 @@ class DeletedPlaceholdersByLanguageTest {
             }
         }
         assertEquals(19, WhatsAppStrings.deletedPlaceholders.size)
+    }
+
+    @Test fun `a name never holds a question or exclamation mark in any script`() {
+        listOf("?", "!", "\u061F", "\uFF1F", "\uFF01").forEach { mark ->
+            assertNotDeleted(
+                "This message was deleted by admin Zeeshan$mark", "Diese Nachricht wurde von Admin Max$mark gelöscht.",
+            )
+        }
+        assertAdmin("This message was deleted by admin Zeeshan", "Diese Nachricht wurde von Admin Max gelöscht.")
+    }
+
+    @Test fun `a text with a line break is never a placeholder`() {
+        assertNotDeleted(
+            "This message was deleted by admin Zeeshan\nand nobody knows why", "This message was deleted\nby admin Zeeshan",
+            "This message\nwas deleted", "This message was deleted\r\nlol", "Данное сообщение\u2028удалено",
+            "Diese Nachricht wurde von Admin Max\ngelöscht.", "管理员张伟\n已删除这条消息",
+        )
+        // Outer whitespace is trimmed first, line breaks included, as kindOf does: both agree on such a line.
+        assertTrue(NotificationText.isDeletedPattern("This message was deleted\n"))
+        assertEquals(MessageKind.DELETED, NotificationText.kindOf("This message was deleted\n"))
     }
 
     @Test fun `admin names are bounded`() {
