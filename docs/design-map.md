@@ -485,7 +485,7 @@ Shown for 2.2 s, 90 dp above the bottom, centred, over any screen. Text per acti
 | unseen_conversation.png | ConversationScreen(All, 4 messages incl. 2 deleted, 1 photo) |
 | recover_messages_conversation.png | ConversationScreen(Deleted only) |
 | tool_settings_sheet.png | Messages + ToolSettingsSheetContent |
-| recover_media_grid.png | MediaScreen(Photos, 2 today + 4 yesterday) |
+| recover_media_grid.png | MediaScreen(Photos, 2 today + 5 yesterday) |
 | media_empty.png | MediaScreen(Audio, empty) |
 | recover_media_detail.png | MediaDetailScreen(photo 1/3) |
 | second_account_entry.png / second_account_linked.png | SecondAccountScreen(entry / linked with placeholder web area) |
