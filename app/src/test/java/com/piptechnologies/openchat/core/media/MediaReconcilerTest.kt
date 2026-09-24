@@ -20,4 +20,11 @@ class MediaReconcilerTest {
         val p = MediaReconciler.plan(listOf(old), listOf(f), MediaReconciler.KEEP_UNDELETED_MS + 1)
         assertEquals(listOf(3L), p.toPrune); assertTrue(p.toMarkDeleted.isEmpty())
     }
+    @Test fun `old present originals are not copied`() {
+        val now = MediaReconciler.KEEP_UNDELETED_MS + 1
+        val old = OriginalFile("/r/old.jpg", "old.jpg", 10, 0)
+        val fresh = OriginalFile("/r/fresh.jpg", "fresh.jpg", 10, now - 1000)
+        assertTrue(MediaReconciler.plan(emptyList(), listOf(old), now).toCopy.isEmpty())
+        assertEquals(listOf(fresh), MediaReconciler.plan(emptyList(), listOf(fresh), now).toCopy)
+    }
 }

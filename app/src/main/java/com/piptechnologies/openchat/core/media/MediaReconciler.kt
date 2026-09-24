@@ -13,15 +13,20 @@ object MediaReconciler {
     const val KEEP_UNDELETED_MS: Long = 14L * 24 * 60 * 60 * 1000
 
     /**
-     * toCopy = present files with no known copy (deduplicated by path); toMarkDeleted = known
-     * copies (deletedAt == null) whose original is absent; toPrune = known undeleted copies older
-     * than [keepUndeletedForMs] whose original is still present.
+     * toCopy = present files with no known copy, and not already older than [keepUndeletedForMs]
+     * (deduplicated by path) — an original past the keep window is skipped so a copy [toPrune]
+     * just removed for it isn't immediately recreated on the next reconcile, which would defeat
+     * pruning and leave storage unbounded; toMarkDeleted = known copies (deletedAt == null) whose
+     * original is absent; toPrune = known undeleted copies older than [keepUndeletedForMs] whose
+     * original is still present.
      */
     fun plan(known: List<KnownCopy>, present: List<OriginalFile>, nowMs: Long, keepUndeletedForMs: Long = KEEP_UNDELETED_MS): ReconcilePlan {
         val knownPaths = known.map { it.originalPath }.toSet()
         val presentPaths = present.map { it.path }.toSet()
 
-        val toCopy = present.distinctBy { it.path }.filter { it.path !in knownPaths }
+        val toCopy = present
+            .distinctBy { it.path }
+            .filter { it.path !in knownPaths && nowMs - it.modifiedAt <= keepUndeletedForMs }
 
         val toMarkDeleted = known
             .filter { it.deletedAt == null && it.originalPath !in presentPaths }
