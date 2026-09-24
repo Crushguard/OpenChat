@@ -19,6 +19,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -82,6 +83,9 @@ internal fun PhoneField(
     var focused by remember { mutableStateOf(false) }
     var edited by remember { mutableStateOf(TextFieldValue(text = digits, selection = TextRange(digits.length))) }
     val value = if (edited.text == digits) edited else edited.reconciledWith(digits)
+    // After a reconciliation (paste, refill, clear) the field state adopts the reconciled value, so a later refill of
+    // the same digits does not resurrect a stale caret.
+    SideEffect { if (edited != value) edited = value }
     Row(
         modifier = modifier
             .fillMaxWidth()
