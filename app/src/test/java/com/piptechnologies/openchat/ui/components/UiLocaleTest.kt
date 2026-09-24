@@ -17,6 +17,11 @@ class UiLocaleTest {
     }
 
     @Test
+    fun `a bare Portuguese choice formats as European Portuguese, like values-pt`() {
+        assertEquals("pt-PT", ui("pt"))
+    }
+
+    @Test
     fun `an unsupported first choice gives way to the next supported one`() {
         assertEquals("fr-FR", ui("nl-NL", "fr-FR"))
         assertEquals("de-DE", ui("zh-TW", "de-DE"))

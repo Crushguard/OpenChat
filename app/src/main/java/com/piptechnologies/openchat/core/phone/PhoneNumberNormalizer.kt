@@ -20,7 +20,7 @@ object PhoneNumberNormalizer {
     }
 
     /** [text] with every decimal digit of any script replaced by its ASCII digit; other characters kept. */
-    private fun asciiDigits(text: String): String = buildString {
+    fun asciiDigits(text: String): String = buildString {
         for (c in text) append(if (c.isDigit()) '0' + c.digitToInt() else c)
     }
 

@@ -22,9 +22,22 @@ fun currentUiLocale(): Locale {
     return uiLocaleFor(requested)
 }
 
-/** [currentUiLocale] for an explicit locale list, in order of preference. */
-internal fun uiLocaleFor(requested: List<Locale>): Locale {
+/**
+ * [currentUiLocale] for an explicit locale list, in order of preference: the first requested locale of the
+ * matched language (an unsupported locale never counts, even though matching it alone falls back to English),
+ * else that language itself, with a bare "pt" read as pt-PT because values-pt holds European Portuguese
+ * (CLDR's bare "pt" is Brazilian: "Irã", not "Irão").
+ */
+fun uiLocaleFor(requested: List<Locale>): Locale {
     val option = Languages.match(requested)
-    val chosen = requested.firstOrNull { Languages.match(listOf(it)) == option }
-    return chosen ?: if (option.tag == "en") Locale.US else Locale.forLanguageTag(option.tag)
+    val english = option.tag == ENGLISH
+    val chosen = requested.firstOrNull { locale ->
+        Languages.match(listOf(locale)) == option && (!english || locale.language == ENGLISH)
+    } ?: return if (english) Locale.US else portugalForBarePortuguese(Locale.forLanguageTag(option.tag))
+    return portugalForBarePortuguese(chosen)
 }
+
+private fun portugalForBarePortuguese(locale: Locale): Locale =
+    if (locale.language == "pt" && locale.country.isEmpty()) Locale.forLanguageTag("pt-PT") else locale
+
+private const val ENGLISH = "en"

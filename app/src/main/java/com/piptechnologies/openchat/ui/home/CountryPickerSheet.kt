@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.phone.DialCountries
 import com.piptechnologies.openchat.core.phone.DialCountry
+import com.piptechnologies.openchat.core.phone.PhoneNumberNormalizer
 import com.piptechnologies.openchat.platform.CountrySource
 import com.piptechnologies.openchat.platform.DetectedCountry
 import com.piptechnologies.openchat.ui.components.SectionEyebrow
@@ -299,13 +300,21 @@ internal fun countryPickerList(
         return pinned + countries.filter { entry -> pinned.none { it.country.iso2 == entry.country.iso2 } }
     }
     val name = foldForSearch(q, locale)
-    val dial = asciiDigits(q).replace("+", "")
+    val dial = PhoneNumberNormalizer.asciiDigits(q).replace("+", "").replace("\uFF0B", "")
     return countries.filter { entry ->
-        foldForSearch(entry.name, locale).startsWith(name) ||
-            foldForSearch(entry.country.name, locale).startsWith(name) ||
+        matchesName(foldForSearch(entry.name, locale), name) ||
+            matchesName(foldForSearch(entry.country.name, locale), name) ||
             entry.country.dialCode.startsWith(dial)
     }
 }
+
+/**
+ * [folded] starts with [query], or one of its words does: Arabic names carry the article ("الهند"), Hausa ones often
+ * start with "Kasar", and "Islands"/"Republic" come second in English, so a search by the main word finds them too.
+ */
+private fun matchesName(folded: String, query: String): Boolean =
+    folded.startsWith(query) || folded.split(' ', '-').any { it.startsWith(query) } ||
+        (folded.startsWith("ال") && folded.removePrefix("ال").startsWith(query))
 
 /**
  * Lower case in [locale] without diacritics, dotless ı read as i: "Åland Islands" → "aland islands", "Türkiye" →
@@ -315,11 +324,8 @@ private fun foldForSearch(text: String, locale: Locale): String =
     Normalizer.normalize(text.lowercase(locale), Normalizer.Form.NFD)
         .replace(CombiningMarks, "")
         .replace('ı', 'i')
+        .replace('ي', 'ی') // Arabic and Persian/Urdu yeh and kaf are the same letter to a searcher
+        .replace('ك', 'ک')
 
 private val CombiningMarks = Regex("\\p{Mn}+")
 
-/** [text] with every decimal digit (Arabic-Indic "٦٢", Persian "۶۲", Devanagari, …) as its ASCII digit. */
-private fun asciiDigits(text: String): String =
-    buildString(text.length) {
-        for (char in text) append(if (char.isDigit()) '0' + Character.digit(char, 10) else char)
-    }

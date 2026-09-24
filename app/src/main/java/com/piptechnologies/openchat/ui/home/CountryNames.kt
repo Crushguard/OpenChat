@@ -2,18 +2,18 @@ package com.piptechnologies.openchat.ui.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.ui.platform.LocalConfiguration
 import com.piptechnologies.openchat.core.phone.DialCountry
+import com.piptechnologies.openchat.ui.components.currentUiLocale
+import com.piptechnologies.openchat.ui.components.uiLocaleFor
 import java.util.Formattable
 import java.util.FormattableFlags
 import java.util.Formatter
 import java.util.Locale
 
-/** The UI language: LocalConfiguration.current.locales[0], else the JVM default (as in rememberTimeFormatter). */
+/** The UI language for country names, sort order and case: [currentUiLocale] (English when the app falls back to it). */
 @Composable
 @ReadOnlyComposable
-internal fun uiLocale(): Locale =
-    LocalConfiguration.current.locales[0]?.takeIf { it.language.isNotEmpty() } ?: Locale.getDefault()
+internal fun uiLocale(): Locale = currentUiLocale()
 
 /** True when [locale] shows the dataset's own country names and order: English, in any region (the design's list). */
 internal fun usesDatasetNames(locale: Locale): Boolean = locale.language.isEmpty() || locale.language == ENGLISH
@@ -45,7 +45,10 @@ internal data class CountryNameArg(val country: DialCountry) : Formattable {
             if (precision >= 0) append('.').append(precision)
             append(if (flags and FormattableFlags.UPPERCASE != 0) 'S' else 's')
         }
-        formatter.format(spec, countryName(country, formatter.locale() ?: Locale.getDefault()))
+        // The Formatter carries the resolving configuration's first locale; name the country in the language the app
+        // actually shows (English when it falls back, pt-PT for Portuguese), like the rest of the UI.
+        val locale = uiLocaleFor(listOfNotNull(formatter.locale()?.takeIf { it.language.isNotEmpty() }))
+        formatter.format(spec, countryName(country, locale))
     }
 
     /** The English name, for logs; formatting goes through [formatTo]. */

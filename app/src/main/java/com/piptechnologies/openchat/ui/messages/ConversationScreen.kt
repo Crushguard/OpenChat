@@ -31,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextDirection
@@ -47,6 +46,7 @@ import com.piptechnologies.openchat.ui.components.ScreenSurface
 import com.piptechnologies.openchat.ui.components.SecondaryButton
 import com.piptechnologies.openchat.ui.components.TimeFormatter
 import com.piptechnologies.openchat.ui.components.asString
+import com.piptechnologies.openchat.ui.components.currentUiLocale
 import com.piptechnologies.openchat.ui.components.rememberTimeFormatter
 import com.piptechnologies.openchat.ui.icons.AppGlyph
 import com.piptechnologies.openchat.ui.icons.AppGlyphImage
@@ -54,7 +54,6 @@ import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
 import com.piptechnologies.openchat.ui.theme.OcTheme
-import java.util.Locale
 
 private val BubbleShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp, bottomEnd = 16.dp, bottomStart = 6.dp)
 private val PhotoShape = RoundedCornerShape(10.dp)
@@ -159,7 +158,7 @@ private fun DayPill(label: String) {
     val c = OcTheme.colors
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
         Text(
-            text = label.uppercase(uiLocale()),
+            text = label.uppercase(currentUiLocale()),
             style = OcTheme.type.eyebrow10.copy(letterSpacing = 0.06.em),
             color = c.muted,
             modifier = Modifier
@@ -229,17 +228,9 @@ private fun DeletedLabel() {
         horizontalArrangement = Arrangement.spacedBy(5.dp),
     ) {
         LucideIconImage(icon = LucideIcon.MessageSquareDashed, size = 12.dp, tint = c.amber, strokeWidth = 2f)
-        Text(text = stringResource(R.string.conversation_deleted_label).uppercase(uiLocale()), style = OcTheme.type.eyebrow9_5, color = c.amber)
+        Text(text = stringResource(R.string.conversation_deleted_label).uppercase(currentUiLocale()), style = OcTheme.type.eyebrow9_5, color = c.amber)
     }
 }
-
-/**
- * The UI language's locale, read as rememberTimeFormatter reads it, for upper-casing labels by its rules
- * (Turkish "i" becomes "İ"); scripts without case are left as they are.
- */
-@Composable
-@ReadOnlyComposable
-private fun uiLocale(): Locale = LocalConfiguration.current.locales[0]?.takeIf { it.language.isNotEmpty() } ?: Locale.getDefault()
 
 /** White footer under a soft top border: "Open chat in WhatsApp" with the glyph 18, then the mode's hint. */
 @Composable
