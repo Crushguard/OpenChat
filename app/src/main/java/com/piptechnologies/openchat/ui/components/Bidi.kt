@@ -3,6 +3,9 @@ package com.piptechnologies.openchat.ui.components
 /** U+2066 LEFT-TO-RIGHT ISOLATE. */
 private const val LRI = '\u2066'
 
+/** U+2068 FIRST STRONG ISOLATE. */
+private const val FSI = '\u2068'
+
 /** U+2069 POP DIRECTIONAL ISOLATE. */
 private const val PDI = '\u2069'
 
@@ -17,3 +20,12 @@ private const val PDI = '\u2069'
  * reordering the translated text around it. Returns an empty [text] unchanged.
  */
 fun ltr(text: String): String = if (text.isEmpty()) text else "$LRI$text$PDI"
+
+/**
+ * [text] as a first-strong isolate (FSI … PDI), for text the user or a contact wrote (names, file names,
+ * message previews) when it is placed inside a translated sentence: a Latin name in an Arabic sentence, or
+ * an Arabic name in an English one, keeps its own direction and does not drag the separators and numbers
+ * around it to the wrong side. Its direction comes from its first strong character. Returns an empty
+ * [text] unchanged. Display only: never store the result or put it in an intent.
+ */
+fun isolate(text: String): String = if (text.isEmpty()) text else "$FSI$text$PDI"

@@ -13,9 +13,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -24,6 +26,7 @@ import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
 import com.piptechnologies.openchat.ui.theme.OcTheme
+import java.text.NumberFormat
 
 /** State chips: Off (amber dot), Active (green check), Paused (amber pause), Linked (green dot). */
 enum class ChipState { Off, Active, Paused, Linked }
@@ -116,7 +119,10 @@ fun CountBadge(count: Int, modifier: Modifier = Modifier) {
             .padding(horizontal = 6.dp),
         contentAlignment = Alignment.Center,
     ) {
-        Text(text = count.toString(), style = OcTheme.type.badge10_5, color = androidx.compose.ui.graphics.Color.White)
+        // The UI language's digits, like the numbers in translated strings (e.g. Persian ۷).
+        val locale = LocalConfiguration.current.locales[0]
+        val digits = remember(count, locale) { NumberFormat.getIntegerInstance(locale).format(count) }
+        Text(text = digits, style = OcTheme.type.badge10_5, color = androidx.compose.ui.graphics.Color.White)
     }
 }
 
