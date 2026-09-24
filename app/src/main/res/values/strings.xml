@@ -7,4 +7,23 @@
     <string name="privacy_policy_url" translatable="false">https://piptechnologies.com/openchat/privacy</string>
     <string name="share_app_text">OpenChat opens a chat with any number, no contact saved. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
     <string name="feedback_subject">OpenChat feedback</string>
+
+    <!-- Launch and onboarding (design map §4.1, §4.2) -->
+    <string name="splash_honesty">Free · No ads · No account</string>
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_1_title">Chat with any number</string>
+    <string name="onboarding_1_body">Type or paste a number, tap Send. It opens in WhatsApp, WhatsApp Business or Telegram. Nothing is saved to your contacts.</string>
+    <string name="onboarding_1_check">Not added to your contacts</string>
+    <string name="onboarding_1_send">Send Message</string>
+    <string name="onboarding_1_sample_number" translatable="false">812 3456 7890</string>
+    <string name="onboarding_2_title">Four tools, one permission</string>
+    <string name="onboarding_2_body">Read without blue ticks, recover what senders delete, run a second account. Everything stays on this phone.</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_start">Get started</string>
+
+    <!-- Tool titles (Home tool rows, onboarding slide 2) -->
+    <string name="tool_unseen_title">Read without blue ticks</string>
+    <string name="tool_deleted_title">Recover deleted messages</string>
+    <string name="tool_media_title">Recover deleted media</string>
+    <string name="tool_second_title">Open a second account</string>
 </resources>
