@@ -1,6 +1,7 @@
 package com.piptechnologies.openchat.ui.home
 
 import android.content.Context
+import android.os.Build
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.piptechnologies.openchat.R
@@ -16,18 +17,22 @@ import com.piptechnologies.openchat.data.prefs.SettingsRepository
 import com.piptechnologies.openchat.data.repo.MediaRepository
 import com.piptechnologies.openchat.data.repo.MessagesRepository
 import com.piptechnologies.openchat.data.repo.RecentsRepository
+import com.piptechnologies.openchat.platform.AppVersion
 import com.piptechnologies.openchat.platform.ClipboardText
 import com.piptechnologies.openchat.platform.CountryDetector
 import com.piptechnologies.openchat.platform.DetectedCountry
+import com.piptechnologies.openchat.platform.ExternalLinks
 import com.piptechnologies.openchat.platform.InstalledMessagingApps
 import com.piptechnologies.openchat.platform.NotificationAccess
 import com.piptechnologies.openchat.ui.navigation.HomeTool
+import com.piptechnologies.openchat.ui.settings.RatingFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,6 +41,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
@@ -48,7 +54,9 @@ import kotlinx.coroutines.launch
  * trip would drop keystrokes); the repositories are collected into it. Sends go through the route:
  * [send] emits the link on [launchRequests], [HomeRoute] opens it with the Activity context, then
  * reports [onLaunched], which toasts, records the recent, counts the send ([sendCompleted]) and
- * remembers the launch for the not-on-WhatsApp heuristic (ruling R6) checked in [onResume].
+ * remembers the launch for the not-on-WhatsApp heuristic (ruling R6) checked in [onResume]. The third
+ * completed send also schedules the rating sheet ([rating], design map §4.19), which the route draws;
+ * [rateOnPlay] and [sendFeedback] do what the same buttons do in Settings.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
@@ -84,8 +92,14 @@ class HomeViewModel @Inject constructor(
 
     private val _sendCompleted = MutableSharedFlow<Int>(extraBufferCapacity = 4)
 
-    /** The new send count after each successful launch (Task 18 shows the rating prompt after the third). */
+    /** The new send count after each successful launch; [promptRatingIfDue] watches it for the third. */
     val sendCompleted: SharedFlow<Int> = _sendCompleted.asSharedFlow()
+
+    /** The rating sheet (design map §4.19): opened once, 1.8 s after the third successful send. The route draws it. */
+    val rating = RatingFlow(viewModelScope)
+
+    /** Set once the prompt is scheduled, so a burst of sends cannot schedule it twice. */
+    private var ratingPromptScheduled = false
 
     private val _launchRequests = MutableSharedFlow<SendLink>(extraBufferCapacity = 4)
 
@@ -133,6 +147,9 @@ class HomeViewModel @Inject constructor(
                 counts = latest
                 _state.update { it.copy(tools = toolStatuses(latest, it.accessGranted)) }
             }
+        }
+        viewModelScope.launch {
+            sendCompleted.collect { count -> promptRatingIfDue(count) }
         }
     }
 
@@ -303,6 +320,41 @@ class HomeViewModel @Inject constructor(
         persistApp(MessagingApp.TELEGRAM)
     }
 
+    /** "Rate on Google Play": toasts "Opening Google Play…", opens the store listing (ruling R12) and closes the sheet. */
+    fun rateOnPlay() {
+        toast(context.getString(R.string.toast_play))
+        ExternalLinks.openPlayStore(context)
+        rating.close()
+    }
+
+    /**
+     * "Send feedback": the note, the rating and the versions go to the email composer (ruling R11), then
+     * the sheet moves to Thanks. With no email app the sheet stays put and says so; with nothing typed it
+     * asks for a note (the button is disabled in that case anyway). The same as in Settings.
+     */
+    fun sendFeedback() {
+        val current = rating.state.value ?: return
+        val note = current.feedback.trim()
+        if (note.isEmpty()) {
+            toast(context.getString(R.string.toast_write_first))
+            return
+        }
+        val body = note + "\n\n" +
+            context.getString(R.string.feedback_rating_line, current.rating) + "\n" +
+            context.getString(R.string.feedback_versions, AppVersion.label(context), Build.VERSION.RELEASE)
+        val opened = ExternalLinks.composeEmail(
+            context = context,
+            to = context.getString(R.string.support_email),
+            subject = context.getString(R.string.feedback_subject),
+            body = body,
+        )
+        if (!opened) {
+            toast(context.getString(R.string.toast_no_email))
+            return
+        }
+        rating.sendFeedback()
+    }
+
     private fun sendWith(app: MessagingApp) {
         val s = _state.value
         if (!s.canSend) return
@@ -340,6 +392,25 @@ class HomeViewModel @Inject constructor(
                 // Not remembered for next time; this session keeps the choice in [state].
             }
         }
+    }
+
+    /**
+     * The rating prompt (design map §4.19, §5.5): once [count] reaches [RATING_PROMPT_SENDS] and the sheet
+     * was never shown, it opens [RATING_PROMPT_DELAY_MS] later. `rating_shown` is written as it opens, so
+     * it never shows twice, even if the process dies right after; a process that dies during the wait
+     * leaves the flag unset, and the next send prompts instead.
+     */
+    private suspend fun promptRatingIfDue(count: Int) {
+        if (count < RATING_PROMPT_SENDS || ratingPromptScheduled) return
+        if (settings.ratingShown.first()) return
+        ratingPromptScheduled = true
+        delay(RATING_PROMPT_DELAY_MS)
+        try {
+            settings.setRatingShown()
+        } catch (e: IOException) {
+            // Not remembered; the sheet still opens now, once for this process.
+        }
+        rating.open()
     }
 
     private fun toast(text: String) {
@@ -412,6 +483,10 @@ class HomeViewModel @Inject constructor(
     private companion object {
         const val MINUTE_MS = 60_000L
         const val WEEK_MS = 7 * 24 * 60 * MINUTE_MS
+
+        /** The rating sheet comes once, after this many completed sends, this long after the third (design map §4.19). */
+        const val RATING_PROMPT_SENDS = 3
+        const val RATING_PROMPT_DELAY_MS = 1_800L
 
         /** The installed apps, or all three when none is (Send then opens the web link, design map §4.5). */
         fun availableApps(installed: List<MessagingApp>): List<MessagingApp> = installed.ifEmpty { MessagingApp.entries.toList() }

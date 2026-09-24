@@ -31,10 +31,12 @@ import com.piptechnologies.openchat.platform.InstalledMessagingApps
 import com.piptechnologies.openchat.platform.SendLauncher
 import com.piptechnologies.openchat.ui.components.ConfirmSheet
 import com.piptechnologies.openchat.ui.components.DarkToastHost
+import com.piptechnologies.openchat.ui.components.LocalToastHost
 import com.piptechnologies.openchat.ui.components.OcModalSheet
 import com.piptechnologies.openchat.ui.components.rememberToastHostState
 import com.piptechnologies.openchat.ui.icons.AppGlyphImage
 import com.piptechnologies.openchat.ui.navigation.HomeTool
+import com.piptechnologies.openchat.ui.settings.RatingSheet
 
 /** Height of the sheet handle row OcModalSheet draws above the content (10 + 4 + 10). */
 private val SheetHandleArea = 24.dp
@@ -44,10 +46,11 @@ private const val CountrySheetFraction = 0.86f
 
 /**
  * Binds [HomeViewModel] to [HomeScreen] and shows what the screen does not draw itself: the country
- * sheet, the not-on-WhatsApp sheet and the dark toast. Sends are opened here with the Activity
- * context (LocalContext), so the chat opens in the app's own task and Back returns to OpenChat, which
- * the not-on-WhatsApp heuristic relies on. [onTool] gets the tool and whether notification access is
- * granted, so the caller can open the gate or the tool.
+ * sheet, the not-on-WhatsApp sheet, the rating sheet (design map §4.19, once after the third send) and
+ * the dark toast, which goes to the app-level host ([LocalToastHost]) when there is one. Sends are
+ * opened here with the Activity context (LocalContext), so the chat opens in the app's own task and
+ * Back returns to OpenChat, which the not-on-WhatsApp heuristic relies on. [onTool] gets the tool and
+ * whether notification access is granted, so the caller can open the gate or the tool.
  */
 @Composable
 fun HomeRoute(
@@ -56,8 +59,11 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val rating by viewModel.rating.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val toast = rememberToastHostState()
+    // AppRoot's host, so a toast outlives this screen; an own host where nothing provides one (previews, tests).
+    val appToast = LocalToastHost.current
+    val toast = appToast ?: rememberToastHostState()
     val focusRequester = remember { FocusRequester() }
     val currentOnSettings by rememberUpdatedState(onSettings)
     val currentOnTool by rememberUpdatedState(onTool)
@@ -116,7 +122,7 @@ fun HomeRoute(
             appIcon = { app, size, tint -> LauncherIconOrGlyph(app = app, size = size, tint = tint) },
             focusRequester = focusRequester,
         )
-        DarkToastHost(state = toast)
+        if (appToast == null) DarkToastHost(state = toast)
     }
 
     if (state.countrySheetOpen) {
@@ -143,6 +149,18 @@ fun HomeRoute(
             spec = notOnWhatsAppSpec(state.country.dialCode, state.nationalDigits),
             onDismiss = callbacks.onNotOnWhatsAppEdit,
             onConfirm = callbacks.onNotOnWhatsAppTelegram,
+        )
+    }
+    // The rating sheet waits until the other sheets are closed, so modals never stack (it stays pending meanwhile).
+    val ratingState = rating
+    if (ratingState != null && !state.countrySheetOpen && !state.notOnWhatsApp) {
+        RatingSheet(
+            state = ratingState,
+            onStar = viewModel.rating::star,
+            onFeedbackChange = viewModel.rating::setFeedback,
+            onSendFeedback = viewModel::sendFeedback,
+            onRateOnPlay = viewModel::rateOnPlay,
+            onClose = viewModel.rating::close,
         )
     }
 }
