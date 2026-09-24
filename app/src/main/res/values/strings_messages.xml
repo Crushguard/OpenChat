@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox (design map §4.8) -->
+    <string name="messages_title">Messages</string>
+    <string name="messages_chip_all">All · %d unread</string>
+    <string name="messages_chip_deleted">Deleted only · %d</string>
+    <string name="messages_info_all">Read here and WhatsApp shows no blue ticks. Photos appear when the notification carries a preview; voice notes and files show by name.</string>
+    <string name="messages_info_deleted">Only messages the sender deleted are kept. Excluded chats are skipped entirely.</string>
+    <string name="messages_empty_title">Nothing here yet</string>
+    <string name="messages_empty_body">New messages land here as they arrive. Deleted ones stay in \"Deleted only\".</string>
+    <string name="messages_tool_settings">Tool settings</string>
+
+    <!-- Conversation (design map §4.9) -->
+    <string name="conversation_seen_by_no_one">seen by no one</string>
+    <string name="conversation_deleted_count">%d deleted</string>
+    <string name="conversation_today">Today</string>
+    <string name="conversation_deleted_label">Deleted by sender</string>
+    <string name="conversation_open">Open chat in WhatsApp</string>
+    <string name="conversation_hint_all">Opening the chat in WhatsApp sends read receipts.</string>
+    <string name="conversation_hint_deleted">Read-only here. Replies happen in WhatsApp.</string>
+
+    <!-- Tool settings sheet (§4.10, shared with Deleted media), exclude chats sheet (§4.11), clear confirmations (§4.20) -->
+    <string name="tool_settings_pause">Pause recovery</string>
+    <string name="tool_settings_exclude">Exclude chats</string>
+    <string name="tool_settings_clear_messages">Clear all kept messages</string>
+    <string name="tool_settings_clear_media">Delete all recovered media</string>
+    <string name="exclude_title">Exclude chats</string>
+    <string name="exclude_empty">Chats show up here after their first message.</string>
+    <string name="clear_messages_title">Clear all recovered messages?</string>
+    <string name="clear_media_title">Delete all recovered media?</string>
+    <string name="clear_body">Deletes this app’s copies. WhatsApp is not affected.</string>
+    <string name="keep">Keep</string>
+    <string name="clear">Clear</string>
+
+    <!-- Toasts (§4.9, §4.10) -->
+    <string name="toast_paused">Recovery paused</string>
+    <string name="toast_resumed">Recovery resumed</string>
+    <string name="toast_cleared">Cleared</string>
+    <string name="toast_opening_whatsapp">Opening WhatsApp…</string>
+</resources>
