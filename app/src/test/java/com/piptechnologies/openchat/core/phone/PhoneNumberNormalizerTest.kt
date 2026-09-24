@@ -44,4 +44,34 @@ class PhoneNumberNormalizerTest {
         assertEquals("6281234567890", PhoneNumberNormalizer.e164Digits("62", "81234567890"))
         assertEquals("+62 812 3456 7890", PhoneNumberNormalizer.displayInternational("62", "81234567890"))
     }
+
+    @Test fun `digits of every script count as ASCII digits`() {
+        assertEquals("09123456789", PhoneNumberNormalizer.digitsOnly("۰۹۱۲ ۳۴۵ ۶۷۸۹"))
+        assertEquals("0123456789", PhoneNumberNormalizer.digitsOnly("٠١٢٣٤٥٦٧٨٩"))
+        assertEquals("9876", PhoneNumberNormalizer.digitsOnly("९८७६"))
+        assertEquals("0912", PhoneNumberNormalizer.digitsOnly("၀၉၁၂"))
+        assertEquals("812", PhoneNumberNormalizer.digitsOnly("８１２"))
+    }
+
+    @Test fun `persian international paste sets the country`() {
+        val indonesia = DialCountries.byIso2("ID")!!
+        val plus = PhoneNumberNormalizer.normalizePaste("+۹۸ ۹۱۲ ۳۴۵ ۶۷۸۹", indonesia)
+        assertEquals("98", plus.country?.dialCode)
+        assertEquals("9123456789", plus.nationalDigits)
+        val doubleZero = PhoneNumberNormalizer.normalizePaste("۰۰۹۸۹۱۲۳۴۵۶۷۸۹", indonesia)
+        assertEquals("98", doubleZero.country?.dialCode)
+        assertEquals("9123456789", doubleZero.nationalDigits)
+    }
+
+    @Test fun `arabic-indic national paste drops the trunk zero and keeps the country`() {
+        val iran = DialCountries.byIso2("IR")!!
+        val pasted = PhoneNumberNormalizer.normalizePaste("٠٩١٢ ٣٤٥ ٦٧٨٩", iran)
+        assertEquals(null, pasted.country)
+        assertEquals("9123456789", pasted.nationalDigits)
+    }
+
+    @Test fun `full-width plus is international`() {
+        val indonesia = DialCountries.byIso2("ID")!!
+        assertEquals("44", PhoneNumberNormalizer.normalizePaste("＋44 20 7946 0958", indonesia).country?.dialCode)
+    }
 }

@@ -10,8 +10,19 @@ data class NormalizedPaste(val country: DialCountry?, val nationalDigits: String
 object PhoneNumberNormalizer {
     const val MAX_DIGITS = 15
 
-    /** Every ASCII digit in [text], in order; all other characters (spaces, "+", punctuation) are dropped. */
-    fun digitsOnly(text: String): String = text.filter { it in '0'..'9' }
+    /**
+     * Every decimal digit in [text], in order, as ASCII; all other characters (spaces, "+", punctuation) are
+     * dropped. Digits of any script count, because phone keyboards in Persian, Arabic, Urdu, Hindi or Burmese
+     * type their own digits: "۰۹۱۲" (Persian), "٠٩١٢" (Arabic-Indic), "०९१२" (Devanagari) all give "0912".
+     */
+    fun digitsOnly(text: String): String = buildString {
+        for (c in text) if (c.isDigit()) append('0' + c.digitToInt())
+    }
+
+    /** [text] with every decimal digit of any script replaced by its ASCII digit; other characters kept. */
+    private fun asciiDigits(text: String): String = buildString {
+        for (c in text) append(if (c.isDigit()) '0' + c.digitToInt() else c)
+    }
 
     /**
      * §5.1: strips spaces, dashes, dots, parentheses, a leading "+" or "00"; "+"/"00" → longest
@@ -19,8 +30,8 @@ object PhoneNumberNormalizer {
      * at [MAX_DIGITS].
      */
     fun normalizePaste(raw: String, current: DialCountry): NormalizedPaste {
-        val t = raw.trim()
-        var international = t.startsWith("+")
+        val t = asciiDigits(raw.trim())
+        var international = t.startsWith("+") || t.startsWith("\uFF0B") // "+" or the full-width plus
         var d = digitsOnly(t)
         var country: DialCountry? = null
         if (!international && d.startsWith("00") && t.startsWith("00")) {
