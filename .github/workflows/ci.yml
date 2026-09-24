@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write
+  contents: read
 
 env:
   GRADLE_OPTS: -Dorg.gradle.daemon=false
@@ -45,6 +45,8 @@ jobs:
   screenshots:
     name: screenshots
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # force-pushes the screenshots branch
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -67,7 +69,8 @@ jobs:
             count=$((count + 1))
           done
           echo "collected $count screenshots"
-          test "$count" -gt 0
+          # One PNG per §6 screen/state (docs/design-map.md): a dropped test class must fail the job, not shrink the branch.
+          test "$count" -eq 34
           {
             echo "# OpenChat screenshots"
             echo

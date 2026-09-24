@@ -7,8 +7,8 @@ Compose, Material 3, Hilt, Room, DataStore, Coil; one Gradle module; minSdk 24 (
 Free, no ads, no in-app purchases, no account or login, no backend, no analytics or crash reporting.
 Everything the app keeps (numbers, messages, media copies, settings) lives in its private storage on the
 phone. The only thing that uses the network is the WhatsApp Web session of the second-account tool; the app
-itself makes no requests and has no network library. Debug builds only: nothing is published on Google Play
-and no release keystore exists.
+makes no requests of its own (Coil, which bundles OkHttp, is used only for local files). Debug builds only:
+nothing is published on Google Play and no release keystore exists.
 
 The product spec is [docs/brief.md](docs/brief.md); the design map with the rulings is
 [docs/design-map.md](docs/design-map.md); a copy of the design prototype is under `docs/design/`.
@@ -64,7 +64,7 @@ Requirements: JDK 17 and an Android SDK with platform 35. The Gradle wrapper (8.
 ```
 
 Without an Android SDK, `tools/jvmcheck` (`cd tools/jvmcheck && gradle test`) compiles the `core` package
-and runs its tests on a plain JVM.
+and runs its tests on a plain JVM. It pins a JDK 21 toolchain (the app build itself uses JDK 17).
 
 Or take the APK from CI: every push to `main` runs [the CI workflow](.github/workflows/ci.yml) at
 https://github.com/Crushguard/OpenChat/actions. The `build` job runs `assembleDebug` and the unit tests and
@@ -97,7 +97,9 @@ deleted-media tools read WhatsApp's notifications; until the grant exists they s
 (or when that page cannot be opened) the list of apps. By hand: Settings › Notifications › Device & app
 notification access › OpenChat › Allow; some makers call it "Notification access" or file it under Apps ›
 Special app access. The gate re-checks the grant when you come back to it, Home and Settings re-check it
-whenever they return to the foreground, and Settings › Notification access opens the same gate.
+whenever they return to the foreground, the Messages, conversation and Deleted media screens re-check it on
+every resume and hand back to the gate when it was revoked, and Settings › Notification access opens the same
+gate.
 
 For capture to work, WhatsApp must be allowed to post notifications and the chat must not be muted. WhatsApp
 posts no notification for the chat that is open on screen, so nothing is captured for it while you are in
@@ -198,8 +200,9 @@ on the test phone, plus a second phone with a WhatsApp account that can message 
   phone keeps working.
 - Failure looks like: no QR code after a minute (no internet, or WhatsApp Web refusing the user agent); the
   page reloading from scratch when you return to the screen; the notification staying after logout; the chip
-  stuck on "Linked" after unlinking from the other phone (known: a QR code shown after a confirmed link is
-  treated as transient until you Reload or Log out).
+  staying on "Linked" for more than about 10 s after unlinking from the other phone (three QR probes in a row,
+  about 9 s, end the link; a "Linked" restored after a restart that the page no longer confirms is ended at the
+  first probe).
 
 ## Screenshots
 
@@ -296,16 +299,19 @@ Second account
   reloads the session. Trade-off: there is no file chooser, so attaching files from the second account is not
   possible, and some drop-down dialogs may not open. Downloads from the page are not handled; links to other
   sites open in the phone's browser.
-- "Linked" is decided by probing the page every 3 s for WhatsApp Web's chat list. Once linked, a QR code is
-  treated as transient, so an unlink made on the other phone is only noticed after Reload or Log out. The
-  foreground service is not sticky: if Android kills the process the notification disappears; reopening the
-  screen probes again and restarts it.
-- If the WebView's renderer is killed the app survives; the screen may stay blank until you leave and return.
+- "Linked" is decided by probing the page every 3 s for WhatsApp Web's chat list. Once linked, one or two QR
+  results in a row are treated as transient (the page reloading); the third ends the link, stops the service
+  and clears the stored state. A link restored after a restart that the first probe cannot confirm is ended at
+  once. The foreground service is not sticky: if Android kills the process the notification disappears;
+  reopening the screen probes at once and restarts it.
+- If the WebView's renderer is killed the app survives; the view is rebuilt and re-attached within one probe
+  interval (3 s) while linking or linked.
 
 Rating
 
-- The rating sheet opens from Settings › Rate us and once after the third successful send. 4–5 stars lead to
-  the Play link, 1–3 to the feedback form, which sends by email like Contact us.
+- The rating sheet opens from Settings › Rate us and once, 1.8 s after you return to Home from the chat that
+  the third successful send opened (never again after that). 4–5 stars lead to the Play link, 1–3 to the
+  feedback form, which sends by email like Contact us.
 
 ## Licenses
 
