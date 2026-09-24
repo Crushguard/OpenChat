@@ -14,9 +14,9 @@ import java.util.TimeZone
 /**
  * The fake data of docs/design-map.md §6, as core models, shared by every screenshot test.
  *
- * Wall-clock times ("14:26", "yesterday 21:07") are UTC on the day of [now], Monday 21 Sep 2026
- * (14:13:20 UTC): format them with [timeZone]. Totals: 7 unread and 4 deleted messages in 5
- * conversations, 9 recovered media items, 4 recent numbers.
+ * Wall-clock times ("14:26", "yesterday 21:07") are UTC, relative to the day of [now]: format them
+ * with [timeZone]. Every timestamp, deletedAt and usedAt is before [now]. Totals: 7 unread and 4
+ * deleted messages in 5 conversations, 9 recovered media items, 4 recent numbers.
  */
 object Fakes {
     private const val MINUTE = 60_000L
@@ -30,8 +30,11 @@ object Fakes {
     private const val TOKO = "Toko Sinar Jaya"
     private const val MEDIA_DIR = "/data/user/0/com.piptechnologies.openchat/files/recovered"
 
-    /** Fixed "now" for all screenshots. */
-    val now: Long = 1_790_000_000_000L
+    /**
+     * Fixed "now" for all screenshots: Thursday 24 Sep 2026, 21:13:20 UTC. Late on a Thursday, so the
+     * day's messages (up to 14:26) are already past and "3 days ago" is a Monday, as the design shows.
+     */
+    val now: Long = 1_790_284_400_000L
 
     /** The zone the wall-clock times below are written in (UTC); pass it wherever a screen formats a time. */
     val timeZone: TimeZone = TimeZone.getTimeZone("UTC")
@@ -42,7 +45,7 @@ object Fakes {
     /** UTC midnight starting the day [now] falls on. */
     private val startOfToday: Long = Math.floorDiv(now, DAY) * DAY
 
-    /** Newest first: 2h, Yesterday, Yesterday, 3 days ago. */
+    /** Newest first, labelled "2h", "Yesterday", "Yesterday", "Mon". */
     val recents: List<RecentNumber> = listOf(
         RecentNumber(id = 1, dialCode = "62", nationalNumber = "81234567890", app = MessagingApp.WHATSAPP, usedAt = now - 2 * HOUR),
         RecentNumber(id = 2, dialCode = "62", nationalNumber = "81399220417", app = MessagingApp.WHATSAPP, usedAt = now - DAY),
@@ -71,21 +74,21 @@ object Fakes {
         message(7, BUDI, "Order is on the way", MessageKind.TEXT, daysAgo(1, 18, 40)),
         // Rani (+62 856 4410 9087).
         message(8, RANI, "Voice note · 0:12", MessageKind.VOICE, daysAgo(1, 16, 15), deleted = true),
-        // Toko Sinar Jaya (+62 821 5567 3390): read, nothing deleted. Saturday, the weekday label nearest the design's "Mon".
-        message(9, TOKO, "Can you send the address again?", MessageKind.TEXT, daysAgo(2, 10, 30), seen = true),
+        // Toko Sinar Jaya (+62 821 5567 3390): read, nothing deleted; Monday, as in the design.
+        message(9, TOKO, "Can you send the address again?", MessageKind.TEXT, daysAgo(3, 10, 30), seen = true),
     )
 
     /** 7 photos and 2 videos from Ayu Lestari, each deleted by WhatsApp a minute after it arrived. */
     val media: List<RecoveredMedia> = listOf(
-        photo(1, today(14, 25), "IMG-20260921-WA0007.jpg", 284_512),
-        photo(2, today(9, 41), "IMG-20260921-WA0003.jpg", 196_338),
-        video(3, today(8, 12), "VID-20260921-WA0001.mp4", 3_482_117),
-        photo(4, daysAgo(1, 21, 7), "IMG-20260920-WA0012.jpg", 241_906),
-        video(5, daysAgo(1, 19, 33), "VID-20260920-WA0004.mp4", 5_120_448),
-        photo(6, daysAgo(1, 18, 50), "IMG-20260920-WA0010.jpg", 318_774),
-        photo(7, daysAgo(1, 16, 2), "IMG-20260920-WA0008.jpg", 172_055),
-        photo(8, daysAgo(1, 12, 44), "IMG-20260920-WA0005.jpg", 405_231),
-        photo(9, daysAgo(1, 10, 19), "IMG-20260920-WA0002.jpg", 150_880),
+        photo(1, today(14, 25), "IMG-20260924-WA0007.jpg", 284_512),
+        photo(2, today(9, 41), "IMG-20260924-WA0003.jpg", 196_338),
+        video(3, today(8, 12), "VID-20260924-WA0001.mp4", 3_482_117),
+        photo(4, daysAgo(1, 21, 7), "IMG-20260923-WA0012.jpg", 241_906),
+        video(5, daysAgo(1, 19, 33), "VID-20260923-WA0004.mp4", 5_120_448),
+        photo(6, daysAgo(1, 18, 50), "IMG-20260923-WA0010.jpg", 318_774),
+        photo(7, daysAgo(1, 16, 2), "IMG-20260923-WA0008.jpg", 172_055),
+        photo(8, daysAgo(1, 12, 44), "IMG-20260923-WA0005.jpg", 405_231),
+        photo(9, daysAgo(1, 10, 19), "IMG-20260923-WA0002.jpg", 150_880),
     )
 
     private fun today(hour: Int, minute: Int): Long = startOfToday + hour * HOUR + minute * MINUTE
