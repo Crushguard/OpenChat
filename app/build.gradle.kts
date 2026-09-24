@@ -29,9 +29,13 @@ android {
         // The 19 UI languages (res/xml/locales_config.xml): library translations (AndroidX, Material) outside
         // them are stripped, like Status Saver's localeFilters. Resource-folder notation, as our values-<qualifier>
         // folders are named (in = Indonesian, iw = Hebrew: Android resolves those, never values-id / values-he).
-        // Languages.all's qualifiers, in order: LocalesConfigTest parses this list.
+        // Languages.all's qualifiers, in order, then two library-only extras: aapt2 keeps a region folder only
+        // when that region is listed, and AndroidX/Material ship Chinese only as values-zh-rCN (TalkBack's "On",
+        // "Selected"…) and European Portuguese as values-pt-rPT. We ship no folders for those two.
+        // LocalesConfigTest parses this list.
         resourceConfigurations += listOf(
             "en", "in", "pt-rBR", "pt", "ur", "hi", "tr", "es", "ar", "fa", "ps", "iw", "fr", "de", "it", "ru", "zh", "ha", "my",
+            "zh-rCN", "pt-rPT",
         )
     }
 

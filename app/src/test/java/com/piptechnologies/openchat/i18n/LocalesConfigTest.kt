@@ -49,7 +49,8 @@ class LocalesConfigTest {
 
     @Test
     fun resourceConfigurations_areTheLanguageQualifiersInOrder() {
-        assertEquals(Languages.all.map { it.qualifier }, resourceConfigurations())
+        // Then the library-only extras that keep AndroidX's own zh-rCN and pt-rPT strings (see app/build.gradle.kts).
+        assertEquals(Languages.all.map { it.qualifier } + listOf("zh-rCN", "pt-rPT"), resourceConfigurations())
     }
 
     @Test

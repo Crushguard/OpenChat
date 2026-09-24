@@ -5,6 +5,7 @@
 .DS_Store
 /build/
 /app/build/
+/e2e-fixture/build/
 /captures/
 .externalNativeBuild/
 .cxx/
