@@ -1,7 +1,6 @@
 package com.piptechnologies.openchat.core.phone
 
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
@@ -28,11 +27,7 @@ object RelativeTime {
                 else -> "${elapsed / HOUR_MS}h"
             }
         }
-        return when (dayDiff) {
-            1 -> "Yesterday"
-            in 2..6 -> format(timestampMs, timeZone, locale, "EEE")
-            else -> format(timestampMs, timeZone, locale, "d MMM")
-        }
+        return dayBucketLabel(dayDiff, timestampMs, timeZone, locale)
     }
 
     /** "14:26" (24 h clock). */
@@ -50,12 +45,8 @@ object RelativeTime {
         locale: Locale = Locale.US,
     ): String {
         val dayDiff = dayDifference(timestampMs, nowMs, timeZone)
-        return when (dayDiff) {
-            0 -> clock(timestampMs, timeZone, locale)
-            1 -> "Yesterday"
-            in 2..6 -> format(timestampMs, timeZone, locale, "EEE")
-            else -> format(timestampMs, timeZone, locale, "d MMM")
-        }
+        if (dayDiff == 0) return clock(timestampMs, timeZone, locale)
+        return dayBucketLabel(dayDiff, timestampMs, timeZone, locale)
     }
 
     /** Media day groups: "Today", "Yesterday", else "Mon 22 Sep". */
@@ -73,23 +64,26 @@ object RelativeTime {
         }
     }
 
-    /** Midnight of [ms] in [timeZone], as epoch millis. */
-    private fun startOfDay(ms: Long, timeZone: TimeZone): Long {
-        val cal = Calendar.getInstance(timeZone)
-        cal.timeInMillis = ms
-        cal.set(Calendar.HOUR_OF_DAY, 0)
-        cal.set(Calendar.MINUTE, 0)
-        cal.set(Calendar.SECOND, 0)
-        cal.set(Calendar.MILLISECOND, 0)
-        return cal.timeInMillis
-    }
+    /**
+     * Epoch-day index of the local calendar date [ts] falls on in [timeZone]. Each instant is
+     * placed using its own UTC offset (DST included), so the result is the plain date part of its
+     * local wall-clock reading — never a division of elapsed real time by a fixed 24 h, which is
+     * wrong on the 23 h/25 h days either side of a DST transition.
+     */
+    private fun localDayIndex(ts: Long, timeZone: TimeZone): Long =
+        Math.floorDiv(ts + timeZone.getOffset(ts), HOUR_MS * 24)
 
     /** Number of calendar days [nowMs] is after [timestampMs] in [timeZone] (0 = same day, 1 = yesterday, …). */
-    private fun dayDifference(timestampMs: Long, nowMs: Long, timeZone: TimeZone): Int {
-        val today = startOfDay(nowMs, timeZone)
-        val that = startOfDay(timestampMs, timeZone)
-        return ((today - that) / (HOUR_MS * 24)).toInt()
-    }
+    private fun dayDifference(timestampMs: Long, nowMs: Long, timeZone: TimeZone): Int =
+        (localDayIndex(nowMs, timeZone) - localDayIndex(timestampMs, timeZone)).toInt()
+
+    /** The "Yesterday" / weekday / "d MMM" tail shared by [label] and [conversationTime] once same-day is ruled out. */
+    private fun dayBucketLabel(dayDiff: Int, timestampMs: Long, timeZone: TimeZone, locale: Locale): String =
+        when (dayDiff) {
+            1 -> "Yesterday"
+            in 2..6 -> format(timestampMs, timeZone, locale, "EEE")
+            else -> format(timestampMs, timeZone, locale, "d MMM")
+        }
 
     private fun format(ms: Long, timeZone: TimeZone, locale: Locale, pattern: String): String {
         val sdf = SimpleDateFormat(pattern, locale)
