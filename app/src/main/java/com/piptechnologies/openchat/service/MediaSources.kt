@@ -32,20 +32,19 @@ object MediaSources {
 
     /**
      * One listing: [files] are the present originals, [mimeTypes] the MediaStore MIME type of a path when it has one,
+     * [roots] the media roots that existed (null while shared storage is unreadable: they were not looked for),
      * [folders] every folder walked (the watch list: each root and its subfolders two levels deep). A listing that failed
-     * proves nothing about absence: [walkComplete] vouches for file paths, [mediaStoreComplete] for content uris.
+     * proves nothing about absence: [walkComplete] vouches for file paths, [mediaStoreComplete] for content uris; the
+     * watcher adds its own checks (a root gone since its previous pass, the file missing right before marking).
      */
     internal class Scan(
         val files: List<OriginalFile>,
         val mimeTypes: Map<String, String>,
+        val roots: List<File>?,
         val folders: List<File>,
         val walkComplete: Boolean,
         val mediaStoreComplete: Boolean,
-    ) {
-        /** True when [originalPath] missing from [files] really means the original is gone. */
-        fun provesAbsent(originalPath: String): Boolean =
-            if (MediaSources.isContentUri(originalPath)) mediaStoreComplete else walkComplete
-    }
+    )
 
     /** `<external storage>/<relative root>` for each of [WhatsAppMediaFolders.relativeRoots] that exists; one folder reached twice counts once. */
     fun roots(): List<File> {
@@ -72,17 +71,18 @@ object MediaSources {
     /** [listPresent] with what the watcher needs besides: MIME types, the folders to watch, and whether each listing worked. */
     internal fun scan(context: Context): Scan {
         if (!storageReadable()) {
-            return Scan(emptyList(), emptyMap(), emptyList(), walkComplete = false, mediaStoreComplete = false)
+            return Scan(emptyList(), emptyMap(), roots = null, emptyList(), walkComplete = false, mediaStoreComplete = false)
         }
+        val roots = roots()
         val walk = Walk(collectFiles = true)
-        roots().forEach { walk.visit(it, 0) }
+        roots.forEach { walk.visit(it, 0) }
         val mimeTypes = HashMap<String, String>()
         val mediaStoreComplete = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             addMediaStoreRows(context, walk.files, mimeTypes, walk.now)
         } else {
             true
         }
-        return Scan(walk.files.values.toList(), mimeTypes, walk.folders, walk.complete, mediaStoreComplete)
+        return Scan(walk.files.values.toList(), mimeTypes, roots, walk.folders, walk.complete, mediaStoreComplete)
     }
 
     /** The folders to observe: each root and its subfolders two levels deep, skipped ones excluded. */

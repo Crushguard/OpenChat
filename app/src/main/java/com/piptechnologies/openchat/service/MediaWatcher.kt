@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import com.piptechnologies.openchat.core.media.MediaClassifier
 import com.piptechnologies.openchat.core.media.MediaReconciler
 import com.piptechnologies.openchat.core.media.OriginalFile
+import com.piptechnologies.openchat.data.prefs.SettingsRepository
 import com.piptechnologies.openchat.data.repo.MediaRepository
 import com.piptechnologies.openchat.data.repo.MediaSource
 import com.piptechnologies.openchat.di.ApplicationScope
@@ -28,6 +29,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -35,7 +37,8 @@ import kotlinx.coroutines.withContext
 
 /**
  * Tool 3 (§5.3): watches the WhatsApp media folders, copies every new original into app storage and marks a copy
- * deleted once its original is gone, so media someone deletes for everyone stays recoverable.
+ * deleted once its original is gone, so media someone deletes for everyone stays recoverable. While recovery is
+ * paused (§5.5) every pass is skipped whole: nothing is copied, marked or watched anew until it resumes.
  *
  * [start], [stop] and [requestReconcile] may be called from any thread, any number of times, and return at once:
  * observer changes run on [scope] one at a time, and so do reconcile passes. The main thread only receives the
@@ -47,6 +50,7 @@ class MediaWatcher @Inject constructor(
     private val media: MediaRepository,
     @ApplicationScope private val scope: CoroutineScope,
     private val copier: MediaCopier,
+    private val settings: SettingsRepository,
 ) {
     private val _active = MutableStateFlow(false)
 
@@ -64,12 +68,16 @@ class MediaWatcher @Inject constructor(
     private var watchedPaths: Set<String> = emptySet()
     private var mediaStoreObserver: ContentObserver? = null
 
-    /** Serializes reconcile passes. */
+    /** Serializes reconcile passes; [previousRoots] is only touched while holding it. */
     private val passes = Mutex()
 
+    /** The media roots the previous pass found (when it could look): one gone since is a hiccup of the storage, not media deleted. */
+    private var previousRoots: Set<String> = emptySet()
+
     private val debounceLock = Any()
-    private var pendingPass: Job? = null // Guarded by debounceLock.
-    private var latestRequest = 0L // Guarded by debounceLock.
+    private var pendingPass: Job? = null // Guarded by debounceLock: the one job waiting to run the next pass.
+    private var firstRequestAt = 0L // Guarded by debounceLock: monotonic ms of the oldest request the pending pass serves.
+    private var latestRequestAt = 0L // Guarded by debounceLock: monotonic ms.
 
     /** Idempotent. Without [StoragePermissions.hasAll] nothing is installed and [active] stays false; otherwise installs the observers, then requests a pass. */
     fun start() {
@@ -83,25 +91,48 @@ class MediaWatcher @Inject constructor(
         scope.launch { applyWanted() }
     }
 
-    /** Debounced (a pass starts after 1500 ms without a newer request) and serialized: one pass at a time, never cut short. */
+    /**
+     * Debounced and serialized: a pass starts after 1500 ms without a newer request, or 10 s after the oldest request
+     * it serves when requests keep coming (the MediaStore observer fires for any media change on the device, and the
+     * listener asks after every WhatsApp notification); one pass at a time, never cut short. A request made once a
+     * pass is due is served by the pass after it.
+     */
     fun requestReconcile() {
         synchronized(debounceLock) {
-            val request = ++latestRequest
-            pendingPass?.cancel()
-            pendingPass = scope.launch {
-                delay(RECONCILE_DEBOUNCE_MS)
-                // Past the quiet period the pass runs to the end: a newer request queues a pass of its own instead.
-                withContext(NonCancellable) {
-                    passes.withLock {
-                        // When a newer request is queued behind this one, its pass looks at the folders later anyway.
-                        if (isLatest(request)) reconcileSafely()
-                    }
-                }
+            val now = monotonicMs()
+            latestRequestAt = now
+            if (pendingPass == null) {
+                firstRequestAt = now
+                pendingPass = scope.launch { runPendingPass() }
             }
         }
     }
 
-    private fun isLatest(request: Long): Boolean = synchronized(debounceLock) { request == latestRequest }
+    /** Waits until the pending pass is due, then runs it to the end. */
+    private suspend fun runPendingPass() {
+        try {
+            var wait = untilDue()
+            while (wait > 0L) {
+                delay(wait)
+                wait = untilDue()
+            }
+        } finally {
+            // Due (or the scope is going away): from here a new request gets a pass of its own.
+            synchronized(debounceLock) { pendingPass = null }
+        }
+        // Past the wait the pass runs to the end: nothing cancels it, and the next pass queues behind it.
+        withContext(NonCancellable) {
+            passes.withLock { reconcileSafely() }
+        }
+    }
+
+    /** Milliseconds until the pending pass is due: the quiet period after the latest request, capped by the max wait after the first. */
+    private fun untilDue(): Long = synchronized(debounceLock) {
+        minOf(latestRequestAt + RECONCILE_DEBOUNCE_MS, firstRequestAt + RECONCILE_MAX_WAIT_MS) - monotonicMs()
+    }
+
+    /** A clock that wall-time changes cannot move. */
+    private fun monotonicMs(): Long = System.nanoTime() / 1_000_000L
 
     private suspend fun applyWanted() {
         val installedNow = try {
@@ -213,34 +244,61 @@ class MediaWatcher @Inject constructor(
     private suspend fun reconcile() {
         // Review focus 5: nothing touches shared storage without the media permission.
         if (!StoragePermissions.hasAll(context)) return
+        // §5.5: a paused recovery leaves the folders alone; the passes resume whole once it is unpaused.
+        if (settings.recoveryPaused.first()) return
         val known = media.knownWatcherCopies()
         val scan = MediaSources.scan(context)
         val now = System.currentTimeMillis()
         val plan = MediaReconciler.plan(known, scan.files, now)
 
-        // Only a listing that worked proves an original gone: a folder or the MediaStore failing for a moment
-        // must not turn every copy into deleted media.
+        // A permanent deletedAt must never be a false positive. Only a listing that worked proves an original gone
+        // (a folder or the MediaStore failing for a moment must not turn every copy into deleted media), a root gone
+        // since the previous pass makes the whole walk untrusted, and a file path is checked again right before marking.
+        val rootVanished = scan.roots?.let { noteRoots(it) } ?: false
+        if (rootVanished) Log.w(TAG, "A media root vanished since the previous pass; this listing proves nothing absent")
+        val walkTrusted = scan.walkComplete && !rootVanished
         val originalPathById = known.associate { it.id to it.originalPath }
-        val gone = plan.toMarkDeleted.filter { id -> originalPathById[id]?.let(scan::provesAbsent) ?: false }
+        val gone = plan.toMarkDeleted.filter { id -> originalPathById[id]?.let { provedGone(it, scan, walkTrusted) } ?: false }
         if (gone.isNotEmpty()) media.markDeleted(gone, now)
         if (plan.toPrune.isNotEmpty()) media.deleteCopies(plan.toPrune)
 
         var stillArriving = false
         for (original in plan.toCopy) {
-            if (isBeingWritten(original)) {
-                stillArriving = true
-                continue
-            }
-            copyIn(original, scan.mimeTypes[original.path])
+            if (!copyIn(original, scan.mimeTypes[original.path])) stillArriving = true
         }
 
-        if (scan.walkComplete) refreshFolderObservers(scan.folders)
+        if (walkTrusted) refreshFolderObservers(scan.folders)
         if (stillArriving) requestReconcile()
     }
 
-    private suspend fun copyIn(original: OriginalFile, sourceMimeType: String?) {
-        val category = MediaClassifier.classify(original.displayName, sourceMimeType, original.path) ?: return
-        val copy = copier.copy(original) ?: return
+    /** Remembers the roots this pass found; true when one the previous pass found is not a directory right now. */
+    private fun noteRoots(found: List<File>): Boolean {
+        val roots = found.map { it.path }.toSet()
+        val vanished = previousRoots.any { it !in roots }
+        previousRoots = roots
+        return vanished
+    }
+
+    /** Absence proof for one copy: the listing that missed its original worked, and a file path is missing right now. */
+    private fun provedGone(originalPath: String, scan: MediaSources.Scan, walkTrusted: Boolean): Boolean =
+        if (MediaSources.isContentUri(originalPath)) scan.mediaStoreComplete else walkTrusted && !File(originalPath).exists()
+
+    /**
+     * Copies one new original in. False when the file is still being written to (touched within the last second, or
+     * changed while it was copied), so that one more pass follows; a file that is not media is done with at once.
+     */
+    private suspend fun copyIn(original: OriginalFile, sourceMimeType: String?): Boolean {
+        val category = MediaClassifier.classify(original.displayName, sourceMimeType, original.path) ?: return true
+        val before = stampOf(original.path)
+        if (isBeingWritten(before)) return false
+        val copy = copier.copy(original) ?: return true
+        val after = stampOf(original.path)
+        if (after != null && after != before) {
+            // Written to during the copy, so the copy is not the file. An original deleted meanwhile is kept instead:
+            // the copy read it to its end, and it is exactly the media to recover.
+            copy.delete()
+            return false
+        }
         var kept = false
         try {
             kept = media.insertCopy(
@@ -258,14 +316,26 @@ class MediaWatcher @Inject constructor(
             // Null means the original is already known: never leave an orphan in files/media.
             if (!kept) copy.delete()
         }
+        return true
+    }
+
+    /** Size and mtime of a file path right now; null for a content uri, or a file that is not there. */
+    private fun stampOf(path: String): Stamp? {
+        if (MediaSources.isContentUri(path)) return null
+        val file = File(path)
+        if (!file.isFile) return null
+        return Stamp(file.length(), file.lastModified())
     }
 
     /** Written to within the last second: it may still be downloading, and a copy taken now would stay truncated. */
-    private fun isBeingWritten(original: OriginalFile): Boolean {
-        if (MediaSources.isContentUri(original.path)) return false
-        val sinceLastWrite = System.currentTimeMillis() - File(original.path).lastModified()
+    private fun isBeingWritten(stamp: Stamp?): Boolean {
+        if (stamp == null) return false
+        val sinceLastWrite = System.currentTimeMillis() - stamp.lastModified
         return sinceLastWrite >= 0L && sinceLastWrite < SETTLE_MS
     }
+
+    /** What a file looked like at one moment; two equal stamps around a copy mean the copy is the file. */
+    private data class Stamp(val length: Long, val lastModified: Long)
 
     /** inotify does not follow new subfolders (a new week of voice notes, a first video): watch the folders the pass found. */
     private suspend fun refreshFolderObservers(folders: List<File>) {
@@ -283,7 +353,12 @@ class MediaWatcher @Inject constructor(
 
     private companion object {
         const val TAG = "MediaWatcher"
+
+        /** The quiet period after the latest request before a pass runs. */
         const val RECONCILE_DEBOUNCE_MS = 1_500L
+
+        /** The most a pass waits after the oldest request it serves, however often newer ones keep coming. */
+        const val RECONCILE_MAX_WAIT_MS = 10_000L
 
         /** A file written to more recently than this may still be downloading. */
         const val SETTLE_MS = 1_000L
