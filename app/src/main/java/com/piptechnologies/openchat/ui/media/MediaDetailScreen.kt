@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.media.MediaCategory
 import com.piptechnologies.openchat.core.media.RecoveredMedia
+import com.piptechnologies.openchat.core.messages.NotificationText
 import com.piptechnologies.openchat.ui.components.ConfirmSheet
 import com.piptechnologies.openchat.ui.components.ConfirmSpec
 import com.piptechnologies.openchat.ui.components.IconSquareButton
@@ -29,17 +30,19 @@ import com.piptechnologies.openchat.ui.components.IconSquareKind
 import com.piptechnologies.openchat.ui.components.OcTopBar
 import com.piptechnologies.openchat.ui.components.PrimaryButton
 import com.piptechnologies.openchat.ui.components.ScreenSurface
+import com.piptechnologies.openchat.ui.components.isolate
+import com.piptechnologies.openchat.ui.components.ltr
+import com.piptechnologies.openchat.ui.components.rememberTimeFormatter
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
 import com.piptechnologies.openchat.ui.theme.OcTheme
 import com.piptechnologies.openchat.ui.theme.ToolTint
-import java.util.Locale
 
 /**
  * Media detail (design map §4.13): bar with the kind ("Photo") and the "1 / 3" counter, the [preview] on ink
- * (margin 0 20, radius 20, filling the height), the meta line under the amber deleted mark, then Save to
- * gallery, Share and Delete. [MediaDetailUiState.confirmDelete] opens the delete confirmation (§4.20).
+ * (margin 0 20, radius 20, filling the height), the meta line ([metaLine]) under the amber deleted mark, then
+ * Save to gallery, Share and Delete. [MediaDetailUiState.confirmDelete] opens the delete confirmation (§4.20).
  */
 @Composable
 fun MediaDetailScreen(
@@ -56,7 +59,7 @@ fun MediaDetailScreen(
     val item = state.item
     ScreenSurface {
         OcTopBar(
-            title = item?.category?.detailTitle.orEmpty(),
+            title = item?.let { stringResource(it.category.detailTitleRes) }.orEmpty(),
             onBack = onBack,
             actions = {
                 if (state.index > 0 && state.total > 0) {
@@ -91,7 +94,7 @@ fun MediaDetailScreen(
                 if (item.deletedAt != null) {
                     LucideIconImage(icon = LucideIcon.MessageSquareDashed, size = 12.dp, tint = c.amber, strokeWidth = 2f)
                 }
-                Text(text = state.meta, style = OcTheme.type.body12_5, color = c.ink2)
+                Text(text = metaLine(item, state.nowMs), style = OcTheme.type.body12_5, color = c.ink2)
             }
             Row(
                 modifier = Modifier
@@ -122,6 +125,37 @@ fun MediaDetailScreen(
     }
 }
 
+/**
+ * "From <sender> · <day> <time> · Deleted <time>" when the sender is known, else "Received <day> <time> ·
+ * Deleted <time>" (§4.13), in the UI language: the day ("Today", "Mon 21 Sep", relative to [nowMs]) and the
+ * times come from [rememberTimeFormatter]. Received = the original's time, as on the grid. A copy that was not
+ * deleted (opened from a conversation photo) drops the "Deleted" part.
+ */
+@Composable
+private fun metaLine(item: RecoveredMedia, nowMs: Long): String {
+    val time = rememberTimeFormatter()
+    val day = time.dayLabel(item.originalModifiedAt, nowMs)
+    val at = time.clock(item.originalModifiedAt)
+    val sender = item.sender?.takeIf { it.isNotBlank() }?.let(::senderInText)
+    val deletedAt = item.deletedAt
+    return when {
+        deletedAt == null && sender != null -> stringResource(R.string.media_meta_from_kept, sender, day, at)
+        deletedAt == null -> stringResource(R.string.media_meta_received_kept, day, at)
+        sender != null -> stringResource(R.string.media_meta_from, sender, day, at, time.clock(deletedAt))
+        else -> stringResource(R.string.media_meta_received, day, at, time.clock(deletedAt))
+    }
+}
+
+/**
+ * [sender] for the meta line, isolated from the translated text around it. The notification names an unsaved
+ * contact by its number ("+62 813 9922 0417"): a sender that [NotificationText.phoneNumberFrom] reads as a number
+ * stays left to right ([ltr]), so a right-to-left language does not reorder its digit groups; a name keeps its own
+ * direction ([isolate]), so a Latin name in Arabic (or an Arabic name in English) does not pull the separators
+ * next to it to the wrong side. Display only.
+ */
+private fun senderInText(sender: String): String =
+    if (NotificationText.phoneNumberFrom(sender) != null) ltr(sender) else isolate(sender)
+
 /** "Delete this photo?" (§4.13, §4.20): trash in the destructive tints, Keep / Delete in destructive. */
 @Composable
 @ReadOnlyComposable
@@ -130,7 +164,7 @@ fun deleteMediaSpec(category: MediaCategory): ConfirmSpec {
     return ConfirmSpec(
         icon = LucideIcon.Trash,
         tint = ToolTint(bg = c.destructiveTint, fg = c.destructive),
-        title = stringResource(R.string.delete_media_title, category.detailTitle.lowercase(Locale.ROOT)),
+        title = stringResource(category.deleteTitleRes),
         body = stringResource(R.string.delete_media_body),
         cancelLabel = stringResource(R.string.keep),
         confirmLabel = stringResource(R.string.media_delete),

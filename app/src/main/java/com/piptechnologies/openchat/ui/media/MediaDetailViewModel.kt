@@ -6,9 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.media.RecoveredMedia
-import com.piptechnologies.openchat.core.phone.RelativeTime
 import com.piptechnologies.openchat.data.repo.MediaRepository
 import com.piptechnologies.openchat.platform.MediaExporter
+import com.piptechnologies.openchat.ui.components.UiText
+import com.piptechnologies.openchat.ui.components.uiText
 import com.piptechnologies.openchat.ui.navigation.Routes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -41,10 +42,10 @@ class MediaDetailViewModel @Inject constructor(
 
     private val confirmDelete = MutableStateFlow(false)
 
-    private val _toasts = MutableSharedFlow<String>(extraBufferCapacity = TOAST_BUFFER)
+    private val _toasts = MutableSharedFlow<UiText>(extraBufferCapacity = TOAST_BUFFER)
 
-    /** Toast texts for the route's dark toast. */
-    val toasts: SharedFlow<String> = _toasts.asSharedFlow()
+    /** Toast texts for the route's dark toast, resolved there in the UI language. */
+    val toasts: SharedFlow<UiText> = _toasts.asSharedFlow()
 
     // Replays, so a route recreated while the delete was running still goes back.
     private val _closed = MutableSharedFlow<Unit>(replay = 1)
@@ -75,7 +76,7 @@ class MediaDetailViewModel @Inject constructor(
         if (saving?.isActive == true) return
         saving = viewModelScope.launch {
             val saved = MediaExporter.saveToGallery(context, item)
-            _toasts.emit(context.getString(if (saved) R.string.toast_saved else R.string.toast_save_failed))
+            _toasts.emit(uiText(if (saved) R.string.toast_saved else R.string.toast_save_failed))
         }
     }
 
@@ -83,7 +84,7 @@ class MediaDetailViewModel @Inject constructor(
     fun share() {
         val item = state.value.item ?: return
         val opened = MediaExporter.share(context, item)
-        _toasts.tryEmit(context.getString(if (opened) R.string.toast_share else R.string.toast_share_failed))
+        _toasts.tryEmit(uiText(if (opened) R.string.toast_share else R.string.toast_share_failed))
     }
 
     fun askDelete() {
@@ -104,12 +105,15 @@ class MediaDetailViewModel @Inject constructor(
         val item = state.value.item ?: return
         viewModelScope.launch {
             withContext(NonCancellable) { media.delete(item.id) }
-            _toasts.emit(context.getString(R.string.toast_deleted))
+            _toasts.emit(uiText(R.string.toast_deleted))
             _closed.emit(Unit)
         }
     }
 
-    /** Counter within the recovered items of the same category, newest first; 0 / 0 when the copy is not a recovered one. */
+    /**
+     * Counter within the recovered items of the same category, newest first; 0 / 0 when the copy is not a recovered
+     * one. The screen writes the meta line from the item, relative to now.
+     */
     private fun describe(item: RecoveredMedia, recovered: List<RecoveredMedia>): MediaDetailUiState {
         val sameCategory = recovered.filter { it.category == item.category }
         val position = sameCategory.indexOfFirst { it.id == item.id }
@@ -117,27 +121,9 @@ class MediaDetailViewModel @Inject constructor(
             item = item,
             index = position + 1,
             total = if (position >= 0) sameCategory.size else 0,
-            meta = metaLine(item, System.currentTimeMillis()),
+            nowMs = System.currentTimeMillis(),
             confirmDelete = false,
         )
-    }
-
-    /**
-     * "From <sender> · <day> <time> · Deleted <time>" when the sender is known, else "Received <day> <time> ·
-     * Deleted <time>" (§4.13). Received = the original's time, as on the grid. A copy that was not deleted
-     * (opened from a conversation photo) drops the "Deleted" part.
-     */
-    private fun metaLine(item: RecoveredMedia, nowMs: Long): String {
-        val day = RelativeTime.dayLabel(item.originalModifiedAt, nowMs)
-        val time = RelativeTime.clock(item.originalModifiedAt)
-        val sender = item.sender?.takeIf { it.isNotBlank() }
-        val deletedAt = item.deletedAt
-        return when {
-            deletedAt == null && sender != null -> context.getString(R.string.media_meta_from_kept, sender, day, time)
-            deletedAt == null -> context.getString(R.string.media_meta_received_kept, day, time)
-            sender != null -> context.getString(R.string.media_meta_from, sender, day, time, RelativeTime.clock(deletedAt))
-            else -> context.getString(R.string.media_meta_received, day, time, RelativeTime.clock(deletedAt))
-        }
     }
 
     private companion object {
@@ -145,7 +131,7 @@ class MediaDetailViewModel @Inject constructor(
         const val STOP_TIMEOUT_MS = 5_000L
         const val NO_ID = -1L
 
-        val EMPTY = MediaDetailUiState(item = null, index = 0, total = 0, meta = "", confirmDelete = false)
+        val EMPTY = MediaDetailUiState(item = null, index = 0, total = 0, nowMs = 0L, confirmDelete = false)
 
         /** The `id` argument: a Long when the destination declares `NavType.LongType`, else its text form. */
         fun mediaIdOf(raw: Any?): Long = when (raw) {

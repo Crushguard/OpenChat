@@ -2,29 +2,99 @@
 <resources>
     <!-- Deleted media (design map §4.12). The tool settings and exclude chats sheets, the clear-all confirmation
          and the pause / cleared toasts reuse the shared strings in strings_messages.xml (§4.10, §4.11). -->
+    <!-- Title of the Deleted media screen (top bar) and of its tool settings sheet. Keep it short (about 20 characters). -->
     <string name="media_title">Deleted media</string>
+    <!-- Accessibility label of the sliders icon button at the end of the Deleted media top bar; it opens the tool settings sheet. Read by TalkBack, never shown. -->
     <string name="media_tool_settings">Tool settings</string>
+
+    <!-- Category pills under the Deleted media top bar, one per kind of file. -->
+    <!-- Category pill: recovered photos. Pill label, keep it short (about 12 characters). -->
+    <string name="media_tab_photos">Photos</string>
+    <!-- Category pill: recovered videos. Pill label, keep it short (about 12 characters). -->
+    <string name="media_tab_videos">Videos</string>
+    <!-- Category pill: recovered audio files (voice notes, music). Pill label, keep it short (about 12 characters). -->
+    <string name="media_tab_audio">Audio</string>
+    <!-- Category pill: recovered documents (PDF and other files). Pill label, keep it short (about 12 characters). -->
+    <string name="media_tab_documents">Documents</string>
+    <!-- Category pill: recovered WhatsApp stickers. Pill label, keep it short (about 12 characters). -->
+    <string name="media_tab_stickers">Stickers</string>
+
+    <!-- Empty state title of the Photos and the Videos pills: nothing of that kind has been recovered yet. -->
+    <string name="media_empty_nothing">Nothing recovered yet</string>
+    <!-- Empty state title of the Audio pill: no audio file (voice note, music) has been recovered yet. -->
+    <string name="media_empty_audio">No audio yet</string>
+    <!-- Empty state title of the Documents pill: no document has been recovered yet. -->
+    <string name="media_empty_documents">No documents yet</string>
+    <!-- Empty state title of the Stickers pill: no sticker has been recovered yet. -->
+    <string name="media_empty_stickers">No stickers yet</string>
+    <!-- Empty state text under the title on every pill of Deleted media: which files end up here. -->
     <string name="media_empty_body">Files someone deletes for everyone are kept here as long as they were received first.</string>
+    <!-- Button in the empty state, and in the callout above the files, while the app may not read the phone's photos, videos and audio; it opens Android's permission dialog. Button label, keep it short (about 25 characters). -->
     <string name="media_allow">Allow media access</string>
+    <!-- Callout above the recovered files while the app may not read the phone's media: the files already here stay, new ones are not kept. -->
     <string name="media_access_off">Media access is off, so new files are not kept.</string>
+    <!-- Heading above each day's files, shown in capitals: the day (%1$s: "Today", "Yesterday" or a date such as "Mon 21 Sep", from the time_* strings and the language's date format) and how many files that day has (%2$d), e.g. "Today · 2". A separator and a number only, so it is not translated. -->
     <string name="media_day_count" translatable="false">%1$s · %2$d</string>
 
     <!-- Media detail (design map §4.13) -->
+    <!-- Title of the media detail top bar when the file is a photo. A noun, keep it short. -->
+    <string name="media_detail_title_photo">Photo</string>
+    <!-- Title of the media detail top bar when the file is a video. A noun, keep it short. -->
+    <string name="media_detail_title_video">Video</string>
+    <!-- Title of the media detail top bar when the file is audio (a voice note or music). A noun, keep it short. -->
+    <string name="media_detail_title_audio">Audio</string>
+    <!-- Title of the media detail top bar when the file is a document. A noun, keep it short. -->
+    <string name="media_detail_title_document">Document</string>
+    <!-- Title of the media detail top bar when the file is a WhatsApp sticker. A noun, keep it short. -->
+    <string name="media_detail_title_sticker">Sticker</string>
+    <!-- Where the open file is among the recovered files of its kind, at the end of the media detail top bar: %1$d = its position, %2$d = how many there are, e.g. "1 / 3". Numbers only, so it is not translated. -->
     <string name="media_counter" translatable="false">%1$d / %2$d</string>
+    <!-- Main button under the media detail preview: copies the file into the phone's gallery. Button label, keep it short (about 20 characters). -->
     <string name="media_save">Save to gallery</string>
+    <!-- Accessibility label of the share icon button next to Save to gallery; it opens Android's share sheet. Read by TalkBack, never shown. Verb. -->
     <string name="media_share">Share</string>
+    <!-- Accessibility label of the trash icon button next to Save to gallery, and the red button of the delete confirmation it opens. Verb: delete this recovered file. Button label, keep it short. -->
     <string name="media_delete">Delete</string>
+    <!-- Accessibility label of the round play button on an audio or video file in the media detail. Read by TalkBack, never shown. Verb. -->
     <string name="media_play">Play</string>
+    <!-- Accessibility label of the same round button while the audio plays. Read by TalkBack, never shown. Verb. -->
     <string name="media_pause">Pause</string>
+    <!-- File size under the name of an audio file or document in the media detail, in bytes: %s = the number, e.g. "512 B". Use the language's short unit. -->
+    <string name="media_size_bytes">%s B</string>
+    <!-- File size in kilobytes (1 KB = 1000 bytes): %s = the number, e.g. "284 KB". Use the language's short unit. -->
+    <string name="media_size_kb">%s KB</string>
+    <!-- File size in megabytes: %s = the number with one decimal, e.g. "3.5 MB". Use the language's short unit. -->
+    <string name="media_size_mb">%s MB</string>
+    <!-- File size in gigabytes: %s = the number with one decimal, e.g. "1.2 GB". Use the language's short unit. -->
+    <string name="media_size_gb">%s GB</string>
+    <!-- Line under the media detail preview, sender known: %1$s = the sender's name or phone number, as WhatsApp showed it; %2$s = the day the file was received ("Today", "Yesterday" or a date such as "Mon 21 Sep", written as in the day headings); %3$s = the time it was received ("14:25"); %4$s = the time the sender deleted it ("14:26"). E.g. "From Ayu Lestari · Today 14:25 · Deleted 14:26". -->
     <string name="media_meta_from">From %1$s · %2$s %3$s · Deleted %4$s</string>
+    <!-- The same line when the sender is not known: %1$s = the day the file was received ("Today", "Yesterday" or a date such as "Mon 21 Sep"); %2$s = the time it was received ("14:25"); %3$s = the time it was deleted ("14:26"). E.g. "Received Today 14:25 · Deleted 14:26". -->
     <string name="media_meta_received">Received %1$s %2$s · Deleted %3$s</string>
+    <!-- The line for a file that was not deleted (opened from a photo in a chat), sender known: %1$s = the sender's name or phone number; %2$s = the day it was received; %3$s = the time it was received. E.g. "From Ayu Lestari · Today 14:25". -->
     <string name="media_meta_from_kept">From %1$s · %2$s %3$s</string>
+    <!-- The line for a file that was not deleted, sender not known: %1$s = the day it was received; %2$s = the time it was received. E.g. "Received Today 14:25". -->
     <string name="media_meta_received_kept">Received %1$s %2$s</string>
-    <string name="delete_media_title">Delete this %s?</string>
+    <!-- Title of the confirmation that opens from the trash button of the media detail, for a photo (buttons Keep / Delete). -->
+    <string name="delete_media_title_photo">Delete this photo?</string>
+    <!-- Title of the same confirmation for a video. -->
+    <string name="delete_media_title_video">Delete this video?</string>
+    <!-- Title of the same confirmation for an audio file (a voice note or music). -->
+    <string name="delete_media_title_audio">Delete this audio?</string>
+    <!-- Title of the same confirmation for a document. -->
+    <string name="delete_media_title_document">Delete this document?</string>
+    <!-- Title of the same confirmation for a WhatsApp sticker. -->
+    <string name="delete_media_title_sticker">Delete this sticker?</string>
+    <!-- Text of the delete confirmation. "Media Recovery" is this tool (Deleted media), named as in gate_hint_before. -->
     <string name="delete_media_body">It is removed from Media Recovery. If you saved it to the gallery, that copy stays.</string>
+    <!-- Toast after Save to gallery copied the file into the phone's gallery. -->
     <string name="toast_saved">Saved to gallery</string>
+    <!-- Toast when Save to gallery failed. -->
     <string name="toast_save_failed">Could not save</string>
+    <!-- Toast while Android's share sheet opens for the file. -->
     <string name="toast_share">Opening share sheet…</string>
+    <!-- Toast when the file could not be shared. -->
     <string name="toast_share_failed">Could not share</string>
+    <!-- Toast after the recovered file was deleted from the media detail, which then closes. Means "the file has been deleted"; keep it short. -->
     <string name="toast_deleted">Deleted</string>
 </resources>

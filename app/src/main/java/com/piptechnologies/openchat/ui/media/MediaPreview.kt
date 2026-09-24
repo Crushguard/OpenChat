@@ -38,6 +38,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -46,12 +47,12 @@ import coil.imageLoader
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.media.MediaCategory
 import com.piptechnologies.openchat.core.media.RecoveredMedia
+import com.piptechnologies.openchat.ui.components.rememberTimeFormatter
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcTheme
 import java.io.File
 import java.io.IOException
-import java.util.Locale
 
 private const val MAX_ZOOM = 5f
 private const val DOUBLE_TAP_ZOOM = 2.5f
@@ -244,12 +245,15 @@ private fun PlayPauseButton(playing: Boolean, onClick: () -> Unit) {
     }
 }
 
-/** File name (14/600 white, up to 3 lines) over its size (mono 12, muted). */
+/**
+ * File name (14/600 white, up to 3 lines) over its size (mono 12, muted). The name takes its own direction, so a
+ * Latin name in a right-to-left language keeps its ellipsis at its end.
+ */
 @Composable
 private fun FileCaption(name: String, sizeBytes: Long) {
     Text(
         text = name,
-        style = OcTheme.type.label14,
+        style = OcTheme.type.label14.copy(textDirection = TextDirection.Content),
         color = Color.White,
         textAlign = TextAlign.Center,
         maxLines = 3,
@@ -259,12 +263,20 @@ private fun FileCaption(name: String, sizeBytes: Long) {
     Text(text = fileSize(sizeBytes), style = OcTheme.type.mono12, color = OcTheme.colors.muted)
 }
 
-/** "284 KB", "3.5 MB": decimal units, as Android's short file sizes. */
-private fun fileSize(bytes: Long): String = when {
-    bytes < 1_000L -> "$bytes B"
-    bytes < 1_000_000L -> "${bytes / 1_000L} KB"
-    bytes < 1_000_000_000L -> String.format(Locale.US, "%.1f MB", bytes / 1_000_000.0)
-    else -> String.format(Locale.US, "%.1f GB", bytes / 1_000_000_000.0)
+/**
+ * "284 KB", "3.5 MB": decimal units, as Android's short file sizes. The unit comes from the media_size_* strings;
+ * the number is written in the UI language's digits and decimal separator ("3,5" in French), taken from
+ * [rememberTimeFormatter]'s locale, which keeps every English at US English ("3.5", like the time labels).
+ */
+@Composable
+private fun fileSize(bytes: Long): String {
+    val locale = rememberTimeFormatter().locale
+    return when {
+        bytes < 1_000L -> stringResource(R.string.media_size_bytes, String.format(locale, "%d", bytes))
+        bytes < 1_000_000L -> stringResource(R.string.media_size_kb, String.format(locale, "%d", bytes / 1_000L))
+        bytes < 1_000_000_000L -> stringResource(R.string.media_size_mb, String.format(locale, "%.1f", bytes / 1_000_000.0))
+        else -> stringResource(R.string.media_size_gb, String.format(locale, "%.1f", bytes / 1_000_000_000.0))
+    }
 }
 
 /**

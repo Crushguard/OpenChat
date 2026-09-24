@@ -12,6 +12,8 @@ import com.piptechnologies.openchat.data.repo.MediaRepository
 import com.piptechnologies.openchat.data.repo.MessagesRepository
 import com.piptechnologies.openchat.platform.StoragePermissions
 import com.piptechnologies.openchat.service.MediaWatcher
+import com.piptechnologies.openchat.ui.components.UiText
+import com.piptechnologies.openchat.ui.components.uiText
 import com.piptechnologies.openchat.ui.messages.ExcludableChat
 import com.piptechnologies.openchat.ui.messages.excludableChats
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -74,10 +76,10 @@ class MediaViewModel @Inject constructor(
         ),
     )
 
-    private val _toasts = MutableSharedFlow<String>(extraBufferCapacity = TOAST_BUFFER)
+    private val _toasts = MutableSharedFlow<UiText>(extraBufferCapacity = TOAST_BUFFER)
 
-    /** Toast texts for the route's dark toast. */
-    val toasts: SharedFlow<String> = _toasts.asSharedFlow()
+    /** Toast texts for the route's dark toast, resolved there in the UI language. */
+    val toasts: SharedFlow<UiText> = _toasts.asSharedFlow()
 
     /** Serializes the pause and exclude toggles, so a double tap flips twice instead of racing. */
     private val toggleLock = Mutex()
@@ -95,6 +97,7 @@ class MediaViewModel @Inject constructor(
     ) { recovered, paused, excluded, ui ->
         MediaUiState(
             tab = ui.tab,
+            // Grouped here by calendar day; the screen names each day in the UI language.
             groups = MediaDayGrouper.group(recovered.filter { it.category == ui.tab }, ui.nowMs),
             hasPermission = ui.hasPermission,
             paused = paused,
@@ -160,7 +163,7 @@ class MediaViewModel @Inject constructor(
                 return@launch
             }
             if (!paused) watcher.requestReconcile()
-            _toasts.emit(context.getString(if (paused) R.string.toast_paused else R.string.toast_resumed))
+            _toasts.emit(uiText(if (paused) R.string.toast_paused else R.string.toast_resumed))
         }
     }
 
@@ -197,7 +200,7 @@ class MediaViewModel @Inject constructor(
         local.update { it.copy(confirmClear = false, toolSettingsOpen = false) }
         viewModelScope.launch {
             withContext(NonCancellable) { media.clearRecovered() }
-            _toasts.emit(context.getString(R.string.toast_cleared))
+            _toasts.emit(uiText(R.string.toast_cleared))
         }
     }
 

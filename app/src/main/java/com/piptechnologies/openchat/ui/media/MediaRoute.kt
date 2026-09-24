@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
@@ -20,6 +21,7 @@ import com.piptechnologies.openchat.ui.components.ConfirmSheet
 import com.piptechnologies.openchat.ui.components.DarkToastHost
 import com.piptechnologies.openchat.ui.components.LocalToastHost
 import com.piptechnologies.openchat.ui.components.OcModalSheet
+import com.piptechnologies.openchat.ui.components.asString
 import com.piptechnologies.openchat.ui.components.rememberToastHostState
 import com.piptechnologies.openchat.ui.messages.ExcludeChatsSheetContent
 import com.piptechnologies.openchat.ui.messages.ToolSettingsSheetContent
@@ -28,7 +30,8 @@ import com.piptechnologies.openchat.ui.messages.ToolSettingsSheetContent
  * Binds [MediaViewModel] to [MediaScreen] and its sheets: tool settings and exclude chats in [OcModalSheet]s,
  * clear-all in a [ConfirmSheet]. The storage/media permission is requested only when the user taps "Allow
  * media access" (ruling R17); the result, and every resume, re-reads it and wakes the media watcher. Toasts go
- * to the app's host ([LocalToastHost]) when there is one, so they outlive this route.
+ * to the app's host ([LocalToastHost]) when there is one, so they outlive this route; their text is resolved
+ * here, in the activity's language.
  */
 @Composable
 fun MediaRoute(onBack: () -> Unit, onOpenDetail: (Long) -> Unit, viewModel: MediaViewModel = hiltViewModel()) {
@@ -37,6 +40,7 @@ fun MediaRoute(onBack: () -> Unit, onOpenDetail: (Long) -> Unit, viewModel: Medi
     val toast = appToast ?: rememberToastHostState()
     val currentOnBack by rememberUpdatedState(onBack)
     val currentOnOpenDetail by rememberUpdatedState(onOpenDetail)
+    val context = LocalContext.current
     val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
         viewModel.onPermissionResult()
     }
@@ -45,7 +49,7 @@ fun MediaRoute(onBack: () -> Unit, onOpenDetail: (Long) -> Unit, viewModel: Medi
         onPauseOrDispose { }
     }
     LaunchedEffect(viewModel, toast) {
-        viewModel.toasts.collect { toast.show(it) }
+        viewModel.toasts.collect { toast.show(it.asString(context)) }
     }
     val callbacks = remember(viewModel, permissionLauncher) {
         MediaCallbacks(

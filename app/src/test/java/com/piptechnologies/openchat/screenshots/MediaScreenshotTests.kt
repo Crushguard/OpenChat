@@ -32,7 +32,7 @@ class MediaScreenshotTests {
 
     private val defaultZone: TimeZone = TimeZone.getDefault()
 
-    /** The tiles format their times in the default zone; the fake wall-clock times are UTC. */
+    /** The screens format their times and days in the default zone (rememberTimeFormatter); the fake wall-clock times are UTC. */
     @Before
     fun useFakeTimeZone() {
         TimeZone.setDefault(Fakes.timeZone)
@@ -96,7 +96,10 @@ class MediaScreenshotTests {
         nowMs = Fakes.now,
     )
 
-    /** The newest photo (today 14:25, deleted 14:26), shown as 1 of 3 over the design's dark hatched preview. */
+    /**
+     * The newest photo (today 14:25, deleted 14:26: "From Ayu Lestari · Today 14:25 · Deleted 14:26"), shown as 1 of 3
+     * over the design's dark hatched preview.
+     */
     @Composable
     private fun PhotoDetail() {
         MediaDetailScreen(
@@ -104,7 +107,7 @@ class MediaScreenshotTests {
                 item = photos.first(),
                 index = 1,
                 total = 3,
-                meta = "From Ayu Lestari · Today 14:25 · Deleted 14:26",
+                nowMs = Fakes.now,
                 confirmDelete = false,
             ),
             onBack = {},

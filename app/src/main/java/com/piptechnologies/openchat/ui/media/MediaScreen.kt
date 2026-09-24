@@ -34,13 +34,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.media.MediaCategory
 import com.piptechnologies.openchat.core.media.MediaDayGrouper
 import com.piptechnologies.openchat.core.media.RecoveredMedia
-import com.piptechnologies.openchat.core.phone.RelativeTime
 import com.piptechnologies.openchat.ui.components.ConfirmSpec
 import com.piptechnologies.openchat.ui.components.EmptyState
 import com.piptechnologies.openchat.ui.components.FilterPill
@@ -50,7 +50,9 @@ import com.piptechnologies.openchat.ui.components.OcTopBar
 import com.piptechnologies.openchat.ui.components.PrimaryButton
 import com.piptechnologies.openchat.ui.components.ScreenSurface
 import com.piptechnologies.openchat.ui.components.SectionEyebrow
+import com.piptechnologies.openchat.ui.components.TimeFormatter
 import com.piptechnologies.openchat.ui.components.TopBarIconButton
+import com.piptechnologies.openchat.ui.components.rememberTimeFormatter
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
@@ -65,10 +67,11 @@ private val TimeChipBackground = Color.White.copy(alpha = 0.85f)
 
 /**
  * Deleted media (design map §4.12): bar with the tool settings button, the five category pills, then the
- * [MediaUiState.tab]'s items as a 3-column grid under day eyebrows ("Today · 2"), or the empty state. While
- * the storage/media permission is missing (ruling R17) the empty state adds "Allow media access", and a
- * non-empty grid gets a callout with the same action above it. [thumbnail] draws photo and video tiles
- * (screenshots pass a placeholder). The sheets are the route's ([MediaRoute]).
+ * [MediaUiState.tab]'s items as a 3-column grid under day eyebrows ("Today · 2", named here in the UI language
+ * relative to [MediaUiState.nowMs]), or the empty state. While the storage/media permission is missing (ruling
+ * R17) the empty state adds "Allow media access", and a non-empty grid gets a callout with the same action above
+ * it. [thumbnail] draws photo and video tiles (screenshots pass a placeholder). The sheets are the route's
+ * ([MediaRoute]).
  */
 @Composable
 fun MediaScreen(
@@ -104,6 +107,7 @@ fun MediaScreen(
             key(state.tab) {
                 MediaGrid(
                     groups = state.groups,
+                    nowMs = state.nowMs,
                     onOpen = callbacks.onOpen,
                     thumbnail = thumbnail,
                     modifier = Modifier
@@ -144,22 +148,25 @@ private fun CategoryPills(selected: MediaCategory, onSelect: (MediaCategory) -> 
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         MediaCategory.entries.forEach { category ->
-            FilterPill(label = category.tabLabel, selected = category == selected, onClick = { onSelect(category) })
+            FilterPill(label = stringResource(category.tabLabelRes), selected = category == selected, onClick = { onSelect(category) })
         }
     }
 }
 
 /**
  * One grid for every day: each day's eyebrow spans the three columns (2 dp above the first, 16 above the
- * others counting the row gap, 8 below), then its square tiles. Padding 0 20 12.
+ * others counting the row gap, 8 below), then its square tiles. Padding 0 20 12. Each day is named after its
+ * newest item, as [MediaDayGrouper] groups them, by the UI language's [TimeFormatter] relative to [nowMs].
  */
 @Composable
 private fun MediaGrid(
     groups: List<MediaDayGrouper.Group>,
+    nowMs: Long,
     onOpen: (RecoveredMedia) -> Unit,
     thumbnail: @Composable (RecoveredMedia, Modifier) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val time = rememberTimeFormatter()
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         modifier = modifier,
@@ -168,19 +175,22 @@ private fun MediaGrid(
         horizontalArrangement = Arrangement.spacedBy(TileGap),
     ) {
         groups.forEachIndexed { index, group ->
+            // MediaDayGrouper never makes an empty day.
+            val newest = group.items.firstOrNull() ?: return@forEachIndexed
             item(
                 // A day is named after its newest item: labels alone ("Mon 22 Sep") can repeat a year apart.
-                key = "day-${group.items.firstOrNull()?.id ?: group.label}",
+                key = "day-${newest.id}",
                 span = { GridItemSpan(maxLineSpan) },
                 contentType = "day",
             ) {
+                val day = time.dayLabel(newest.originalModifiedAt, nowMs)
                 SectionEyebrow(
-                    text = stringResource(R.string.media_day_count, group.label, group.items.size),
+                    text = stringResource(R.string.media_day_count, day, group.items.size),
                     modifier = Modifier.padding(top = if (index == 0) 2.dp else 16.dp - TileGap),
                 )
             }
             items(items = group.items, key = { it.id }, contentType = { "tile" }) { media ->
-                MediaTile(media = media, onClick = { onOpen(media) }, thumbnail = thumbnail)
+                MediaTile(media = media, time = time, onClick = { onOpen(media) }, thumbnail = thumbnail)
             }
         }
     }
@@ -189,10 +199,15 @@ private fun MediaGrid(
 /**
  * Square tile, radius 14, 1 px border. Photos and videos show [thumbnail] (videos add a filled play 20);
  * audio, documents and stickers show their type icon and file name on the hatched placeholder. The time
- * chip sits 8 from the left and 7 from the bottom.
+ * chip ([time]'s clock) sits 8 from the start and 7 from the bottom.
  */
 @Composable
-private fun MediaTile(media: RecoveredMedia, onClick: () -> Unit, thumbnail: @Composable (RecoveredMedia, Modifier) -> Unit) {
+private fun MediaTile(
+    media: RecoveredMedia,
+    time: TimeFormatter,
+    onClick: () -> Unit,
+    thumbnail: @Composable (RecoveredMedia, Modifier) -> Unit,
+) {
     val c = OcTheme.colors
     val shape = RoundedCornerShape(OcRadius.md)
     Box(
@@ -218,9 +233,9 @@ private fun MediaTile(media: RecoveredMedia, onClick: () -> Unit, thumbnail: @Co
                 modifier = Modifier.align(Alignment.Center),
             )
         }
-        val time = remember(media.originalModifiedAt) { RelativeTime.clock(media.originalModifiedAt) }
+        val clock = remember(time, media.originalModifiedAt) { time.clock(media.originalModifiedAt) }
         Text(
-            text = time,
+            text = clock,
             style = OcTheme.type.tileTime9_5,
             color = c.ink2,
             modifier = Modifier
@@ -233,7 +248,10 @@ private fun MediaTile(media: RecoveredMedia, onClick: () -> Unit, thumbnail: @Co
     }
 }
 
-/** Audio, document and sticker tiles: type icon 24 inkMuted over the file name (mono 10.5), clear of the time chip. */
+/**
+ * Audio, document and sticker tiles: type icon 24 inkMuted over the file name (mono 10.5), clear of the time chip.
+ * The name takes its own direction, so a Latin name in a right-to-left language keeps its ellipsis at its end.
+ */
 @Composable
 private fun BoxScope.FileTile(icon: LucideIcon, name: String) {
     val c = OcTheme.colors
@@ -249,7 +267,7 @@ private fun BoxScope.FileTile(icon: LucideIcon, name: String) {
         Spacer(Modifier.height(6.dp))
         Text(
             text = name,
-            style = OcTheme.type.mono10_5,
+            style = OcTheme.type.mono10_5.copy(textDirection = TextDirection.Content),
             color = c.ink2,
             textAlign = TextAlign.Center,
             maxLines = 2,
@@ -264,14 +282,15 @@ private fun BoxScope.FileTile(icon: LucideIcon, name: String) {
  */
 @Composable
 private fun MediaEmptyState(tab: MediaCategory, hasPermission: Boolean, onRequestPermission: () -> Unit) {
+    val title = stringResource(tab.emptyTitleRes)
     val body = stringResource(R.string.media_empty_body)
     if (hasPermission) {
-        EmptyState(icon = LucideIcon.Image, title = tab.emptyTitle, body = body)
+        EmptyState(icon = LucideIcon.Image, title = title, body = body)
     } else {
         val allow = stringResource(R.string.media_allow)
         EmptyState(
             icon = LucideIcon.Image,
-            title = tab.emptyTitle,
+            title = title,
             body = body,
             action = {
                 PrimaryButton(text = allow, onClick = onRequestPermission, modifier = Modifier.widthIn(max = 240.dp))
