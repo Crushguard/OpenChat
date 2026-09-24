@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
@@ -42,7 +43,8 @@ private val MenuShadow = Color(0xFF141E3C)
 /**
  * The Send-with card (design map §4.5): 238 wide, white, 1 px border, 14 radius, padding 6, shadow.
  * Eyebrow "SEND WITH", then one 46 high row per app in [apps]: [appIcon] 20 in ink soft, the name
- * 14.5/600 and a green check 18 on [current]. Picking a row calls [onPick].
+ * 14.5/600 and a green check 18 on [current]. Picking a row calls [onPick]; any other tap inside the
+ * card does nothing.
  */
 @Composable
 fun SendWithMenuContent(
@@ -59,6 +61,9 @@ fun SendWithMenuContent(
             .shadow(elevation = 12.dp, shape = shape, ambientColor = Color.Transparent, spotColor = MenuShadow)
             .background(c.surface, shape)
             .border(1.dp, c.border, shape)
+            // A tap on the eyebrow or the padding stays in the card instead of reaching the full-size
+            // catcher under it, which would close the menu.
+            .pointerInput(Unit) {}
             .padding(6.dp),
     ) {
         Text(

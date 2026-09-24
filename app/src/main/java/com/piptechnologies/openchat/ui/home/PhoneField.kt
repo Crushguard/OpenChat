@@ -36,10 +36,12 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
@@ -59,6 +61,10 @@ import com.piptechnologies.openchat.ui.theme.OcTheme
  * as typed, and Paste (empty) or clear (filled) at the end. A 1.5 dp green ring shows while the
  * field has focus; a tap anywhere on the field focuses it. The value stays digits only; the
  * grouping is display-only ([PhoneGroupingTransformation]).
+ *
+ * The field keeps its own [TextFieldValue] so the caret is right: an edit typed here keeps its caret,
+ * and digits that arrive from elsewhere (Paste, a refilled recent, clear) put it at the end
+ * ([reconciledWith]). Every text change is passed on raw to [onDigitsChange], which filters it.
  */
 @Composable
 internal fun PhoneField(
@@ -74,6 +80,8 @@ internal fun PhoneField(
     val c = OcTheme.colors
     val shape = RoundedCornerShape(OcRadius.md)
     var focused by remember { mutableStateOf(false) }
+    var edited by remember { mutableStateOf(TextFieldValue(text = digits, selection = TextRange(digits.length))) }
+    val value = if (edited.text == digits) edited else edited.reconciledWith(digits)
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -87,8 +95,11 @@ internal fun PhoneField(
     ) {
         CountryChip(country = country, onClick = onCountryClick)
         BasicTextField(
-            value = digits,
-            onValueChange = onDigitsChange,
+            value = value,
+            onValueChange = { next ->
+                edited = next
+                if (next.text != value.text) onDigitsChange(next.text)
+            },
             modifier = Modifier
                 .weight(1f)
                 .focusRequester(focusRequester)
@@ -119,6 +130,22 @@ internal fun PhoneField(
             ClearButton(onClick = onClear)
         }
     }
+}
+
+/**
+ * This field's value once [digits] (from the ViewModel) replaced its text. When [digits] is this
+ * value's own text with what the digits-only rule drops removed (a typed "+" or "-", a 16th digit),
+ * the caret stays after the same digits. Any other change (Paste, a refilled recent, clear, a paste
+ * the ViewModel normalised) puts the caret at the end.
+ */
+internal fun TextFieldValue.reconciledWith(digits: String): TextFieldValue {
+    val ownEdit = PhoneNumberNormalizer.digitsOnly(text).take(PhoneNumberNormalizer.MAX_DIGITS) == digits
+    val caret = if (ownEdit) {
+        PhoneNumberNormalizer.digitsOnly(text.take(selection.end)).length.coerceAtMost(digits.length)
+    } else {
+        digits.length
+    }
+    return TextFieldValue(text = digits, selection = TextRange(caret))
 }
 
 /**
