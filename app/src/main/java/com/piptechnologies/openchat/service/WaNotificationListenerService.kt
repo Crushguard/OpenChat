@@ -5,7 +5,6 @@ import android.service.notification.NotificationListenerService.RankingMap
 import android.service.notification.StatusBarNotification
 import android.util.Log
 import com.piptechnologies.openchat.core.messages.NotificationText
-import com.piptechnologies.openchat.data.prefs.SettingsRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.CancellationException
@@ -14,7 +13,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
@@ -31,8 +29,6 @@ class WaNotificationListenerService : NotificationListenerService() {
     @Inject lateinit var ingestor: NotificationIngestor
 
     @Inject lateinit var mediaWatcher: MediaWatcher
-
-    @Inject lateinit var settings: SettingsRepository
 
     /** Notification work, one piece at a time and off the main thread; replaced when the listener reconnects. */
     private var scope: CoroutineScope = newScope()
@@ -57,10 +53,9 @@ class WaNotificationListenerService : NotificationListenerService() {
         if (sbn == null || sbn.packageName !in NotificationText.watchedPackages) return
         scope.launch {
             try {
-                if (settings.recoveryPaused.first()) return@launch
                 val parsed = parser.parse(sbn) ?: return@launch
-                ingestor.onPosted(parsed, parser.images(sbn))
-                mediaWatcher.requestReconcile()
+                // The paused check runs under the ingestor's lock, so events keep their delivery order.
+                if (ingestor.onPosted(parsed, parser.images(sbn))) mediaWatcher.requestReconcile()
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {

@@ -48,25 +48,27 @@ class NotificationIngestor @Inject constructor(
     /** Conversation key → ids of the stored messages its notification can still show (see the class comment). */
     private val windowIds = HashMap<String, MutableSet<Long>>()
 
-    suspend fun onPosted(parsed: ParsedNotification, images: List<NotificationImage>) {
+    /** Returns false when recovery is paused: nothing was read, and the caller skips its follow-up work. */
+    suspend fun onPosted(parsed: ParsedNotification, images: List<NotificationImage>): Boolean =
         mutex.withLock { ingest(parsed, images) }
-    }
 
     /** [reason] is a `NotificationListenerService.REASON_*` value (API 26+). Marks nothing: see the class comment. */
     suspend fun onRemoved(sbnKey: String, reason: Int) {
         mutex.withLock { forget(sbnKey, reason) }
     }
 
-    private suspend fun ingest(parsed: ParsedNotification, images: List<NotificationImage>) {
-        if (parsed.isGroupSummary || settings.recoveryPaused.first()) return
+    /** Returns false only while recovery is paused. */
+    private suspend fun ingest(parsed: ParsedNotification, images: List<NotificationImage>): Boolean {
+        if (settings.recoveryPaused.first()) return false
+        if (parsed.isGroupSummary) return true
         val title = parsed.conversationTitle
         // The noise rules are broad ("backup"): a conversation's own MessagingStyle lines never go through them.
         val screen = !parsed.fromMessagingStyle || isAppLabel(title)
         val kept = parsed.lines.withIndex().filterNot { screen && NotificationText.isSummaryOrNoise(title, it.value.text) }
-        if (kept.isEmpty()) return
+        if (kept.isEmpty()) return true
         val lines = kept.map { it.value }
         val key = NotificationText.conversationKey(parsed.appPackage, title)
-        if (messages.isExcluded(key)) return
+        if (messages.isExcluded(key)) return true
         conversationOf[parsed.sbnKey] = key
 
         val recent = messages.latestForConversation(key, WINDOW_SIZE)
@@ -97,6 +99,7 @@ class NotificationIngestor @Inject constructor(
         }
 
         markDeleted(DeletedMessageDetector.detect(stored, lines))
+        return true
     }
 
     /** The notification is gone. After a [RESET_REASONS] removal the conversation's window starts afresh; a dismissal keeps it. */
