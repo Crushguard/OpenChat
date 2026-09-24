@@ -82,28 +82,41 @@ class WhatsAppWebViewHolder @Inject constructor(@ApplicationContext private val 
     }
 
     /**
-     * Ends the session on this phone (§5.4): cookies, web storage, cache, form data and history are cleared, and
-     * WhatsApp Web is loaded again only once the cookie store is empty, so it comes back at the QR code.
+     * Ends the session on this phone (§5.4). A view that is on WhatsApp Web first asks the page to drop its own
+     * storage (IndexedDB databases, localStorage, sessionStorage); once the page reports that done, or after
+     * [WIPE_TIMEOUT_MS] if it never does, [clearSession] runs: cookies, web storage, cache, form data and history
+     * are cleared, and WhatsApp Web is loaded again only once the cookie store is empty, so it comes back at the
+     * QR code. With no view yet, or a view that is somewhere else, [clearSession] runs at once.
      */
     fun logout() {
         onMain {
-            // Leave WhatsApp Web first: the old page stops running while its data is wiped, and a probe made in
-            // the meantime no longer finds it linked.
-            webView?.loadUrl(BLANK_PAGE)
-            val cookies = CookieManager.getInstance()
-            cookies.removeAllCookies {
-                // Called back on the main thread, after the removal.
-                cookies.flush()
-                webView?.let { view ->
-                    view.clearHistory()
-                    view.loadUrl(WebSession.URL)
-                }
+            val view = webView
+            if (view != null && isSessionPage(view.url)) {
+                PageWipe(view, ::clearSession).start()
+            } else {
+                clearSession()
             }
-            WebStorage.getInstance().deleteAllData()
+        }
+    }
+
+    /** Main thread. Everything outside the page: about:blank first, then cookies, storage, cache, form data, history. */
+    private fun clearSession() {
+        // Leave WhatsApp Web first: the old page stops running while its data is wiped, and a probe made in
+        // the meantime no longer finds it linked.
+        webView?.loadUrl(BLANK_PAGE)
+        val cookies = CookieManager.getInstance()
+        cookies.removeAllCookies {
+            // Called back on the main thread, after the removal.
+            cookies.flush()
             webView?.let { view ->
-                view.clearCache(true)
-                view.clearFormData()
+                view.clearHistory()
+                view.loadUrl(WebSession.URL)
             }
+        }
+        WebStorage.getInstance().deleteAllData()
+        webView?.let { view ->
+            view.clearCache(true)
+            view.clearFormData()
         }
     }
 
@@ -140,6 +153,48 @@ class WhatsAppWebViewHolder @Inject constructor(@ApplicationContext private val 
 
     private fun onMain(block: () -> Unit) {
         if (Looper.myLooper() == Looper.getMainLooper()) block() else mainHandler.post { block() }
+    }
+
+    /**
+     * Runs [WIPE_STORAGE_JS] in [view] and calls [onDone] exactly once, on the main thread: when the page's
+     * flag reads [WIPE_DONE] (polled every [WIPE_POLL_MS]), or after [WIPE_TIMEOUT_MS] if it never does, for
+     * example because the page hung or a callback never came. `evaluateJavascript` reports a script's return
+     * value at once, not the end of its promise chain, which is why the page sets a flag that is polled. A view
+     * the holder dropped in the meantime (renderer death) is not waited for.
+     */
+    private inner class PageWipe(private val view: WebView, private val onDone: () -> Unit) : Runnable {
+        private var done = false
+        private val timeout = Runnable { finish() }
+
+        fun start() {
+            mainHandler.postDelayed(timeout, WIPE_TIMEOUT_MS)
+            view.evaluateJavascript(WIPE_STORAGE_JS) { mainHandler.postDelayed(this, WIPE_POLL_MS) }
+        }
+
+        /** One poll of the page's flag. */
+        override fun run() {
+            if (done) return
+            if (view !== webView) {
+                finish()
+                return
+            }
+            view.evaluateJavascript(WIPE_STATE_JS) { result ->
+                if (done) return@evaluateJavascript
+                if (result?.trim()?.removeSurrounding("\"") == WIPE_DONE) {
+                    finish()
+                } else {
+                    mainHandler.postDelayed(this, WIPE_POLL_MS)
+                }
+            }
+        }
+
+        private fun finish() {
+            if (done) return
+            done = true
+            mainHandler.removeCallbacks(timeout)
+            mainHandler.removeCallbacks(this)
+            onDone()
+        }
     }
 
     private fun isSessionPage(url: String?): Boolean =
@@ -183,6 +238,30 @@ class WhatsAppWebViewHolder @Inject constructor(@ApplicationContext private val 
         const val SESSION_HOST = "web.whatsapp.com"
 
         const val BLANK_PAGE = "about:blank"
+
+        /** How long a logout waits for the page to report its storage wiped before carrying on regardless. */
+        const val WIPE_TIMEOUT_MS = 1_500L
+        const val WIPE_POLL_MS = 100L
+        const val WIPE_DONE = "done"
+
+        /** Reads the flag [WIPE_STORAGE_JS] sets ("pending" until every request has answered, then "done"). */
+        const val WIPE_STATE_JS = "window.__openchatWipe"
+
+        /**
+         * Drops the page's own storage: localStorage and sessionStorage at once, then every IndexedDB database.
+         * A deletion the page's open connections block completes once the page is left (about:blank), so
+         * "blocked" counts as issued. The flag reads "done" when every request has answered, on any error,
+         * or at once where `indexedDB.databases` does not exist (WebView before Chrome 71).
+         */
+        const val WIPE_STORAGE_JS = "(function(){" +
+            "try{localStorage.clear();sessionStorage.clear()}catch(e){}" +
+            "window.__openchatWipe='pending';" +
+            "var done=function(){window.__openchatWipe='done'};" +
+            "try{indexedDB.databases().then(function(list){return Promise.all(list.map(function(db){" +
+            "return new Promise(function(resolve){var req=indexedDB.deleteDatabase(db.name);" +
+            "req.onsuccess=req.onerror=req.onblocked=function(){resolve()}})}))}).then(done,done)}" +
+            "catch(e){done()}" +
+            "return 'started'})()"
 
         /** Link schemes handed to other apps; anything else (intent:, file:, blob: …) is never started. */
         val EXTERNAL_SCHEMES = setOf("http", "https", "mailto", "tel")

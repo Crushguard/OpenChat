@@ -6,7 +6,6 @@
     <string name="second_entry_body">Links a WhatsApp Web session inside this app. Use it for a second account, or the same account on a second phone.</string>
     <string name="second_entry_callout">You need the other phone. A QR code appears here; scan it there under WhatsApp › Linked devices › Link a device.</string>
     <string name="second_scan">Scan QR</string>
-    <string name="second_waiting">Waiting for the other phone…</string>
     <string name="second_entry_hint">A notification stays visible while linked. Android requires it.</string>
 
     <!-- Second account: linking / linked bar -->

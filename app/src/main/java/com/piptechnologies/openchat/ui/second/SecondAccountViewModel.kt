@@ -31,11 +31,14 @@ import kotlinx.coroutines.withContext
  * State of the Second account screen (design map §4.14, §5.4).
  *
  * The session lives in [holder], which outlives this ViewModel. While the screen is in LINKING or LINKED
- * the ViewModel probes the page every [WebSession.PROBE_INTERVAL_MS]: a linked page sets LINKED, mirrors it
- * to DataStore `second_linked` and starts [WebSessionService]; a QR code while LINKING keeps LINKING; a QR
- * code once linked is treated as transient and ignored. If DataStore says linked when the ViewModel is
- * created, the screen starts LINKED and probes at once, which restarts the service after process death and
- * corrects a stale LINKED (a QR code before any probe confirmed the link goes back to LINKING).
+ * the ViewModel probes the page every [WebSession.PROBE_INTERVAL_MS]. A linked page sets LINKED, mirrors it
+ * to DataStore `second_linked` and starts [WebSessionService] (on every linked result: the service is not
+ * sticky). A QR code while LINKING keeps LINKING. A QR code after a probe of this ViewModel confirmed the
+ * link is transient for two results; the third in a row means the session was ended on the other phone, and
+ * the screen goes back to LINKING with the service stopped and the mirror false. If DataStore says linked
+ * when the ViewModel is created, the screen starts LINKED and probes at once, before the first delay: a
+ * linked page restarts the service after process death, and a QR code demotes the stale LINKED the same way
+ * (service stopped, mirror false, LINKING).
  *
  * The probe loop runs in `viewModelScope`, so clearing the ViewModel cancels it; the WebView keeps running.
  */
@@ -66,12 +69,15 @@ class SecondAccountViewModel @Inject constructor(
     /** Whether a probe of this ViewModel has seen the page linked, as opposed to LINKED restored from DataStore. */
     private var linkConfirmed = false
 
+    /** QR results in a row while LINKED with a confirmed link; [REMOTE_LOGOUT_QR_RESULTS] of them end the link. */
+    private var qrResultsInARow = 0
+
     init {
         viewModelScope.launch {
             // Only if Scan QR was not tapped while DataStore was being read: the loop settles LINKING anyway.
             if (settings.secondLinked.first() && _state.value.phase == SecondPhase.ENTRY) {
                 _state.update { it.copy(phase = SecondPhase.LINKED) }
-                startProbing()
+                startProbing(probeFirst = true)
             }
         }
     }
@@ -80,7 +86,7 @@ class SecondAccountViewModel @Inject constructor(
     fun scan() {
         if (_state.value.phase != SecondPhase.ENTRY) return
         _state.update { it.copy(phase = SecondPhase.LINKING) }
-        startProbing()
+        startProbing(probeFirst = false)
     }
 
     /** Reloads WhatsApp Web and toasts "Reloading…". */
@@ -112,6 +118,7 @@ class SecondAccountViewModel @Inject constructor(
         probeJob?.cancel()
         probeJob = null
         linkConfirmed = false
+        qrResultsInARow = 0
         _state.value = SecondUiState(phase = SecondPhase.ENTRY, confirmLogout = false)
         holder.logout()
         WebSessionService.stop(context)
@@ -121,12 +128,18 @@ class SecondAccountViewModel @Inject constructor(
         }
     }
 
-    /** Runs the probe loop until the phase is ENTRY again; a running loop is replaced, never doubled. */
-    private fun startProbing() {
+    /**
+     * Runs the probe loop until the phase is ENTRY again; a running loop is replaced, never doubled. With
+     * [probeFirst] the first probe runs before the first delay (the restore path, so a linked page gets its
+     * service back right away); after that, and from the start otherwise, it is delay → probe.
+     */
+    private fun startProbing(probeFirst: Boolean) {
         probeJob?.cancel()
         probeJob = viewModelScope.launch {
+            var waitFirst = !probeFirst
             while (_state.value.phase != SecondPhase.ENTRY) {
-                delay(WebSession.PROBE_INTERVAL_MS)
+                if (waitFirst) delay(WebSession.PROBE_INTERVAL_MS)
+                waitFirst = true
                 val result = holder.probe()
                 _probeCount.update { it + 1 }
                 // A probe that finished during a logout must not link the session again.
@@ -143,11 +156,12 @@ class SecondAccountViewModel @Inject constructor(
     /**
      * Every linked result: LINKED, the DataStore mirror and the service, all idempotent. The service start
      * on every result is what brings it back after process death (it is not sticky). The toast shows only
-     * for the LINKING → LINKED transition.
+     * for the LINKING → LINKED transition. A linked result also ends any run of QR results.
      */
     private suspend fun onLinked() {
         val justLinked = _state.value.phase == SecondPhase.LINKING
         linkConfirmed = true
+        qrResultsInARow = 0
         _state.update { it.copy(phase = SecondPhase.LINKED) }
         if (justLinked) _toasts.tryEmit(context.getString(R.string.toast_linked))
         persistLinked(true)
@@ -155,12 +169,27 @@ class SecondAccountViewModel @Inject constructor(
     }
 
     /**
-     * A QR code once a probe has confirmed the link is transient (the page reloading) and keeps LINKED,
-     * without touching the DataStore mirror. Before that, it means the restored LINKED was stale: the
-     * user has to scan again.
+     * While LINKING the QR code is what the user is scanning: nothing changes. While LINKED it means the
+     * session is gone unless it is transient: a restored LINKED that no probe has confirmed is demoted at
+     * once, a confirmed link after [REMOTE_LOGOUT_QR_RESULTS] QR results in a row (the page reloading shows
+     * one or two at most; a session ended on the other phone shows the QR code for good).
      */
-    private fun onQr() {
-        if (_state.value.phase == SecondPhase.LINKED && linkConfirmed) return
+    private suspend fun onQr() {
+        if (_state.value.phase != SecondPhase.LINKED) return
+        if (!linkConfirmed) {
+            endLink()
+            return
+        }
+        qrResultsInARow += 1
+        if (qrResultsInARow >= REMOTE_LOGOUT_QR_RESULTS) endLink()
+    }
+
+    /** The link is gone: notification and mirror corrected first, then back to LINKING so the user can scan again. */
+    private suspend fun endLink() {
+        linkConfirmed = false
+        qrResultsInARow = 0
+        WebSessionService.stop(context)
+        persistLinked(false)
         _state.update { it.copy(phase = SecondPhase.LINKING) }
     }
 
@@ -175,5 +204,8 @@ class SecondAccountViewModel @Inject constructor(
 
     private companion object {
         const val TAG = "SecondAccount"
+
+        /** QR results in a row that turn a confirmed link into a remote logout. */
+        const val REMOTE_LOGOUT_QR_RESULTS = 3
     }
 }
