@@ -21,7 +21,7 @@
     <string name="onboarding_1_body">Type or paste a number, tap Send. It opens in WhatsApp, WhatsApp Business or Telegram. Nothing is saved to your contacts.</string>
     <!-- Onboarding slide 1, in the picture of the home screen: the line next to a green check mark under the Send button. Keep it to one line (max ~45 characters). -->
     <string name="onboarding_1_check">Not added to your contacts</string>
-    <!-- Onboarding slide 1, in the picture of the home screen: the label of the green Send button. Use the same words as the home screen's button (home_send). Max ~28 characters. -->
+    <!-- Onboarding slide 1, in the picture of the home screen: the label of the green Send button. Use the same words as the home screen's button (home_send), whose limit applies: max ~22 characters. -->
     <string name="onboarding_1_send">Send Message</string>
     <string name="onboarding_1_sample_number" translatable="false">812 3456 7890</string>
     <!-- Onboarding slide 2: title (large, centred, up to two lines). The four tools share one Android permission (notification access). -->
@@ -54,7 +54,7 @@
     <string name="gate_waiting">Waiting for Android…</string>
     <!-- Notification access screen: hint under the Open settings button. Message Recovery and Media Recovery are the tools "Recover deleted messages" and "Recover deleted media": one permission turns on both. -->
     <string name="gate_hint_before">One grant covers Message Recovery and Media Recovery.</string>
-    <!-- Notification access screen, once access is on: full-width main button that opens the tool the user came from. -->
+    <!-- Notification access screen, once access is on: full-width main button that opens the tool the user came from, or returns to Settings when the screen was opened from there. -->
     <string name="gate_continue">Continue</string>
     <!-- Notification access screen, once access is on: hint under Continue. "Settings" is the phone's settings, where the user just turned access on. -->
     <string name="gate_hint_after">Turn it off anytime in Settings.</string>

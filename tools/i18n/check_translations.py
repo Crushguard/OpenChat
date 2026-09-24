@@ -8,7 +8,7 @@ enforces in CI):
   - no extra keys, no key that English marks translatable="false";
   - no empty value; the same format placeholders (%d, %s, %1$s, …) as English;
   - <plurals> carry every CLDR category the language needs (and "other");
-  - apostrophes escaped (\\'), no unescaped leading @ or ?;
+  - apostrophes escaped (\\'), no unescaped leading @ or ?; links (http/https URLs) kept verbatim;
   - warnings (not errors) for values identical to English that look untranslated.
 """
 import glob
@@ -43,6 +43,7 @@ LOCALES = {
 }
 ALLOWED_EXTRA = {"iw": {"many"}}  # older CLDR had "many" for Hebrew; harmless
 PLACEHOLDER = re.compile(r"%(?:(\d+)\$)?[-#+ 0,(]*\d*(?:\.\d+)?([sdfxXcb%])")
+URL = re.compile(r"https?://[^\s<>\"']+")
 BRANDS = {"OpenChat", "WhatsApp", "WhatsApp Business", "WhatsApp Web", "Telegram", "Google Play", "Android"}
 
 
@@ -132,6 +133,8 @@ def main(argv):
                     errors.append(f"{name}/{key}: empty")
                 if placeholders(value) != placeholders(en):
                     errors.append(f"{name}/{key}: placeholders {placeholders(value)} != English {placeholders(en)}")
+                if sorted(URL.findall(value)) != sorted(URL.findall(en)):
+                    errors.append(f"{name}/{key}: links {URL.findall(value)} != English {URL.findall(en)} (keep them verbatim)")
                 check_raw(f"{name}/{key}", raw_strings.get(key, ""), errors)
                 if value == en and len(en) > 12 and re.search(r"[A-Za-z]{4}", en) and en not in BRANDS:
                     warnings.append(f"{name}/{key}: identical to English: {en!r}")
