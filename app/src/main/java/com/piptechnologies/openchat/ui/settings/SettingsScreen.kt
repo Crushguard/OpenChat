@@ -21,7 +21,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -37,6 +36,7 @@ import com.piptechnologies.openchat.ui.components.ScreenSurface
 import com.piptechnologies.openchat.ui.components.SectionEyebrow
 import com.piptechnologies.openchat.ui.components.TopBarIconButton
 import com.piptechnologies.openchat.ui.components.asString
+import com.piptechnologies.openchat.ui.components.currentUiLocale
 import com.piptechnologies.openchat.ui.components.ltr
 import com.piptechnologies.openchat.ui.components.pluralText
 import com.piptechnologies.openchat.ui.icons.AppGlyphImage
@@ -45,7 +45,6 @@ import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcTheme
 import com.piptechnologies.openchat.ui.theme.ToolTint
 import java.text.NumberFormat
-import java.util.Locale
 
 /**
  * Settings (design map §4.15): the 56 dp bar, the notification access card, the Preferences and About
@@ -144,7 +143,7 @@ fun SettingsScreen(state: SettingsUiState, languageName: String, callbacks: Sett
  */
 @Composable
 private fun uiDigits(count: Int): String {
-    val locale = LocalConfiguration.current.locales[0] ?: Locale.getDefault()
+    val locale = currentUiLocale()
     return remember(count, locale) { NumberFormat.getIntegerInstance(locale).format(count) }
 }
 

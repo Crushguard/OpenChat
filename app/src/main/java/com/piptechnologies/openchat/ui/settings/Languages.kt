@@ -160,7 +160,11 @@ object Languages {
         return if (script.isEmpty()) country.uppercase(Locale.ROOT) in TRADITIONAL_CHINESE_REGIONS else script.equals("Hant", ignoreCase = true)
     }
 
-    private val TRADITIONAL_CHINESE_REGIONS = setOf("TW", "HK", "MO")
+    /**
+     * Regions whose script-less Chinese CLDR's likely subtags complete to Traditional (zh-US → zh-Hant-US), for which
+     * Android therefore serves no values-zh (Simplified).
+     */
+    private val TRADITIONAL_CHINESE_REGIONS = setOf("AU", "BN", "GB", "GF", "HK", "ID", "MO", "PA", "PF", "PH", "SR", "TH", "TW", "US", "VN")
 
     /** Android (and Java before 17) reports Indonesian and Hebrew as the legacy "in" and "iw"; compare on "id" and "he". */
     private fun canonicalLanguage(language: String): String =

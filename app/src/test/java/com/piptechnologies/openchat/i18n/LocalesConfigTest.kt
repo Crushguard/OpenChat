@@ -133,6 +133,12 @@ class LocalesConfigTest {
         assertEquals("en", match("zh-Hant-CN"))
         // As in Android's resolution, the next language in the list that has strings wins.
         assertEquals("fr", match("zh-TW", "fr-FR"))
+        // Script-less Chinese in these regions is Traditional too (CLDR likely subtags), so values-zh does not serve it.
+        assertEquals("en", match("zh-US"))
+        assertEquals("en", match("zh-GB"))
+        assertEquals("en", match("zh-TW", "en-US"))
+        assertEquals("zh", match("zh-Hans-US"))
+        assertEquals("zh", match("zh-SG"))
         assertEquals("zh", match("zh-HK", "zh-CN"))
     }
 
