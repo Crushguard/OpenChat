@@ -41,13 +41,11 @@ import com.piptechnologies.openchat.core.media.MediaCategory
 import com.piptechnologies.openchat.core.media.MediaDayGrouper
 import com.piptechnologies.openchat.core.media.RecoveredMedia
 import com.piptechnologies.openchat.core.phone.RelativeTime
-import com.piptechnologies.openchat.ui.components.ConfirmSheet
 import com.piptechnologies.openchat.ui.components.ConfirmSpec
 import com.piptechnologies.openchat.ui.components.EmptyState
 import com.piptechnologies.openchat.ui.components.FilterPill
 import com.piptechnologies.openchat.ui.components.HatchedPlaceholder
 import com.piptechnologies.openchat.ui.components.LocalMediaThumbnail
-import com.piptechnologies.openchat.ui.components.OcModalSheet
 import com.piptechnologies.openchat.ui.components.OcTopBar
 import com.piptechnologies.openchat.ui.components.PrimaryButton
 import com.piptechnologies.openchat.ui.components.ScreenSurface
@@ -55,7 +53,6 @@ import com.piptechnologies.openchat.ui.components.SectionEyebrow
 import com.piptechnologies.openchat.ui.components.TopBarIconButton
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
-import com.piptechnologies.openchat.ui.messages.ToolSettingsSheetContent
 import com.piptechnologies.openchat.ui.theme.OcRadius
 import com.piptechnologies.openchat.ui.theme.OcTheme
 import com.piptechnologies.openchat.ui.theme.ToolTint
@@ -68,10 +65,10 @@ private val TimeChipBackground = Color.White.copy(alpha = 0.85f)
 
 /**
  * Deleted media (design map §4.12): bar with the tool settings button, the five category pills, then the
- * [MediaUiState.tab]'s items as a 3-column grid under day eyebrows ("Today · 2"), or the empty state, which
- * adds "Allow media access" while the permission is missing (ruling R17). [thumbnail] draws photo and
- * video tiles (screenshots pass a placeholder). The tool settings sheet and the clear-all confirmation
- * open from [MediaUiState.toolSettingsOpen] and [MediaUiState.confirmClear].
+ * [MediaUiState.tab]'s items as a 3-column grid under day eyebrows ("Today · 2"), or the empty state. While
+ * the storage/media permission is missing (ruling R17) the empty state adds "Allow media access", and a
+ * non-empty grid gets a callout with the same action above it. [thumbnail] draws photo and video tiles
+ * (screenshots pass a placeholder). The sheets are the route's ([MediaRoute]).
  */
 @Composable
 fun MediaScreen(
@@ -102,6 +99,7 @@ fun MediaScreen(
                 MediaEmptyState(tab = state.tab, hasPermission = state.hasPermission, onRequestPermission = callbacks.onRequestPermission)
             }
         } else {
+            if (!state.hasPermission) MediaAccessCallout(onRequestPermission = callbacks.onRequestPermission)
             // Keyed by tab: each category opens scrolled to its newest day.
             key(state.tab) {
                 MediaGrid(
@@ -116,22 +114,6 @@ fun MediaScreen(
         }
         // Ruling R2: no ad banner slot; the screen keeps the slot's 14 dp bottom padding instead.
         Spacer(Modifier.height(14.dp))
-    }
-    if (state.toolSettingsOpen) {
-        OcModalSheet(onDismissRequest = callbacks.onDismissToolSettings) {
-            ToolSettingsSheetContent(
-                title = stringResource(R.string.media_title),
-                paused = state.paused,
-                excludedCount = state.excludedCount,
-                clearLabel = stringResource(R.string.tool_settings_clear_media),
-                onTogglePause = callbacks.onTogglePause,
-                onExclude = callbacks.onExclude,
-                onClear = callbacks.onAskClear,
-            )
-        }
-    }
-    if (state.confirmClear) {
-        ConfirmSheet(spec = clearMediaSpec(), onDismiss = callbacks.onDismissClear, onConfirm = callbacks.onConfirmClear)
     }
 }
 
@@ -294,6 +276,44 @@ private fun MediaEmptyState(tab: MediaCategory, hasPermission: Boolean, onReques
             action = {
                 PrimaryButton(text = allow, onClick = onRequestPermission, modifier = Modifier.widthIn(max = 240.dp))
             },
+        )
+    }
+}
+
+/**
+ * Above a non-empty grid while the storage/media permission is missing (ruling R17): recovered items stay
+ * visible, new files are not kept, and the empty state's "Allow media access" action is offered here. Styled
+ * as the info callout (§2): subtle2, callout border, radius 14, info 14 muted, 12/1.5 ink 2.
+ */
+@Composable
+private fun MediaAccessCallout(onRequestPermission: () -> Unit) {
+    val c = OcTheme.colors
+    val shape = RoundedCornerShape(OcRadius.md)
+    Column(
+        modifier = Modifier
+            .padding(start = 20.dp, end = 20.dp, bottom = 12.dp)
+            .fillMaxWidth()
+            .clip(shape)
+            .background(c.subtle2)
+            .border(1.dp, c.calloutBorder, shape)
+            .padding(horizontal = 14.dp, vertical = 12.dp),
+    ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+            LucideIconImage(icon = LucideIcon.Info, size = 14.dp, tint = c.muted, modifier = Modifier.padding(top = 2.dp))
+            Text(
+                text = stringResource(R.string.media_access_off),
+                style = OcTheme.type.body12,
+                color = c.ink2,
+                modifier = Modifier.weight(1f),
+            )
+        }
+        Spacer(Modifier.height(10.dp))
+        PrimaryButton(
+            text = stringResource(R.string.media_allow),
+            onClick = onRequestPermission,
+            height = 42.dp,
+            radius = 11.dp,
+            textStyle = OcTheme.type.label14,
         )
     }
 }

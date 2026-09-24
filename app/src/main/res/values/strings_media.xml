@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Deleted media (design map §4.12). The tool settings row, the clear-all confirmation and the pause /
-         cleared toasts reuse the shared strings in strings_messages.xml (§4.10). -->
+    <!-- Deleted media (design map §4.12). The tool settings and exclude chats sheets, the clear-all confirmation
+         and the pause / cleared toasts reuse the shared strings in strings_messages.xml (§4.10, §4.11). -->
     <string name="media_title">Deleted media</string>
     <string name="media_tool_settings">Tool settings</string>
     <string name="media_empty_body">Files someone deletes for everyone are kept here as long as they were received first.</string>
     <string name="media_allow">Allow media access</string>
+    <string name="media_access_off">Media access is off, so new files are not kept.</string>
     <string name="media_day_count">%1$s · %2$d</string>
-    <string name="toast_excluded_in_messages">Excluded chats are managed in Messages</string>
 
     <!-- Media detail (design map §4.13) -->
     <string name="media_counter">%1$d / %2$d</string>

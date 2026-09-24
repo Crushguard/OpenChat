@@ -10,10 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.piptechnologies.openchat.ui.components.DarkToastHost
+import com.piptechnologies.openchat.ui.components.LocalToastHost
 import com.piptechnologies.openchat.ui.components.rememberToastHostState
 
 /**
- * Binds [MediaDetailViewModel] to [MediaDetailScreen] and goes back once the copy is deleted. [id] is the
+ * Binds [MediaDetailViewModel] to [MediaDetailScreen] and goes back once the copy is deleted. Toasts go to the
+ * app's host ([LocalToastHost]) when there is one, so "Deleted" stays up on the grid after the pop. [id] is the
  * destination's argument; the ViewModel reads the same value from its SavedStateHandle.
  */
 @Composable
@@ -23,7 +25,8 @@ fun MediaDetailRoute(
     viewModel: MediaDetailViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val toast = rememberToastHostState()
+    val appToast = LocalToastHost.current
+    val toast = appToast ?: rememberToastHostState()
     val currentOnBack by rememberUpdatedState(onBack)
     LaunchedEffect(viewModel, toast) {
         viewModel.toasts.collect { toast.show(it) }
@@ -41,6 +44,7 @@ fun MediaDetailRoute(
             onDismissDelete = viewModel::dismissDelete,
             onConfirmDelete = viewModel::confirmDelete,
         )
-        DarkToastHost(state = toast)
+        // Without the app's host (screenshots, previews) the route shows its own toasts.
+        if (appToast == null) DarkToastHost(state = toast)
     }
 }
