@@ -1,51 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Settings (design map §4.15). support_email, feedback_subject and privacy_policy_url live in strings.xml. -->
+    <!-- Title of the Settings screen, in its top bar. -->
     <string name="settings_title">Settings</string>
-    <string name="settings_back">Back</string>
+    <!-- Title of the first card on Settings: OpenChat's access to notifications, the Android permission the messages and media tools need. Use the name Android's own settings give it in this language. -->
     <string name="settings_access">Notification access</string>
+    <!-- Line under "Notification access" on Settings while access is on: a status word, a separator dot, then what it powers. -->
     <string name="settings_access_on">Active · messages and media tools</string>
+    <!-- Line under "Notification access" on Settings while access is off: a status word, a separator dot, then what needs it. -->
     <string name="settings_access_off">Off · needed for the messages and media tools</string>
+    <!-- Section heading on Settings (shown in capitals) above Default app, Language and Clear recent numbers. -->
     <string name="settings_preferences">Preferences</string>
+    <!-- Settings row: the app the Send button opens; its name (WhatsApp, WhatsApp Business or Telegram) follows at the end of the row, so keep this short. -->
     <string name="settings_default_app">Default app</string>
+    <!-- Settings row that opens the Language screen; the current language's own name follows at the end of the row, so keep this short. -->
     <string name="settings_language">Language</string>
+    <!-- Settings row, an action: removes the phone numbers listed under "Recent" on Home; how many there are follows at the end of the row. -->
     <string name="settings_clear_recents">Clear recent numbers</string>
+    <!-- Section heading on Settings (shown in capitals) above Rate us, Contact us, Share app, Privacy policy and Version: about the app. -->
     <string name="settings_about">About</string>
+    <!-- Settings row: opens a sheet to rate the app. -->
     <string name="settings_rate">Rate us</string>
+    <!-- Settings row: opens the Contact us screen, a note to the team sent by email. -->
     <string name="settings_contact">Contact us</string>
+    <!-- Settings row: opens the system share sheet to recommend the app. -->
     <string name="settings_share">Share app</string>
+    <!-- Settings row: opens the privacy policy in the browser. -->
     <string name="settings_privacy">Privacy policy</string>
+    <!-- Settings row label (a noun): the app's version number, such as 1.0.0 (1), follows at the end of the row. -->
     <string name="settings_version">Version</string>
+    <!-- Green note at the bottom of Settings. OpenChat is the app's name: keep it as it is. -->
     <string name="settings_honesty">OpenChat is free. No ads, no account, no tracking. Numbers, messages and media never leave your phone.</string>
 
     <!-- Clear recent numbers confirmation (design map §4.15, §4.20) -->
+    <!-- Title of the confirmation sheet opened by the Settings row "Clear recent numbers". -->
     <string name="clear_recents_title">Clear recent numbers?</string>
-    <string name="clear_recents_body">Removes the %d numbers on Home. Nothing changes in WhatsApp.</string>
+    <!-- Body of the "Clear recent numbers?" confirmation. %d = how many phone numbers are listed under "Recent" on Home (1 to 5). -->
+    <plurals name="clear_recents_body">
+        <item quantity="one">Removes the %d number on Home. Nothing changes in WhatsApp.</item>
+        <item quantity="other">Removes the %d numbers on Home. Nothing changes in WhatsApp.</item>
+    </plurals>
+    <!-- Button of the "Clear recent numbers?" confirmation that cancels and keeps the numbers. Half-width button: one short word. -->
     <string name="clear_recents_keep">Keep</string>
+    <!-- Red button of the "Clear recent numbers?" confirmation that removes the numbers (a verb). Half-width button: one short word. -->
     <string name="clear_recents_clear">Clear</string>
+    <!-- Toast once the recent numbers are removed. -->
     <string name="toast_recents_cleared">Recent numbers cleared</string>
 
     <!-- Default app sheet (design map §4.16) -->
+    <!-- Title of the sheet that picks the app the Send button opens (WhatsApp, WhatsApp Business or Telegram). -->
     <string name="default_app_title">Default app</string>
+    <!-- Toast after picking the default app. %s = the app's name: WhatsApp, WhatsApp Business or Telegram (brand names, never translated). -->
     <string name="toast_default_app">Default app: %s</string>
 
     <!-- Language (design map §4.17, ruling R13) -->
+    <!-- Title of the Language screen, in its top bar. -->
     <string name="language_title">Language</string>
+    <!-- Intro at the top of the Language screen: the choice changes the app's own texts, not what the user writes in messages. -->
     <string name="language_intro">Changes the app. Messages you send are typed by you, in any language.</string>
+    <!-- Tag on the rows of the right-to-left languages (Arabic, Persian, Urdu, Pashto, Hebrew) on the Language screen: a technical abbreviation, the same in every language. -->
     <string name="language_rtl" translatable="false">RTL</string>
+    <!-- Toast after picking a language, shown once the app has switched to it. %s = that language's own name as the list shows it (e.g. Français, Deutsch), left as it is. -->
     <string name="toast_language">Language: %s</string>
 
     <!-- Contact us (design map §4.18, ruling R11) -->
+    <!-- Title of the Contact us screen, in its top bar. -->
     <string name="contact_title">Contact us</string>
+    <!-- Intro at the top of Contact us: examples of what to write about (a phone number that does not open in the chat app, a deleted message that was not recovered). -->
     <string name="contact_intro">A number that will not open, a message that did not recover, an idea. It goes straight to the team.</string>
+    <!-- Placeholder in the empty message box on Contact us. -->
     <string name="contact_placeholder">What happened, and on which screen?</string>
+    <!-- Label above the email field on Contact us: the field's name, a separator dot, then why it is optional. -->
     <string name="contact_email_label">Email · optional, only if you want a reply</string>
+    <!-- Placeholder of the email field on Contact us: an example address (example.com is reserved for examples), the same in every language. -->
     <string name="contact_email_placeholder" translatable="false">you@example.com</string>
+    <!-- Note above the Send button on Contact us: what the email carries besides the user's text. -->
     <string name="contact_callout">Sent with the app version and Android version. Never your numbers or messages.</string>
+    <!-- Button at the bottom of Contact us that opens the email app with the note (a verb). Button label: one short word. -->
     <string name="contact_send">Send</string>
+    <!-- Toast once the note has been handed to the email app. -->
     <string name="toast_sent">Sent. Thank you.</string>
+    <!-- Toast when Send is tapped with nothing written (Contact us, and the feedback step of the rating sheet). -->
     <string name="toast_write_first">Write something first</string>
+    <!-- Toast when no email app is installed to send the note or the feedback. -->
     <string name="toast_no_email">No email app found</string>
+    <!-- Toast when no app can open a link: no browser for the privacy policy, neither Google Play nor a browser for the store page. -->
     <string name="toast_no_app_can_open">No app can open this</string>
 
     <!-- Lines of the feedback email body (Contact us and the rating sheet, ruling R11). Support-facing (read by the
@@ -54,28 +93,54 @@
     <string name="feedback_versions" translatable="false">%1$s · Android %2$s</string>
     <string name="feedback_rating_line" translatable="false">Rating: %d/5</string>
 
-    <!-- Rating sheet (design map §4.19, ruling R12) -->
+    <!-- Rating sheet (design map §4.19, ruling R12), opened from Settings and once after the third number sent from Home -->
+    <!-- Title of the rating sheet, above five stars. OpenChat is the app's name. -->
     <string name="rating_title">Enjoying OpenChat?</string>
+    <!-- Text under "Enjoying OpenChat?" on the rating sheet. -->
     <string name="rating_body">Your honest rating helps other people find an app that opens any number in one tap.</string>
-    <string name="rating_star_cd">%d of 5 stars</string>
+    <!-- Read by TalkBack for each of the five star buttons on the rating sheet, never shown. %d = the star's rank, which is also the rating it gives (1 to 5). -->
+    <plurals name="rating_star_cd">
+        <item quantity="one">%d of 5 stars</item>
+        <item quantity="other">%d of 5 stars</item>
+    </plurals>
+    <!-- Hint under the five stars before one is tapped. One short line. -->
     <string name="rating_hint_tap">Tap a star</string>
+    <!-- Hint under the stars after a 1-star rating: sorry the app disappointed. One short line. -->
     <string name="rating_hint_1">Sorry to hear that</string>
+    <!-- Hint under the stars after a 2-star rating. One short line. -->
     <string name="rating_hint_2">We can do better</string>
+    <!-- Hint under the stars after a 3-star rating; the feedback step follows. One short line. -->
     <string name="rating_hint_3">Thanks, tell us more</string>
+    <!-- Hint under the stars after a 4-star rating: glad the app works for the user. One short line. -->
     <string name="rating_hint_4">Glad it works</string>
+    <!-- Hint under the stars after a 5-star rating. One short line. -->
     <string name="rating_hint_5">Thank you!</string>
+    <!-- Button under the stars that closes the rating sheet without rating. -->
     <string name="rating_later">Maybe later</string>
+    <!-- Title of the rating sheet after a 4- or 5-star rating, before the invitation to rate on Google Play. -->
     <string name="rating_store_title">Thank you!</string>
+    <!-- Text under "Thank you!" after a 4- or 5-star rating. Google Play is a brand name. -->
     <string name="rating_store_body">Would you share that on Google Play? It helps a small app grow.</string>
+    <!-- Main button after a 4- or 5-star rating: opens the app's page in the Google Play store (a brand name). -->
     <string name="rating_store_cta">Rate on Google Play</string>
+    <!-- Button under "Rate on Google Play" that closes the rating sheet. -->
     <string name="rating_not_now">Not now</string>
+    <!-- Title of the rating sheet after a 1- to 3-star rating, above a box to write what fell short. -->
     <string name="rating_feedback_title">How can we do better?</string>
+    <!-- Text under "How can we do better?" on the rating sheet. -->
     <string name="rating_feedback_body">Tell us what fell short. It goes straight to the team, not a public review, and we read every one.</string>
+    <!-- Placeholder in the empty feedback box of the rating sheet. -->
     <string name="rating_feedback_placeholder">What would have made this a 5-star app?</string>
+    <!-- Button that emails the written feedback to the team. -->
     <string name="rating_feedback_send">Send feedback</string>
+    <!-- Button under "Send feedback" that closes the rating sheet. -->
     <string name="rating_cancel">Cancel</string>
+    <!-- Title of the rating sheet once the feedback has been handed to the email app. -->
     <string name="rating_thanks_title">Thank you, we hear you</string>
+    <!-- Text under "Thank you, we hear you" on the rating sheet. -->
     <string name="rating_thanks_body">Your note is on its way to the team. It shapes what we build next.</string>
+    <!-- Button that closes the rating sheet at its last step. -->
     <string name="rating_done">Done</string>
+    <!-- Toast while the app's page opens in Google Play (a brand name). -->
     <string name="toast_play">Opening Google Play…</string>
 </resources>

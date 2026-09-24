@@ -17,9 +17,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -34,22 +36,28 @@ import com.piptechnologies.openchat.ui.components.OcModalSheet
 import com.piptechnologies.openchat.ui.components.ScreenSurface
 import com.piptechnologies.openchat.ui.components.SectionEyebrow
 import com.piptechnologies.openchat.ui.components.TopBarIconButton
+import com.piptechnologies.openchat.ui.components.asString
+import com.piptechnologies.openchat.ui.components.ltr
+import com.piptechnologies.openchat.ui.components.pluralText
 import com.piptechnologies.openchat.ui.icons.AppGlyphImage
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcTheme
 import com.piptechnologies.openchat.ui.theme.ToolTint
+import java.text.NumberFormat
+import java.util.Locale
 
 /**
  * Settings (design map §4.15): the 56 dp bar, the notification access card, the Preferences and About
  * cards and the honesty callout, then the overlays the state asks for: the default-app sheet
  * ([SettingsUiState.defaultAppSheetOpen]), the clear-recents confirmation
  * ([SettingsUiState.confirmClearRecents]) and the rating sheet ([SettingsUiState.rating]). The
- * design's "More apps (AD)" row is not rendered (ruling R3), the Version row is not tappable, and
- * "Clear recent numbers" is disabled while there is nothing to clear.
+ * Language row shows [languageName], the native name of the language in effect. The design's "More
+ * apps (AD)" row is not rendered (ruling R3), the Version row is not tappable, and "Clear recent
+ * numbers" is disabled while there is nothing to clear.
  */
 @Composable
-fun SettingsScreen(state: SettingsUiState, callbacks: SettingsCallbacks) {
+fun SettingsScreen(state: SettingsUiState, languageName: String, callbacks: SettingsCallbacks) {
     val c = OcTheme.colors
     ScreenSurface {
         SettingsBar(onBack = callbacks.onBack)
@@ -73,14 +81,14 @@ fun SettingsScreen(state: SettingsUiState, callbacks: SettingsCallbacks) {
                 SettingsRow(
                     icon = LucideIcon.Languages,
                     title = stringResource(R.string.settings_language),
-                    value = state.languageName,
+                    value = languageName,
                     onClick = callbacks.onLanguage,
                 )
                 HairlineDivider()
                 SettingsRow(
                     icon = LucideIcon.Trash,
                     title = stringResource(R.string.settings_clear_recents),
-                    value = state.recentsCount.toString(),
+                    value = uiDigits(state.recentsCount),
                     onClick = callbacks.onAskClearRecents,
                     enabled = state.recentsCount > 0,
                 )
@@ -130,6 +138,16 @@ fun SettingsScreen(state: SettingsUiState, callbacks: SettingsCallbacks) {
     }
 }
 
+/**
+ * [count] in the UI language's digits (Persian ۴, Arabic ٤), as %d writes it in a translated string such
+ * as the clear-recents confirmation, and as the badge counts show it.
+ */
+@Composable
+private fun uiDigits(count: Int): String {
+    val locale = LocalConfiguration.current.locales[0] ?: Locale.getDefault()
+    return remember(count, locale) { NumberFormat.getIntegerInstance(locale).format(count) }
+}
+
 /** "Clear recent numbers?" (design map §4.15, §4.20): trash in the destructive tints, Keep / Clear in destructive. */
 @Composable
 @ReadOnlyComposable
@@ -139,7 +157,7 @@ fun clearRecentsSpec(count: Int): ConfirmSpec {
         icon = LucideIcon.Trash,
         tint = ToolTint(bg = c.destructiveTint, fg = c.destructive),
         title = stringResource(R.string.clear_recents_title),
-        body = stringResource(R.string.clear_recents_body, count),
+        body = pluralText(R.plurals.clear_recents_body, count).asString(),
         cancelLabel = stringResource(R.string.clear_recents_keep),
         confirmLabel = stringResource(R.string.clear_recents_clear),
         destructive = true,
@@ -160,7 +178,7 @@ private fun SettingsBar(onBack: () -> Unit) {
     ) {
         TopBarIconButton(
             icon = LucideIcon.ArrowLeft,
-            contentDescription = stringResource(R.string.settings_back),
+            contentDescription = stringResource(R.string.cd_back),
             onClick = onBack,
             tint = c.ink,
             iconSize = 22.dp,
@@ -270,7 +288,7 @@ private fun SettingsRow(
     }
 }
 
-/** "Version" with the label in mono12 muted; plain, not tappable, no chevron. */
+/** "Version" with the label in mono12 muted, isolated left to right so it keeps its order in a right-to-left layout; plain, not tappable, no chevron. */
 @Composable
 private fun VersionRow(version: String) {
     val c = OcTheme.colors
@@ -283,6 +301,6 @@ private fun VersionRow(version: String) {
     ) {
         LucideIconImage(icon = LucideIcon.Info, size = 20.dp, tint = c.inkMuted)
         Text(text = stringResource(R.string.settings_version), style = OcTheme.type.label14_5, color = c.ink, modifier = Modifier.weight(1f))
-        Text(text = version, style = OcTheme.type.mono12, color = c.muted)
+        Text(text = ltr(version), style = OcTheme.type.mono12, color = c.muted)
     }
 }

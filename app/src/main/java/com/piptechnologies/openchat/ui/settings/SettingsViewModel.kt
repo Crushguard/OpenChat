@@ -3,6 +3,7 @@ package com.piptechnologies.openchat.ui.settings
 import android.content.Context
 import android.os.Build
 import android.util.Log
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.piptechnologies.openchat.R
@@ -13,9 +14,12 @@ import com.piptechnologies.openchat.platform.AppVersion
 import com.piptechnologies.openchat.platform.ExternalLinks
 import com.piptechnologies.openchat.platform.InstalledMessagingApps
 import com.piptechnologies.openchat.platform.NotificationAccess
+import com.piptechnologies.openchat.ui.components.UiText
+import com.piptechnologies.openchat.ui.components.uiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
+import java.util.Locale
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,13 +33,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * State of Settings (design map §4.15, §5.5). The default app and the language come from
- * [SettingsRepository], the recents count from [RecentsRepository]; the notification grant and the
- * installed apps are read from the platform when the ViewModel is created and again on every
- * [onResume], which the route calls on each resume, so a grant made in the system settings shows up
- * on the way back. The rating sheet is [rating], a [RatingFlow] on this ViewModel's scope. A toast
- * that answers a tap inside the rating sheet is emitted after the sheet closes, since the sheet's
- * window would hide it.
+ * State of Settings (design map §4.15, §5.5). The default app comes from [SettingsRepository], the
+ * recents count from [RecentsRepository]; the notification grant and the installed apps are read from
+ * the platform when the ViewModel is created and again on every [onResume], which the route calls on
+ * each resume, so a grant made in the system settings shows up on the way back. The language is not
+ * here: the route reads the language in effect ([Languages.current]) where it composes the screen. The
+ * rating sheet is [rating], a [RatingFlow] on this ViewModel's scope. Toasts are [UiText] that the
+ * route resolves in the screen's language; one that answers a tap inside the rating sheet is emitted
+ * after the sheet closes, since the sheet's window would hide it. The feedback email stays English
+ * (support-facing).
  */
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -60,10 +66,10 @@ class SettingsViewModel @Inject constructor(
         ),
     )
 
-    private val _toasts = MutableSharedFlow<String>(extraBufferCapacity = 1)
+    private val _toasts = MutableSharedFlow<UiText>(extraBufferCapacity = 1)
 
-    /** Toast texts for the toast host. */
-    val toasts: SharedFlow<String> = _toasts.asSharedFlow()
+    /** Toasts for the toast host. */
+    val toasts: SharedFlow<UiText> = _toasts.asSharedFlow()
 
     /** The rating sheet's state; the route forwards star taps, typing and Close to it directly. */
     val rating = RatingFlow(viewModelScope)
@@ -72,17 +78,15 @@ class SettingsViewModel @Inject constructor(
 
     val state: StateFlow<SettingsUiState> = combine(
         settings.sendApp,
-        settings.language,
         recents.observeCount(),
         local,
         rating.state,
-    ) { sendApp, language, recentsCount, ui, ratingState ->
+    ) { sendApp, recentsCount, ui, ratingState ->
         val app = resolveApp(sendApp, ui.installed)
         SettingsUiState(
             accessGranted = ui.accessGranted,
             app = app,
             availableApps = availableApps(ui.installed, app),
-            languageName = Languages.byTag(language).english,
             recentsCount = recentsCount,
             version = version,
             defaultAppSheetOpen = ui.defaultAppSheetOpen,
@@ -97,7 +101,6 @@ class SettingsViewModel @Inject constructor(
                 accessGranted = local.value.accessGranted,
                 app = app,
                 availableApps = availableApps(local.value.installed, app),
-                languageName = Languages.byTag(DEFAULT_LANGUAGE).english,
                 recentsCount = 0,
                 version = version,
                 defaultAppSheetOpen = false,
@@ -132,7 +135,7 @@ class SettingsViewModel @Inject constructor(
                 Log.w(TAG, "Could not save the default app", e)
                 return@launch
             }
-            _toasts.emit(context.getString(R.string.toast_default_app, app.label))
+            _toasts.emit(uiText(R.string.toast_default_app, app.label))
         }
     }
 
@@ -149,7 +152,7 @@ class SettingsViewModel @Inject constructor(
         local.update { it.copy(confirmClearRecents = false) }
         viewModelScope.launch {
             recents.clear()
-            _toasts.emit(context.getString(R.string.toast_recents_cleared))
+            _toasts.emit(uiText(R.string.toast_recents_cleared))
         }
     }
 
@@ -165,7 +168,7 @@ class SettingsViewModel @Inject constructor(
     fun rateOnPlay() {
         rating.close()
         val opened = ExternalLinks.openPlayStore(context)
-        _toasts.tryEmit(context.getString(if (opened) R.string.toast_play else R.string.toast_no_app_can_open))
+        _toasts.tryEmit(uiText(if (opened) R.string.toast_play else R.string.toast_no_app_can_open))
     }
 
     /**
@@ -178,12 +181,15 @@ class SettingsViewModel @Inject constructor(
         val current = rating.state.value ?: return
         val note = current.feedback.trim()
         if (note.isEmpty()) {
-            _toasts.tryEmit(context.getString(R.string.toast_write_first))
+            _toasts.tryEmit(uiText(R.string.toast_write_first))
             return
         }
+        // Support-facing, so English throughout: Resources.getString(id, args) formats in the resources' locale,
+        // which writes numbers in Arabic-Indic, Persian or Burmese digits in those languages.
+        fun english(@StringRes id: Int, vararg args: Any): String = String.format(Locale.US, context.getString(id), *args)
         val body = note + "\n\n" +
-            context.getString(R.string.feedback_rating_line, current.rating) + "\n" +
-            context.getString(R.string.feedback_versions, version, Build.VERSION.RELEASE)
+            english(R.string.feedback_rating_line, current.rating) + "\n" +
+            english(R.string.feedback_versions, version, Build.VERSION.RELEASE)
         val opened = ExternalLinks.composeEmail(
             context = context,
             to = context.getString(R.string.support_email),
@@ -192,7 +198,7 @@ class SettingsViewModel @Inject constructor(
         )
         if (!opened) {
             rating.close()
-            _toasts.tryEmit(context.getString(R.string.toast_no_email))
+            _toasts.tryEmit(uiText(R.string.toast_no_email))
             return
         }
         rating.sendFeedback()
@@ -206,14 +212,13 @@ class SettingsViewModel @Inject constructor(
     /** "Privacy policy": the browser at privacy_policy_url (ruling R16); "No app can open this" when none opens. */
     fun privacy() {
         if (!ExternalLinks.openUrl(context, context.getString(R.string.privacy_policy_url))) {
-            _toasts.tryEmit(context.getString(R.string.toast_no_app_can_open))
+            _toasts.tryEmit(uiText(R.string.toast_no_app_can_open))
         }
     }
 
     private companion object {
         const val TAG = "Settings"
         const val STOP_TIMEOUT_MS = 5_000L
-        const val DEFAULT_LANGUAGE = "en"
         val DEFAULT_APP = MessagingApp.WHATSAPP
 
         /** The chosen app, else the first installed one, else WhatsApp (as Home resolves it). */

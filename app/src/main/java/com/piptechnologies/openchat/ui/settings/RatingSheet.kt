@@ -30,6 +30,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import com.piptechnologies.openchat.R
@@ -37,6 +38,8 @@ import com.piptechnologies.openchat.ui.components.GhostButton
 import com.piptechnologies.openchat.ui.components.IconBox
 import com.piptechnologies.openchat.ui.components.OcModalSheet
 import com.piptechnologies.openchat.ui.components.PrimaryButton
+import com.piptechnologies.openchat.ui.components.asString
+import com.piptechnologies.openchat.ui.components.pluralText
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
@@ -162,7 +165,7 @@ private fun StarsStage(rating: Int, onStar: (Int) -> Unit, onLater: () -> Unit) 
                         size = 38.dp,
                         tint = if (lit) c.gold else c.switchOff,
                         filled = lit,
-                        contentDescription = stringResource(R.string.rating_star_cd, value),
+                        contentDescription = pluralText(R.plurals.rating_star_cd, value).asString(),
                     )
                 }
             }
@@ -271,7 +274,10 @@ private fun FeedbackStage(feedback: String, onFeedbackChange: (String) -> Unit, 
     }
 }
 
-/** The feedback field: 104 high, radius 14, 1 px border, padding 13 14, body14 ink, placeholder in the placeholder colour. */
+/**
+ * The feedback field: 104 high, radius 14, 1 px border, padding 13 14, body14 ink, placeholder in the placeholder
+ * colour. Typed text takes its direction from its own content, not the layout's (as on Contact us).
+ */
 @Composable
 private fun FeedbackField(value: String, onValueChange: (String) -> Unit) {
     val c = OcTheme.colors
@@ -286,7 +292,7 @@ private fun FeedbackField(value: String, onValueChange: (String) -> Unit) {
             .background(c.surface)
             .border(1.dp, c.border, shape)
             .padding(horizontal = 14.dp, vertical = 13.dp),
-        textStyle = OcTheme.type.body14.copy(color = c.ink),
+        textStyle = OcTheme.type.body14.copy(color = c.ink, textDirection = TextDirection.Content),
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
         cursorBrush = SolidColor(c.green),
         decorationBox = { innerField ->

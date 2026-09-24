@@ -33,7 +33,6 @@ class SettingsScreenshotTests {
         accessGranted = true,
         app = MessagingApp.WHATSAPP,
         availableApps = MessagingApp.entries.toList(),
-        languageName = "English",
         recentsCount = 4,
         version = "1.0.0 (1)",
         defaultAppSheetOpen = false,
@@ -43,7 +42,7 @@ class SettingsScreenshotTests {
 
     @Composable
     private fun Settings() {
-        SettingsScreen(state = settingsState, callbacks = SettingsCallbacks())
+        SettingsScreen(state = settingsState, languageName = "English", callbacks = SettingsCallbacks())
     }
 
     @Composable

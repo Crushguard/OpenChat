@@ -71,7 +71,9 @@ class LocalesConfigTest {
         assertEquals("pt", Languages.byTag("pt").tag)
         assertEquals("pt", Languages.byTag("pt-PT").tag)
         assertEquals("es", Languages.byTag("es-MX").tag)
-        assertEquals("zh", Languages.byTag("zh-TW").tag)
+        assertEquals("zh", Languages.byTag("zh-CN").tag)
+        assertEquals("en", Languages.byTag("zh-TW").tag)
+        assertEquals("en", Languages.byTag("zh_HK").tag)
         assertEquals("en", Languages.byTag("zu").tag)
         assertEquals("en", Languages.byTag("").tag)
         for (option in Languages.all) assertEquals(option, Languages.byTag(option.tag))
@@ -84,8 +86,8 @@ class LocalesConfigTest {
         assertEquals("pt", match("pt"))
         assertEquals("pt", match("pt-PT"))
         assertEquals("pt", match("pt-AO"))
-        assertEquals("zh", match("zh-TW"))
-        assertEquals("zh", match("zh-Hant-TW"))
+        assertEquals("en", match("zh-TW"))
+        assertEquals("en", match("zh-Hant-TW"))
         assertEquals("zh", match("zh-Hans-CN"))
         assertEquals("id", match("in-ID"))
         assertEquals("id", match("id-ID"))
@@ -96,6 +98,41 @@ class LocalesConfigTest {
         assertEquals("fa", match("fa-AF"))
         assertEquals("my", match("my-MM"))
         assertEquals("en", match("zu-ZA"))
+    }
+
+    @Test
+    fun match_regionalVariantsFallBackToTheirLanguage() {
+        assertEquals("pt", match("pt-PT"))
+        assertEquals("pt-BR", match("pt-BR"))
+        assertEquals("pt", match("pt"))
+        assertEquals("id", match("id"))
+        assertEquals("id", match("in"))
+        assertEquals("he", match("he"))
+        assertEquals("he", match("iw"))
+        assertEquals("es", match("es-MX"))
+        assertEquals("fr", match("fr-CA"))
+        assertEquals("ur", match("ur-IN"))
+    }
+
+    @Test
+    fun match_chineseIsSimplifiedOnly() {
+        // values-zh holds Simplified Chinese (Hans). Android matches resource folders by script, so a Traditional
+        // Chinese locale (Hant, or Taiwan, Hong Kong, Macau without a script) gets the English strings: it must
+        // not be reported as 中文.
+        assertEquals("zh", match("zh"))
+        assertEquals("zh", match("zh-CN"))
+        assertEquals("zh", match("zh-Hans"))
+        assertEquals("zh", match("zh-SG"))
+        assertEquals("zh", match("zh-Hans-HK"))
+        assertEquals("en", match("zh-TW"))
+        assertEquals("en", match("zh-Hant-TW"))
+        assertEquals("en", match("zh-HK"))
+        assertEquals("en", match("zh-MO"))
+        assertEquals("en", match("zh-Hant"))
+        assertEquals("en", match("zh-Hant-CN"))
+        // As in Android's resolution, the next language in the list that has strings wins.
+        assertEquals("fr", match("zh-TW", "fr-FR"))
+        assertEquals("zh", match("zh-HK", "zh-CN"))
     }
 
     @Test

@@ -8,6 +8,7 @@ import android.net.Uri
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.send.MessagingApp
 import com.piptechnologies.openchat.core.send.SendLinkBuilder
+import com.piptechnologies.openchat.ui.components.withAppLocale
 
 /** Browser, Play Store, share sheet, email composer and WhatsApp (rulings R11, R12, R16). */
 object ExternalLinks {
@@ -21,10 +22,14 @@ object ExternalLinks {
             openUrl(context, "https://play.google.com/store/apps/details?id=$pkg")
     }
 
+    /**
+     * The system share sheet with share_app_text in the app's language: [context] is usually the
+     * application context, which on API 24–32 does not carry the per-app language, hence withAppLocale.
+     */
     fun shareApp(context: Context) {
         val send = Intent(Intent.ACTION_SEND)
             .setType("text/plain")
-            .putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_app_text))
+            .putExtra(Intent.EXTRA_TEXT, context.withAppLocale().getString(R.string.share_app_text))
         startActivitySafely(context, Intent.createChooser(send, null))
     }
 

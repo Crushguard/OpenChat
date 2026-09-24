@@ -1,6 +1,10 @@
 package com.piptechnologies.openchat.ui.settings
 
 import android.content.Context
+import android.content.res.Configuration
+import android.icu.text.DisplayContext
+import android.icu.text.LocaleDisplayNames
+import android.icu.util.ULocale
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.os.LocaleListCompat
@@ -56,8 +60,8 @@ object Languages {
 
     /**
      * The option for [tag] ("pt-BR", "pt_BR", "PT-br"; the legacy "in" and "iw" give Indonesian and
-     * Hebrew), matched like [match]: exact, else by language ("pt-PT" gives Português, "zh-TW" 中文),
-     * else English.
+     * Hebrew), matched like [match]: exact, else by language ("pt-PT" gives Português), else English
+     * ("zh-TW" too: Traditional Chinese is not 中文 here).
      */
     fun byTag(tag: String): LanguageOption = match(listOf(Locale.forLanguageTag(tag.trim().replace('_', '-'))))
 
@@ -65,12 +69,13 @@ object Languages {
      * The language to show for [requested], a locale list in order of preference (AppCompat's application
      * locales, or the device's): the first locale that matches one of [all] by exact tag (with the
      * in ↔ id and iw ↔ he aliases, so pt-BR gives pt-BR), else by language alone (pt-PT and pt-AO give pt,
-     * zh-TW gives zh, en-GB gives en); English when none does.
+     * es-MX gives es, en-GB gives en); English when none does. Traditional Chinese (zh-TW, zh-HK,
+     * zh-Hant-…) matches nothing, as Android serves it no values-zh; see [isTraditionalChinese].
      */
     fun match(requested: List<Locale>): LanguageOption {
         for (locale in requested) {
             val language = canonicalLanguage(locale.language)
-            if (language.isEmpty()) continue
+            if (language.isEmpty() || locale.isTraditionalChinese()) continue
             val region = locale.country.uppercase(Locale.ROOT)
             val sameLanguage = all.filter { it.language() == language }
             val option = sameLanguage.firstOrNull { it.region() == region }
@@ -93,20 +98,69 @@ object Languages {
     }
 
     /**
-     * [option]'s name in the UI language [inLocale], from java.util.Locale ("Allemand" for German in
-     * French), capitalised for [inLocale] since it stands alone as a label. zh is named as zh-Hans
-     * ("Chinese (Simplified)"), the script values-zh holds. Falls back to [LanguageOption.english] when
-     * Locale has no name for it and returns the code itself.
+     * The locale the UI is shown in under [configuration]: the [match] of its locales, which is the language
+     * whose strings Android picks (English when none matches), for naming languages with [displayName].
+     * Portuguese is pt-PT: values-pt holds European Portuguese, while a bare "pt" names things in Brazilian
+     * Portuguese.
+     */
+    fun uiLocale(configuration: Configuration): Locale {
+        val locales = configuration.locales
+        val option = match((0 until locales.size()).mapNotNull { locales[it] })
+        return Locale.forLanguageTag(if (option.tag == "pt") "pt-PT" else option.tag)
+    }
+
+    /**
+     * [option]'s name in the UI language [inLocale] as a list item gives it ("Allemand" for German in
+     * French): ICU's LocaleDisplayNames, capitalised by [inLocale]'s rules for UI lists. zh is named as
+     * zh-Hans, the script values-zh holds: "Chinese (Simplified)". Where android.icu cannot be used
+     * (plain JVM unit tests), java.util.Locale names it instead, zh by its language alone, since on
+     * Android that path writes ICU's stand-alone script name ("Chinese (Simplified Han)"). Falls back
+     * to [LanguageOption.english] when neither has a name for the language in [inLocale].
      */
     fun displayName(option: LanguageOption, inLocale: Locale): String {
-        val locale = Locale.forLanguageTag(if (option.tag == "zh") "zh-Hans" else option.tag)
-        val languageName = locale.getDisplayLanguage(inLocale)
-        val untranslated = languageName.isBlank() ||
-            languageName.equals(locale.language, ignoreCase = true) ||
-            languageName.equals(option.tag, ignoreCase = true)
-        if (untranslated) return option.english
-        return locale.getDisplayName(inLocale).replaceFirstChar { if (it.isLowerCase()) it.titlecase(inLocale) else it.toString() }
+        val tag = if (option.tag == "zh") "zh-Hans" else option.tag
+        return icuDisplayName(tag, inLocale) ?: localeDisplayName(tag, inLocale) ?: option.english
     }
+
+    /** ICU's UI-list name of [tag] in [inLocale]; null when it has none (it would return the code) or android.icu is not there. */
+    private fun icuDisplayName(tag: String, inLocale: Locale): String? =
+        try {
+            val names: LocaleDisplayNames? =
+                LocaleDisplayNames.getInstance(ULocale.forLocale(inLocale), DisplayContext.CAPITALIZATION_FOR_UI_LIST_OR_MENU)
+            val locale = ULocale.forLanguageTag(tag)
+            val languageName: String? = names?.languageDisplayName(locale.language)
+            if (names == null || languageName.isNullOrBlank() || languageName.equals(locale.language, ignoreCase = true)) {
+                null
+            } else {
+                names.localeDisplayName(locale)
+            }
+        } catch (e: RuntimeException) {
+            null // android.jar's stubs, in unit tests that run without layoutlib.
+        } catch (e: LinkageError) {
+            null // No android.icu at all.
+        }
+
+    /** java.util.Locale's name of [tag] in [inLocale], first letter capitalised, a script left out; null when it has none. */
+    private fun localeDisplayName(tag: String, inLocale: Locale): String? {
+        val locale = Locale.forLanguageTag(tag)
+        val languageName = locale.getDisplayLanguage(inLocale)
+        if (languageName.isBlank() || languageName.equals(locale.language, ignoreCase = true)) return null
+        val name = if (locale.script.isEmpty()) locale.getDisplayName(inLocale) else languageName
+        return name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(inLocale) else it.toString() }
+    }
+
+    /**
+     * Chinese written in Traditional characters: the Hant script, or Taiwan, Hong Kong or Macau with no
+     * script given (their likely script is Hant). values-zh holds Simplified Chinese, and since Android 7.0
+     * resource matching compares scripts (a folder without one takes its language's likely script, Hans for
+     * zh), so such a locale gets the default English strings, not values-zh.
+     */
+    private fun Locale.isTraditionalChinese(): Boolean {
+        if (canonicalLanguage(language) != "zh") return false
+        return if (script.isEmpty()) country.uppercase(Locale.ROOT) in TRADITIONAL_CHINESE_REGIONS else script.equals("Hant", ignoreCase = true)
+    }
+
+    private val TRADITIONAL_CHINESE_REGIONS = setOf("TW", "HK", "MO")
 
     /** Android (and Java before 17) reports Indonesian and Hebrew as the legacy "in" and "iw"; compare on "id" and "he". */
     private fun canonicalLanguage(language: String): String =

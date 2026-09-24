@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
@@ -27,10 +28,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -41,6 +46,7 @@ import com.piptechnologies.openchat.ui.components.InfoCallout
 import com.piptechnologies.openchat.ui.components.OcTopBar
 import com.piptechnologies.openchat.ui.components.PrimaryButton
 import com.piptechnologies.openchat.ui.components.ScreenSurface
+import com.piptechnologies.openchat.ui.components.asString
 import com.piptechnologies.openchat.ui.components.rememberToastHostState
 import com.piptechnologies.openchat.ui.theme.OcTheme
 
@@ -95,7 +101,11 @@ fun ContactScreen(
     }
 }
 
-/** Message card: white, 1 px border, radius 14, padding 12 14; a six-line body15 field with the placeholder in the placeholder colour. */
+/**
+ * Message card: white, 1 px border, radius 14, padding 12 14; a six-line body15 field with the placeholder in the
+ * placeholder colour. Typed text takes its direction from its own content, not the layout's, so English typed in
+ * a right-to-left language keeps its punctuation at the end.
+ */
 @Composable
 private fun MessageField(value: String, onValueChange: (String) -> Unit) {
     val c = OcTheme.colors
@@ -109,7 +119,7 @@ private fun MessageField(value: String, onValueChange: (String) -> Unit) {
             .background(c.surface)
             .border(1.dp, c.border, shape)
             .padding(horizontal = 14.dp, vertical = 12.dp),
-        textStyle = OcTheme.type.body15.copy(color = c.ink),
+        textStyle = OcTheme.type.body15.copy(color = c.ink, textDirection = TextDirection.Content),
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
         minLines = 6,
         cursorBrush = SolidColor(c.green),
@@ -124,9 +134,20 @@ private fun MessageField(value: String, onValueChange: (String) -> Unit) {
     )
 }
 
-/** Email input: 50 high, radius 12, 1 px border, padding 0 14, one line, email keyboard. */
+/**
+ * Email input: 50 high, radius 12, 1 px border, padding 0 14, one line, email keyboard. Laid out left to
+ * right in every language, as an address is written: in a right-to-left layout the placeholder would
+ * otherwise sit at the right edge and the typed address start at the left.
+ */
 @Composable
 private fun EmailField(value: String, onValueChange: (String) -> Unit) {
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        EmailFieldContent(value = value, onValueChange = onValueChange)
+    }
+}
+
+@Composable
+private fun EmailFieldContent(value: String, onValueChange: (String) -> Unit) {
     val c = OcTheme.colors
     val shape = RoundedCornerShape(12.dp)
     Row(
@@ -159,15 +180,16 @@ private fun EmailField(value: String, onValueChange: (String) -> Unit) {
     }
 }
 
-/** Binds [ContactViewModel] to [ContactScreen]: toasts go to the app-level toast host (own host when none is provided), and [onBack] runs once the note has been handed to the email app. */
+/** Binds [ContactViewModel] to [ContactScreen]: toasts, resolved in this composition's language, go to the app-level toast host (own host when none is provided), and [onBack] runs once the note has been handed to the email app. */
 @Composable
 fun ContactRoute(onBack: () -> Unit, viewModel: ContactViewModel = hiltViewModel()) {
     val text by viewModel.text.collectAsStateWithLifecycle()
     val email by viewModel.email.collectAsStateWithLifecycle()
+    val context = LocalContext.current
     val toast = LocalToastHost.current ?: rememberToastHostState()
     val currentOnBack by rememberUpdatedState(onBack)
-    LaunchedEffect(viewModel, toast) {
-        viewModel.toasts.collect { toast.show(it) }
+    LaunchedEffect(viewModel, toast, context) {
+        viewModel.toasts.collect { toast.show(it.asString(context)) }
     }
     LaunchedEffect(viewModel) {
         viewModel.sent.collect { currentOnBack() }
