@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media (§4.12) -->
+    <string name="media_title">Silinen medya</string>
+    <string name="media_tool_settings">Araç ayarları</string>
+
+    <!-- Category pills and empty states -->
+    <string name="media_tab_photos">Fotoğraflar</string>
+    <string name="media_tab_videos">Videolar</string>
+    <string name="media_tab_audio">Ses</string>
+    <string name="media_tab_documents">Belgeler</string>
+    <string name="media_tab_stickers">Çıkartmalar</string>
+    <string name="media_empty_nothing">Henüz bir şey kurtarılmadı</string>
+    <string name="media_empty_audio">Henüz ses yok</string>
+    <string name="media_empty_documents">Henüz belge yok</string>
+    <string name="media_empty_stickers">Henüz çıkartma yok</string>
+    <string name="media_empty_body">Herkesten silinen dosyalar, önce size ulaşmışsa burada saklanır.</string>
+    <string name="media_allow">Medya erişimine izin ver</string>
+    <string name="media_access_off">Medya erişimi kapalı, bu yüzden yeni dosyalar saklanmıyor.</string>
+
+    <!-- Media detail (§4.13) -->
+    <string name="media_detail_title_photo">Fotoğraf</string>
+    <string name="media_detail_title_video">Video</string>
+    <string name="media_detail_title_audio">Ses</string>
+    <string name="media_detail_title_document">Belge</string>
+    <string name="media_detail_title_sticker">Çıkartma</string>
+    <string name="media_save">Galeriye kaydet</string>
+    <string name="media_share">Paylaş</string>
+    <string name="media_delete">Sil</string>
+    <string name="media_play">Oynat</string>
+    <string name="media_pause">Duraklat</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <string name="media_meta_from">Gönderen: %1$s · %2$s %3$s · Silindi: %4$s</string>
+    <string name="media_meta_received">Alındı: %1$s %2$s · Silindi: %3$s</string>
+    <string name="media_meta_from_kept">Gönderen: %1$s · %2$s %3$s</string>
+    <string name="media_meta_received_kept">Alındı: %1$s %2$s</string>
+    <string name="delete_media_title_photo">Bu fotoğraf silinsin mi?</string>
+    <string name="delete_media_title_video">Bu video silinsin mi?</string>
+    <string name="delete_media_title_audio">Bu ses dosyası silinsin mi?</string>
+    <string name="delete_media_title_document">Bu belge silinsin mi?</string>
+    <string name="delete_media_title_sticker">Bu çıkartma silinsin mi?</string>
+    <string name="delete_media_body">Dosya, kurtarılan medyadan kaldırılır. Galeriye kaydettiyseniz o kopya kalır.</string>
+    <string name="toast_saved">Galeriye kaydedildi</string>
+    <string name="toast_save_failed">Kaydedilemedi</string>
+    <string name="toast_share">Paylaşım menüsü açılıyor…</string>
+    <string name="toast_share_failed">Paylaşılamadı</string>
+    <string name="toast_deleted">Silindi</string>
+</resources>

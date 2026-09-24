@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media (§4.12) -->
+    <string name="media_title">Удалённые медиа</string>
+    <string name="media_tool_settings">Настройки функции</string>
+
+    <!-- Category pills and empty states -->
+    <string name="media_tab_photos">Фото</string>
+    <string name="media_tab_videos">Видео</string>
+    <string name="media_tab_audio">Аудио</string>
+    <string name="media_tab_documents">Документы</string>
+    <string name="media_tab_stickers">Стикеры</string>
+    <string name="media_empty_nothing">Пока ничего не восстановлено</string>
+    <string name="media_empty_audio">Аудио пока нет</string>
+    <string name="media_empty_documents">Документов пока нет</string>
+    <string name="media_empty_stickers">Стикеров пока нет</string>
+    <string name="media_empty_body">Файлы, которые кто-то удалил у всех, сохраняются здесь, если вы успели их получить.</string>
+    <string name="media_allow">Разрешить доступ к медиа</string>
+    <string name="media_access_off">Доступ к медиа выключен, поэтому новые файлы не сохраняются.</string>
+
+    <!-- Media detail (§4.13) -->
+    <string name="media_detail_title_photo">Фото</string>
+    <string name="media_detail_title_video">Видео</string>
+    <string name="media_detail_title_audio">Аудио</string>
+    <string name="media_detail_title_document">Документ</string>
+    <string name="media_detail_title_sticker">Стикер</string>
+    <string name="media_save">Сохранить в галерею</string>
+    <string name="media_share">Поделиться</string>
+    <string name="media_delete">Удалить</string>
+    <string name="media_play">Воспроизвести</string>
+    <string name="media_pause">Пауза</string>
+    <string name="media_size_bytes">%s Б</string>
+    <string name="media_size_kb">%s КБ</string>
+    <string name="media_size_mb">%s МБ</string>
+    <string name="media_size_gb">%s ГБ</string>
+    <string name="media_meta_from">От %1$s · %2$s, %3$s · Удалено в %4$s</string>
+    <string name="media_meta_received">Получено: %1$s, %2$s · Удалено в %3$s</string>
+    <string name="media_meta_from_kept">От %1$s · %2$s, %3$s</string>
+    <string name="media_meta_received_kept">Получено: %1$s, %2$s</string>
+    <string name="delete_media_title_photo">Удалить это фото?</string>
+    <string name="delete_media_title_video">Удалить это видео?</string>
+    <string name="delete_media_title_audio">Удалить это аудио?</string>
+    <string name="delete_media_title_document">Удалить этот документ?</string>
+    <string name="delete_media_title_sticker">Удалить этот стикер?</string>
+    <string name="delete_media_body">Файл удалится из восстановленных медиа. Если вы сохранили его в галерею, эта копия останется.</string>
+    <string name="toast_saved">Сохранено в галерею</string>
+    <string name="toast_save_failed">Не удалось сохранить</string>
+    <string name="toast_share">Открываем меню «Поделиться»…</string>
+    <string name="toast_share_failed">Не удалось поделиться</string>
+    <string name="toast_deleted">Удалено</string>
+</resources>

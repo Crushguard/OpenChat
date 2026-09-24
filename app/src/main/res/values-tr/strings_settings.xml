@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings (§4.15) -->
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_access">Bildirim erişimi</string>
+    <string name="settings_access_on">Etkin · mesaj ve medya araçları</string>
+    <string name="settings_access_off">Kapalı · mesaj ve medya araçları için gerekli</string>
+    <string name="settings_preferences">Tercihler</string>
+    <string name="settings_default_app">Varsayılan uygulama</string>
+    <string name="settings_language">Dil</string>
+    <string name="settings_clear_recents">Son numaraları temizle</string>
+    <string name="settings_about">Hakkında</string>
+    <string name="settings_rate">Bizi değerlendirin</string>
+    <string name="settings_contact">Bize ulaşın</string>
+    <string name="settings_share">Uygulamayı paylaş</string>
+    <string name="settings_privacy">Gizlilik politikası</string>
+    <string name="settings_version">Sürüm</string>
+    <string name="settings_honesty">OpenChat ücretsizdir. Reklam yok, hesap yok, takip yok. Numaralar, mesajlar ve medya telefonunuzdan asla çıkmaz.</string>
+
+    <!-- Clear recent numbers confirmation (§4.15, §4.20) -->
+    <string name="clear_recents_title">Son numaralar temizlensin mi?</string>
+    <plurals name="clear_recents_body">
+        <item quantity="one">Ana sayfadaki %d numara kaldırılır. WhatsApp\'ta hiçbir şey değişmez.</item>
+        <item quantity="other">Ana sayfadaki %d numara kaldırılır. WhatsApp\'ta hiçbir şey değişmez.</item>
+    </plurals>
+    <string name="clear_recents_keep">Kalsın</string>
+    <string name="clear_recents_clear">Temizle</string>
+    <string name="toast_recents_cleared">Son numaralar temizlendi</string>
+
+    <!-- Default app sheet (§4.16) -->
+    <string name="default_app_title">Varsayılan uygulama</string>
+    <string name="toast_default_app">Varsayılan uygulama: %s</string>
+
+    <!-- Language (§4.17) -->
+    <string name="language_title">Dil</string>
+    <string name="language_intro">Uygulamanın dilini değiştirir. Gönderdiğiniz mesajları istediğiniz dilde kendiniz yazarsınız.</string>
+    <string name="toast_language">Dil: %s</string>
+
+    <!-- Contact us (§4.18) -->
+    <string name="contact_title">Bize ulaşın</string>
+    <string name="contact_intro">Açılmayan bir numara, kurtarılamayan bir mesaj ya da bir fikir. Doğrudan ekibe ulaşır.</string>
+    <string name="contact_placeholder">Ne oldu, hangi ekranda?</string>
+    <string name="contact_email_label">E-posta · isteğe bağlı, yalnızca yanıt isterseniz</string>
+    <string name="contact_callout">Uygulama ve Android sürümüyle birlikte gönderilir. Numaralarınız veya mesajlarınız asla gönderilmez.</string>
+    <string name="contact_send">Gönder</string>
+    <string name="toast_sent">Gönderildi. Teşekkürler.</string>
+    <string name="toast_write_first">Önce bir şey yazın</string>
+    <string name="toast_no_email">E-posta uygulaması bulunamadı</string>
+    <string name="toast_no_app_can_open">Bunu açabilecek uygulama yok</string>
+
+    <!-- Rating sheet (§4.19) -->
+    <string name="rating_title">OpenChat\'i beğendiniz mi?</string>
+    <string name="rating_body">Dürüst puanınız, başkalarının her numarayı tek dokunuşla açan bir uygulama bulmasına yardımcı olur.</string>
+    <plurals name="rating_star_cd">
+        <item quantity="one">5 üzerinden %d yıldız</item>
+        <item quantity="other">5 üzerinden %d yıldız</item>
+    </plurals>
+    <string name="rating_hint_tap">Bir yıldıza dokunun</string>
+    <string name="rating_hint_1">Bunu duyduğumuza üzüldük</string>
+    <string name="rating_hint_2">Daha iyisini yapabiliriz</string>
+    <string name="rating_hint_3">Teşekkürler, biraz daha anlatın</string>
+    <string name="rating_hint_4">İşinize yaramasına sevindik</string>
+    <string name="rating_hint_5">Teşekkürler!</string>
+    <string name="rating_later">Belki sonra</string>
+    <string name="rating_store_title">Teşekkürler!</string>
+    <string name="rating_store_body">Bunu Google Play\'de de paylaşır mısınız? Küçük bir uygulamanın büyümesine yardımcı olur.</string>
+    <string name="rating_store_cta">Google Play\'de değerlendir</string>
+    <string name="rating_not_now">Şimdi değil</string>
+    <string name="rating_feedback_title">Nasıl daha iyi olabiliriz?</string>
+    <string name="rating_feedback_body">Neyin eksik kaldığını anlatın. Herkese açık bir yorum olarak değil, doğrudan ekibe gider ve hepsini okuyoruz.</string>
+    <string name="rating_feedback_placeholder">Bu uygulamayı 5 yıldızlık yapan ne olurdu?</string>
+    <string name="rating_feedback_send">Geri bildirim gönder</string>
+    <string name="rating_cancel">İptal</string>
+    <string name="rating_thanks_title">Teşekkürler, sizi duyduk</string>
+    <string name="rating_thanks_body">Notunuz ekibe ulaşmak üzere yolda. Sıradaki adımlarımızı şekillendiriyor.</string>
+    <string name="rating_done">Bitti</string>
+    <string name="toast_play">Google Play açılıyor…</string>
+</resources>

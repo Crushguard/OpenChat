@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sharing -->
+    <string name="share_app_text">OpenChat открывает чат с любым номером без сохранения контакта. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding (design map §4.1, §4.2) -->
+    <string name="splash_honesty">Бесплатно · Без рекламы · Без аккаунта</string>
+    <string name="onboarding_skip">Пропустить</string>
+    <string name="onboarding_1_title">Пишите на любой номер</string>
+    <string name="onboarding_1_body">Введите или вставьте номер и нажмите «Отправить». Чат откроется в WhatsApp, WhatsApp Business или Telegram. В контакты ничего не сохраняется.</string>
+    <string name="onboarding_1_check">Не добавляется в контакты</string>
+    <string name="onboarding_1_send">Отправить сообщение</string>
+    <string name="onboarding_2_title">Четыре функции — одно разрешение</string>
+    <string name="onboarding_2_body">Читайте без синих галочек, восстанавливайте то, что удалили отправители, и пользуйтесь вторым аккаунтом. Всё остаётся на этом телефоне.</string>
+    <string name="onboarding_next">Далее</string>
+    <string name="onboarding_start">Начать</string>
+
+    <!-- Tool titles (Home tool rows, onboarding slide 2) -->
+    <string name="tool_unseen_title">Читать без синих галочек</string>
+    <string name="tool_deleted_title">Восстановить сообщения</string>
+    <string name="tool_media_title">Восстановить медиа</string>
+    <string name="tool_second_title">Открыть второй аккаунт</string>
+
+    <!-- Notification access gate (§4.7) -->
+    <string name="gate_title">Разрешите доступ к уведомлениям</string>
+    <string name="gate_body">Удалённые сообщения и медиа сохраняются из уведомлений WhatsApp. Ничего не покидает ваш телефон.</string>
+    <string name="gate_open_settings">Открыть настройки</string>
+    <string name="gate_waiting">Ждём Android…</string>
+    <string name="gate_hint_before">Одно разрешение включает восстановление и сообщений, и медиа.</string>
+    <string name="gate_continue">Продолжить</string>
+    <string name="gate_hint_after">Вы можете отключить это в любой момент в настройках.</string>
+    <string name="gate_bar_messages">Сообщения</string>
+    <string name="gate_bar_media">Удалённые медиа</string>
+    <string name="gate_bar_settings">Доступ к уведомлениям</string>
+
+    <!-- Second-account foreground service notification (§4.14, §5.4) -->
+    <string name="second_notification_channel">Второй аккаунт</string>
+    <string name="second_notification_title">Второй аккаунт привязан</string>
+    <string name="second_notification_text">Нажмите, чтобы открыть OpenChat</string>
+    <string name="second_notification_open">Открыть</string>
+
+    <!-- Time labels (§5.1) -->
+    <string name="time_now">Сейчас</string>
+    <string name="time_today">Сегодня</string>
+    <string name="time_yesterday">Вчера</string>
+    <string name="time_minutes_short">%d мин</string>
+    <string name="time_hours_short">%d ч</string>
+
+    <!-- Shared components -->
+    <string name="cd_back">Назад</string>
+    <string name="chip_off">Выключено</string>
+    <string name="chip_active">Активно</string>
+    <string name="chip_paused">На паузе</string>
+    <string name="chip_linked">Привязан</string>
+</resources>

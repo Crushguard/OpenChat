@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox (§4.8) -->
+    <string name="messages_title">Pesan</string>
+    <plurals name="messages_chip_all">
+        <item quantity="other">Semua · %d belum dibaca</item>
+    </plurals>
+    <string name="messages_chip_deleted">Hanya yang dihapus · %d</string>
+    <string name="messages_info_all">Baca di sini dan WhatsApp tidak menampilkan centang biru. Foto muncul jika notifikasi menyertakan pratinjau; pesan suara dan file ditampilkan dengan namanya.</string>
+    <string name="messages_info_deleted">Hanya pesan yang dihapus pengirim yang disimpan. Chat yang dikecualikan dilewati sepenuhnya.</string>
+    <string name="messages_empty_title">Belum ada apa-apa di sini</string>
+    <string name="messages_empty_body">Pesan baru muncul di sini saat masuk. Pesan yang dihapus tetap ada di “Hanya yang dihapus”.</string>
+    <string name="messages_tool_settings">Pengaturan fitur</string>
+
+    <!-- Conversation (§4.9) -->
+    <string name="conversation_subtitle_all">%1$s · tak ada yang tahu</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="other">%1$s · %2$d dihapus</item>
+    </plurals>
+    <string name="conversation_deleted_label">Dihapus pengirim</string>
+    <string name="conversation_open">Buka chat di WhatsApp</string>
+    <string name="conversation_hint_all">Membuka chat di WhatsApp akan mengirim laporan dibaca.</string>
+    <string name="conversation_hint_deleted">Di sini hanya bisa dibaca. Balas di WhatsApp.</string>
+
+    <!-- Tool settings sheet (§4.10), exclude chats sheet (§4.11), clear confirmations (§4.20) -->
+    <string name="tool_settings_pause">Jeda pemulihan</string>
+    <string name="tool_settings_exclude">Kecualikan chat</string>
+    <string name="tool_settings_clear_messages">Hapus semua pesan tersimpan</string>
+    <string name="tool_settings_clear_media">Hapus media yang dipulihkan</string>
+    <string name="exclude_title">Kecualikan chat</string>
+    <string name="exclude_empty">Chat akan muncul di sini setelah pesan pertamanya.</string>
+    <string name="clear_messages_title">Hapus semua pesan yang dipulihkan?</string>
+    <string name="clear_media_title">Hapus semua media yang dipulihkan?</string>
+    <string name="clear_body">Hanya salinan di aplikasi ini yang dihapus. WhatsApp tidak terpengaruh.</string>
+    <string name="keep">Simpan</string>
+    <string name="clear">Hapus</string>
+
+    <!-- Toasts (§4.9, §4.10) -->
+    <string name="toast_paused">Pemulihan dijeda</string>
+    <string name="toast_resumed">Pemulihan dilanjutkan</string>
+    <string name="toast_cleared">Dibersihkan</string>
+    <string name="toast_opening_whatsapp">Membuka WhatsApp…</string>
+</resources>

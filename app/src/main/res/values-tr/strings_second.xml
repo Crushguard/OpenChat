@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account (§4.14): entry state -->
+    <string name="second_title">İkinci hesap</string>
+    <string name="second_entry_title">Burada ikinci bir WhatsApp</string>
+    <string name="second_entry_body">Bu uygulamanın içinde bir WhatsApp Web oturumu açar. İkinci bir hesap için ya da aynı hesabı ikinci bir telefonda açmak için kullanabilirsiniz.</string>
+    <string name="second_entry_callout">Diğer telefona ihtiyacınız var. Burada bir QR kodu görünür; onu diğer telefonda WhatsApp › Bağlı cihazlar › Cihaz bağla bölümünden tarayın.</string>
+    <string name="second_scan">QR kodu göster</string>
+    <string name="second_entry_hint">Bağlıyken bir bildirim görünür kalır. Android bunu gerektirir.</string>
+
+    <!-- Second account: linking / linked bar -->
+    <string name="second_linking">Bağlanıyor…</string>
+    <string name="second_reload">Yenile</string>
+    <string name="second_log_out">Çıkış yap</string>
+
+    <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
+    <string name="logout_title">Bağlı hesaptan çıkış yapılsın mı?</string>
+    <string name="logout_body">Oturum bu telefonda sona erer. Diğer telefon çalışmaya devam eder.</string>
+    <string name="logout_stay">Bağlı kal</string>
+    <string name="logout_confirm">Çıkış yap</string>
+    <string name="toast_reloading">Yenileniyor…</string>
+    <string name="toast_logged_out">Çıkış yapıldı</string>
+    <string name="toast_linked">Bağlandı</string>
+</resources>

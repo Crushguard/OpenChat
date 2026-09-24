@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (§4.3) -->
+    <string name="home_phone_placeholder">Nomor telepon</string>
+    <string name="home_paste">Tempel</string>
+    <string name="home_message_placeholder">Pesan (opsional)</string>
+    <string name="home_send">Kirim pesan</string>
+    <string name="home_send_with">Kirim dengan</string>
+    <string name="home_first_run_hint">Chat terbuka di aplikasi pilihan Anda. Tidak ada yang disimpan ke kontak Anda.</string>
+    <string name="home_recent">Terbaru</string>
+    <string name="home_delete">Hapus</string>
+    <string name="home_settings_cd">Pengaturan</string>
+    <string name="home_country_cd">Negara</string>
+    <string name="home_clear_cd">Hapus</string>
+    <string name="home_choose_app_cd">Pilih aplikasi</string>
+
+    <!-- Home tool rows: status line under each tool's title -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="other">%d belum dibaca, tak ada yang tahu</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">Dijeda</string>
+    <string name="tool_unseen_status_off">Baca di sini, WhatsApp diam saja</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="other">%d pesan dihapus pengirim</item>
+    </plurals>
+    <string name="tool_deleted_status_off">Menyimpan yang dihapus pengirim</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="other">%d item dipulihkan minggu ini</item>
+    </plurals>
+    <string name="tool_media_status_off">Foto, video, pesan suara, dokumen</string>
+    <string name="tool_second_status_linked">Tertaut</string>
+    <string name="tool_second_status_off">WhatsApp kedua di dalam aplikasi ini</string>
+
+    <!-- Country picker sheet (§4.4) -->
+    <string name="country_title">Negara</string>
+    <string name="country_search">Cari negara atau kode</string>
+    <string name="country_all">Semua negara</string>
+    <plurals name="country_results">
+        <item quantity="other">%d hasil</item>
+    </plurals>
+    <string name="country_detected_sim">Terdeteksi dari SIM Anda: %1$s · %2$s</string>
+    <string name="country_detected_network">Terdeteksi dari jaringan Anda: %1$s · %2$s</string>
+    <string name="country_detected_locale">Terdeteksi dari bahasa dan wilayah ponsel: %1$s · %2$s</string>
+    <string name="country_close_cd">Tutup</string>
+
+    <!-- Not on WhatsApp confirmation sheet (§4.6) -->
+    <string name="not_on_wa_title">Nomor ini tidak ada di WhatsApp</string>
+    <string name="not_on_wa_body">%s tidak punya akun WhatsApp. Periksa angkanya, atau kirim pesan yang sama lewat Telegram.</string>
+    <string name="not_on_wa_edit">Ubah nomor</string>
+    <string name="not_on_wa_telegram">Coba Telegram</string>
+
+    <!-- Home toasts (§5.1) -->
+    <string name="toast_opening">Membuka %s…</string>
+    <string name="toast_pasted_country">Ditempel · negara: %s</string>
+    <string name="toast_pasted">Ditempel</string>
+    <string name="toast_clipboard_empty">Papan klip kosong</string>
+    <string name="toast_no_app">Tidak ada aplikasi yang bisa membuka nomor ini</string>
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (§4.3) -->
+    <string name="home_phone_placeholder">Номер телефона</string>
+    <string name="home_paste">Вставить</string>
+    <string name="home_message_placeholder">Сообщение (необязательно)</string>
+    <string name="home_send">Отправить сообщение</string>
+    <string name="home_send_with">Отправить через</string>
+    <string name="home_first_run_hint">Чат откроется в выбранном приложении. В контакты ничего не сохраняется.</string>
+    <string name="home_recent">Недавние</string>
+    <string name="home_delete">Удалить</string>
+    <string name="home_settings_cd">Настройки</string>
+    <string name="home_country_cd">Страна</string>
+    <string name="home_clear_cd">Очистить</string>
+    <string name="home_choose_app_cd">Выбрать приложение</string>
+
+    <!-- Home tool rows: status line under each tool's title -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">%d непрочитанное, никто не узнает</item>
+        <item quantity="few">%d непрочитанных, никто не узнает</item>
+        <item quantity="many">%d непрочитанных, никто не узнает</item>
+        <item quantity="other">%d непрочитанного, никто не узнает</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">На паузе</string>
+    <string name="tool_unseen_status_off">Читайте здесь, WhatsApp промолчит</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">%d сообщение удалено отправителем</item>
+        <item quantity="few">%d сообщения удалены отправителем</item>
+        <item quantity="many">%d сообщений удалено отправителем</item>
+        <item quantity="other">%d сообщения удалено отправителем</item>
+    </plurals>
+    <string name="tool_deleted_status_off">Сохраняет то, что удалил отправитель</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">%d файл восстановлен за неделю</item>
+        <item quantity="few">%d файла восстановлены за неделю</item>
+        <item quantity="many">%d файлов восстановлено за неделю</item>
+        <item quantity="other">%d файла восстановлено за неделю</item>
+    </plurals>
+    <string name="tool_media_status_off">Фото, видео, голосовые, документы</string>
+    <string name="tool_second_status_linked">Привязан</string>
+    <string name="tool_second_status_off">Второй WhatsApp прямо в приложении</string>
+
+    <!-- Country picker sheet (§4.4) -->
+    <string name="country_title">Страна</string>
+    <string name="country_search">Поиск страны или кода</string>
+    <string name="country_all">Все страны</string>
+    <plurals name="country_results">
+        <item quantity="one">%d результат</item>
+        <item quantity="few">%d результата</item>
+        <item quantity="many">%d результатов</item>
+        <item quantity="other">%d результата</item>
+    </plurals>
+    <string name="country_detected_sim">Определено по SIM-карте: %1$s · %2$s</string>
+    <string name="country_detected_network">Определено по мобильной сети: %1$s · %2$s</string>
+    <string name="country_detected_locale">Определено по языку и региону: %1$s · %2$s</string>
+    <string name="country_close_cd">Закрыть</string>
+
+    <!-- Not on WhatsApp confirmation sheet (§4.6) -->
+    <string name="not_on_wa_title">Этого номера нет в WhatsApp</string>
+    <string name="not_on_wa_body">У номера %s нет аккаунта WhatsApp. Проверьте цифры или отправьте то же сообщение в Telegram.</string>
+    <string name="not_on_wa_edit">Изменить номер</string>
+    <string name="not_on_wa_telegram">Через Telegram</string>
+
+    <!-- Home toasts (§5.1) -->
+    <string name="toast_opening">Открываем %s…</string>
+    <string name="toast_pasted_country">Вставлено · страна: %s</string>
+    <string name="toast_pasted">Вставлено</string>
+    <string name="toast_clipboard_empty">Буфер обмена пуст</string>
+    <string name="toast_no_app">Нет приложения, чтобы открыть этот номер</string>
+</resources>

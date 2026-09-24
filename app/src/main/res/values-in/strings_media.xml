@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media (§4.12) -->
+    <string name="media_title">Media terhapus</string>
+    <string name="media_tool_settings">Pengaturan fitur</string>
+
+    <!-- Category pills and empty states -->
+    <string name="media_tab_photos">Foto</string>
+    <string name="media_tab_videos">Video</string>
+    <string name="media_tab_audio">Audio</string>
+    <string name="media_tab_documents">Dokumen</string>
+    <string name="media_tab_stickers">Stiker</string>
+    <string name="media_empty_nothing">Belum ada yang dipulihkan</string>
+    <string name="media_empty_audio">Belum ada audio</string>
+    <string name="media_empty_documents">Belum ada dokumen</string>
+    <string name="media_empty_stickers">Belum ada stiker</string>
+    <string name="media_empty_body">File yang dihapus untuk semua orang disimpan di sini, asalkan sudah Anda terima sebelumnya.</string>
+    <string name="media_allow">Izinkan akses media</string>
+    <string name="media_access_off">Akses media nonaktif, jadi file baru tidak disimpan.</string>
+
+    <!-- Media detail (§4.13) -->
+    <string name="media_detail_title_photo">Foto</string>
+    <string name="media_detail_title_video">Video</string>
+    <string name="media_detail_title_audio">Audio</string>
+    <string name="media_detail_title_document">Dokumen</string>
+    <string name="media_detail_title_sticker">Stiker</string>
+    <string name="media_save">Simpan ke galeri</string>
+    <string name="media_share">Bagikan</string>
+    <string name="media_delete">Hapus</string>
+    <string name="media_play">Putar</string>
+    <string name="media_pause">Jeda</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <string name="media_meta_from">Dari %1$s · %2$s %3$s · Dihapus pukul %4$s</string>
+    <string name="media_meta_received">Diterima: %1$s %2$s · Dihapus pukul %3$s</string>
+    <string name="media_meta_from_kept">Dari %1$s · %2$s %3$s</string>
+    <string name="media_meta_received_kept">Diterima: %1$s %2$s</string>
+    <string name="delete_media_title_photo">Hapus foto ini?</string>
+    <string name="delete_media_title_video">Hapus video ini?</string>
+    <string name="delete_media_title_audio">Hapus audio ini?</string>
+    <string name="delete_media_title_document">Hapus dokumen ini?</string>
+    <string name="delete_media_title_sticker">Hapus stiker ini?</string>
+    <string name="delete_media_body">File ini dihapus dari pemulihan media. Jika sudah Anda simpan ke galeri, salinan itu tetap ada.</string>
+    <string name="toast_saved">Disimpan ke galeri</string>
+    <string name="toast_save_failed">Tidak dapat menyimpan</string>
+    <string name="toast_share">Membuka menu berbagi…</string>
+    <string name="toast_share_failed">Tidak dapat membagikan</string>
+    <string name="toast_deleted">Dihapus</string>
+</resources>

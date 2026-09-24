@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings (§4.15) -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_access">Доступ к уведомлениям</string>
+    <string name="settings_access_on">Активно · функции сообщений и медиа</string>
+    <string name="settings_access_off">Выключено · требуется для функций сообщений и медиа</string>
+    <string name="settings_preferences">Параметры</string>
+    <string name="settings_default_app">Приложение по умолчанию</string>
+    <string name="settings_language">Язык</string>
+    <string name="settings_clear_recents">Очистить недавние номера</string>
+    <string name="settings_about">О приложении</string>
+    <string name="settings_rate">Оцените нас</string>
+    <string name="settings_contact">Связаться с нами</string>
+    <string name="settings_share">Поделиться приложением</string>
+    <string name="settings_privacy">Политика конфиденциальности</string>
+    <string name="settings_version">Версия</string>
+    <string name="settings_honesty">OpenChat — бесплатное приложение. Без рекламы, аккаунтов и слежки. Номера, сообщения и медиа никогда не покидают ваш телефон.</string>
+
+    <!-- Clear recent numbers confirmation (§4.15, §4.20) -->
+    <string name="clear_recents_title">Очистить недавние номера?</string>
+    <plurals name="clear_recents_body">
+        <item quantity="one">Удаляет %d номер с главного экрана. В WhatsApp ничего не изменится.</item>
+        <item quantity="few">Удаляет %d номера с главного экрана. В WhatsApp ничего не изменится.</item>
+        <item quantity="many">Удаляет %d номеров с главного экрана. В WhatsApp ничего не изменится.</item>
+        <item quantity="other">Удаляет %d номера с главного экрана. В WhatsApp ничего не изменится.</item>
+    </plurals>
+    <string name="clear_recents_keep">Оставить</string>
+    <string name="clear_recents_clear">Очистить</string>
+    <string name="toast_recents_cleared">Недавние номера очищены</string>
+
+    <!-- Default app sheet (§4.16) -->
+    <string name="default_app_title">Приложение по умолчанию</string>
+    <string name="toast_default_app">Приложение по умолчанию: %s</string>
+
+    <!-- Language (§4.17) -->
+    <string name="language_title">Язык</string>
+    <string name="language_intro">Меняет язык приложения. Сообщения вы пишете сами — на любом языке.</string>
+    <string name="toast_language">Язык: %s</string>
+
+    <!-- Contact us (§4.18) -->
+    <string name="contact_title">Связаться с нами</string>
+    <string name="contact_intro">Номер не открывается, сообщение не восстановилось, есть идея? Всё это попадёт прямо к команде.</string>
+    <string name="contact_placeholder">Что случилось и на каком экране?</string>
+    <string name="contact_email_label">Эл. почта · необязательно, только если нужен ответ</string>
+    <string name="contact_callout">Отправляется вместе с версиями приложения и Android. Ваши номера и сообщения — никогда.</string>
+    <string name="contact_send">Отправить</string>
+    <string name="toast_sent">Отправлено. Спасибо!</string>
+    <string name="toast_write_first">Сначала напишите что-нибудь</string>
+    <string name="toast_no_email">Почтовое приложение не найдено</string>
+    <string name="toast_no_app_can_open">Нет приложения, чтобы открыть ссылку</string>
+
+    <!-- Rating sheet (§4.19) -->
+    <string name="rating_title">Нравится OpenChat?</string>
+    <string name="rating_body">Ваша честная оценка поможет другим найти приложение, которое открывает любой номер в одно касание.</string>
+    <plurals name="rating_star_cd">
+        <item quantity="one">%d звезда из 5</item>
+        <item quantity="few">%d звезды из 5</item>
+        <item quantity="many">%d звёзд из 5</item>
+        <item quantity="other">%d звезды из 5</item>
+    </plurals>
+    <string name="rating_hint_tap">Нажмите на звезду</string>
+    <string name="rating_hint_1">Жаль это слышать</string>
+    <string name="rating_hint_2">Мы можем лучше</string>
+    <string name="rating_hint_3">Спасибо, расскажите подробнее</string>
+    <string name="rating_hint_4">Рады, что всё работает</string>
+    <string name="rating_hint_5">Спасибо!</string>
+    <string name="rating_later">Может быть позже</string>
+    <string name="rating_store_title">Спасибо!</string>
+    <string name="rating_store_body">Может, поделитесь оценкой в Google Play? Это помогает небольшому приложению расти.</string>
+    <string name="rating_store_cta">Оценить в Google Play</string>
+    <string name="rating_not_now">Не сейчас</string>
+    <string name="rating_feedback_title">Как нам стать лучше?</string>
+    <string name="rating_feedback_body">Расскажите, чего не хватило. Это попадёт прямо к команде, а не в публичный отзыв, и мы читаем каждое сообщение.</string>
+    <string name="rating_feedback_placeholder">Чего не хватило приложению до 5 звёзд?</string>
+    <string name="rating_feedback_send">Отправить отзыв</string>
+    <string name="rating_cancel">Отмена</string>
+    <string name="rating_thanks_title">Спасибо, мы вас услышали</string>
+    <string name="rating_thanks_body">Ваше сообщение уже в пути к команде. Оно поможет решить, что мы сделаем дальше.</string>
+    <string name="rating_done">Готово</string>
+    <string name="toast_play">Открываем Google Play…</string>
+</resources>

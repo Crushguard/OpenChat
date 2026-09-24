@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sharing -->
+    <string name="share_app_text">OpenChat, herhangi bir numarayla kişilere kaydetmeden sohbet açar. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding (design map §4.1, §4.2) -->
+    <string name="splash_honesty">Ücretsiz · Reklamsız · Hesap gerekmez</string>
+    <string name="onboarding_skip">Atla</string>
+    <string name="onboarding_1_title">Herhangi bir numarayla sohbet edin</string>
+    <string name="onboarding_1_body">Numarayı yazın veya yapıştırın, Gönder\'e dokunun. Sohbet WhatsApp, WhatsApp Business veya Telegram\'da açılır. Kişilerinize hiçbir şey kaydedilmez.</string>
+    <string name="onboarding_1_check">Kişilerinize eklenmez</string>
+    <string name="onboarding_1_send">Mesaj gönder</string>
+    <string name="onboarding_2_title">Dört araç, tek izin</string>
+    <string name="onboarding_2_body">Mavi tik olmadan okuyun, gönderenlerin sildiklerini kurtarın, ikinci bir hesap kullanın. Her şey bu telefonda kalır.</string>
+    <string name="onboarding_next">İleri</string>
+    <string name="onboarding_start">Başlayın</string>
+
+    <!-- Tool titles (Home tool rows, onboarding slide 2) -->
+    <string name="tool_unseen_title">Mavi tik olmadan okuyun</string>
+    <string name="tool_deleted_title">Silinen mesajları kurtarın</string>
+    <string name="tool_media_title">Silinen medyayı kurtarın</string>
+    <string name="tool_second_title">İkinci bir hesap açın</string>
+
+    <!-- Notification access gate (§4.7) -->
+    <string name="gate_title">Bildirim erişimine izin verin</string>
+    <string name="gate_body">Silinen mesajlar ve medya, WhatsApp bildirimlerinden alınıp saklanır. Hiçbir şey telefonunuzdan çıkmaz.</string>
+    <string name="gate_open_settings">Ayarları aç</string>
+    <string name="gate_waiting">Android bekleniyor…</string>
+    <string name="gate_hint_before">Tek izin hem mesaj hem de medya kurtarmayı açar.</string>
+    <string name="gate_continue">Devam et</string>
+    <string name="gate_hint_after">Bunu istediğiniz zaman Ayarlar\'dan kapatabilirsiniz.</string>
+    <string name="gate_bar_messages">Mesajlar</string>
+    <string name="gate_bar_media">Silinen medya</string>
+    <string name="gate_bar_settings">Bildirim erişimi</string>
+
+    <!-- Second-account foreground service notification (§4.14, §5.4) -->
+    <string name="second_notification_channel">İkinci hesap</string>
+    <string name="second_notification_title">İkinci hesap bağlandı</string>
+    <string name="second_notification_text">OpenChat\'i açmak için dokunun</string>
+    <string name="second_notification_open">Aç</string>
+
+    <!-- Time labels (§5.1) -->
+    <string name="time_now">Şimdi</string>
+    <string name="time_today">Bugün</string>
+    <string name="time_yesterday">Dün</string>
+    <string name="time_minutes_short">%d dk</string>
+    <string name="time_hours_short">%d sa</string>
+
+    <!-- Shared components -->
+    <string name="cd_back">Geri</string>
+    <string name="chip_off">Kapalı</string>
+    <string name="chip_active">Etkin</string>
+    <string name="chip_paused">Durduruldu</string>
+    <string name="chip_linked">Bağlı</string>
+</resources>

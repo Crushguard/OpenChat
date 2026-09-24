@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (§4.3) -->
+    <string name="home_phone_placeholder">Telefon numarası</string>
+    <string name="home_paste">Yapıştır</string>
+    <string name="home_message_placeholder">Mesaj (isteğe bağlı)</string>
+    <string name="home_send">Mesaj gönder</string>
+    <string name="home_send_with">Şununla gönder</string>
+    <string name="home_first_run_hint">Sohbet, seçtiğiniz uygulamada açılır. Kişilerinize hiçbir şey kaydedilmez.</string>
+    <string name="home_recent">Son kullanılanlar</string>
+    <string name="home_delete">Sil</string>
+    <string name="home_settings_cd">Ayarlar</string>
+    <string name="home_country_cd">Ülke</string>
+    <string name="home_clear_cd">Temizle</string>
+    <string name="home_choose_app_cd">Uygulama seç</string>
+
+    <!-- Home tool rows: status line under each tool's title -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">%d okunmamış, kimse fark etmez</item>
+        <item quantity="other">%d okunmamış, kimse fark etmez</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">Durduruldu</string>
+    <string name="tool_unseen_status_off">Burada okuyun, WhatsApp belli etmez</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">Gönderenin sildiği %d mesaj</item>
+        <item quantity="other">Gönderenin sildiği %d mesaj</item>
+    </plurals>
+    <string name="tool_deleted_status_off">Gönderenin sildiklerini saklar</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">Bu hafta %d öğe kurtarıldı</item>
+        <item quantity="other">Bu hafta %d öğe kurtarıldı</item>
+    </plurals>
+    <string name="tool_media_status_off">Fotoğraf, video, sesli mesaj, belge</string>
+    <string name="tool_second_status_linked">Bağlı</string>
+    <string name="tool_second_status_off">Uygulama içinde ikinci bir WhatsApp</string>
+
+    <!-- Country picker sheet (§4.4) -->
+    <string name="country_title">Ülke</string>
+    <string name="country_search">Ülke veya kod ara</string>
+    <string name="country_all">Tüm ülkeler</string>
+    <plurals name="country_results">
+        <item quantity="one">%d sonuç</item>
+        <item quantity="other">%d sonuç</item>
+    </plurals>
+    <string name="country_detected_sim">SIM kartınızdan algılandı: %1$s · %2$s</string>
+    <string name="country_detected_network">Mobil ağınızdan algılandı: %1$s · %2$s</string>
+    <string name="country_detected_locale">Dil ve bölge ayarınızdan algılandı: %1$s · %2$s</string>
+    <string name="country_close_cd">Kapat</string>
+
+    <!-- Not on WhatsApp confirmation sheet (§4.6) -->
+    <string name="not_on_wa_title">Bu numara WhatsApp\'ta yok</string>
+    <string name="not_on_wa_body">%s numarasının WhatsApp hesabı yok. Rakamları kontrol edin veya aynı mesajı Telegram\'dan gönderin.</string>
+    <string name="not_on_wa_edit">Numarayı düzenle</string>
+    <string name="not_on_wa_telegram">Telegram\'ı dene</string>
+
+    <!-- Home toasts (§5.1) -->
+    <string name="toast_opening">%s açılıyor…</string>
+    <string name="toast_pasted_country">Yapıştırıldı · ülke: %s</string>
+    <string name="toast_pasted">Yapıştırıldı</string>
+    <string name="toast_clipboard_empty">Pano boş</string>
+    <string name="toast_no_app">Bu numarayı açabilecek uygulama yok</string>
+</resources>

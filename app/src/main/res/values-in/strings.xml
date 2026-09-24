@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sharing -->
+    <string name="share_app_text">OpenChat membuka chat dengan nomor mana pun, tanpa menyimpan kontak. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding (design map §4.1, §4.2) -->
+    <string name="splash_honesty">Gratis · Tanpa iklan · Tanpa akun</string>
+    <string name="onboarding_skip">Lewati</string>
+    <string name="onboarding_1_title">Chat dengan nomor mana pun</string>
+    <string name="onboarding_1_body">Ketik atau tempel nomor, lalu ketuk Kirim. Chat terbuka di WhatsApp, WhatsApp Business, atau Telegram. Tidak ada yang disimpan ke kontak Anda.</string>
+    <string name="onboarding_1_check">Tidak ditambahkan ke kontak Anda</string>
+    <string name="onboarding_1_send">Kirim pesan</string>
+    <string name="onboarding_2_title">Empat fitur, satu izin</string>
+    <string name="onboarding_2_body">Baca tanpa centang biru, pulihkan yang dihapus pengirim, dan pakai akun kedua. Semuanya tetap di ponsel ini.</string>
+    <string name="onboarding_next">Berikutnya</string>
+    <string name="onboarding_start">Mulai</string>
+
+    <!-- Tool titles (Home tool rows, onboarding slide 2) -->
+    <string name="tool_unseen_title">Baca tanpa centang biru</string>
+    <string name="tool_deleted_title">Pulihkan pesan terhapus</string>
+    <string name="tool_media_title">Pulihkan media terhapus</string>
+    <string name="tool_second_title">Buka akun kedua</string>
+
+    <!-- Notification access gate (§4.7) -->
+    <string name="gate_title">Izinkan akses notifikasi</string>
+    <string name="gate_body">Pesan dan media yang dihapus disimpan dari notifikasi WhatsApp. Tidak ada yang keluar dari ponsel Anda.</string>
+    <string name="gate_open_settings">Buka pengaturan</string>
+    <string name="gate_waiting">Menunggu Android…</string>
+    <string name="gate_hint_before">Satu izin langsung mengaktifkan pemulihan pesan dan media.</string>
+    <string name="gate_continue">Lanjutkan</string>
+    <string name="gate_hint_after">Anda bisa mematikannya kapan saja di Pengaturan.</string>
+    <string name="gate_bar_messages">Pesan</string>
+    <string name="gate_bar_media">Media terhapus</string>
+    <string name="gate_bar_settings">Akses notifikasi</string>
+
+    <!-- Second-account foreground service notification (§4.14, §5.4) -->
+    <string name="second_notification_channel">Akun kedua</string>
+    <string name="second_notification_title">Akun kedua tertaut</string>
+    <string name="second_notification_text">Ketuk untuk membuka OpenChat</string>
+    <string name="second_notification_open">Buka</string>
+
+    <!-- Time labels (§5.1) -->
+    <string name="time_now">Baru saja</string>
+    <string name="time_today">Hari ini</string>
+    <string name="time_yesterday">Kemarin</string>
+    <string name="time_minutes_short">%d mnt</string>
+    <string name="time_hours_short">%d jam</string>
+
+    <!-- Shared components -->
+    <string name="cd_back">Kembali</string>
+    <string name="chip_off">Nonaktif</string>
+    <string name="chip_active">Aktif</string>
+    <string name="chip_paused">Dijeda</string>
+    <string name="chip_linked">Tertaut</string>
+</resources>

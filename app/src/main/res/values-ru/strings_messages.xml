@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox (§4.8) -->
+    <string name="messages_title">Сообщения</string>
+    <plurals name="messages_chip_all">
+        <item quantity="one">Все · %d непрочитанное</item>
+        <item quantity="few">Все · %d непрочитанных</item>
+        <item quantity="many">Все · %d непрочитанных</item>
+        <item quantity="other">Все · %d непрочитанного</item>
+    </plurals>
+    <string name="messages_chip_deleted">Только удалённые · %d</string>
+    <string name="messages_info_all">Читайте здесь — WhatsApp не покажет синие галочки. Фото появляются, если в уведомлении есть превью; голосовые сообщения и файлы отображаются по названию.</string>
+    <string name="messages_info_deleted">Сохраняются только сообщения, удалённые отправителем. Исключённые чаты полностью пропускаются.</string>
+    <string name="messages_empty_title">Пока здесь пусто</string>
+    <string name="messages_empty_body">Новые сообщения появляются здесь по мере поступления. Удалённые остаются в фильтре «Только удалённые».</string>
+    <string name="messages_tool_settings">Настройки функции</string>
+
+    <!-- Conversation (§4.9) -->
+    <string name="conversation_subtitle_all">%1$s · никто не узнает</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · %2$d удалённое</item>
+        <item quantity="few">%1$s · %2$d удалённых</item>
+        <item quantity="many">%1$s · %2$d удалённых</item>
+        <item quantity="other">%1$s · %2$d удалённого</item>
+    </plurals>
+    <string name="conversation_deleted_label">Удалено отправителем</string>
+    <string name="conversation_open">Открыть чат в WhatsApp</string>
+    <string name="conversation_hint_all">Если открыть чат в WhatsApp, отправятся отчёты о прочтении.</string>
+    <string name="conversation_hint_deleted">Здесь только чтение. Ответить можно в WhatsApp.</string>
+
+    <!-- Tool settings sheet (§4.10), exclude chats sheet (§4.11), clear confirmations (§4.20) -->
+    <string name="tool_settings_pause">Пауза восстановления</string>
+    <string name="tool_settings_exclude">Исключить чаты</string>
+    <string name="tool_settings_clear_messages">Очистить сохранённые сообщения</string>
+    <string name="tool_settings_clear_media">Удалить восстановленные медиа</string>
+    <string name="exclude_title">Исключить чаты</string>
+    <string name="exclude_empty">Чаты появятся здесь после первого сообщения.</string>
+    <string name="clear_messages_title">Очистить все восстановленные сообщения?</string>
+    <string name="clear_media_title">Удалить все восстановленные медиа?</string>
+    <string name="clear_body">Удаляются только копии в этом приложении. WhatsApp это не затронет.</string>
+    <string name="keep">Оставить</string>
+    <string name="clear">Очистить</string>
+
+    <!-- Toasts (§4.9, §4.10) -->
+    <string name="toast_paused">Восстановление приостановлено</string>
+    <string name="toast_resumed">Восстановление возобновлено</string>
+    <string name="toast_cleared">Очищено</string>
+    <string name="toast_opening_whatsapp">Открываем WhatsApp…</string>
+</resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings (§4.15) -->
+    <string name="settings_title">Pengaturan</string>
+    <string name="settings_access">Akses notifikasi</string>
+    <string name="settings_access_on">Aktif · fitur pesan dan media</string>
+    <string name="settings_access_off">Nonaktif · diperlukan untuk fitur pesan dan media</string>
+    <string name="settings_preferences">Preferensi</string>
+    <string name="settings_default_app">Aplikasi default</string>
+    <string name="settings_language">Bahasa</string>
+    <string name="settings_clear_recents">Hapus nomor terbaru</string>
+    <string name="settings_about">Tentang</string>
+    <string name="settings_rate">Nilai kami</string>
+    <string name="settings_contact">Hubungi kami</string>
+    <string name="settings_share">Bagikan aplikasi</string>
+    <string name="settings_privacy">Kebijakan privasi</string>
+    <string name="settings_version">Versi</string>
+    <string name="settings_honesty">OpenChat gratis. Tanpa iklan, tanpa akun, tanpa pelacakan. Nomor, pesan, dan media tidak pernah keluar dari ponsel Anda.</string>
+
+    <!-- Clear recent numbers confirmation (§4.15, §4.20) -->
+    <string name="clear_recents_title">Hapus nomor terbaru?</string>
+    <plurals name="clear_recents_body">
+        <item quantity="other">Menghapus %d nomor di Beranda. Tidak ada yang berubah di WhatsApp.</item>
+    </plurals>
+    <string name="clear_recents_keep">Simpan</string>
+    <string name="clear_recents_clear">Hapus</string>
+    <string name="toast_recents_cleared">Nomor terbaru dihapus</string>
+
+    <!-- Default app sheet (§4.16) -->
+    <string name="default_app_title">Aplikasi default</string>
+    <string name="toast_default_app">Aplikasi default: %s</string>
+
+    <!-- Language (§4.17) -->
+    <string name="language_title">Bahasa</string>
+    <string name="language_intro">Mengubah bahasa aplikasi. Pesan yang Anda kirim tetap Anda ketik sendiri, dalam bahasa apa pun.</string>
+    <string name="toast_language">Bahasa: %s</string>
+
+    <!-- Contact us (§4.18) -->
+    <string name="contact_title">Hubungi kami</string>
+    <string name="contact_intro">Nomor yang tidak mau terbuka, pesan yang tidak terpulihkan, atau ide. Semuanya langsung sampai ke tim.</string>
+    <string name="contact_placeholder">Apa yang terjadi, dan di layar mana?</string>
+    <string name="contact_email_label">Email · opsional, hanya jika Anda ingin dibalas</string>
+    <string name="contact_callout">Dikirim bersama versi aplikasi dan versi Android. Nomor dan pesan Anda tidak pernah ikut dikirim.</string>
+    <string name="contact_send">Kirim</string>
+    <string name="toast_sent">Terkirim. Terima kasih.</string>
+    <string name="toast_write_first">Tulis sesuatu dulu</string>
+    <string name="toast_no_email">Tidak ada aplikasi email</string>
+    <string name="toast_no_app_can_open">Tidak ada aplikasi untuk membuka link ini</string>
+
+    <!-- Rating sheet (§4.19) -->
+    <string name="rating_title">Suka dengan OpenChat?</string>
+    <string name="rating_body">Penilaian jujur Anda membantu orang lain menemukan aplikasi yang membuka nomor mana pun dengan sekali ketuk.</string>
+    <plurals name="rating_star_cd">
+        <item quantity="other">%d dari 5 bintang</item>
+    </plurals>
+    <string name="rating_hint_tap">Ketuk bintang</string>
+    <string name="rating_hint_1">Kami mohon maaf</string>
+    <string name="rating_hint_2">Kami bisa lebih baik</string>
+    <string name="rating_hint_3">Terima kasih, ceritakan lebih lanjut</string>
+    <string name="rating_hint_4">Senang aplikasinya berguna</string>
+    <string name="rating_hint_5">Terima kasih!</string>
+    <string name="rating_later">Mungkin nanti</string>
+    <string name="rating_store_title">Terima kasih!</string>
+    <string name="rating_store_body">Maukah Anda membagikannya di Google Play? Itu membantu aplikasi kecil berkembang.</string>
+    <string name="rating_store_cta">Beri nilai di Google Play</string>
+    <string name="rating_not_now">Nanti saja</string>
+    <string name="rating_feedback_title">Bagaimana kami bisa lebih baik?</string>
+    <string name="rating_feedback_body">Ceritakan apa yang kurang. Masukan ini langsung ke tim, bukan ulasan publik, dan kami membaca semuanya.</string>
+    <string name="rating_feedback_placeholder">Apa yang bisa membuat aplikasi ini layak 5 bintang?</string>
+    <string name="rating_feedback_send">Kirim masukan</string>
+    <string name="rating_cancel">Batal</string>
+    <string name="rating_thanks_title">Terima kasih, kami mendengar Anda</string>
+    <string name="rating_thanks_body">Catatan Anda sedang dikirim ke tim. Masukan ini membentuk apa yang kami buat berikutnya.</string>
+    <string name="rating_done">Selesai</string>
+    <string name="toast_play">Membuka Google Play…</string>
+</resources>

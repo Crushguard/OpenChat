@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account (§4.14): entry state -->
+    <string name="second_title">Akun kedua</string>
+    <string name="second_entry_title">WhatsApp kedua, di sini</string>
+    <string name="second_entry_body">Menautkan sesi WhatsApp Web di dalam aplikasi ini. Gunakan untuk akun kedua, atau akun yang sama di ponsel kedua.</string>
+    <string name="second_entry_callout">Anda memerlukan ponsel lain. Kode QR akan muncul di sini; pindai di ponsel itu lewat WhatsApp › Perangkat tertaut › Tautkan perangkat.</string>
+    <string name="second_scan">Tampilkan kode QR</string>
+    <string name="second_entry_hint">Notifikasi tetap tampil selama tertaut. Android mewajibkannya.</string>
+
+    <!-- Second account: linking / linked bar -->
+    <string name="second_linking">Menautkan…</string>
+    <string name="second_reload">Muat ulang</string>
+    <string name="second_log_out">Keluar</string>
+
+    <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
+    <string name="logout_title">Keluar dari akun tertaut?</string>
+    <string name="logout_body">Sesi di ponsel ini berakhir. Ponsel lain tetap berfungsi.</string>
+    <string name="logout_stay">Tetap tertaut</string>
+    <string name="logout_confirm">Keluar</string>
+    <string name="toast_reloading">Memuat ulang…</string>
+    <string name="toast_logged_out">Berhasil keluar</string>
+    <string name="toast_linked">Tertaut</string>
+</resources>
