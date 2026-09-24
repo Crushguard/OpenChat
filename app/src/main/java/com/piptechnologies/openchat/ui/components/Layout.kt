@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -92,11 +93,11 @@ fun OcTopBar(
     }
 }
 
-/** Uppercase mono eyebrow 11/700, letter-spacing .08em, muted. */
+/** Uppercase mono eyebrow 11/700, letter-spacing .08em, muted. Uppercased with the UI language's rules (Turkish İ). */
 @Composable
 fun SectionEyebrow(text: String, modifier: Modifier = Modifier) {
     Text(
-        text = text.uppercase(),
+        text = text.uppercase(LocalConfiguration.current.locales[0]),
         style = OcTheme.type.eyebrow11,
         color = OcTheme.colors.muted,
         modifier = modifier.padding(horizontal = 2.dp),

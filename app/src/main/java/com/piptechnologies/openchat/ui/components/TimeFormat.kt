@@ -94,7 +94,7 @@ private fun bestPattern(locale: Locale, skeleton: String, english: String): Stri
  * on the JVM): ICU's stand-alone weekday letters c and e (Russian's "ccc, d MMM") become E; quoted
  * literals ("d 'de' MMM") are kept.
  */
-private fun javaDatePattern(icuPattern: String): String {
+internal fun javaDatePattern(icuPattern: String): String {
     val pattern = StringBuilder(icuPattern.length)
     var quoted = false
     for (char in icuPattern) {

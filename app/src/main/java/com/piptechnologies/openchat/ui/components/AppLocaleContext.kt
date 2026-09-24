@@ -10,9 +10,10 @@ import androidx.appcompat.app.AppCompatDelegate
  * is not empty), a configuration context whose locales are that choice; otherwise `this`, which already
  * follows the device language.
  *
- * Only for text that leaves the app in an outbound intent, such as the share text resolved with the
- * application context, which on API 24–32 does not carry AppCompat's per-app language. Text shown in
- * the UI goes through [UiText] and is resolved by composables instead.
+ * For text resolved outside an activity, which on API 24–32 does not carry AppCompat's per-app
+ * language: the share text in an outbound intent, and notification text built in a service (the
+ * second-account foreground notification). Text shown in the UI goes through [UiText] and is
+ * resolved by composables instead.
  */
 fun Context.withAppLocale(): Context {
     val appLocales = AppCompatDelegate.getApplicationLocales()
