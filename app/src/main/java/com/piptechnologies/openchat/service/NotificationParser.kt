@@ -13,7 +13,10 @@ import javax.inject.Inject
 /**
  * A posted notification read as message lines (§5.2). [conversationTitle] is the chat's name; [lines] are in
  * notification order (oldest first); [fromMessagingStyle] is true when the lines are the MessagingStyle messages of a
- * conversation, false when they are the notification's plain text.
+ * conversation, false when they are the notification's plain text. [category] (`Notification.category`, e.g. "msg",
+ * "call", "progress"), [ongoing] (FLAG_ONGOING_EVENT), [foregroundService] (FLAG_FOREGROUND_SERVICE) and
+ * [showsProgress] (a progress bar) tell system notifications apart in any language
+ * ([com.piptechnologies.openchat.core.messages.NotificationText.isSystemNotification]).
  */
 data class ParsedNotification(
     val appPackage: String,
@@ -23,6 +26,10 @@ data class ParsedNotification(
     val postTime: Long,
     val isGroupSummary: Boolean,
     val fromMessagingStyle: Boolean = false,
+    val category: String? = null,
+    val ongoing: Boolean = false,
+    val foregroundService: Boolean = false,
+    val showsProgress: Boolean = false,
 )
 
 /**
@@ -41,13 +48,12 @@ class NotificationParser @Inject constructor() {
      * messages)" reads "Family") so that the conversation key stays the same from one notification to the next.
      * Lines: the MessagingStyle messages (text, own timestamp, sender; an image without text reads "📷 Photo"), else
      * EXTRA_TEXT_LINES, else EXTRA_BIG_TEXT or EXTRA_TEXT, the plain lines having no timestamp and no sender.
-     * Null when there is no title or no text, and for notifications that are never chat lines: ongoing ones, progress
-     * bars and calls.
+     * Also the category and flags by which the ingestor skips system notifications (calls, backup and restore
+     * progress, "Checking for new messages"), whatever the language. Null when there is no title or no text.
      */
     fun parse(sbn: StatusBarNotification): ParsedNotification? {
         val notification = sbn.notification ?: return null
         val extras = notification.extras ?: return null
-        if (isNeverChat(notification, extras)) return null
         val style = NotificationCompat.MessagingStyle.extractMessagingStyleFromNotification(notification)
         val styleLines = style?.let { messagesWithText(it).map { (message, text) -> lineOf(message, text) } }.orEmpty()
         val lines = styleLines.ifEmpty { plainLines(extras) }
@@ -61,6 +67,11 @@ class NotificationParser @Inject constructor() {
             postTime = sbn.postTime,
             isGroupSummary = (notification.flags and Notification.FLAG_GROUP_SUMMARY) != 0,
             fromMessagingStyle = styleLines.isNotEmpty(),
+            category = notification.category,
+            ongoing = (notification.flags and Notification.FLAG_ONGOING_EVENT) != 0,
+            foregroundService = (notification.flags and Notification.FLAG_FOREGROUND_SERVICE) != 0,
+            showsProgress = extras.getInt(Notification.EXTRA_PROGRESS_MAX, 0) > 0 ||
+                extras.getBoolean(Notification.EXTRA_PROGRESS_INDETERMINATE, false),
         )
     }
 
@@ -83,13 +94,6 @@ class NotificationParser @Inject constructor() {
         }
         return found
     }
-
-    /** Ongoing notifications (e.g. "Checking for new messages"), progress bars (backup, restore) and calls. */
-    private fun isNeverChat(notification: Notification, extras: Bundle): Boolean =
-        (notification.flags and Notification.FLAG_ONGOING_EVENT) != 0 ||
-            extras.getInt(Notification.EXTRA_PROGRESS_MAX, 0) > 0 ||
-            extras.getBoolean(Notification.EXTRA_PROGRESS_INDETERMINATE, false) ||
-            notification.category == Notification.CATEGORY_CALL
 
     /**
      * The messages that show something, with their text. [parse] and [images] both index this list, so an image's

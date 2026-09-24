@@ -398,21 +398,66 @@ Shown for 2.2 s, 90 dp above the bottom, centred, over any screen. Text per acti
 * `WaNotificationListenerService` bound for `com.whatsapp` and `com.whatsapp.w4b`. For every posted
   notification: parse `MessagingStyle` (conversation title, each message's text, timestamp, sender);
   fall back to EXTRA_TITLE / EXTRA_TEXT / EXTRA_BIG_TEXT / EXTRA_TEXT_LINES. Skip group summaries
-  (FLAG_GROUP_SUMMARY), "N messages from M chats" summaries, "Checking for new messages", and
-  excluded chats. Conversation key = normalized title. Each new message (by conversation + timestamp
-  + text hash) is stored once in Room `messages` with `seenLocally = false`. Message kinds: TEXT,
+  (FLAG_GROUP_SUMMARY) and excluded chats. Skip system notifications before storing anything, whatever
+  the phone's language (`NotificationText.isSystemNotification`, fed by the parser with the category and
+  flags): category call, missed call, progress, service, status, transport, system, alarm or error;
+  ongoing or foreground-service notifications ("Checking for new messages", a call in progress); progress
+  bars (backup, restore); and plain-text (non-MessagingStyle) notifications titled "WhatsApp" / "WhatsApp
+  Business" (a chat's notification carries the chat's name). The lines of plain-text notifications and of
+  notifications titled with the app label also go through the noise rules (`isSummaryOrNoise`): the English
+  rules ("N messages from M chats", "Checking for new messages", "backup", calls, …) plus WhatsApp's status
+  lines in every app language (checking for / may have new messages, "N new messages", backup and restore,
+  incoming / ongoing / missed / group calls, calling, ringing, "WhatsApp Web is active"; 2021 wording
+  outside English), each a whole line give or take a leading 📹/☎ and trailing "…" or count, and the
+  bundle summary in either argument order: two numbers, one next to the language's message word and one
+  next to its chat word ("12 messages from 2 chats", "2 sohbetten 12 mesaj", "来自 2 个对话的 12 条消息").
+  A conversation's own MessagingStyle lines never go through the noise rules. Conversation key =
+  normalized title. Each new message (by conversation + timestamp + text hash) is stored once in Room
+  `messages` with `seenLocally = false`. Message kinds: TEXT,
   PHOTO ("📷 Photo" text or a data URI image), VOICE ("🎤 Voice message (0:12)"), DOCUMENT ("📄 name"),
   STICKER, VIDEO — derived from the text prefix; the text is kept verbatim for display.
 * Images: a MessagingStyle message with an image `dataUri` (WhatsApp content provider) or EXTRA_PICTURE
   is copied to app storage at once (`files/notif-media/`), linked to the message (`mediaId`) and also
   listed in Deleted media when the message is later deleted.
-* Deleted detection (`DeletedMessageDetector`, pure Kotlin): a message line whose text matches the
-  deleted pattern ("This message was deleted", "🚫 This message was deleted", "This message was
-  deleted." and the localized variants the app ships: Indonesian "Pesan ini telah dihapus", Portuguese
-  "Essa mensagem foi apagada" / "Esta mensagem foi apagada", Spanish "Se eliminó este mensaje", Turkish
-  "Bu mesaj silindi", Hindi "यह मैसेज हटा दिया गया", Urdu "یہ پیغام حذف کر دیا گیا", Zulu fallback
-  English) replaces the original in the notification. Rule: for the same conversation, a deleted-pattern
-  line with timestamp T marks the stored message with timestamp T (±2 s) as deleted; when timestamps
+* Deleted detection (`DeletedMessageDetector`, pure Kotlin): a message line whose text matches a
+  deleted placeholder (`NotificationText.isDeletedPattern`, strings in `WhatsAppStrings`; table below)
+  replaces the original in the notification. The match is exact after normalizing both sides: bidi marks
+  and isolates dropped, NFC, an optional leading 🚫 (notifications carry none; the chat bubble's is a
+  drawable), trailing "." "।" "۔" "。" and spaces trimmed, any case, Arabic yeh/kaf read as the
+  Persian/Urdu letters (ي→ی, ك→ک), typographic apostrophe and space runs folded. Admin variants are
+  templates: the admin's name (1–80 characters) sits where the language puts it and the rest must match
+  the whole line, e.g. "This message was deleted by an admin", "This message was deleted by admin
+  Zeeshan", "Un admin., Lucía, eliminó este mensaje.", "Diese Nachricht wurde von Admin Max gelöscht.",
+  "Bu mesaj Ayşe adlı yönetici tarafından silindi.", "این پیام را مدیر (رضا) حذف کرد." (Android English
+  high; the other languages from WhatsApp iOS strings and the Help Center, low–medium, medium for es, de,
+  fa). Old and new wordings are all kept, since the WhatsApp versions in use vary. Sources: WhatsApp
+  Android string resources (2017/2021), WhatsApp iOS strings, real Android chat exports, WhatsApp Help
+  Center.
+
+  | Language | Placeholder variants (newest first) | Confidence |
+  |---|---|---|
+  | en | This message was deleted | high |
+  | id | Pesan ini dihapus · Pesan ini telah dihapus (2017–2021) | medium · high |
+  | pt-BR | Mensagem apagada · Essa mensagem foi apagada (2021) · Esta mensagem foi apagada (2017) | medium · high · high |
+  | pt | Esta mensagem foi apagada · Esta mensagem foi apagada pelo remetente. (2017) | high · high |
+  | ur | یہ میسج حذف کر دیا گیا ہے۔ (iOS wording) · یہ پیغام حذف کیا گیا (2017/2021) · یہ پیغام حذف کر دیا گیا (in no WhatsApp source; kept) | low–medium · high · low |
+  | hi | यह मैसेज डिलीट कर दिया गया है. (iOS wording) · यह मैसेज मिटाया गया (2021) · यह संदेश मिटाया गया (2017) · यह मैसेज हटा दिया गया (in no WhatsApp source; kept) | medium–low · high · high · low |
+  | tr | Bu mesaj silindi | high |
+  | es | Se eliminó este mensaje. · Este mensaje fue eliminado (2017–2021) | medium · high |
+  | ar | تم حذف هذه الرسالة | high |
+  | fa | این پیام حذف شده است. (iOS wording) · این پیام حذف شد (2017/2021) | low–medium · high |
+  | ps | none of its own: WhatsApp for Android has no Pashto UI, the phone shows English | medium (inferred) |
+  | he | הודעה זו נמחקה | high |
+  | fr | Ce message a été supprimé. | high |
+  | de | Diese Nachricht wurde gelöscht. | high |
+  | it | Questo messaggio è stato eliminato | high |
+  | ru | Данное сообщение удалено | high |
+  | zh | 这条消息已被删除。 (iOS wording) · 消息已删除 (2021) · 信息已删除 (2017) | low–medium · high · high |
+  | ha | An goge wannan saƙon (unverified guess: WhatsApp's Hausa strings could not be read; older builds show English) | low |
+  | my | none of its own: no Burmese UI in WhatsApp for Android, the phone shows English | medium (inferred) |
+
+  Rule: for the same conversation, a deleted-pattern line with timestamp T marks the stored message
+  with timestamp T (±2 s) as deleted; when timestamps
   are absent, the stored unseen message at the same position from the end is marked. Also: when the
   notification for a conversation is removed with REASON_APP_CANCEL and the last posted content for it
   contained a deleted-pattern line, any still-unmarked stored message that no longer appears in the last

@@ -48,7 +48,10 @@ class NotificationIngestor @Inject constructor(
     /** Conversation key → ids of the stored messages its notification can still show (see the class comment). */
     private val windowIds = HashMap<String, MutableSet<Long>>()
 
-    /** Returns false when recovery is paused: nothing was read, and the caller skips its follow-up work. */
+    /**
+     * Returns false when nothing was read, and the caller skips its follow-up work: recovery is paused, or the
+     * notification is a system one (a call, backup progress, "Checking for new messages": see [ingest]).
+     */
     suspend fun onPosted(parsed: ParsedNotification, images: List<NotificationImage>): Boolean =
         mutex.withLock { ingest(parsed, images) }
 
@@ -57,13 +60,24 @@ class NotificationIngestor @Inject constructor(
         mutex.withLock { forget(sbnKey, reason) }
     }
 
-    /** Returns false only while recovery is paused. */
+    /** Returns false while recovery is paused and for system notifications, which are never read. */
     private suspend fun ingest(parsed: ParsedNotification, images: List<NotificationImage>): Boolean {
         if (settings.recoveryPaused.first()) return false
         if (parsed.isGroupSummary) return true
         val title = parsed.conversationTitle
+        val appLabel = NotificationText.isAppLabel(title)
+        // Calls, progress bars, services, app-titled notices: never chat lines, whatever the phone's language (§5.2).
+        val system = NotificationText.isSystemNotification(
+            category = parsed.category,
+            ongoing = parsed.ongoing,
+            foregroundService = parsed.foregroundService,
+            showsProgress = parsed.showsProgress,
+            fromMessagingStyle = parsed.fromMessagingStyle,
+            titleIsAppLabel = appLabel,
+        )
+        if (system) return false
         // The noise rules are broad ("backup"): a conversation's own MessagingStyle lines never go through them.
-        val screen = !parsed.fromMessagingStyle || isAppLabel(title)
+        val screen = !parsed.fromMessagingStyle || appLabel
         val kept = parsed.lines.withIndex().filterNot { screen && NotificationText.isSummaryOrNoise(title, it.value.text) }
         if (kept.isEmpty()) return true
         val lines = kept.map { it.value }
@@ -151,8 +165,6 @@ class NotificationIngestor @Inject constructor(
         return result
     }
 
-    private fun isAppLabel(title: String): Boolean = APP_LABELS.any { it.equals(title.trim(), ignoreCase = true) }
-
     /** The display name's extension: the image subtype ("png", "webp", "gif"), else "jpg". */
     private fun extensionFor(mimeType: String): String {
         val subtype = mimeType.substringAfter('/').substringBefore(';').trim().lowercase(Locale.US)
@@ -181,6 +193,5 @@ class NotificationIngestor @Inject constructor(
         /** MessagingStyle keeps at most 25 messages, so a notification never shows more stored messages than that. */
         const val WINDOW_SIZE = 25
         const val JPEG_MIME = "image/jpeg"
-        val APP_LABELS = listOf("WhatsApp", "WhatsApp Business")
     }
 }

@@ -15,7 +15,8 @@ class NotificationTextEdgeCasesTest {
             "\u200EThis message was deleted\u200F", "Pesan ini telah dihapus", "Essa mensagem foi apagada",
             "Esta mensagem foi apagada.", "Se eliminó este mensaje", "Se elimino\u0301 este mensaje", "Bu mesaj silindi",
             "यह मैसेज हटा दिया गया", "यह मैसेज हटा दिया गया।", "یہ پیغام حذف کر دیا گیا", "یہ پیغام حذف کر دیا گیا۔",
-            "This message was deleted by admin", "🚫 This message was deleted by admin.",
+            "This message was deleted by admin Zeeshan", "🚫 This message was deleted by admin Zeeshan.",
+            "This message was deleted by an admin",
         ).forEach { assertTrue(it, NotificationText.isDeletedPattern(it)) }
         listOf("", "🚫", "This message was deleted lol", "Deleted", "This message was delightful", "You deleted this message")
             .forEach { assertFalse(it, NotificationText.isDeletedPattern(it)) }
