@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home (design map §4.3) -->
-    <string name="home_phone_placeholder">Número de teléfono</string>
+    <string name="home_phone_placeholder">Número</string>
     <string name="home_paste">Pegar</string>
     <string name="home_message_placeholder">Mensaje (opcional)</string>
     <string name="home_send">Enviar mensaje</string>
@@ -23,9 +23,9 @@
     <string name="tool_unseen_status_paused">En pausa</string>
     <string name="tool_unseen_status_off">Lee aquí. WhatsApp no muestra nada</string>
     <plurals name="tool_deleted_status_granted">
-        <item quantity="one">%d mensaje eliminado por el remitente</item>
-        <item quantity="many">%d mensajes eliminados por el remitente</item>
-        <item quantity="other">%d mensajes eliminados por el remitente</item>
+        <item quantity="one">%d mensaje que el remitente eliminó</item>
+        <item quantity="many">%d mensajes que el remitente eliminó</item>
+        <item quantity="other">%d mensajes que el remitente eliminó</item>
     </plurals>
     <string name="tool_deleted_status_off">Guarda lo que el remitente elimina</string>
     <plurals name="tool_media_status_granted">
@@ -33,7 +33,7 @@
         <item quantity="many">%d archivos recuperados esta semana</item>
         <item quantity="other">%d archivos recuperados esta semana</item>
     </plurals>
-    <string name="tool_media_status_off">Fotos, videos, notas de voz, documentos</string>
+    <string name="tool_media_status_off">Fotos, videos, audios, documentos</string>
     <string name="tool_second_status_linked">Vinculada</string>
     <string name="tool_second_status_off">Un segundo WhatsApp en esta app</string>
 

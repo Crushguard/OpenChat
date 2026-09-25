@@ -34,7 +34,7 @@
     <string name="gate_bar_settings">Accesso alle notifiche</string>
 
     <!-- Second-account foreground service notification (design map §4.14, §5.4) -->
-    <string name="second_notification_channel">Secondo account</string>
+    <string name="second_notification_channel">Altro account</string>
     <string name="second_notification_title">Secondo account collegato</string>
     <string name="second_notification_text">Tocca per aprire OpenChat</string>
     <string name="second_notification_open">Apri</string>

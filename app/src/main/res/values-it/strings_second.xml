@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Second account (design map §4.14) -->
-    <string name="second_title">Secondo account</string>
+    <string name="second_title">Altro account</string>
     <string name="second_entry_title">Un secondo WhatsApp, qui dentro</string>
     <string name="second_entry_body">Collega una sessione di WhatsApp Web in questa app. Usala per un secondo account o per lo stesso account su un secondo telefono.</string>
     <string name="second_entry_callout">Ti serve l\'altro telefono. Qui compare un codice QR: scansionalo lì in WhatsApp › Dispositivi collegati › Collega un dispositivo.</string>

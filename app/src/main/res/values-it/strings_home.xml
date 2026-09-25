@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home (design map §4.3) -->
-    <string name="home_phone_placeholder">Numero di telefono</string>
+    <string name="home_phone_placeholder">Numero</string>
     <string name="home_paste">Incolla</string>
     <string name="home_message_placeholder">Messaggio (facoltativo)</string>
     <string name="home_send">Invia messaggio</string>

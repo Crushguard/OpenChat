@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home -->
-    <string name="home_phone_placeholder">Número de telefone</string>
+    <string name="home_phone_placeholder">Número</string>
     <string name="home_paste">Colar</string>
     <string name="home_message_placeholder">Mensagem (opcional)</string>
     <string name="home_send">Enviar mensagem</string>
@@ -21,11 +21,11 @@
         <item quantity="other">%d não lidas, sem ninguém saber</item>
     </plurals>
     <string name="tool_unseen_status_paused">Em pausa</string>
-    <string name="tool_unseen_status_off">Leia aqui. O WhatsApp não mostra nada</string>
+    <string name="tool_unseen_status_off">Leia aqui sem ninguém saber</string>
     <plurals name="tool_deleted_status_granted">
-        <item quantity="one">%d mensagem apagada pelo remetente</item>
-        <item quantity="many">%d mensagens apagadas pelo remetente</item>
-        <item quantity="other">%d mensagens apagadas pelo remetente</item>
+        <item quantity="one">%d apagada pelo remetente</item>
+        <item quantity="many">%d apagadas pelo remetente</item>
+        <item quantity="other">%d apagadas pelo remetente</item>
     </plurals>
     <string name="tool_deleted_status_off">Guarda o que o remetente apagou</string>
     <plurals name="tool_media_status_granted">
@@ -35,7 +35,7 @@
     </plurals>
     <string name="tool_media_status_off">Fotos, vídeos, áudios, documentos</string>
     <string name="tool_second_status_linked">Associada</string>
-    <string name="tool_second_status_off">Um segundo WhatsApp nesta aplicação</string>
+    <string name="tool_second_status_off">Um segundo WhatsApp aqui dentro</string>
 
     <!-- Country picker sheet -->
     <string name="country_title">País</string>
