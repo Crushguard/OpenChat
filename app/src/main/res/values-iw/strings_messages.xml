@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox -->
+    <string name="messages_title">הודעות</string>
+    <plurals name="messages_chip_all">
+        <item quantity="one">הכול · %d לא נקראה</item>
+        <item quantity="two">הכול · %d לא נקראו</item>
+        <item quantity="other">הכול · %d לא נקראו</item>
+    </plurals>
+    <string name="messages_chip_deleted">רק מחוקות · %d</string>
+    <string name="messages_info_all">קוראים כאן, וב-WhatsApp לא יופיע וי כחול. תמונות מופיעות כשההתראה כוללת תצוגה מקדימה; הודעות קוליות וקבצים מוצגים לפי השם.</string>
+    <string name="messages_info_deleted">נשמרות רק הודעות שהשולח מחק. צ\'אטים שהוחרגו לא נשמרים בכלל.</string>
+    <string name="messages_empty_title">עדיין אין כאן כלום</string>
+    <string name="messages_empty_body">הודעות חדשות יופיעו כאן כשהן מגיעות. הודעות שנמחקו נשארות במסנן \"רק מחוקות\".</string>
+    <string name="messages_tool_settings">הגדרות הכלי</string>
+
+    <!-- Conversation -->
+    <string name="conversation_subtitle_all">%1$s · בלי שאיש יודע</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · %2$d נמחקה</item>
+        <item quantity="two">%1$s · %2$d נמחקו</item>
+        <item quantity="other">%1$s · %2$d נמחקו</item>
+    </plurals>
+    <string name="conversation_deleted_label">נמחקה על ידי השולח</string>
+    <string name="conversation_open">פתיחת הצ\'אט ב-WhatsApp</string>
+    <string name="conversation_hint_all">פתיחת הצ\'אט ב-WhatsApp שולחת אישורי קריאה.</string>
+    <string name="conversation_hint_deleted">כאן אפשר רק לקרוא. עונים ב-WhatsApp.</string>
+
+    <!-- Tool settings sheet, exclude chats sheet, clear confirmations -->
+    <string name="tool_settings_pause">השהיית השחזור</string>
+    <string name="tool_settings_exclude">החרגת צ\'אטים</string>
+    <string name="tool_settings_clear_messages">מחיקת כל ההודעות השמורות</string>
+    <string name="tool_settings_clear_media">מחיקת כל המדיה ששוחזרה</string>
+    <string name="exclude_title">החרגת צ\'אטים</string>
+    <string name="exclude_empty">צ\'אטים יופיעו כאן אחרי ההודעה הראשונה שלהם.</string>
+    <string name="clear_messages_title">למחוק את כל ההודעות ששוחזרו?</string>
+    <string name="clear_media_title">למחוק את כל המדיה ששוחזרה?</string>
+    <string name="clear_body">נמחקים רק העותקים שבאפליקציה הזו. ב-WhatsApp לא משתנה דבר.</string>
+    <string name="keep">שמירה</string>
+    <string name="clear">מחיקה</string>
+
+    <!-- Toasts -->
+    <string name="toast_paused">השחזור הושהה</string>
+    <string name="toast_resumed">השחזור חודש</string>
+    <string name="toast_cleared">הכול נמחק</string>
+    <string name="toast_opening_whatsapp">פותחים את WhatsApp…</string>
+</resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Links, sharing and feedback -->
+    <string name="share_app_text">עם OpenChat אפשר לפתוח צ\'אט עם כל מספר, בלי לשמור איש קשר. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding -->
+    <string name="splash_honesty">חינם · ללא מודעות · ללא חשבון</string>
+    <string name="onboarding_skip">דילוג</string>
+    <string name="onboarding_1_title">צ\'אט עם כל מספר</string>
+    <string name="onboarding_1_body">מקלידים או מדביקים מספר ושולחים. הצ\'אט נפתח ב-WhatsApp, ב-WhatsApp Business או ב-Telegram. שום דבר לא נשמר באנשי הקשר.</string>
+    <string name="onboarding_1_check">לא נשמר באנשי הקשר</string>
+    <string name="onboarding_1_send">שליחת הודעה</string>
+    <string name="onboarding_2_title">ארבעה כלים, הרשאה אחת</string>
+    <string name="onboarding_2_body">קוראים בלי וי כחול, משחזרים את מה שהשולחים מוחקים ומפעילים חשבון שני. הכול נשאר בטלפון הזה.</string>
+    <string name="onboarding_next">הבא</string>
+    <string name="onboarding_start">בואו נתחיל</string>
+
+    <!-- Tool titles -->
+    <string name="tool_unseen_title">קריאה בלי וי כחול</string>
+    <string name="tool_deleted_title">שחזור הודעות שנמחקו</string>
+    <string name="tool_media_title">שחזור מדיה שנמחקה</string>
+    <string name="tool_second_title">פתיחת חשבון שני</string>
+
+    <!-- Notification access gate -->
+    <string name="gate_title">אישור גישה להתראות</string>
+    <string name="gate_body">הודעות ומדיה שנמחקו נשמרות מתוך ההתראות של WhatsApp. שום דבר לא יוצא מהטלפון.</string>
+    <string name="gate_open_settings">פתיחת ההגדרות</string>
+    <string name="gate_waiting">בהמתנה ל-Android…</string>
+    <string name="gate_hint_before">הרשאה אחת מפעילה גם את שחזור ההודעות וגם את שחזור המדיה.</string>
+    <string name="gate_continue">המשך</string>
+    <string name="gate_hint_after">אפשר לכבות את זה בכל עת בהגדרות.</string>
+    <string name="gate_bar_messages">הודעות</string>
+    <string name="gate_bar_media">מדיה שנמחקה</string>
+    <string name="gate_bar_settings">גישה להתראות</string>
+
+    <!-- Second-account foreground service notification -->
+    <string name="second_notification_channel">חשבון שני</string>
+    <string name="second_notification_title">החשבון השני מקושר</string>
+    <string name="second_notification_text">הקישו כדי לפתוח את OpenChat</string>
+    <string name="second_notification_open">פתיחה</string>
+
+    <!-- Time labels -->
+    <string name="time_now">עכשיו</string>
+    <string name="time_today">היום</string>
+    <string name="time_yesterday">אתמול</string>
+    <string name="time_minutes_short">%d דק\'</string>
+    <string name="time_hours_short">%d שע\'</string>
+
+    <!-- Shared components -->
+    <string name="cd_back">חזרה</string>
+    <string name="chip_off">כבוי</string>
+    <string name="chip_active">פעיל</string>
+    <string name="chip_paused">מושהה</string>
+    <string name="chip_linked">מקושר</string>
+</resources>

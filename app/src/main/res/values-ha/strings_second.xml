@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account: entry state -->
+    <string name="second_title">Asusu na biyu</string>
+    <string name="second_entry_title">WhatsApp na biyu, a nan ciki</string>
+    <string name="second_entry_body">Yana haɗa WhatsApp Web a cikin wannan manhajar. Yi amfani da shi don asusu na biyu, ko don asusunka na yanzu a waya ta biyu.</string>
+    <!-- WhatsApp's Hausa menu names (not verified against WhatsApp's own strings). -->
+    <string name="second_entry_callout">Kana buƙatar ɗayan wayar. Lambar QR za ta bayyana a nan; ka duba ta a can ta WhatsApp › Na\'urorin da aka haɗa › Haɗa na\'ura.</string>
+    <string name="second_scan">Duba lambar QR</string>
+    <string name="second_entry_hint">Sanarwa za ta kasance a bayyane muddin an haɗa. Android ne ya buƙaci hakan.</string>
+
+    <!-- Second account: linking / linked bar -->
+    <string name="second_linking">Ana haɗawa…</string>
+    <string name="second_reload">Sake lodawa</string>
+    <string name="second_log_out">Fita</string>
+
+    <!-- Log out confirmation and toasts -->
+    <string name="logout_title">Fita daga asusun da aka haɗa?</string>
+    <string name="logout_body">Zaman zai ƙare a wannan wayar. Ɗayan wayar za ta ci gaba da aiki.</string>
+    <string name="logout_stay">Kar a fita</string>
+    <string name="logout_confirm">Fita</string>
+    <string name="toast_reloading">Ana sake lodawa…</string>
+    <string name="toast_logged_out">An fita</string>
+    <string name="toast_linked">An haɗa</string>
+</resources>

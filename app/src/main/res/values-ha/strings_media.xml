@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media -->
+    <string name="media_title">Fayilolin da aka goge</string>
+    <string name="media_tool_settings">Saitunan kayan aiki</string>
+
+    <!-- Category pills -->
+    <string name="media_tab_photos">Hotuna</string>
+    <string name="media_tab_videos">Bidiyo</string>
+    <string name="media_tab_audio">Sauti</string>
+    <string name="media_tab_documents">Takardu</string>
+    <string name="media_tab_stickers">Sitika</string>
+
+    <string name="media_empty_nothing">Ba a dawo da komai ba tukuna</string>
+    <string name="media_empty_audio">Babu sauti tukuna</string>
+    <string name="media_empty_documents">Babu takardu tukuna</string>
+    <string name="media_empty_stickers">Babu sitika tukuna</string>
+    <string name="media_empty_body">Fayilolin da wani ya goge wa kowa ana ajiye su a nan, matuƙar sun riga sun iso wayarka.</string>
+    <string name="media_allow">Ba da izinin shiga fayiloli</string>
+    <string name="media_access_off">Izinin shiga fayiloli a kashe yake, don haka ba a ajiye sabbin fayiloli.</string>
+
+    <!-- Media detail -->
+    <string name="media_detail_title_photo">Hoto</string>
+    <string name="media_detail_title_video">Bidiyo</string>
+    <string name="media_detail_title_audio">Sauti</string>
+    <string name="media_detail_title_document">Takarda</string>
+    <string name="media_detail_title_sticker">Sitika</string>
+    <string name="media_save">Ajiye a hotunanka</string>
+    <string name="media_share">Raba</string>
+    <string name="media_delete">Goge</string>
+    <string name="media_play">Kunna</string>
+    <string name="media_pause">Dakata</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <!-- The day (%2$s / %1$s) is a stand-alone label: "Yau", "Jiya" or a date, followed by a comma and the time. -->
+    <string name="media_meta_from">Daga %1$s · %2$s, %3$s · An goge %4$s</string>
+    <string name="media_meta_received">An karɓa: %1$s, %2$s · An goge %3$s</string>
+    <string name="media_meta_from_kept">Daga %1$s · %2$s, %3$s</string>
+    <string name="media_meta_received_kept">An karɓa: %1$s, %2$s</string>
+    <string name="delete_media_title_photo">A goge wannan hoton?</string>
+    <string name="delete_media_title_video">A goge wannan bidiyon?</string>
+    <string name="delete_media_title_audio">A goge wannan sautin?</string>
+    <string name="delete_media_title_document">A goge wannan takardar?</string>
+    <string name="delete_media_title_sticker">A goge wannan sitikar?</string>
+    <string name="delete_media_body">Za a cire shi daga “Dawo da fayiloli”. Idan ka ajiye shi a hotunanka, wannan kwafin zai kasance a can.</string>
+    <string name="toast_saved">An ajiye a cikin hotunanka</string>
+    <string name="toast_save_failed">An kasa ajiyewa</string>
+    <string name="toast_share">Ana buɗe zaɓuɓɓukan rabawa…</string>
+    <string name="toast_share_failed">An kasa rabawa</string>
+    <string name="toast_deleted">An goge</string>
+</resources>

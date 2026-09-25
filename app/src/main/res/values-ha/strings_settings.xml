@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings -->
+    <string name="settings_title">Saituna</string>
+    <string name="settings_access">Damar karanta sanarwa</string>
+    <string name="settings_access_on">A kunne · kayan aikin saƙonni da fayiloli</string>
+    <string name="settings_access_off">A kashe · ana buƙata don kayan aikin saƙonni da fayiloli</string>
+    <string name="settings_preferences">Zaɓuɓɓuka</string>
+    <string name="settings_default_app">Manhajar aikawa</string>
+    <string name="settings_language">Harshe</string>
+    <string name="settings_clear_recents">Goge lambobin kwanan nan</string>
+    <string name="settings_about">Game da mu</string>
+    <string name="settings_rate">Kimanta mu</string>
+    <string name="settings_contact">Tuntuɓe mu</string>
+    <string name="settings_share">Raba manhajar</string>
+    <string name="settings_privacy">Manufar sirri</string>
+    <string name="settings_version">Siga</string>
+    <string name="settings_honesty">OpenChat kyauta ne. Babu talla, babu asusu, babu bin diddigi. Lambobi, saƙonni da fayiloli ba sa taɓa barin wayarka.</string>
+
+    <!-- Clear recent numbers confirmation -->
+    <string name="clear_recents_title">A goge lambobin kwanan nan?</string>
+    <plurals name="clear_recents_body">
+        <item quantity="one">Za a cire lamba %d daga shafin farko. Babu abin da zai canza a WhatsApp.</item>
+        <item quantity="other">Za a cire lambobi %d daga shafin farko. Babu abin da zai canza a WhatsApp.</item>
+    </plurals>
+    <string name="clear_recents_keep">Kar a goge</string>
+    <string name="clear_recents_clear">Goge</string>
+    <string name="toast_recents_cleared">An goge lambobin kwanan nan</string>
+
+    <!-- Default app sheet -->
+    <string name="default_app_title">Manhajar aikawa</string>
+    <string name="toast_default_app">Manhajar aikawa: %s</string>
+
+    <!-- Language -->
+    <string name="language_title">Harshe</string>
+    <string name="language_intro">Yana canza harshen manhajar kawai. Saƙonnin da kake aikawa, kai ne kake rubuta su, da kowane harshe.</string>
+    <string name="toast_language">Harshe: %s</string>
+
+    <!-- Contact us -->
+    <string name="contact_title">Tuntuɓe mu</string>
+    <string name="contact_intro">Lambar da ba ta buɗewa, saƙon da ba a dawo da shi ba, ko wani sabon ra\'ayi. Kai tsaye yake zuwa ga ƙungiyarmu.</string>
+    <string name="contact_placeholder">Me ya faru, kuma a wane shafi?</string>
+    <string name="contact_email_label">Imel · ba dole ba, sai idan kana son amsa</string>
+    <string name="contact_callout">Ana aikawa tare da sigar manhaja da sigar Android. Ba a taɓa aika lambobinka ko saƙonninka ba.</string>
+    <string name="contact_send">Aika</string>
+    <string name="toast_sent">An aika. Mun gode.</string>
+    <string name="toast_write_first">Fara rubuta wani abu</string>
+    <string name="toast_no_email">Ba a sami manhajar imel ba</string>
+    <string name="toast_no_app_can_open">Babu manhajar da za ta iya buɗe wannan</string>
+
+    <!-- Rating sheet -->
+    <string name="rating_title">Kana jin daɗin OpenChat?</string>
+    <string name="rating_body">Kimantawarka ta gaskiya tana taimaka wa wasu su sami manhajar da ke buɗe kowace lamba da danna sau ɗaya.</string>
+    <plurals name="rating_star_cd">
+        <item quantity="one">Tauraro %d cikin biyar</item>
+        <item quantity="other">Taurari %d cikin biyar</item>
+    </plurals>
+    <string name="rating_hint_tap">Danna tauraro</string>
+    <string name="rating_hint_1">Mun yi baƙin cikin jin haka</string>
+    <string name="rating_hint_2">Za mu iya yin mafi kyau</string>
+    <string name="rating_hint_3">Mun gode, ƙara gaya mana</string>
+    <string name="rating_hint_4">Muna farin ciki yana aiki</string>
+    <string name="rating_hint_5">Mun gode!</string>
+    <string name="rating_later">Wataƙila daga baya</string>
+    <string name="rating_store_title">Mun gode!</string>
+    <string name="rating_store_body">Za ka iya faɗin haka a Google Play? Yana taimaka wa ƙaramar manhaja ta bunƙasa.</string>
+    <string name="rating_store_cta">Kimanta a Google Play</string>
+    <string name="rating_not_now">Ba yanzu ba</string>
+    <string name="rating_feedback_title">Ta yaya za mu inganta?</string>
+    <string name="rating_feedback_body">Gaya mana abin da bai yi kyau ba. Kai tsaye yake zuwa ga ƙungiyarmu, ba sharhin jama\'a ba, kuma muna karanta kowanne.</string>
+    <string name="rating_feedback_placeholder">Me zai sa wannan manhaja ta cancanci taurari biyar?</string>
+    <string name="rating_feedback_send">Aika ra\'ayi</string>
+    <string name="rating_cancel">Soke</string>
+    <string name="rating_thanks_title">Mun gode, mun ji ka</string>
+    <string name="rating_thanks_body">Saƙonka yana kan hanyarsa zuwa ga ƙungiyarmu. Zai taimaka mana wajen zaɓar abin da za mu gina na gaba.</string>
+    <string name="rating_done">An gama</string>
+    <string name="toast_play">Ana buɗe Google Play…</string>
+</resources>

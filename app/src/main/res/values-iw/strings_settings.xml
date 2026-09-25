@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings -->
+    <string name="settings_title">הגדרות</string>
+    <string name="settings_access">גישה להתראות</string>
+    <string name="settings_access_on">פעילה · כלי ההודעות והמדיה</string>
+    <string name="settings_access_off">כבויה · נדרשת לכלי ההודעות והמדיה</string>
+    <string name="settings_preferences">העדפות</string>
+    <string name="settings_default_app">אפליקציית ברירת מחדל</string>
+    <string name="settings_language">שפה</string>
+    <string name="settings_clear_recents">ניקוי המספרים האחרונים</string>
+    <string name="settings_about">אודות</string>
+    <string name="settings_rate">דרגו אותנו</string>
+    <string name="settings_contact">צרו קשר</string>
+    <string name="settings_share">שיתוף האפליקציה</string>
+    <string name="settings_privacy">מדיניות הפרטיות</string>
+    <string name="settings_version">גרסה</string>
+    <string name="settings_honesty">השימוש ב-OpenChat חינם. ללא מודעות, ללא חשבון, ללא מעקב. מספרים, הודעות ומדיה אף פעם לא יוצאים מהטלפון.</string>
+
+    <!-- Clear recent numbers confirmation -->
+    <string name="clear_recents_title">לנקות את המספרים האחרונים?</string>
+    <plurals name="clear_recents_body">
+        <item quantity="one">יוסר מספר אחד ממסך הבית. ב-WhatsApp לא ישתנה דבר.</item>
+        <item quantity="two">יוסרו שני מספרים ממסך הבית. ב-WhatsApp לא ישתנה דבר.</item>
+        <item quantity="other">יוסרו %d מספרים ממסך הבית. ב-WhatsApp לא ישתנה דבר.</item>
+    </plurals>
+    <string name="clear_recents_keep">שמירה</string>
+    <string name="clear_recents_clear">ניקוי</string>
+    <string name="toast_recents_cleared">המספרים האחרונים נוקו</string>
+
+    <!-- Default app sheet -->
+    <string name="default_app_title">אפליקציית ברירת מחדל</string>
+    <string name="toast_default_app">אפליקציית ברירת מחדל: %s</string>
+
+    <!-- Language -->
+    <string name="language_title">שפה</string>
+    <string name="language_intro">משנה את שפת האפליקציה בלבד. את ההודעות אפשר להקליד בכל שפה.</string>
+    <string name="toast_language">שפה: %s</string>
+
+    <!-- Contact us -->
+    <string name="contact_title">צרו קשר</string>
+    <string name="contact_intro">מספר שלא נפתח, הודעה שלא שוחזרה, רעיון חדש. הכול מגיע ישר לצוות.</string>
+    <string name="contact_placeholder">מה קרה, ובאיזה מסך?</string>
+    <string name="contact_email_label">אימייל · לא חובה, רק אם רוצים תשובה</string>
+    <string name="contact_callout">נשלח יחד עם גרסת האפליקציה וגרסת Android. מספרים והודעות לא נשלחים אף פעם.</string>
+    <string name="contact_send">שליחה</string>
+    <string name="toast_sent">נשלח. תודה.</string>
+    <string name="toast_write_first">קודם כתבו משהו</string>
+    <string name="toast_no_email">לא נמצאה אפליקציית אימייל</string>
+    <string name="toast_no_app_can_open">אין אפליקציה שיכולה לפתוח את זה</string>
+
+    <!-- Rating sheet -->
+    <string name="rating_title">נהנים מ-OpenChat?</string>
+    <string name="rating_body">דירוג כן עוזר לאנשים אחרים למצוא אפליקציה שפותחת כל מספר בהקשה אחת.</string>
+    <plurals name="rating_star_cd">
+        <item quantity="one">כוכב אחד מתוך חמישה</item>
+        <item quantity="two">שני כוכבים מתוך חמישה</item>
+        <item quantity="other">%d כוכבים מתוך חמישה</item>
+    </plurals>
+    <string name="rating_hint_tap">הקישו על כוכב</string>
+    <string name="rating_hint_1">מצטערים לשמוע</string>
+    <string name="rating_hint_2">נוכל לעשות טוב יותר</string>
+    <string name="rating_hint_3">תודה, ספרו לנו עוד</string>
+    <string name="rating_hint_4">שמחים שזה עובד</string>
+    <string name="rating_hint_5">תודה רבה!</string>
+    <string name="rating_later">אולי מאוחר יותר</string>
+    <string name="rating_store_title">תודה רבה!</string>
+    <string name="rating_store_body">רוצים לשתף את זה ב-Google Play? זה עוזר לאפליקציה קטנה לגדול.</string>
+    <string name="rating_store_cta">דירוג ב-Google Play</string>
+    <string name="rating_not_now">לא עכשיו</string>
+    <string name="rating_feedback_title">איך נוכל להשתפר?</string>
+    <string name="rating_feedback_body">ספרו לנו מה לא היה מספיק טוב. ההודעה מגיעה ישר לצוות, לא לביקורת פומבית, ואנחנו קוראים כל אחת.</string>
+    <string name="rating_feedback_placeholder">מה היה הופך את האפליקציה הזו לאפליקציה של חמישה כוכבים?</string>
+    <string name="rating_feedback_send">שליחת משוב</string>
+    <string name="rating_cancel">ביטול</string>
+    <string name="rating_thanks_title">תודה, אנחנו מקשיבים</string>
+    <string name="rating_thanks_body">ההודעה בדרך לצוות. היא עוזרת לנו להחליט מה לבנות בהמשך.</string>
+    <string name="rating_done">סיום</string>
+    <string name="toast_play">פותחים את Google Play…</string>
+</resources>

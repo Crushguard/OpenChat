@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media -->
+    <string name="media_title">ړنګ شوي فایلونه</string>
+    <string name="media_tool_settings">د اوزار تنظیمات</string>
+
+    <!-- Category pills -->
+    <string name="media_tab_photos">انځورونه</string>
+    <string name="media_tab_videos">ویډیوګانې</string>
+    <string name="media_tab_audio">آډیو</string>
+    <string name="media_tab_documents">اسناد</string>
+    <string name="media_tab_stickers">سټیکرونه</string>
+
+    <string name="media_empty_nothing">لا تر اوسه هېڅ شی نه دی راګرځول شوی</string>
+    <string name="media_empty_audio">لا تر اوسه آډیو نشته</string>
+    <string name="media_empty_documents">لا تر اوسه سند نشته</string>
+    <string name="media_empty_stickers">لا تر اوسه سټیکر نشته</string>
+    <!-- "Delete for everyone" is WhatsApp's English menu name (WhatsApp has no Pashto interface). -->
+    <string name="media_empty_body">هغه فایلونه چې څوک یې د «Delete for everyone» په کارولو ړنګ کړي، دلته ساتل کېږي، په دې شرط چې مخکې تاسو ته رسېدلي وي.</string>
+    <string name="media_allow">فایلونو ته لاسرسی ورکړئ</string>
+    <string name="media_access_off">فایلونو ته لاسرسی بند دی، نو نوي فایلونه نه ساتل کېږي.</string>
+
+    <!-- Media detail -->
+    <string name="media_detail_title_photo">انځور</string>
+    <string name="media_detail_title_video">ویډیو</string>
+    <string name="media_detail_title_audio">آډیو</string>
+    <string name="media_detail_title_document">سند</string>
+    <string name="media_detail_title_sticker">سټیکر</string>
+    <string name="media_save">په ګالري کې خوندي کړئ</string>
+    <string name="media_share">شریکول</string>
+    <string name="media_delete">ړنګول</string>
+    <string name="media_play">چلول</string>
+    <string name="media_pause">ودرول</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <!-- The day (%2$s / %1$s) is a stand-alone label: "نن", "پرون" or a date, followed by a comma and the time. -->
+    <string name="media_meta_from">له %1$s څخه · %2$s، %3$s · په %4$s ړنګ شو</string>
+    <string name="media_meta_received">ترلاسه شو: %1$s، %2$s · په %3$s ړنګ شو</string>
+    <string name="media_meta_from_kept">له %1$s څخه · %2$s، %3$s</string>
+    <string name="media_meta_received_kept">ترلاسه شو: %1$s، %2$s</string>
+    <string name="delete_media_title_photo">دا انځور ړنګول غواړئ؟</string>
+    <string name="delete_media_title_video">دا ویډیو ړنګول غواړئ؟</string>
+    <string name="delete_media_title_audio">دا آډیو ړنګول غواړئ؟</string>
+    <string name="delete_media_title_document">دا سند ړنګول غواړئ؟</string>
+    <string name="delete_media_title_sticker">دا سټیکر ړنګول غواړئ؟</string>
+    <string name="delete_media_body">دا له «د فایلونو راګرځول» څخه لرې کېږي. که مو په ګالري کې خوندي کړی وي، هغه کاپي پاتې کېږي.</string>
+    <string name="toast_saved">په ګالري کې خوندي شو</string>
+    <string name="toast_save_failed">خوندي نه شو</string>
+    <string name="toast_share">د شریکولو اختیارونه پرانیستل کېږي…</string>
+    <string name="toast_share_failed">شریک نه شو</string>
+    <string name="toast_deleted">ړنګ شو</string>
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home -->
+    <string name="home_phone_placeholder">د ټیلیفون شمېره</string>
+    <string name="home_paste">پېسټ</string>
+    <string name="home_message_placeholder">پیغام (اختیاري)</string>
+    <string name="home_send">پیغام ولېږئ</string>
+    <string name="home_send_with">له دې لارې ولېږئ</string>
+    <string name="home_first_run_hint">چټ په هغه اپلیکیشن کې پرانیستل کېږي چې تاسو یې غوره کوئ. ستاسو په اړیکو کې هېڅ شی نه خوندي کېږي.</string>
+    <string name="home_recent">وروستۍ شمېرې</string>
+    <string name="home_delete">ړنګول</string>
+    <string name="home_settings_cd">تنظیمات</string>
+    <string name="home_country_cd">هېواد</string>
+    <string name="home_clear_cd">پاکول</string>
+    <string name="home_choose_app_cd">اپلیکیشن غوره کړئ</string>
+
+    <!-- Home tool rows -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">%d نوی پیغام، هېڅوک نه خبرېږي</item>
+        <item quantity="other">%d نوي پیغامونه، هېڅوک نه خبرېږي</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">ودرول شوی</string>
+    <string name="tool_unseen_status_off">دلته یې ولولئ، WhatsApp هېڅ نه ښيي</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">%d پیغام د لېږونکي لخوا ړنګ شوی</item>
+        <item quantity="other">%d پیغامونه د لېږونکي لخوا ړنګ شوي</item>
+    </plurals>
+    <string name="tool_deleted_status_off">هغه څه ساتي چې لېږونکی یې ړنګوي</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">%d فایل په دې اونۍ کې بېرته راغی</item>
+        <item quantity="other">%d فایلونه په دې اونۍ کې بېرته راغلل</item>
+    </plurals>
+    <string name="tool_media_status_off">انځورونه، ویډیوګانې، غږیز پیغامونه، اسناد</string>
+    <string name="tool_second_status_linked">وصل شوی</string>
+    <string name="tool_second_status_off">په دې اپلیکیشن کې دویم WhatsApp</string>
+
+    <!-- Country picker sheet -->
+    <string name="country_title">هېواد</string>
+    <string name="country_search">هېواد یا کوډ ولټوئ</string>
+    <string name="country_all">ټول هېوادونه</string>
+    <plurals name="country_results">
+        <item quantity="one">%d پایله</item>
+        <item quantity="other">%d پایلې</item>
+    </plurals>
+    <string name="country_detected_sim">ستاسو له SIM څخه معلوم شو: %1$s · %2$s</string>
+    <string name="country_detected_network">ستاسو له شبکې څخه معلوم شو: %1$s · %2$s</string>
+    <string name="country_detected_locale">ستاسو د ژبې او سیمې له تنظیماتو معلوم شو: %1$s · %2$s</string>
+    <string name="country_close_cd">بندول</string>
+
+    <!-- Not on WhatsApp confirmation sheet -->
+    <string name="not_on_wa_title">دا شمېره په WhatsApp کې نشته</string>
+    <string name="not_on_wa_body">شمېره %s د WhatsApp حساب نه لري. عددونه یې وګورئ، یا همدا پیغام په Telegram کې ولېږئ.</string>
+    <string name="not_on_wa_edit">شمېره سمه کړئ</string>
+    <string name="not_on_wa_telegram">Telegram وازمویئ</string>
+
+    <!-- Home toasts -->
+    <string name="toast_opening">%s پرانیستل کېږي…</string>
+    <string name="toast_pasted_country">پېسټ شو · هېواد: %s</string>
+    <string name="toast_pasted">پېسټ شو</string>
+    <string name="toast_clipboard_empty">هېڅ شی کاپي شوی نه دی</string>
+    <string name="toast_no_app">هېڅ اپلیکیشن دا شمېره نه شي پرانیستلای</string>
+</resources>

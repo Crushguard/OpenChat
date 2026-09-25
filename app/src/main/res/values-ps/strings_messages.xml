@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox -->
+    <string name="messages_title">پیغامونه</string>
+    <plurals name="messages_chip_all">
+        <item quantity="one">ټول · %d نوی</item>
+        <item quantity="other">ټول · %d نوي</item>
+    </plurals>
+    <string name="messages_chip_deleted">یوازې ړنګ شوي · %d</string>
+    <string name="messages_info_all">دلته یې ولولئ او WhatsApp به blue ticks نه ښيي. انځورونه هغه وخت ښکاري چې خبرتیا مخکتنه ولري؛ غږیز پیغامونه او فایلونه په نوم ښودل کېږي.</string>
+    <string name="messages_info_deleted">یوازې هغه پیغامونه ساتل کېږي چې لېږونکي ړنګ کړي وي. استثنا شوي چټونه په بشپړ ډول پرېښودل کېږي.</string>
+    <string name="messages_empty_title">لا تر اوسه دلته څه نشته</string>
+    <string name="messages_empty_body">نوي پیغامونه له رارسېدو سره سم دلته ښکاري. ړنګ شوي پیغامونه په «یوازې ړنګ شوي» کې پاتې کېږي.</string>
+    <string name="messages_tool_settings">د اوزار تنظیمات</string>
+
+    <!-- Conversation -->
+    <string name="conversation_subtitle_all">%1$s · هېڅوک نه خبرېږي</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · %2$d ړنګ شوی</item>
+        <item quantity="other">%1$s · %2$d ړنګ شوي</item>
+    </plurals>
+    <string name="conversation_deleted_label">لېږونکي ړنګ کړ</string>
+    <string name="conversation_open">چټ په WhatsApp کې پرانیزئ</string>
+    <string name="conversation_hint_all">که چټ په WhatsApp کې پرانیزئ، لېږونکي ته blue ticks ښکاري.</string>
+    <string name="conversation_hint_deleted">دلته یوازې لوستل کېږي. ځواب په WhatsApp کې ورکول کېږي.</string>
+
+    <!-- Tool settings sheet, exclude chats sheet, clear confirmations -->
+    <string name="tool_settings_pause">راګرځول ودروئ</string>
+    <string name="tool_settings_exclude">چټونه استثنا کړئ</string>
+    <string name="tool_settings_clear_messages">ټول ساتل شوي پیغامونه پاک کړئ</string>
+    <string name="tool_settings_clear_media">ټول راګرځول شوي فایلونه ړنګ کړئ</string>
+    <string name="exclude_title">چټونه استثنا کړئ</string>
+    <string name="exclude_empty">چټونه د خپل لومړي پیغام وروسته دلته ښکاري.</string>
+    <string name="clear_messages_title">ټول راګرځول شوي پیغامونه پاکول غواړئ؟</string>
+    <string name="clear_media_title">ټول راګرځول شوي فایلونه ړنګول غواړئ؟</string>
+    <string name="clear_body">یوازې د دې اپلیکیشن نقلونه ړنګېږي. په WhatsApp کې هېڅ نه بدلېږي.</string>
+    <string name="keep">ساتل</string>
+    <string name="clear">پاکول</string>
+
+    <!-- Toasts -->
+    <string name="toast_paused">راګرځول ودرېدل</string>
+    <string name="toast_resumed">راګرځول بیا پیل شول</string>
+    <string name="toast_cleared">ټول پاک شول</string>
+    <string name="toast_opening_whatsapp">WhatsApp پرانیستل کېږي…</string>
+</resources>

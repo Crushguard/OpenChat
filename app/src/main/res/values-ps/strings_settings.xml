@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings -->
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_access">خبرتیاوو ته لاسرسی</string>
+    <string name="settings_access_on">فعال · د پیغامونو او فایلونو اوزارونه</string>
+    <string name="settings_access_off">بند · د پیغامونو او فایلونو اوزارونو ته اړین دی</string>
+    <string name="settings_preferences">غوره توبونه</string>
+    <string name="settings_default_app">ډیفالټ اپلیکیشن</string>
+    <string name="settings_language">ژبه</string>
+    <string name="settings_clear_recents">وروستۍ شمېرې پاکول</string>
+    <string name="settings_about">په اړه</string>
+    <string name="settings_rate">امتیاز ورکړئ</string>
+    <string name="settings_contact">له موږ سره اړیکه</string>
+    <string name="settings_share">اپلیکیشن شریک کړئ</string>
+    <string name="settings_privacy">د محرمیت تګلاره</string>
+    <string name="settings_version">نسخه</string>
+    <string name="settings_honesty">د OpenChat کارول وړیا دي. اعلانونه، حساب او څارنه نشته. شمېرې، پیغامونه او فایلونه هېڅکله ستاسو له ټیلیفون څخه نه وځي.</string>
+
+    <!-- Clear recent numbers confirmation -->
+    <string name="clear_recents_title">وروستۍ شمېرې پاکول غواړئ؟</string>
+    <plurals name="clear_recents_body">
+        <item quantity="one">له کور پاڼې څخه %d شمېره لرې کوي. په WhatsApp کې هېڅ نه بدلېږي.</item>
+        <item quantity="other">له کور پاڼې څخه %d شمېرې لرې کوي. په WhatsApp کې هېڅ نه بدلېږي.</item>
+    </plurals>
+    <string name="clear_recents_keep">ساتل</string>
+    <string name="clear_recents_clear">پاکول</string>
+    <string name="toast_recents_cleared">وروستۍ شمېرې پاکې شوې</string>
+
+    <!-- Default app sheet -->
+    <string name="default_app_title">ډیفالټ اپلیکیشن</string>
+    <string name="toast_default_app">ډیفالټ اپلیکیشن: %s</string>
+
+    <!-- Language -->
+    <string name="language_title">ژبه</string>
+    <string name="language_intro">یوازې د اپلیکیشن ژبه بدلوي. پیغامونه تاسو پخپله په هره ژبه چې وغواړئ لیکئ.</string>
+    <string name="toast_language">ژبه: %s</string>
+
+    <!-- Contact us -->
+    <string name="contact_title">له موږ سره اړیکه</string>
+    <string name="contact_intro">یوه شمېره چې نه پرانیستل کېږي، یو پیغام چې بېرته رانغی، یا کوم نوی فکر. ستاسو خبره مستقیم ټیم ته رسېږي.</string>
+    <string name="contact_placeholder">څه وشول، او په کومه پاڼه کې؟</string>
+    <string name="contact_email_label">ایمیل · اختیاري، یوازې که ځواب غواړئ</string>
+    <string name="contact_callout">د اپلیکیشن او Android له نسخې سره لېږل کېږي. ستاسو شمېرې یا پیغامونه هېڅکله نه لېږل کېږي.</string>
+    <string name="contact_send">واستوئ</string>
+    <string name="toast_sent">ولېږل شو. مننه.</string>
+    <string name="toast_write_first">لومړی یو څه ولیکئ</string>
+    <string name="toast_no_email">د ایمیل اپلیکیشن ونه موندل شو</string>
+    <string name="toast_no_app_can_open">هېڅ اپلیکیشن دا نه شي پرانیستلای</string>
+
+    <!-- Rating sheet -->
+    <string name="rating_title">له OpenChat څخه خوند اخلئ؟</string>
+    <string name="rating_body">ستاسو رښتینی امتیاز له نورو خلکو سره مرسته کوي چې داسې اپلیکیشن ومومي چې هره شمېره په یو کلیک پرانیزي.</string>
+    <plurals name="rating_star_cd">
+        <item quantity="one">%d ستوری له پنځو څخه</item>
+        <item quantity="other">%d ستوري له پنځو څخه</item>
+    </plurals>
+    <string name="rating_hint_tap">پر یوه ستوري کلیک وکړئ</string>
+    <string name="rating_hint_1">بښنه غواړو</string>
+    <string name="rating_hint_2">موږ به یې لا ښه کړو</string>
+    <string name="rating_hint_3">مننه، نور هم راته ووایئ</string>
+    <string name="rating_hint_4">خوشحاله یو چې کار کوي</string>
+    <string name="rating_hint_5">ډېره مننه!</string>
+    <string name="rating_later">بیا وروسته</string>
+    <string name="rating_store_title">ډېره مننه!</string>
+    <string name="rating_store_body">ایا دا نظر په Google Play کې هم شریکولی شئ؟ دا له یوه کوچني اپلیکیشن سره په وده کې مرسته کوي.</string>
+    <string name="rating_store_cta">په Google Play کې امتیاز ورکړئ</string>
+    <string name="rating_not_now">اوس نه</string>
+    <string name="rating_feedback_title">څنګه ځان ښه کړو؟</string>
+    <string name="rating_feedback_body">راته ووایئ چې څه کمی و. ستاسو خبره مستقیم ټیم ته رسېږي، نه عامه بیاکتنې ته، او موږ یې هره یوه لولو.</string>
+    <string name="rating_feedback_placeholder">څه شي به دا اپلیکیشن د پنځو ستورو وړ کړی وای؟</string>
+    <string name="rating_feedback_send">نظر واستوئ</string>
+    <string name="rating_cancel">لغوه</string>
+    <string name="rating_thanks_title">مننه، ستاسو خبره مو واورېده</string>
+    <string name="rating_thanks_body">ستاسو یادښت ټیم ته په لاره دی. دا ټاکي چې موږ به بیا څه جوړوو.</string>
+    <string name="rating_done">ترسره شو</string>
+    <string name="toast_play">Google Play پرانیستل کېږي…</string>
+</resources>

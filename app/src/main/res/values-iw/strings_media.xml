@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media -->
+    <string name="media_title">מדיה שנמחקה</string>
+    <string name="media_tool_settings">הגדרות הכלי</string>
+
+    <!-- Category pills -->
+    <string name="media_tab_photos">תמונות</string>
+    <string name="media_tab_videos">סרטונים</string>
+    <string name="media_tab_audio">אודיו</string>
+    <string name="media_tab_documents">מסמכים</string>
+    <string name="media_tab_stickers">סטיקרים</string>
+
+    <string name="media_empty_nothing">עדיין לא שוחזר כלום</string>
+    <string name="media_empty_audio">עדיין אין קובצי אודיו</string>
+    <string name="media_empty_documents">עדיין אין מסמכים</string>
+    <string name="media_empty_stickers">עדיין אין סטיקרים</string>
+    <string name="media_empty_body">קבצים שמישהו מחק באמצעות \"מחיקה אצל כולם\" נשמרים כאן, בתנאי שהתקבלו לפני המחיקה.</string>
+    <string name="media_allow">אישור גישה למדיה</string>
+    <string name="media_access_off">הגישה למדיה כבויה, ולכן קבצים חדשים לא נשמרים.</string>
+
+    <!-- Media detail -->
+    <string name="media_detail_title_photo">תמונה</string>
+    <string name="media_detail_title_video">סרטון</string>
+    <string name="media_detail_title_audio">אודיו</string>
+    <string name="media_detail_title_document">מסמך</string>
+    <string name="media_detail_title_sticker">סטיקר</string>
+    <string name="media_save">שמירה בגלריה</string>
+    <string name="media_share">שיתוף</string>
+    <string name="media_delete">מחיקה</string>
+    <string name="media_play">הפעלה</string>
+    <string name="media_pause">השהיה</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <!-- The day (%2$s / %1$s) is a stand-alone label: "היום", "אתמול" or a date, followed by a comma and the time. -->
+    <string name="media_meta_from">מאת %1$s · %2$s, %3$s · נמחק ב-%4$s</string>
+    <string name="media_meta_received">התקבל: %1$s, %2$s · נמחק ב-%3$s</string>
+    <string name="media_meta_from_kept">מאת %1$s · %2$s, %3$s</string>
+    <string name="media_meta_received_kept">התקבל: %1$s, %2$s</string>
+    <string name="delete_media_title_photo">למחוק את התמונה הזו?</string>
+    <string name="delete_media_title_video">למחוק את הסרטון הזה?</string>
+    <string name="delete_media_title_audio">למחוק את קובץ האודיו הזה?</string>
+    <string name="delete_media_title_document">למחוק את המסמך הזה?</string>
+    <string name="delete_media_title_sticker">למחוק את הסטיקר הזה?</string>
+    <string name="delete_media_body">הקובץ יוסר משחזור המדיה. אם נשמר עותק בגלריה, הוא יישאר שם.</string>
+    <string name="toast_saved">נשמר בגלריה</string>
+    <string name="toast_save_failed">השמירה נכשלה</string>
+    <string name="toast_share">פותחים את אפשרויות השיתוף…</string>
+    <string name="toast_share_failed">השיתוף נכשל</string>
+    <string name="toast_deleted">נמחק</string>
+</resources>

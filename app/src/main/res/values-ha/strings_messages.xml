@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox -->
+    <string name="messages_title">Saƙonni</string>
+    <plurals name="messages_chip_all">
+        <item quantity="one">Duka · %d ba a karanta ba</item>
+        <item quantity="other">Duka · %d ba a karanta ba</item>
+    </plurals>
+    <string name="messages_chip_deleted">Waɗanda aka goge · %d</string>
+    <string name="messages_info_all">Karanta a nan, WhatsApp ba zai nuna alamar shuɗi ba. Hotuna suna bayyana idan sanarwar tana da samfoti; saƙonnin murya da fayiloli suna nuna sunansu kawai.</string>
+    <string name="messages_info_deleted">Saƙonnin da mai aikawa ya goge kaɗai ake ajiyewa. Ba a ajiye komai daga hirarrakin da aka ware.</string>
+    <string name="messages_empty_title">Babu komai a nan tukuna</string>
+    <string name="messages_empty_body">Sabbin saƙonni suna bayyana a nan da zarar sun iso. Waɗanda aka goge suna zama a “Waɗanda aka goge”.</string>
+    <string name="messages_tool_settings">Saitunan kayan aiki</string>
+
+    <!-- Conversation -->
+    <string name="conversation_subtitle_all">%1$s · ba wanda ya gani</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · an goge %2$d</item>
+        <item quantity="other">%1$s · an goge %2$d</item>
+    </plurals>
+    <string name="conversation_deleted_label">Mai aikawa ya goge</string>
+    <string name="conversation_open">Buɗe hirar a WhatsApp</string>
+    <string name="conversation_hint_all">Buɗe hirar a WhatsApp zai nuna wa mai aikawa alamar shuɗi.</string>
+    <string name="conversation_hint_deleted">A nan karatu kawai ake yi. Ana ba da amsa a WhatsApp.</string>
+
+    <!-- Tool settings sheet, exclude chats sheet, clear confirmations -->
+    <string name="tool_settings_pause">Dakatar da ajiyewa</string>
+    <string name="tool_settings_exclude">Ware hirarraki</string>
+    <string name="tool_settings_clear_messages">Goge duk saƙonnin da aka ajiye</string>
+    <string name="tool_settings_clear_media">Goge duk fayilolin da aka dawo da su</string>
+    <string name="exclude_title">Ware hirarraki</string>
+    <string name="exclude_empty">Hirarraki suna bayyana a nan bayan saƙonsu na farko.</string>
+    <string name="clear_messages_title">A goge duk saƙonnin da aka dawo da su?</string>
+    <string name="clear_media_title">A goge duk fayilolin da aka dawo da su?</string>
+    <string name="clear_body">Kwafin wannan manhajar kaɗai za a goge. Babu abin da zai canza a WhatsApp.</string>
+    <string name="keep">Kar a goge</string>
+    <string name="clear">Goge</string>
+
+    <!-- Toasts -->
+    <string name="toast_paused">An dakatar da ajiyewa</string>
+    <string name="toast_resumed">An ci gaba da ajiyewa</string>
+    <string name="toast_cleared">An goge komai</string>
+    <string name="toast_opening_whatsapp">Ana buɗe WhatsApp…</string>
+</resources>

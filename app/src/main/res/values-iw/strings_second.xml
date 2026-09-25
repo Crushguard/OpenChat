@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account: entry state -->
+    <string name="second_title">חשבון שני</string>
+    <string name="second_entry_title">עוד WhatsApp, ממש כאן</string>
+    <string name="second_entry_body">כאן מקשרים את WhatsApp Web בתוך האפליקציה. אפשר להשתמש בו לחשבון שני, או לאותו חשבון בטלפון נוסף.</string>
+    <!-- WhatsApp's own Hebrew menu names: מכשירים מקושרים › קישור מכשיר. -->
+    <string name="second_entry_callout">צריך את הטלפון השני. כאן יופיע קוד QR, וסורקים אותו בטלפון השני דרך WhatsApp › מכשירים מקושרים › קישור מכשיר.</string>
+    <string name="second_scan">סריקת קוד QR</string>
+    <string name="second_entry_hint">כל עוד החשבון מקושר, מוצגת התראה קבועה. זו דרישה של Android.</string>
+
+    <!-- Second account: linking / linked bar -->
+    <string name="second_linking">מקשרים…</string>
+    <string name="second_reload">טעינה מחדש</string>
+    <string name="second_log_out">התנתקות</string>
+
+    <!-- Log out confirmation and toasts -->
+    <string name="logout_title">להתנתק מהחשבון המקושר?</string>
+    <string name="logout_body">החיבור יסתיים בטלפון הזה. הטלפון השני ימשיך לעבוד כרגיל.</string>
+    <string name="logout_stay">להישאר</string>
+    <string name="logout_confirm">להתנתק</string>
+    <string name="toast_reloading">טוענים מחדש…</string>
+    <string name="toast_logged_out">החשבון נותק</string>
+    <string name="toast_linked">החשבון קושר</string>
+</resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Links, sharing and feedback -->
+    <string name="share_app_text">د OpenChat په مرسته له هرې شمېرې سره چټ پرانیزئ، پرته له دې چې هغه په اړیکو کې خوندي کړئ. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding -->
+    <string name="splash_honesty">وړیا · بې اعلانه · حساب نه غواړي</string>
+    <string name="onboarding_skip">پرېښودل</string>
+    <string name="onboarding_1_title">له هرې شمېرې سره چټ وکړئ</string>
+    <string name="onboarding_1_body">شمېره ولیکئ یا یې پېسټ کړئ، بیا پر «پیغام ولېږئ» کلیک وکړئ. چټ په WhatsApp، WhatsApp Business یا Telegram کې پرانیستل کېږي. ستاسو په اړیکو کې هېڅ شی نه خوندي کېږي.</string>
+    <string name="onboarding_1_check">ستاسو اړیکو ته نه اضافه کېږي</string>
+    <string name="onboarding_1_send">پیغام ولېږئ</string>
+    <string name="onboarding_2_title">څلور اوزارونه، یوه اجازه</string>
+    <!-- WhatsApp has no Pashto interface: "blue ticks" stays in WhatsApp's English. -->
+    <string name="onboarding_2_body">پرته له blue ticks پیغامونه ولولئ، هغه څه بېرته راوګرځوئ چې لېږونکي یې ړنګوي، او دویم حساب وچلوئ. هر څه په همدې ټیلیفون کې پاتې کېږي.</string>
+    <string name="onboarding_next">بل</string>
+    <string name="onboarding_start">پیل وکړئ</string>
+
+    <!-- Tool titles -->
+    <string name="tool_unseen_title">پرته له blue ticks لوستل</string>
+    <string name="tool_deleted_title">ړنګ شوي پیغامونه راګرځول</string>
+    <string name="tool_media_title">ړنګ شوي فایلونه راګرځول</string>
+    <string name="tool_second_title">دویم حساب پرانیستل</string>
+
+    <!-- Notification access gate -->
+    <string name="gate_title">خبرتیاوو ته د لاسرسي اجازه ورکړئ</string>
+    <string name="gate_body">ړنګ شوي پیغامونه او فایلونه د WhatsApp له خبرتیاوو څخه ساتل کېږي. هېڅ شی ستاسو له ټیلیفون څخه نه وځي.</string>
+    <string name="gate_open_settings">تنظیمات پرانیزئ</string>
+    <string name="gate_waiting">د Android په انتظار…</string>
+    <string name="gate_hint_before">یوه اجازه دواړه فعالوي: د پیغامونو راګرځول او د فایلونو راګرځول.</string>
+    <string name="gate_continue">دوام ورکړئ</string>
+    <string name="gate_hint_after">هر وخت یې په تنظیماتو کې بندولی شئ.</string>
+    <string name="gate_bar_messages">پیغامونه</string>
+    <string name="gate_bar_media">ړنګ شوي فایلونه</string>
+    <string name="gate_bar_settings">خبرتیاوو ته لاسرسی</string>
+
+    <!-- Second-account foreground service notification -->
+    <string name="second_notification_channel">دویم حساب</string>
+    <string name="second_notification_title">دویم حساب وصل دی</string>
+    <string name="second_notification_text">د OpenChat د پرانیستلو لپاره کلیک وکړئ</string>
+    <string name="second_notification_open">پرانیستل</string>
+
+    <!-- Time labels -->
+    <string name="time_now">اوس</string>
+    <string name="time_today">نن</string>
+    <string name="time_yesterday">پرون</string>
+    <string name="time_minutes_short">%d دقیقې</string>
+    <string name="time_hours_short">%d ساعته</string>
+
+    <!-- Shared components -->
+    <string name="cd_back">شاته</string>
+    <string name="chip_off">بند</string>
+    <string name="chip_active">فعال</string>
+    <string name="chip_paused">ودرول شوی</string>
+    <string name="chip_linked">وصل شوی</string>
+</resources>

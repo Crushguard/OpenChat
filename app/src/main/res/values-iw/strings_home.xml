@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home -->
+    <string name="home_phone_placeholder">מספר טלפון</string>
+    <string name="home_paste">הדבקה</string>
+    <string name="home_message_placeholder">הודעה (לא חובה)</string>
+    <string name="home_send">שליחת הודעה</string>
+    <string name="home_send_with">שליחה באמצעות</string>
+    <string name="home_first_run_hint">הצ\'אט נפתח באפליקציה שבוחרים. שום דבר לא נשמר באנשי הקשר.</string>
+    <string name="home_recent">אחרונים</string>
+    <string name="home_delete">מחיקה</string>
+    <string name="home_settings_cd">הגדרות</string>
+    <string name="home_country_cd">מדינה</string>
+    <string name="home_clear_cd">ניקוי</string>
+    <string name="home_choose_app_cd">בחירת אפליקציה</string>
+
+    <!-- Home tool rows -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">הודעה אחת שלא נקראה, בלי שאיש יודע</item>
+        <item quantity="two">שתי הודעות שלא נקראו, בלי שאיש יודע</item>
+        <item quantity="other">%d הודעות שלא נקראו, בלי שאיש יודע</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">מושהה</string>
+    <string name="tool_unseen_status_off">קוראים כאן, וב-WhatsApp לא רואים כלום</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">הודעה אחת שנמחקה על ידי השולח</item>
+        <item quantity="two">שתי הודעות שנמחקו על ידי השולח</item>
+        <item quantity="other">%d הודעות שנמחקו על ידי השולח</item>
+    </plurals>
+    <string name="tool_deleted_status_off">מה שהשולח מוחק נשמר כאן</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">פריט אחד שוחזר השבוע</item>
+        <item quantity="two">שני פריטים שוחזרו השבוע</item>
+        <item quantity="other">%d פריטים שוחזרו השבוע</item>
+    </plurals>
+    <string name="tool_media_status_off">תמונות, סרטונים, הודעות קוליות, מסמכים</string>
+    <string name="tool_second_status_linked">מקושר</string>
+    <string name="tool_second_status_off">חשבון WhatsApp שני בתוך האפליקציה</string>
+
+    <!-- Country picker sheet -->
+    <string name="country_title">מדינה</string>
+    <string name="country_search">חיפוש מדינה או קידומת</string>
+    <string name="country_all">כל המדינות</string>
+    <plurals name="country_results">
+        <item quantity="one">תוצאה אחת</item>
+        <item quantity="two">שתי תוצאות</item>
+        <item quantity="other">%d תוצאות</item>
+    </plurals>
+    <string name="country_detected_sim">זוהה לפי כרטיס ה-SIM: %1$s · %2$s</string>
+    <string name="country_detected_network">זוהה לפי הרשת הסלולרית: %1$s · %2$s</string>
+    <string name="country_detected_locale">זוהה לפי הגדרות השפה והאזור: %1$s · %2$s</string>
+    <string name="country_close_cd">סגירה</string>
+
+    <!-- Not on WhatsApp confirmation sheet -->
+    <string name="not_on_wa_title">המספר הזה לא נמצא ב-WhatsApp</string>
+    <string name="not_on_wa_body">למספר %s אין חשבון WhatsApp. בדקו את הספרות, או שלחו את אותה ההודעה ב-Telegram.</string>
+    <string name="not_on_wa_edit">עריכת המספר</string>
+    <string name="not_on_wa_telegram">שליחה ב-Telegram</string>
+
+    <!-- Home toasts -->
+    <string name="toast_opening">פותחים את %s…</string>
+    <string name="toast_pasted_country">הודבק · המדינה: %s</string>
+    <string name="toast_pasted">הודבק</string>
+    <string name="toast_clipboard_empty">הלוח ריק</string>
+    <string name="toast_no_app">אין אפליקציה שיכולה לפתוח את המספר הזה</string>
+</resources>

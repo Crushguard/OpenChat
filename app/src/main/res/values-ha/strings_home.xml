@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home -->
+    <string name="home_phone_placeholder">Lambar waya</string>
+    <string name="home_paste">Liƙa</string>
+    <string name="home_message_placeholder">Saƙo (ba dole ba)</string>
+    <string name="home_send">Aika saƙo</string>
+    <string name="home_send_with">Aika ta manhaja</string>
+    <string name="home_first_run_hint">Yana buɗe hirar a manhajar da ka zaɓa. Ba a ajiye komai a lambobin sadarwarka ba.</string>
+    <string name="home_recent">Na kwanan nan</string>
+    <string name="home_delete">Goge</string>
+    <string name="home_settings_cd">Saituna</string>
+    <string name="home_country_cd">Ƙasa</string>
+    <string name="home_clear_cd">Goge</string>
+    <string name="home_choose_app_cd">Zaɓi manhaja</string>
+
+    <!-- Home tool rows -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">%d ba a karanta ba, ba wanda ya gani</item>
+        <item quantity="other">%d ba a karanta ba, ba wanda ya gani</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">An dakatar</string>
+    <string name="tool_unseen_status_off">Karanta a nan, WhatsApp ba ya nuna komai</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">Saƙo %d da mai aikawa ya goge</item>
+        <item quantity="other">Saƙonni %d da mai aikawa ya goge</item>
+    </plurals>
+    <string name="tool_deleted_status_off">Yana ajiye abin da mai aikawa ya goge</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">An dawo da fayil %d a wannan makon</item>
+        <item quantity="other">An dawo da fayiloli %d a wannan makon</item>
+    </plurals>
+    <string name="tool_media_status_off">Hotuna, bidiyo, saƙonnin murya, takardu</string>
+    <string name="tool_second_status_linked">An haɗa</string>
+    <string name="tool_second_status_off">WhatsApp na biyu a cikin wannan manhajar</string>
+
+    <!-- Country picker sheet -->
+    <string name="country_title">Ƙasa</string>
+    <string name="country_search">Nemi ƙasa ko lamba</string>
+    <string name="country_all">Duk ƙasashe</string>
+    <plurals name="country_results">
+        <item quantity="one">Sakamako %d</item>
+        <item quantity="other">Sakamako %d</item>
+    </plurals>
+    <string name="country_detected_sim">An gano daga SIM ɗinka: %1$s · %2$s</string>
+    <string name="country_detected_network">An gano daga hanyar sadarwarka: %1$s · %2$s</string>
+    <string name="country_detected_locale">An gano daga saitin harshe da yankinka: %1$s · %2$s</string>
+    <string name="country_close_cd">Rufe</string>
+
+    <!-- Not on WhatsApp confirmation sheet -->
+    <string name="not_on_wa_title">Wannan lambar ba ta da WhatsApp</string>
+    <string name="not_on_wa_body">Lambar %s ba ta da asusun WhatsApp. Duba lambobin da ka rubuta, ko ka aika wannan saƙon ta Telegram.</string>
+    <string name="not_on_wa_edit">Gyara lamba</string>
+    <string name="not_on_wa_telegram">Gwada Telegram</string>
+
+    <!-- Home toasts -->
+    <string name="toast_opening">Ana buɗe %s…</string>
+    <string name="toast_pasted_country">An liƙa · ƙasa: %s</string>
+    <string name="toast_pasted">An liƙa</string>
+    <string name="toast_clipboard_empty">Babu abin da aka kwafa</string>
+    <string name="toast_no_app">Babu manhajar da za ta iya buɗe wannan lambar</string>
+</resources>

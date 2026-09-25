@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account: entry state -->
+    <string name="second_title">دویم حساب</string>
+    <string name="second_entry_title">دویم WhatsApp، همدلته</string>
+    <string name="second_entry_body">په همدې اپلیکیشن کې WhatsApp Web وصلوي. د دویم حساب لپاره یې وکاروئ، یا د خپل همغه حساب لپاره په دویم ټیلیفون کې.</string>
+    <!-- WhatsApp has no Pashto interface: its menus show in English, so the path keeps WhatsApp's English names. -->
+    <string name="second_entry_callout">بل ټیلیفون ته اړتیا ده. دلته یو QR کوډ ښکاره کېږي؛ په هغه ټیلیفون کې یې د «WhatsApp › Linked devices › Link a device» له لارې سکن کړئ.</string>
+    <string name="second_scan">QR کوډ سکن کړئ</string>
+    <string name="second_entry_hint">تر څو چې حساب وصل وي، یوه خبرتیا ښکاره پاتې کېږي. دا د Android اړتیا ده.</string>
+
+    <!-- Second account: linking / linked bar -->
+    <string name="second_linking">وصلېږي…</string>
+    <string name="second_reload">بیا بارول</string>
+    <string name="second_log_out">وتل</string>
+
+    <!-- Log out confirmation and toasts -->
+    <string name="logout_title">له وصل شوي حساب څخه وتل غواړئ؟</string>
+    <string name="logout_body">په دې ټیلیفون کې اړیکه پرې کېږي. بل ټیلیفون خپل کار ته دوام ورکوي.</string>
+    <string name="logout_stay">پاتې شئ</string>
+    <string name="logout_confirm">ووځئ</string>
+    <string name="toast_reloading">بیا بارېږي…</string>
+    <string name="toast_logged_out">له حساب څخه ووتلئ</string>
+    <string name="toast_linked">وصل شو</string>
+</resources>

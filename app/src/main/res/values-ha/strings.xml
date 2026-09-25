@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Links, sharing and feedback -->
+    <string name="share_app_text">OpenChat yana buɗe hira da kowace lamba ba tare da ajiye ta a lambobin sadarwa ba. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding -->
+    <string name="splash_honesty">Kyauta · Babu talla · Babu asusu</string>
+    <string name="onboarding_skip">Tsallake</string>
+    <string name="onboarding_1_title">Yi hira da kowace lamba</string>
+    <string name="onboarding_1_body">Rubuta ko liƙa lamba, sannan ka danna “Aika saƙo”. Hirar za ta buɗe a WhatsApp, WhatsApp Business ko Telegram. Ba a ajiye komai a lambobin sadarwarka ba.</string>
+    <string name="onboarding_1_check">Ba a ƙara ta a lambobin sadarwarka ba</string>
+    <string name="onboarding_1_send">Aika saƙo</string>
+    <string name="onboarding_2_title">Kayan aiki huɗu, izini ɗaya</string>
+    <string name="onboarding_2_body">Karanta saƙonni babu alamar shuɗi, dawo da abin da masu aikawa suka goge, yi amfani da asusu na biyu. Komai yana nan a wannan wayar.</string>
+    <string name="onboarding_next">Gaba</string>
+    <string name="onboarding_start">Fara</string>
+
+    <!-- Tool titles -->
+    <string name="tool_unseen_title">Karanta babu alamar shuɗi</string>
+    <string name="tool_deleted_title">Dawo da saƙonnin da aka goge</string>
+    <string name="tool_media_title">Dawo da fayilolin da aka goge</string>
+    <string name="tool_second_title">Buɗe asusu na biyu</string>
+
+    <!-- Notification access gate -->
+    <string name="gate_title">Ba da damar karanta sanarwa</string>
+    <string name="gate_body">Ana ajiye saƙonni da fayilolin da aka goge daga sanarwar WhatsApp. Babu abin da ke barin wayarka.</string>
+    <string name="gate_open_settings">Buɗe saituna</string>
+    <string name="gate_waiting">Ana jiran Android…</string>
+    <string name="gate_hint_before">Izini ɗaya yana kunna duka biyun: “Dawo da saƙonni” da “Dawo da fayiloli”.</string>
+    <string name="gate_continue">Ci gaba</string>
+    <string name="gate_hint_after">Kana iya kashe shi a kowane lokaci a Saituna.</string>
+    <string name="gate_bar_messages">Saƙonni</string>
+    <string name="gate_bar_media">Fayilolin da aka goge</string>
+    <string name="gate_bar_settings">Damar karanta sanarwa</string>
+
+    <!-- Second-account foreground service notification -->
+    <string name="second_notification_channel">Asusu na biyu</string>
+    <string name="second_notification_title">An haɗa asusu na biyu</string>
+    <string name="second_notification_text">Danna don buɗe OpenChat</string>
+    <string name="second_notification_open">Buɗe</string>
+
+    <!-- Time labels -->
+    <string name="time_now">Yanzu</string>
+    <string name="time_today">Yau</string>
+    <string name="time_yesterday">Jiya</string>
+    <string name="time_minutes_short">Minti %d</string>
+    <string name="time_hours_short">Awa %d</string>
+
+    <!-- Shared components -->
+    <string name="cd_back">Baya</string>
+    <string name="chip_off">A kashe</string>
+    <string name="chip_active">A kunne</string>
+    <string name="chip_paused">An dakatar</string>
+    <string name="chip_linked">An haɗa</string>
+</resources>
