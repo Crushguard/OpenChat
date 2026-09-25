@@ -50,7 +50,7 @@ notification keeps the session alive while linked, and the top bar has back, rel
 
 Around them: a launch screen, a two-slide onboarding on the first run, Settings (notification access,
 default app, language, clear recents, rate, contact, share, privacy policy, version), a rating sheet, and a
-Contact us screen that opens your email app.
+Contact us screen that opens your email app. The UI ships in 19 languages (see [Languages](#languages)).
 
 ## Build
 
@@ -59,9 +59,15 @@ Requirements: JDK 17 and an Android SDK with platform 35. The Gradle wrapper (8.
 
 ```
 ./gradlew assembleDebug           # APK at app/build/outputs/apk/debug/app-debug.apk
-./gradlew testDebugUnitTest       # JVM unit tests (number normalisation, links, deletion detection, media planning …)
-./gradlew recordPaparazziDebug    # screenshots into app/src/test/snapshots/images/
+./gradlew testDebugUnitTest       # JVM unit tests (number normalisation, links, deletion detection, media planning,
+                                  # translation completeness …)
+./gradlew recordPaparazziDebug    # screenshots (34 English + 612 translated) into app/src/test/snapshots/images/
+./gradlew verifyPaparazziDebug    # renders them again and compares with the images recorded above
+python3 tools/i18n/check_translations.py   # translations against the English strings (or only some: ar iw)
 ```
+
+Nothing under `app/src/test/snapshots/` is committed, so `verifyPaparazziDebug` compares with your own earlier
+`recordPaparazziDebug`. See [Verification](#verification) for what each check covers.
 
 Without an Android SDK, `tools/jvmcheck` (`cd tools/jvmcheck && gradle test`) compiles the `core` package
 and runs its tests on a plain JVM. It pins a JDK 21 toolchain (the app build itself uses JDK 17).
@@ -69,7 +75,8 @@ and runs its tests on a plain JVM. It pins a JDK 21 toolchain (the app build its
 Or take the APK from CI: every push to `main` runs [the CI workflow](.github/workflows/ci.yml) at
 https://github.com/Crushguard/OpenChat/actions. The `build` job runs `assembleDebug` and the unit tests and
 uploads the `app-debug` artifact (and `unit-test-reports`); the `screenshots` job renders the screenshots
-(see below). Download `app-debug` from the latest green run on `main` and unzip it.
+(see below). Download `app-debug` from the latest green run on `main` and unzip it. A second workflow,
+[Device](.github/workflows/device.yml), runs the emulator end-to-end suite (see [Verification](#verification)).
 
 Only the debug build type is set up. The release build type has no signing config and no keystore, on
 purpose.
@@ -118,6 +125,66 @@ screen. It only decides whether the "Second account linked" notification is visi
 runs either way.
 
 `INTERNET` is declared for the WhatsApp Web WebView and for opening links; nothing else uses it.
+
+## Languages
+
+English plus 18 translations, the same set as the company's All Recovery and Status Saver apps. The list is
+declared in `ui/settings/Languages.kt`, `res/xml/locales_config.xml` (the manifest's `android:localeConfig`,
+so Android 13+ lists them under Settings › Apps › OpenChat › Language) and `resourceConfigurations` in
+`app/build.gradle.kts`; `LocalesConfigTest` fails if they drift.
+
+| Language | English name | Tag | Folder | Direction |
+|---|---|---|---|---|
+| English | English | en | `values` | LTR |
+| Bahasa Indonesia | Indonesian | id | `values-in` | LTR |
+| Português (Brasil) | Portuguese (Brazil) | pt-BR | `values-pt-rBR` | LTR |
+| Português | Portuguese | pt | `values-pt` | LTR |
+| اردو | Urdu | ur | `values-ur` | RTL |
+| हिन्दी | Hindi | hi | `values-hi` | LTR |
+| Türkçe | Turkish | tr | `values-tr` | LTR |
+| Español | Spanish | es | `values-es` | LTR |
+| العربية | Arabic | ar | `values-ar` | RTL |
+| فارسی | Persian | fa | `values-fa` | RTL |
+| پښتو | Pashto | ps | `values-ps` | RTL |
+| עברית | Hebrew | he | `values-iw` | RTL |
+| Français | French | fr | `values-fr` | LTR |
+| Deutsch | German | de | `values-de` | LTR |
+| Italiano | Italian | it | `values-it` | LTR |
+| Русский | Russian | ru | `values-ru` | LTR |
+| 中文 | Chinese (Simplified) | zh | `values-zh` | LTR |
+| Hausa | Hausa | ha | `values-ha` | LTR |
+| မြန်မာ | Burmese | my | `values-my` | LTR |
+
+`values-pt` is European Portuguese. `resourceConfigurations` holds these 19 qualifiers plus `zh-rCN` and
+`pt-rPT`, which OpenChat does not ship but AndroidX and Material do (their own strings, such as TalkBack's
+"Selected", would be stripped otherwise). Every other library translation is dropped from the APK.
+
+How the language is chosen:
+
+- By default the app follows the phone's language list: the first entry that matches one of the 19, exactly
+  or by language (pt-PT and pt-AO give Português, es-MX gives Español, en-GB gives English). A phone language
+  outside the list gives English, and so does Traditional Chinese (zh-TW, zh-HK, zh-Hant), since `values-zh`
+  is Simplified (`Languages.match`).
+- Settings › Language sets the per-app locale through AppCompat (`setApplicationLocales`). The screen is
+  recreated and the whole UI switches: text, plurals, dates and times, digits, country names in the picker,
+  and a mirrored right-to-left layout for Arabic, Persian, Urdu, Pashto and Hebrew. Phone numbers and dial
+  codes stay left to right. Formatting follows the language actually shown, so a phone in an unsupported
+  language gets English dates as well (`ui/components/UiLocale.kt`).
+- AppCompat stores the choice (itself below Android 13, the system from 13). The in-app list has no "phone
+  language" row: after picking one, only Android 13+'s system setting can go back to the system default.
+- Text you type, WhatsApp's content and the support email's app and Android version lines are not translated.
+
+Caveats:
+
+- The translations were machine-assisted, then reviewed per language group (European; Asian and Hausa;
+  right-to-left and Turkish). A native-speaker pass is recommended, above all for Hausa, Burmese and Pashto.
+- In Hausa, WhatsApp's menu names ("Linked devices › Link a device", "Delete for everyone") are unconfirmed
+  guesses. Burmese keeps those names, and "blue ticks", in English because WhatsApp's Burmese wording could not
+  be confirmed. Pashto keeps them in English because WhatsApp has no Pashto UI.
+- The second-account button says "Show QR code" in every translation (the phone shows the code, the other
+  phone scans it); the English keeps the design's "Scan QR".
+- Digits and calendars come from Android's locale data: Arabic may show Arabic-Indic or Latin digits depending
+  on the Android version, and Persian and Pashto dates use the Gregorian calendar.
 
 ## Testing each tool by hand
 
@@ -204,23 +271,84 @@ on the test phone, plus a second phone with a WhatsApp account that can message 
   about 9 s, end the link; a "Linked" restored after a restart that the page no longer confirms is ended at the
   first probe).
 
+### Language
+
+- Needs: nothing beyond the app; a few recents and captured messages make dates and counts visible.
+- Do: Settings › Language › العربية. Expect the screen to come back in Arabic with the toast for العربية, the
+  layout mirrored (back arrow on the right, rows and chevrons flipped) on every screen, phone numbers still left
+  to right, and Home's recents, the Messages list and Deleted media's day headings showing Arabic day and month
+  names and counts. Pick Deutsch and check the same in German, then go back to English. On Android 13+,
+  Settings › Apps › OpenChat › Language lists the same 19 languages and changes the app too.
+- Failure looks like: English text left on a translated screen; an Arabic screen laid out left to right; a
+  phone number reversed; English month names or "Yesterday" in another language; the check mark on a language
+  other than the one shown.
+
 ## Screenshots
 
 The branch https://github.com/Crushguard/OpenChat/tree/screenshots holds one PNG per screen and state under
-`screenshots/<name>.png` with an index README; the same set is the `screenshots` artifact of each CI run. The
-inventory (file → composable and state) is §6 of [docs/design-map.md](docs/design-map.md).
+`screenshots/<name>.png` (34 in English) and the same 34 in each of the 18 translations under
+`screenshots/locales/<tag>/<name>.png` (612, tags as in [Languages](#languages)). Its index README has the
+English gallery, a language table and a grid linking every screen in every language; each
+`screenshots/locales/<tag>/README.md` is that language's gallery. The same set is the `screenshots` artifact
+of each CI run. The inventory (file → composable and state) is §6 of [docs/design-map.md](docs/design-map.md).
 
 They are Paparazzi screenshot tests (`app/src/test/java/com/piptechnologies/openchat/screenshots/`), rendered
 without an emulator by `./gradlew recordPaparazziDebug` on a 1170×2532 px device config (390×844 dp at 3x,
 the frame the design was drawn in). Paparazzi scales its output to 1000 px on the long side, so the files
-are 462×1000. The CI `screenshots` job renames `<package>_<Class>ScreenshotTests_<method>.png` to
-`<method>.png`, writes the index and force-pushes the result to `screenshots` on every push to `main`, so
-that branch has no history worth keeping.
+are 462×1000. The translated set comes from `LocaleScreenshotTests`, which renders every scene of `Scenes.kt`
+with a language's strings (right to left for the five RTL languages); it runs only under
+`recordPaparazziDebug` and `verifyPaparazziDebug`, not under a plain `testDebugUnitTest`. The CI
+`screenshots` job renames `<package>_<Class>ScreenshotTests_<method>.png` to `<method>.png` and
+`<package>_LocaleScreenshotTests_everyScene[<tag>]_<scene>.png` to `locales/<tag>/<scene>.png`, fails unless
+there are exactly 34 English files and the same 34 names in each of the 18 language folders, writes the
+indexes and force-pushes the result to `screenshots` on every push to `main`, so that branch has no history
+worth keeping.
 
 Every screenshot uses fixed fake data (`Fakes.kt`: five conversations, four recents, a media grid, and a
 clock pinned to 24 Sep 2026 21:13 UTC), never a real phone's content. Sheets and dialogs are drawn in a
 static frame, the second-account WebView is replaced by a hatched placeholder, and the notification-access
 states are forced.
+
+## Verification
+
+**Translation checker.** `python3 tools/i18n/check_translations.py [qualifier …]` compares each
+`values-<qualifier>/strings*.xml` with the English files: every translatable key present and no extra or
+non-translatable one, no empty value, the same format placeholders, every CLDR plural category the language
+needs, apostrophes escaped and no unescaped leading `@` or `?`, links kept verbatim. Values identical to
+English are reported as warnings. It exits with 1 on any error; with no argument it checks all 18.
+
+**Unit tests.** `./gradlew testDebugUnitTest` includes `TranslationCompletenessTest` (the checker's errors,
+one case per language) and `LocalesConfigTest` (`Languages.all`, `locales_config.xml`, the manifest's
+`android:localeConfig`, `resourceConfigurations` and the `values-*` folders agree; the RTL set; how phone
+locales map to a language). The CI `build` job runs them on every push to `main`, so a missing or broken
+translation fails the build; reports are in the `unit-test-reports` artifact.
+
+**Screenshots.** Paparazzi renders the 34 English screens and the 612 translated ones as described above;
+`./gradlew recordPaparazziDebug` locally, then `verifyPaparazziDebug` after a change. CI publishes them to the
+`screenshots` branch.
+
+**Emulator suite.** [The Device workflow](.github/workflows/device.yml) runs the instrumented tests in
+`app/src/androidTest/java/com/piptechnologies/openchat/e2e/` on emulators at API 30 and 34, on every push to
+`main`. The real app is driven against `e2e-fixture`, a CI-only stand-in with the package name `com.whatsapp`
+that posts WhatsApp-like chat and system notifications, writes and deletes files in WhatsApp's media folder
+and receives the chat links. Each test starts from cleared app data. Covered: first run and onboarding;
+Send with a pasted number (the `wa.me` link, the not-on-WhatsApp sheet, deleting a recent); the
+notification-access gate and system settings; captured messages, unread counts, the conversation, a deleted
+message kept under "Deleted by sender" and a system notification ignored; a deleted photo recovered, saved
+and deleted; the second-account WebView opening in "Linking…"; the default-app sheet, clearing recents, the
+rating sheet and Contact us; and every one of the 19 languages picked through the Language screen, with the
+title translated, the back arrow on the right for RTL, and Settings, Language, Home, Messages, Deleted media,
+the gate and Second account captured. Artifacts per API level: `device-screens-api<N>` (folders
+`api<N>/<tag>/` for the language sweep, `api<N>/flows/` for the tool flows, `api<N>/failures/` for the screen
+when a test failed), `device-test-reports-api<N>` and `device-logcat-api<N>`. Locally, on an emulator
+without the real WhatsApp (the stand-in takes its package name):
+
+```
+./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :e2e-fixture:assembleDebug
+adb install -r -g e2e-fixture/build/outputs/apk/debug/e2e-fixture-debug.apk
+./gradlew :app:connectedDebugAndroidTest
+adb pull /sdcard/Download/openchat-e2e e2e-screens
+```
 
 ## Design decisions and known limitations
 
@@ -240,10 +368,11 @@ General
   no email app installed they say so and send nothing. "Rate on Google Play" opens
   `market://details?id=com.piptechnologies.openchat` (R12); as the app is not on Play, the store reports it
   missing. The privacy-policy URL and the support email in `strings.xml` are placeholders (R16).
-- Language sets the per-app locale through AppCompat (`setApplicationLocales`, stored by
-  `AppLocalesMetadataHolderService`), which works on every supported API level, and persists the choice. Only
-  English strings ship, so the other seven languages fall back to English while the row shows the choice
-  (R13). The number field uses the phone keyboard, not the design's mock keypad (R14).
+- Language (R13): 19 languages ship, English and 18 translations (see [Languages](#languages)); the design's
+  isiZulu and "Español (México)" rows are replaced by that set. The choice is the per-app locale set through
+  AppCompat (`setApplicationLocales`, stored by `AppLocalesMetadataHolderService` below Android 13), which works
+  on every supported API level; without one the app follows the phone's language, else English. The number
+  field uses the phone keyboard, not the design's mock keypad (R14).
 
 Open a chat
 
@@ -261,16 +390,23 @@ Messages (Unseen, deleted)
 - Unseen and Recover deleted messages are one screen with "All" and "Deleted only" filters, reached from the
   two Home rows (R5).
 - Only what arrives as a notification after the grant is captured: no import of history, and notifications
-  already on screen when the listener connects are not re-read. Group summaries, progress, call and "checking
-  for new messages" notifications are ignored.
+  already on screen when the listener connects are not re-read.
 - A deletion is detected only when WhatsApp posts the placeholder. The placeholder is matched against the
   conversation's window: the messages captured since the chat was last opened in WhatsApp (or its
   notification otherwise withdrawn by WhatsApp), at most the latest 25. A notification you swipe away keeps
   its window. Timestamped placeholders match within ±2 s; untimestamped ones (plain-text notifications) match
   by position. Consequences: a message deleted after you opened the chat in WhatsApp is not marked, and two
   identical texts posted in the same second are stored once.
-- Placeholders are recognised in English, Indonesian, Portuguese, Spanish, Turkish, Hindi and Urdu (plus
-  "deleted by admin"); a WhatsApp interface in another language is not detected.
+- The "This message was deleted" placeholder is recognised in WhatsApp's wording for 17 of the app's
+  languages (31 wordings in `core/messages/WhatsAppStrings.kt`, old and new, since the WhatsApp versions in use
+  vary; the Hausa one is an unverified guess). Pashto and Burmese need none: WhatsApp has no UI in them and
+  shows English. The "deleted by admin" variants, with the admin's name, are known in 16 languages (not
+  Hausa). Every language is checked on every notification, whatever the phone's or the app's language; a
+  WhatsApp interface in a language outside the list is not detected.
+- Group summaries and system notifications (calls, backup and restore, progress, "Checking for new
+  messages") are ignored. They are recognised by their category and flags, which works in any language
+  (`NotificationText.isSystemNotification`); status and summary lines of plain-text notifications are also
+  matched against WhatsApp's wording in 16 languages.
 - Excluded chats (R15) are skipped by the listener from the moment they are excluded; messages captured
   earlier stay. Pause stops both message and media capture.
 - Photos arrive as "📷 Photo" lines, with the image copied when the notification carries it. Voice notes,

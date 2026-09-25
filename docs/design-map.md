@@ -23,7 +23,7 @@ is the visual spec. Where this file says "design says", the value is copied verb
 | R10 | Third-party marks | No WhatsApp/Telegram logos in resources. The design's line glyphs (phone-in-bubble, B-in-bubble, paper plane) are drawn in our colours; where an app is installed, its own launcher icon from PackageManager is shown in the selector (design system note). |
 | R11 | Contact us / feedback "Send" | No backend. Send opens the system email composer (`mailto:` to `support_email` in strings.xml, subject "OpenChat feedback", body = text + app/Android version). Rating feedback does the same. |
 | R12 | Rate on Google Play | Opens `market://details?id=<package>` (falls back to the Play web URL). Never publishes anything. |
-| R13 | Language | The Language screen sets the per-app locale (AppCompat `setApplicationLocales`) and persists it. Only English strings ship; other locales fall back to English. The row still shows the chosen language. |
+| R13 | Language | 19 UI languages ship: English and 18 translations (`values-in`, `pt-rBR`, `pt`, `ur`, `hi`, `tr`, `es`, `ar`, `fa`, `ps`, `iw`, `fr`, `de`, `it`, `ru`, `zh`, `ha`, `my`), the set of the company's All Recovery and Status Saver apps; they replace the design's eight rows (isiZulu and Español (México) are dropped). The Language screen sets the per-app locale (AppCompat `setApplicationLocales`), which is the only store of the choice; the whole UI switches (strings, plurals, dates, digits, country names, RTL layout for ar, fa, ur, ps, he). Without a choice the app follows the phone's languages (`Languages.match`); an unsupported one, Traditional Chinese included, gives English. See §5.5 and the README's Languages section. |
 | R14 | Keyboard | The design's numeric keypad is a mock of the system IME. The number field uses the phone keyboard (`KeyboardType.Phone`). Paste is the inline pill (and the system clipboard suggestion). |
 | R15 | Exclude chats | Tool settings row "Exclude chats" opens a sheet listing known conversations with a switch each; excluded conversations are skipped by the listener. Count shown on the row. |
 | R16 | Privacy policy | Opens `privacy_policy_url` from strings.xml (placeholder https://piptechnologies.com/openchat/privacy). |
@@ -314,9 +314,9 @@ Bar 56 (back radius 11, title title17). Column padding 2 18 18, gap 20:
   messages and media tools" / "Off · needed for the messages and media tools"; chevron. Opens the gate.
 * Eyebrow "Preferences"; card rows (padding 15, gap 13, glyph 20 inkMuted, title label14_5, value 13.5
   muted, chevron 18): "Default app" (current app glyph; value "WhatsApp") → default-app sheet; "Language"
-  (languages) value "English" → Language; "Clear recent numbers" (trash) value count → confirmation
-  "Clear recent numbers?", "Removes the N numbers on Home. Nothing changes in WhatsApp.", Keep / Clear
-  (destructive), toast "Recent numbers cleared".
+  (languages) value = the native name of the language in effect ("English") → Language; "Clear recent
+  numbers" (trash) value count → confirmation "Clear recent numbers?", "Removes the N numbers on Home.
+  Nothing changes in WhatsApp.", Keep / Clear (destructive), toast "Recent numbers cleared".
 * Eyebrow "About"; card: "Rate us" (star) → rating sheet; "Contact us" (mail) → Contact; "Share app"
   (share-2) → ACTION_SEND text; "Privacy policy" (shield) with arrow-up-right 18 → browser; "Version"
   (info) value "1.0.0 (1)" mono12 muted, not tappable.
@@ -329,10 +329,14 @@ the current one; picking closes with toast "Default app: WhatsApp".
 
 ### 4.17 Language (`language`) — screenshot `language`
 Bar "Language". Intro body13_5 muted "Changes the app. Messages you send are typed by you, in any
-language." Card rows 58 (padding 0 15, gap 12): native name label14_5 ink over English name body11_5
-hint; "RTL" MonoTag for Urdu; check 20 sw2.2 green on the current. Languages in order: English/English,
-Bahasa Indonesia/Indonesian, Português (Brasil)/Portuguese, اردو/Urdu (RTL), हिन्दी/Hindi, Türkçe/Turkish,
-Español (México)/Spanish, isiZulu/Zulu. Toast "Language: Indonesian".
+language." Card rows 58 (padding 0 15, gap 12): native name label14_5 ink over the language's name in the
+current UI language body11_5 hint (ICU display names: "Allemand" for Deutsch in French); "RTL" MonoTag on
+the right-to-left languages; check 20 sw2.2 green on the language in effect. Design says eight rows
+(English, Bahasa Indonesia, Português (Brasil), اردو, हिन्दी, Türkçe, Español (México), isiZulu); the app
+lists the 19 of `Languages.all` instead (R13), in order: English, Bahasa Indonesia, Português (Brasil),
+Português, اردو (RTL), हिन्दी, Türkçe, Español, العربية (RTL), فارسی (RTL), پښتو (RTL), עברית (RTL),
+Français, Deutsch, Italiano, Русский, 中文 (Simplified), Hausa, မြန်မာ. A tap applies the language, the
+activity is recreated in it, and the toast "Language: <native name>" shows in the new language.
 
 ### 4.18 Contact us (`contact`) — screenshot `contact`
 Bar "Contact us". Column padding 4 20 12, gap 14: intro body14 ink2 "A number that will not open, a
@@ -510,8 +514,22 @@ Shown for 2.2 s, 90 dp above the bottom, centred, over any screen. Text per acti
   `clearFormData`, then load the URL again and return to the entry state.
 
 ### 5.5 Settings and misc
-* DataStore keys: `onboarding_done`, `send_app`, `recovery_paused`, `second_linked`, `language`,
-  `send_count`, `rating_shown`, `notif_access_seen`.
+* DataStore keys: `onboarding_done`, `send_app`, `recovery_paused`, `second_linked`, `send_count`,
+  `rating_shown`, `notif_access_seen`. The older `language` key is still declared but no longer read.
+* Language (R13): AppCompat's application locales are the source of truth (`setApplicationLocales`,
+  stored by `AppLocalesMetadataHolderService` with `autoStoreLocales` below Android 13, by the system from
+  13). `Languages.current` = the per-app choice, else `Languages.match` of the phone's locales: exact tag
+  (with the `in`↔`id`, `iw`↔`he` aliases), else language only (pt-PT → pt, es-MX → es), else English;
+  Traditional Chinese (Hant, or zh-TW/HK/MO… without a script) matches nothing, as `values-zh` is
+  Simplified. `currentUiLocale()` (`ui/components/UiLocale.kt`) gives the locale for dates, digits and case
+  rules: the matched language (bare pt read as pt-PT), US English on fallback. The 19 languages are declared
+  in `Languages.all`, `res/xml/locales_config.xml` (`android:localeConfig`, listed by Android 13+'s per-app
+  language setting) and `resourceConfigurations` (the 19 qualifiers plus library-only `zh-rCN`, `pt-rPT`);
+  `LocalesConfigTest` keeps them and the `values-*` folders in sync, `TranslationCompletenessTest` (same
+  rules as `tools/i18n/check_translations.py`) fails the build on a missing or broken translation.
+* Translations were machine-assisted and reviewed per language group; a native-speaker pass is still
+  advised for ha, my and ps. In Hausa, WhatsApp's menu names are unconfirmed guesses; Burmese and Pashto keep
+  them in English. `second_scan` is "Show QR code" in every translation, "Scan QR" (design) in English.
 * Notification access check: `NotificationManagerCompat.getEnabledListenerPackages(context)` contains
   the package.
 * SIM/locale country: `TelephonyManager.simCountryIso` → `networkCountryIso` → `Locale.getDefault().country`
@@ -546,6 +564,10 @@ Shown for 2.2 s, 90 dp above the bottom, centred, over any screen. Text per acti
 | contact.png | ContactScreen(empty) |
 | rating_stars.png / rating_store.png / rating_feedback.png / rating_thanks.png | RatingSheetContent stages |
 | dialog_clear_recents.png / dialog_clear_all.png / dialog_delete_media.png / dialog_logout.png | ConfirmSheet variants over their screens |
+
+The same 34 scenes (`Scenes.kt`) also render in each of the 18 translations (`LocaleScreenshotTests`, 612
+files, right to left for ar, fa, ur, ps, he; only under `recordPaparazziDebug` / `verifyPaparazziDebug`),
+published as `screenshots/locales/<tag>/<name>.png` on the `screenshots` branch.
 
 Fake data (from the prototype): conversations Ayu Lestari (+62 812 3456 7890, last "Sorry, wrong chat",
 deleted "I can do 300k if you ship today", 14:26, 3 unread, 2 deleted, blue), +62 813 9922 0417 (last
