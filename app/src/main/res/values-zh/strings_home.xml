@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (design map §4.3) -->
+    <string name="home_phone_placeholder">电话号码</string>
+    <string name="home_paste">粘贴</string>
+    <string name="home_message_placeholder">消息（选填）</string>
+    <string name="home_send">发送消息</string>
+    <string name="home_send_with">发送方式</string>
+    <string name="home_first_run_hint">将在您选择的应用中打开聊天，不会保存到您的通讯录。</string>
+    <string name="home_recent">最近使用</string>
+    <string name="home_delete">删除</string>
+    <string name="home_settings_cd">设置</string>
+    <string name="home_country_cd">国家/地区</string>
+    <string name="home_clear_cd">清除</string>
+    <string name="home_choose_app_cd">选择应用</string>
+
+    <!-- Home tool rows: status lines (design map §4.3) -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="other">%d条未读，不显示已读</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">已暂停</string>
+    <string name="tool_unseen_status_off">在此阅读，WhatsApp 不显示已读</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="other">对方删除了%d条消息</item>
+    </plurals>
+    <string name="tool_deleted_status_off">保留对方删除的内容</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="other">本周已恢复%d项</item>
+    </plurals>
+    <string name="tool_media_status_off">照片、视频、语音消息、文档</string>
+    <string name="tool_second_status_linked">已连接</string>
+    <string name="tool_second_status_off">在本应用内使用第二个 WhatsApp</string>
+
+    <!-- Country picker sheet (design map §4.4) -->
+    <string name="country_title">国家/地区</string>
+    <string name="country_search">搜索国家/地区或区号</string>
+    <string name="country_all">所有国家/地区</string>
+    <plurals name="country_results">
+        <item quantity="other">%d个结果</item>
+    </plurals>
+    <string name="country_detected_sim">根据您的 SIM 卡检测到：%1$s · %2$s</string>
+    <string name="country_detected_network">根据您的网络检测到：%1$s · %2$s</string>
+    <string name="country_detected_locale">根据您的语言和地区设置检测到：%1$s · %2$s</string>
+    <string name="country_close_cd">关闭</string>
+
+    <!-- Not on WhatsApp confirmation sheet (design map §4.6) -->
+    <string name="not_on_wa_title">此号码未使用 WhatsApp</string>
+    <string name="not_on_wa_body">%s 没有 WhatsApp 账号。请检查号码，或改用 Telegram 发送同一条消息。</string>
+    <string name="not_on_wa_edit">修改号码</string>
+    <string name="not_on_wa_telegram">改用 Telegram</string>
+
+    <!-- Home toasts (design map §5.1) -->
+    <string name="toast_opening">正在打开 %s…</string>
+    <string name="toast_pasted_country">已粘贴 · 国家/地区已设为%s</string>
+    <string name="toast_pasted">已粘贴</string>
+    <string name="toast_clipboard_empty">剪贴板为空</string>
+    <string name="toast_no_app">没有应用可以打开此号码</string>
+</resources>

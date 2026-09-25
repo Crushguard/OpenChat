@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media (design map §4.12) -->
+    <string name="media_title">डिलीट हुआ मीडिया</string>
+    <string name="media_tool_settings">टूल सेटिंग्स</string>
+
+    <!-- Category pills -->
+    <string name="media_tab_photos">फ़ोटो</string>
+    <string name="media_tab_videos">वीडियो</string>
+    <string name="media_tab_audio">ऑडियो</string>
+    <string name="media_tab_documents">डॉक्यूमेंट</string>
+    <string name="media_tab_stickers">स्टिकर</string>
+
+    <!-- Empty states and media access -->
+    <string name="media_empty_nothing">अभी तक कुछ वापस नहीं मिला</string>
+    <string name="media_empty_audio">अभी कोई ऑडियो नहीं</string>
+    <string name="media_empty_documents">अभी कोई डॉक्यूमेंट नहीं</string>
+    <string name="media_empty_stickers">अभी कोई स्टिकर नहीं</string>
+    <string name="media_empty_body">कोई सभी के लिए डिलीट कर दे, तब भी फ़ाइलें यहाँ रहती हैं, बशर्ते वे पहले आपको मिल चुकी हों।</string>
+    <string name="media_allow">मीडिया ऐक्सेस की अनुमति दें</string>
+    <string name="media_access_off">मीडिया ऐक्सेस बंद है, इसलिए नई फ़ाइलें सेव नहीं हो रहीं।</string>
+
+    <!-- Media detail (design map §4.13) -->
+    <string name="media_detail_title_photo">फ़ोटो</string>
+    <string name="media_detail_title_video">वीडियो</string>
+    <string name="media_detail_title_audio">ऑडियो</string>
+    <string name="media_detail_title_document">डॉक्यूमेंट</string>
+    <string name="media_detail_title_sticker">स्टिकर</string>
+    <string name="media_save">गैलरी में सेव करें</string>
+    <string name="media_share">शेयर करें</string>
+    <string name="media_delete">हटाएँ</string>
+    <string name="media_play">चलाएँ</string>
+    <string name="media_pause">रोकें</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <string name="media_meta_from">%1$s से · %2$s %3$s · डिलीट: %4$s</string>
+    <string name="media_meta_received">प्राप्त: %1$s %2$s · डिलीट: %3$s</string>
+    <string name="media_meta_from_kept">%1$s से · %2$s %3$s</string>
+    <string name="media_meta_received_kept">प्राप्त: %1$s %2$s</string>
+    <string name="delete_media_title_photo">यह फ़ोटो हटाएँ?</string>
+    <string name="delete_media_title_video">यह वीडियो हटाएँ?</string>
+    <string name="delete_media_title_audio">यह ऑडियो हटाएँ?</string>
+    <string name="delete_media_title_document">यह डॉक्यूमेंट हटाएँ?</string>
+    <string name="delete_media_title_sticker">यह स्टिकर हटाएँ?</string>
+    <string name="delete_media_body">यह मीडिया रिकवरी से हट जाएगा। अगर आपने इसे गैलरी में सेव किया है, तो वह कॉपी बनी रहेगी।</string>
+    <string name="toast_saved">गैलरी में सेव हुआ</string>
+    <string name="toast_save_failed">सेव नहीं हो सका</string>
+    <string name="toast_share">शेयर करने के विकल्प खुल रहे हैं…</string>
+    <string name="toast_share_failed">शेयर नहीं हो सका</string>
+    <string name="toast_deleted">हटा दिया गया</string>
+</resources>

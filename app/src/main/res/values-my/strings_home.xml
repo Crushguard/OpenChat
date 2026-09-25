@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (design map §4.3) -->
+    <string name="home_phone_placeholder">ဖုန်းနံပါတ်</string>
+    <string name="home_paste">ကူးထည့်ရန်</string>
+    <string name="home_message_placeholder">မက်ဆေ့ချ် (မထည့်လည်း ရပါသည်)</string>
+    <string name="home_send">မက်ဆေ့ချ် ပို့ရန်</string>
+    <string name="home_send_with">ပို့ရန် အက်ပ် ရွေးပါ</string>
+    <string name="home_first_run_hint">သင်ရွေးထားသော အက်ပ်တွင် ချတ်ကို ဖွင့်ပေးပါသည်။ သင့်အဆက်အသွယ်များထဲ ဘာမျှ မသိမ်းပါ။</string>
+    <string name="home_recent">မကြာသေးမီက</string>
+    <string name="home_delete">ဖျက်ရန်</string>
+    <string name="home_settings_cd">ဆက်တင်များ</string>
+    <string name="home_country_cd">နိုင်ငံ</string>
+    <string name="home_clear_cd">ရှင်းရန်</string>
+    <string name="home_choose_app_cd">အက်ပ် ရွေးရန်</string>
+
+    <!-- Home tool rows: status lines (design map §4.3) -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="other">မဖတ်ရသေးသော %d ခု၊ မည်သူမျှ မသိပါ</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">ခဏရပ်ထားသည်</string>
+    <string name="tool_unseen_status_off">ဤနေရာတွင် ဖတ်ပါ။ WhatsApp တွင် ဘာမျှ မပြပါ</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="other">ပို့သူ ဖျက်လိုက်သော မက်ဆေ့ချ် %d ခု</item>
+    </plurals>
+    <string name="tool_deleted_status_off">ပို့သူ ဖျက်လိုက်သည်များကို သိမ်းထားပေးသည်</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="other">ဤအပတ်တွင် %d ခု ပြန်ယူထားသည်</item>
+    </plurals>
+    <string name="tool_media_status_off">ဓာတ်ပုံ၊ ဗီဒီယို၊ အသံမက်ဆေ့ချ်၊ စာရွက်စာတမ်း</string>
+    <string name="tool_second_status_linked">ချိတ်ဆက်ထားသည်</string>
+    <string name="tool_second_status_off">ဤအက်ပ်ထဲရှိ ဒုတိယ WhatsApp</string>
+
+    <!-- Country picker sheet (design map §4.4) -->
+    <string name="country_title">နိုင်ငံ</string>
+    <string name="country_search">နိုင်ငံ သို့မဟုတ် ကုဒ် ရှာရန်</string>
+    <string name="country_all">နိုင်ငံအားလုံး</string>
+    <plurals name="country_results">
+        <item quantity="other">ရလဒ် %d ခု</item>
+    </plurals>
+    <string name="country_detected_sim">သင့် SIM ကတ်မှ သိရှိသည်: %1$s · %2$s</string>
+    <string name="country_detected_network">သင့်ကွန်ရက်မှ သိရှိသည်: %1$s · %2$s</string>
+    <string name="country_detected_locale">သင့်ဖုန်း၏ ဘာသာစကားနှင့် ဒေသ ဆက်တင်မှ သိရှိသည်: %1$s · %2$s</string>
+    <string name="country_close_cd">ပိတ်ရန်</string>
+
+    <!-- Not on WhatsApp confirmation sheet (design map §4.6) -->
+    <string name="not_on_wa_title">ဤနံပါတ်သည် WhatsApp တွင် မရှိပါ</string>
+    <string name="not_on_wa_body">%s တွင် WhatsApp အကောင့် မရှိပါ။ နံပါတ်ကို စစ်ဆေးပါ သို့မဟုတ် တူညီသော မက်ဆေ့ချ်ကို Telegram ဖြင့် ပို့ပါ။</string>
+    <string name="not_on_wa_edit">နံပါတ် ပြင်ရန်</string>
+    <string name="not_on_wa_telegram">Telegram သုံးရန်</string>
+
+    <!-- Home toasts (design map §5.1) -->
+    <string name="toast_opening">%s ကို ဖွင့်နေသည်…</string>
+    <string name="toast_pasted_country">ကူးထည့်ပြီး · နိုင်ငံကို %s ဟု သတ်မှတ်လိုက်သည်</string>
+    <string name="toast_pasted">ကူးထည့်ပြီးပါပြီ</string>
+    <string name="toast_clipboard_empty">ကလစ်ဘုတ်တွင် ဘာမျှ မရှိပါ</string>
+    <string name="toast_no_app">ဤနံပါတ်ကို ဖွင့်နိုင်သော အက်ပ် မရှိပါ</string>
+</resources>

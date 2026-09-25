@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media (design map §4.12) -->
+    <string name="media_title">ဖျက်ထားသော မီဒီယာ</string>
+    <string name="media_tool_settings">ကိရိယာ ဆက်တင်များ</string>
+
+    <!-- Category pills -->
+    <string name="media_tab_photos">ဓာတ်ပုံများ</string>
+    <string name="media_tab_videos">ဗီဒီယိုများ</string>
+    <string name="media_tab_audio">အသံ</string>
+    <string name="media_tab_documents">စာရွက်စာတမ်း</string>
+    <string name="media_tab_stickers">စတစ်ကာများ</string>
+
+    <!-- Empty states and media access -->
+    <string name="media_empty_nothing">ပြန်ယူထားသည်များ မရှိသေးပါ</string>
+    <string name="media_empty_audio">အသံဖိုင် မရှိသေးပါ</string>
+    <string name="media_empty_documents">စာရွက်စာတမ်း မရှိသေးပါ</string>
+    <string name="media_empty_stickers">စတစ်ကာ မရှိသေးပါ</string>
+    <string name="media_empty_body">တစ်စုံတစ်ယောက်က “Delete for everyone” ဖြင့် ဖျက်လိုက်သော ဖိုင်များကို သင် ဦးစွာ လက်ခံရရှိထားပါက ဤနေရာတွင် သိမ်းထားပါသည်။</string>
+    <string name="media_allow">မီဒီယာ သုံးခွင့် ပေးရန်</string>
+    <string name="media_access_off">မီဒီယာ သုံးခွင့် ပိတ်ထားသဖြင့် ဖိုင်အသစ်များကို မသိမ်းပါ။</string>
+
+    <!-- Media detail (design map §4.13) -->
+    <string name="media_detail_title_photo">ဓာတ်ပုံ</string>
+    <string name="media_detail_title_video">ဗီဒီယို</string>
+    <string name="media_detail_title_audio">အသံ</string>
+    <string name="media_detail_title_document">စာရွက်စာတမ်း</string>
+    <string name="media_detail_title_sticker">စတစ်ကာ</string>
+    <string name="media_save">ဂယ်လာရီသို့ သိမ်းရန်</string>
+    <string name="media_share">မျှဝေရန်</string>
+    <string name="media_delete">ဖျက်ရန်</string>
+    <string name="media_play">ဖွင့်ရန်</string>
+    <string name="media_pause">ခဏရပ်ရန်</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <string name="media_meta_from">ပေးပို့သူ: %1$s · %2$s %3$s · ဖျက်ချိန်: %4$s</string>
+    <string name="media_meta_received">ရရှိချိန်: %1$s %2$s · ဖျက်ချိန်: %3$s</string>
+    <string name="media_meta_from_kept">ပေးပို့သူ: %1$s · %2$s %3$s</string>
+    <string name="media_meta_received_kept">ရရှိချိန်: %1$s %2$s</string>
+    <string name="delete_media_title_photo">ဤဓာတ်ပုံကို ဖျက်မလား။</string>
+    <string name="delete_media_title_video">ဤဗီဒီယိုကို ဖျက်မလား။</string>
+    <string name="delete_media_title_audio">ဤအသံဖိုင်ကို ဖျက်မလား။</string>
+    <string name="delete_media_title_document">ဤစာရွက်စာတမ်းကို ဖျက်မလား။</string>
+    <string name="delete_media_title_sticker">ဤစတစ်ကာကို ဖျက်မလား။</string>
+    <string name="delete_media_body">မီဒီယာ ပြန်ယူခြင်းမှ ဖယ်ရှားပါမည်။ ဂယ်လာရီသို့ သိမ်းထားပြီးပါက ထိုမိတ္တူ ဆက်ရှိနေပါမည်။</string>
+    <string name="toast_saved">ဂယ်လာရီသို့ သိမ်းပြီးပါပြီ</string>
+    <string name="toast_save_failed">သိမ်း၍ မရပါ</string>
+    <string name="toast_share">မျှဝေရန် မီနူးကို ဖွင့်နေသည်…</string>
+    <string name="toast_share_failed">မျှဝေ၍ မရပါ</string>
+    <string name="toast_deleted">ဖျက်ပြီးပါပြီ</string>
+</resources>

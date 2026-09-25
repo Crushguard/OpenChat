@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (design map §4.3) -->
+    <string name="home_phone_placeholder">फ़ोन नंबर</string>
+    <string name="home_paste">पेस्ट करें</string>
+    <string name="home_message_placeholder">मैसेज (वैकल्पिक)</string>
+    <string name="home_send">मैसेज भेजें</string>
+    <string name="home_send_with">इसके ज़रिए भेजें</string>
+    <string name="home_first_run_hint">चैट आपके चुने हुए ऐप में खुलती है। आपके कॉन्टैक्ट में कुछ भी सेव नहीं होता।</string>
+    <string name="home_recent">हाल के नंबर</string>
+    <string name="home_delete">हटाएँ</string>
+    <string name="home_settings_cd">सेटिंग्स</string>
+    <string name="home_country_cd">देश</string>
+    <string name="home_clear_cd">मिटाएँ</string>
+    <string name="home_choose_app_cd">ऐप चुनें</string>
+
+    <!-- Home tool rows: status lines (design map §4.3) -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">%d अपठित मैसेज, किसी ने नहीं देखा</item>
+        <item quantity="other">%d अपठित मैसेज, किसी ने नहीं देखे</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">रोकी गई</string>
+    <string name="tool_unseen_status_off">यहाँ पढ़ें, WhatsApp पर कुछ नहीं दिखेगा</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">भेजने वाले ने %d मैसेज डिलीट किया</item>
+        <item quantity="other">भेजने वाले ने %d मैसेज डिलीट किए</item>
+    </plurals>
+    <string name="tool_deleted_status_off">भेजने वाले के डिलीट किए मैसेज रखता है</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">इस हफ़्ते %d आइटम वापस मिला</item>
+        <item quantity="other">इस हफ़्ते %d आइटम वापस मिले</item>
+    </plurals>
+    <string name="tool_media_status_off">फ़ोटो, वीडियो, वॉइस मैसेज, डॉक्यूमेंट</string>
+    <string name="tool_second_status_linked">लिंक है</string>
+    <string name="tool_second_status_off">इसी ऐप में दूसरा WhatsApp</string>
+
+    <!-- Country picker sheet (design map §4.4) -->
+    <string name="country_title">देश</string>
+    <string name="country_search">देश या कोड खोजें</string>
+    <string name="country_all">सभी देश</string>
+    <plurals name="country_results">
+        <item quantity="one">%d नतीजा</item>
+        <item quantity="other">%d नतीजे</item>
+    </plurals>
+    <string name="country_detected_sim">आपके सिम से पता चला: %1$s · %2$s</string>
+    <string name="country_detected_network">आपके नेटवर्क से पता चला: %1$s · %2$s</string>
+    <string name="country_detected_locale">आपके फ़ोन की भाषा और क्षेत्र से पता चला: %1$s · %2$s</string>
+    <string name="country_close_cd">बंद करें</string>
+
+    <!-- Not on WhatsApp confirmation sheet (design map §4.6) -->
+    <string name="not_on_wa_title">यह नंबर WhatsApp पर नहीं है</string>
+    <string name="not_on_wa_body">%s का कोई WhatsApp अकाउंट नहीं है। नंबर जाँचें या यही मैसेज Telegram पर भेजें।</string>
+    <string name="not_on_wa_edit">नंबर बदलें</string>
+    <string name="not_on_wa_telegram">Telegram आज़माएँ</string>
+
+    <!-- Home toasts (design map §5.1) -->
+    <string name="toast_opening">%s खुल रहा है…</string>
+    <string name="toast_pasted_country">पेस्ट हो गया · देश %s चुना गया</string>
+    <string name="toast_pasted">पेस्ट हो गया</string>
+    <string name="toast_clipboard_empty">क्लिपबोर्ड खाली है</string>
+    <string name="toast_no_app">कोई भी ऐप यह नंबर नहीं खोल सकता</string>
+</resources>

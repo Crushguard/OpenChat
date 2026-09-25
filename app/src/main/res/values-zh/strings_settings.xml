@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings (design map §4.15) -->
+    <string name="settings_title">设置</string>
+    <string name="settings_access">通知使用权</string>
+    <string name="settings_access_on">已开启 · 用于消息和媒体工具</string>
+    <string name="settings_access_off">已关闭 · 消息和媒体工具需要此权限</string>
+    <string name="settings_preferences">偏好设置</string>
+    <string name="settings_default_app">默认应用</string>
+    <string name="settings_language">语言</string>
+    <string name="settings_clear_recents">清除最近使用的号码</string>
+    <string name="settings_about">关于</string>
+    <string name="settings_rate">给我们评分</string>
+    <string name="settings_contact">联系我们</string>
+    <string name="settings_share">分享应用</string>
+    <string name="settings_privacy">隐私政策</string>
+    <string name="settings_version">版本</string>
+    <string name="settings_honesty">OpenChat 完全免费。无广告，无需账号，无跟踪。号码、消息和媒体绝不会离开您的手机。</string>
+
+    <!-- Clear recent numbers confirmation (design map §4.15, §4.20) -->
+    <string name="clear_recents_title">清除最近使用的号码？</string>
+    <plurals name="clear_recents_body">
+        <item quantity="other">将移除主页上的%d个号码。WhatsApp 中不会有任何变化。</item>
+    </plurals>
+    <string name="clear_recents_keep">保留</string>
+    <string name="clear_recents_clear">清除</string>
+    <string name="toast_recents_cleared">已清除最近使用的号码</string>
+
+    <!-- Default app sheet (design map §4.16) -->
+    <string name="default_app_title">默认应用</string>
+    <string name="toast_default_app">默认应用：%s</string>
+
+    <!-- Language (design map §4.17) -->
+    <string name="language_title">语言</string>
+    <string name="language_intro">仅更改本应用的语言。您发送的消息由您自己输入，可以使用任何语言。</string>
+    <string name="toast_language">语言：%s</string>
+
+    <!-- Contact us (design map §4.18) -->
+    <string name="contact_title">联系我们</string>
+    <string name="contact_intro">号码打不开、消息没能恢复，或者有个好点子，都可以告诉我们。您的留言会直接发送给团队。</string>
+    <string name="contact_placeholder">发生了什么？在哪个页面？</string>
+    <string name="contact_email_label">邮箱 · 选填，仅在需要回复时填写</string>
+    <string name="contact_callout">发送时会附带应用版本和 Android 版本，绝不会包含您的号码或消息。</string>
+    <string name="contact_send">发送</string>
+    <string name="toast_sent">已发送，谢谢！</string>
+    <string name="toast_write_first">请先输入内容</string>
+    <string name="toast_no_email">未找到邮件应用</string>
+    <string name="toast_no_app_can_open">没有应用可以打开此链接</string>
+
+    <!-- Rating sheet (design map §4.19) -->
+    <string name="rating_title">喜欢 OpenChat 吗？</string>
+    <string name="rating_body">您的真实评分能帮助更多人找到这款一键打开任意号码的应用。</string>
+    <plurals name="rating_star_cd">
+        <item quantity="other">%d星，满分5星</item>
+    </plurals>
+    <string name="rating_hint_tap">点按星星进行评分</string>
+    <string name="rating_hint_1">很抱歉让您失望了</string>
+    <string name="rating_hint_2">我们还可以做得更好</string>
+    <string name="rating_hint_3">谢谢，请多告诉我们一些</string>
+    <string name="rating_hint_4">很高兴它对您有用</string>
+    <string name="rating_hint_5">谢谢您！</string>
+    <string name="rating_later">以后再说</string>
+    <string name="rating_store_title">谢谢您！</string>
+    <string name="rating_store_body">愿意在 Google Play 上分享您的评价吗？这能帮助一款小应用成长。</string>
+    <string name="rating_store_cta">在 Google Play 上评分</string>
+    <string name="rating_not_now">暂不</string>
+    <string name="rating_feedback_title">我们怎样才能做得更好？</string>
+    <string name="rating_feedback_body">请告诉我们哪里做得不够好。您的反馈会直接发给团队，不会作为公开评价发布，我们会认真阅读每一条。</string>
+    <string name="rating_feedback_placeholder">怎样才能让它成为一款五星应用？</string>
+    <string name="rating_feedback_send">发送反馈</string>
+    <string name="rating_cancel">取消</string>
+    <string name="rating_thanks_title">谢谢，我们收到了</string>
+    <string name="rating_thanks_body">您的留言正在发送给团队，它会影响我们接下来的开发方向。</string>
+    <string name="rating_done">完成</string>
+    <string name="toast_play">正在打开 Google Play…</string>
+</resources>

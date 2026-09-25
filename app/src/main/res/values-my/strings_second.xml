@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account (design map §4.14): entry state -->
+    <string name="second_title">ဒုတိယ အကောင့်</string>
+    <string name="second_entry_title">ဒုတိယ WhatsApp၊ ဤနေရာတွင်</string>
+    <string name="second_entry_body">ဤအက်ပ်ထဲတွင် WhatsApp Web ဆက်ရှင်တစ်ခုကို ချိတ်ဆက်ပေးပါသည်။ ဒုတိယ အကောင့်အတွက် သို့မဟုတ် တူညီသော အကောင့်ကို ဒုတိယ ဖုန်းတွင် သုံးရန် အသုံးပြုနိုင်ပါသည်။</string>
+    <string name="second_entry_callout">အခြားဖုန်း လိုအပ်ပါသည်။ ဤနေရာတွင် QR ကုဒ် ပေါ်လာပါမည်။ ထိုဖုန်းရှိ WhatsApp › Linked devices › Link a device တွင် စကင်ဖတ်ပါ။</string>
+    <string name="second_scan">QR စကင်ဖတ်ရန်</string>
+    <string name="second_entry_hint">ချိတ်ဆက်ထားစဉ် အကြောင်းကြားချက်တစ်ခု ပေါ်နေပါမည်။ ၎င်းကို Android က လိုအပ်ပါသည်။</string>
+
+    <!-- Second account: linking / linked bar -->
+    <string name="second_linking">ချိတ်ဆက်နေသည်…</string>
+    <string name="second_reload">ပြန်လည်ဖွင့်ရန်</string>
+    <string name="second_log_out">ထွက်ရန်</string>
+
+    <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
+    <string name="logout_title">ချိတ်ဆက်ထားသော အကောင့်မှ ထွက်မလား။</string>
+    <string name="logout_body">ဤဖုန်းပေါ်ရှိ ဆက်ရှင် ပြီးဆုံးပါမည်။ အခြားဖုန်းကမူ ပုံမှန်အတိုင်း ဆက်အလုပ်လုပ်ပါမည်။</string>
+    <string name="logout_stay">ဆက်ချိတ်ထားရန်</string>
+    <string name="logout_confirm">ထွက်ရန်</string>
+    <string name="toast_reloading">ပြန်လည်ဖွင့်နေသည်…</string>
+    <string name="toast_logged_out">ထွက်ပြီးပါပြီ</string>
+    <string name="toast_linked">ချိတ်ဆက်ပြီးပါပြီ</string>
+</resources>

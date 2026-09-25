@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media (design map §4.12) -->
+    <string name="media_title">已删除的媒体</string>
+    <string name="media_tool_settings">工具设置</string>
+
+    <!-- Category pills -->
+    <string name="media_tab_photos">照片</string>
+    <string name="media_tab_videos">视频</string>
+    <string name="media_tab_audio">音频</string>
+    <string name="media_tab_documents">文档</string>
+    <string name="media_tab_stickers">贴图</string>
+
+    <!-- Empty states and media access -->
+    <string name="media_empty_nothing">暂未恢复任何内容</string>
+    <string name="media_empty_audio">暂无音频</string>
+    <string name="media_empty_documents">暂无文档</string>
+    <string name="media_empty_stickers">暂无贴图</string>
+    <string name="media_empty_body">即使有人“在所有人设备上删除”了文件，只要您此前已收到，文件都会保留在这里。</string>
+    <string name="media_allow">允许访问媒体</string>
+    <string name="media_access_off">媒体访问权限已关闭，新文件将不会被保存。</string>
+
+    <!-- Media detail (design map §4.13) -->
+    <string name="media_detail_title_photo">照片</string>
+    <string name="media_detail_title_video">视频</string>
+    <string name="media_detail_title_audio">音频</string>
+    <string name="media_detail_title_document">文档</string>
+    <string name="media_detail_title_sticker">贴图</string>
+    <string name="media_save">保存到相册</string>
+    <string name="media_share">分享</string>
+    <string name="media_delete">删除</string>
+    <string name="media_play">播放</string>
+    <string name="media_pause">暂停</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <string name="media_meta_from">来自 %1$s · %2$s %3$s · %4$s 删除</string>
+    <string name="media_meta_received">%1$s %2$s 收到 · %3$s 删除</string>
+    <string name="media_meta_from_kept">来自 %1$s · %2$s %3$s</string>
+    <string name="media_meta_received_kept">%1$s %2$s 收到</string>
+    <string name="delete_media_title_photo">删除这张照片？</string>
+    <string name="delete_media_title_video">删除这个视频？</string>
+    <string name="delete_media_title_audio">删除这段音频？</string>
+    <string name="delete_media_title_document">删除这个文档？</string>
+    <string name="delete_media_title_sticker">删除这张贴图？</string>
+    <string name="delete_media_body">它将从媒体恢复中移除。如果您已将其保存到相册，那份副本会保留。</string>
+    <string name="toast_saved">已保存到相册</string>
+    <string name="toast_save_failed">无法保存</string>
+    <string name="toast_share">正在打开分享菜单…</string>
+    <string name="toast_share_failed">无法分享</string>
+    <string name="toast_deleted">已删除</string>
+</resources>

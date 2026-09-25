@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox (design map §4.8) -->
+    <string name="messages_title">मैसेज</string>
+    <plurals name="messages_chip_all">
+        <item quantity="one">सभी · %d अपठित</item>
+        <item quantity="other">सभी · %d अपठित</item>
+    </plurals>
+    <string name="messages_chip_deleted">सिर्फ़ डिलीट हुए · %d</string>
+    <string name="messages_info_all">यहाँ पढ़ें, WhatsApp पर नीले टिक नहीं दिखेंगे। सूचना में प्रीव्यू हो, तो फ़ोटो दिखती हैं; वॉइस मैसेज और फ़ाइलें अपने नाम से दिखती हैं।</string>
+    <string name="messages_info_deleted">सिर्फ़ वही मैसेज रखे जाते हैं जिन्हें भेजने वाले ने डिलीट किया। बाहर रखी गई चैट पूरी तरह छोड़ दी जाती हैं।</string>
+    <string name="messages_empty_title">अभी यहाँ कुछ नहीं है</string>
+    <string name="messages_empty_body">नए मैसेज आते ही यहाँ दिखेंगे। डिलीट हुए मैसेज “सिर्फ़ डिलीट हुए” में रहते हैं।</string>
+    <string name="messages_tool_settings">टूल सेटिंग्स</string>
+
+    <!-- Conversation (design map §4.9) -->
+    <string name="conversation_subtitle_all">%1$s · किसी ने नहीं देखा</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · %2$d डिलीट हुआ</item>
+        <item quantity="other">%1$s · %2$d डिलीट हुए</item>
+    </plurals>
+    <string name="conversation_deleted_label">भेजने वाले ने डिलीट किया</string>
+    <string name="conversation_open">WhatsApp में चैट खोलें</string>
+    <string name="conversation_hint_all">WhatsApp में चैट खोलने पर भेजने वाले को नीले टिक दिख जाएँगे।</string>
+    <string name="conversation_hint_deleted">यहाँ सिर्फ़ पढ़ सकते हैं। जवाब WhatsApp में दें।</string>
+
+    <!-- Tool settings (§4.10), exclude chats (§4.11), clear confirmations (§4.20) -->
+    <string name="tool_settings_pause">रिकवरी रोकें</string>
+    <string name="tool_settings_exclude">चैट बाहर रखें</string>
+    <string name="tool_settings_clear_messages">रखे गए सभी मैसेज मिटाएँ</string>
+    <string name="tool_settings_clear_media">वापस मिला सारा मीडिया हटाएँ</string>
+    <string name="exclude_title">चैट बाहर रखें</string>
+    <string name="exclude_empty">किसी चैट का पहला मैसेज आने के बाद वह यहाँ दिखेगी।</string>
+    <string name="clear_messages_title">वापस मिले सभी मैसेज मिटाएँ?</string>
+    <string name="clear_media_title">वापस मिला सारा मीडिया हटाएँ?</string>
+    <string name="clear_body">सिर्फ़ इस ऐप की कॉपियाँ हटेंगी। WhatsApp पर कोई असर नहीं पड़ता।</string>
+    <string name="keep">रखें</string>
+    <string name="clear">मिटाएँ</string>
+
+    <!-- Toasts (§4.9, §4.10) -->
+    <string name="toast_paused">रिकवरी रोकी गई</string>
+    <string name="toast_resumed">रिकवरी फिर से शुरू हुई</string>
+    <string name="toast_cleared">मिटा दिया गया</string>
+    <string name="toast_opening_whatsapp">WhatsApp खुल रहा है…</string>
+</resources>

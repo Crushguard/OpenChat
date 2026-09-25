@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sharing (rulings R11, R16) -->
+    <string name="share_app_text">OpenChat：无需保存联系人，即可与任意号码聊天。https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding (design map §4.1, §4.2) -->
+    <string name="splash_honesty">免费 · 无广告 · 无需账号</string>
+    <string name="onboarding_skip">跳过</string>
+    <string name="onboarding_1_title">与任意号码聊天</string>
+    <string name="onboarding_1_body">输入或粘贴号码，然后点按“发送消息”。聊天会在 WhatsApp、WhatsApp Business 或 Telegram 中打开，不会保存到您的通讯录。</string>
+    <string name="onboarding_1_check">不会添加到您的通讯录</string>
+    <string name="onboarding_1_send">发送消息</string>
+    <string name="onboarding_2_title">四个工具，一项权限</string>
+    <string name="onboarding_2_body">阅读不显示蓝色双勾，找回对方删除的内容，还能使用第二个账号。一切都只保存在这部手机上。</string>
+    <string name="onboarding_next">下一步</string>
+    <string name="onboarding_start">开始使用</string>
+
+    <!-- Tool titles (Home tool rows, onboarding slide 2) -->
+    <string name="tool_unseen_title">阅读不显示蓝色双勾</string>
+    <string name="tool_deleted_title">恢复已删除的消息</string>
+    <string name="tool_media_title">恢复已删除的媒体</string>
+    <string name="tool_second_title">登录第二个账号</string>
+
+    <!-- Notification access gate (design map §4.7) -->
+    <string name="gate_title">开启通知使用权</string>
+    <string name="gate_body">已删除的消息和媒体会从 WhatsApp 通知中保存下来。任何内容都不会离开您的手机。</string>
+    <string name="gate_open_settings">打开设置</string>
+    <string name="gate_waiting">正在等待 Android…</string>
+    <string name="gate_hint_before">一次授权即可同时开启消息恢复和媒体恢复。</string>
+    <string name="gate_continue">继续</string>
+    <string name="gate_hint_after">您可以随时在设置中关闭。</string>
+    <string name="gate_bar_messages">消息</string>
+    <string name="gate_bar_media">已删除的媒体</string>
+    <string name="gate_bar_settings">通知使用权</string>
+
+    <!-- Second-account foreground service notification (design map §4.14, §5.4) -->
+    <string name="second_notification_channel">第二个账号</string>
+    <string name="second_notification_title">第二个账号已连接</string>
+    <string name="second_notification_text">点按即可打开 OpenChat</string>
+    <string name="second_notification_open">打开</string>
+
+    <!-- Time labels (§5.1) -->
+    <string name="time_now">刚刚</string>
+    <string name="time_today">今天</string>
+    <string name="time_yesterday">昨天</string>
+    <string name="time_minutes_short">%d分钟前</string>
+    <string name="time_hours_short">%d小时前</string>
+
+    <!-- Shared components (ui/components) -->
+    <string name="cd_back">返回</string>
+    <string name="chip_off">已关闭</string>
+    <string name="chip_active">已开启</string>
+    <string name="chip_paused">已暂停</string>
+    <string name="chip_linked">已连接</string>
+</resources>

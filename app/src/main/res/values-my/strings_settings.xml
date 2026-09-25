@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings (design map §4.15) -->
+    <string name="settings_title">ဆက်တင်များ</string>
+    <string name="settings_access">အကြောင်းကြားချက် သုံးခွင့်</string>
+    <string name="settings_access_on">ဖွင့်ထားသည် · မက်ဆေ့ချ်နှင့် မီဒီယာ ကိရိယာများ</string>
+    <string name="settings_access_off">ပိတ်ထားသည် · မက်ဆေ့ချ်နှင့် မီဒီယာ ကိရိယာများအတွက် လိုအပ်သည်</string>
+    <string name="settings_preferences">ရွေးချယ်မှုများ</string>
+    <string name="settings_default_app">မူရင်း အက်ပ်</string>
+    <string name="settings_language">ဘာသာစကား</string>
+    <string name="settings_clear_recents">မကြာသေးမီက နံပါတ်များ ရှင်းရန်</string>
+    <string name="settings_about">အကြောင်း</string>
+    <string name="settings_rate">အဆင့်သတ်မှတ်ပေးပါ</string>
+    <string name="settings_contact">ဆက်သွယ်ရန်</string>
+    <string name="settings_share">အက်ပ်ကို မျှဝေရန်</string>
+    <string name="settings_privacy">ကိုယ်ရေးကိုယ်တာ မူဝါဒ</string>
+    <string name="settings_version">ဗားရှင်း</string>
+    <string name="settings_honesty">OpenChat သည် အခမဲ့ ဖြစ်ပါသည်။ ကြော်ငြာမရှိ၊ အကောင့်မလို၊ ခြေရာခံခြင်း မရှိပါ။ နံပါတ်များ၊ မက်ဆေ့ချ်များနှင့် မီဒီယာများသည် သင့်ဖုန်းမှ မည်သည့်အခါမျှ ထွက်မသွားပါ။</string>
+
+    <!-- Clear recent numbers confirmation (design map §4.15, §4.20) -->
+    <string name="clear_recents_title">မကြာသေးမီက နံပါတ်များကို ရှင်းမလား။</string>
+    <plurals name="clear_recents_body">
+        <item quantity="other">ပင်မစာမျက်နှာရှိ နံပါတ် %d ခုကို ဖယ်ရှားပါမည်။ WhatsApp တွင် ဘာမျှ မပြောင်းလဲပါ။</item>
+    </plurals>
+    <string name="clear_recents_keep">ဆက်ထားရန်</string>
+    <string name="clear_recents_clear">ရှင်းရန်</string>
+    <string name="toast_recents_cleared">မကြာသေးမီက နံပါတ်များကို ရှင်းပြီးပါပြီ</string>
+
+    <!-- Default app sheet (design map §4.16) -->
+    <string name="default_app_title">မူရင်း အက်ပ်</string>
+    <string name="toast_default_app">မူရင်း အက်ပ်: %s</string>
+
+    <!-- Language (design map §4.17) -->
+    <string name="language_title">ဘာသာစကား</string>
+    <string name="language_intro">အက်ပ်၏ ဘာသာစကားကိုသာ ပြောင်းပါသည်။ သင်ပို့သော မက်ဆေ့ချ်များကိုမူ မည်သည့်ဘာသာစကားဖြင့်မဆို သင်ကိုယ်တိုင် ရိုက်ပါသည်။</string>
+    <string name="toast_language">ဘာသာစကား: %s</string>
+
+    <!-- Contact us (design map §4.18) -->
+    <string name="contact_title">ဆက်သွယ်ရန်</string>
+    <string name="contact_intro">ဖွင့်မရသော နံပါတ်၊ ပြန်မရသော မက်ဆေ့ချ် သို့မဟုတ် အကြံဉာဏ်တစ်ခု။ အဖွဲ့ထံ တိုက်ရိုက် ရောက်ပါသည်။</string>
+    <string name="contact_placeholder">ဘာဖြစ်ခဲ့သလဲ။ ဘယ်မျက်နှာပြင်မှာလဲ။</string>
+    <string name="contact_email_label">အီးမေးလ် · မထည့်လည်း ရပါသည်၊ ပြန်စာ လိုချင်မှသာ ထည့်ပါ</string>
+    <string name="contact_callout">အက်ပ်ဗားရှင်းနှင့် Android ဗားရှင်းကို တွဲပို့ပါသည်။ သင့်နံပါတ်များ သို့မဟုတ် မက်ဆေ့ချ်များကို မည်သည့်အခါမျှ မပို့ပါ။</string>
+    <string name="contact_send">ပို့ရန်</string>
+    <string name="toast_sent">ပို့ပြီးပါပြီ။ ကျေးဇူးတင်ပါသည်။</string>
+    <string name="toast_write_first">ဦးစွာ တစ်ခုခု ရေးပါ</string>
+    <string name="toast_no_email">အီးမေးလ် အက်ပ် မတွေ့ပါ</string>
+    <string name="toast_no_app_can_open">၎င်းကို ဖွင့်နိုင်သော အက်ပ် မရှိပါ</string>
+
+    <!-- Rating sheet (design map §4.19) -->
+    <string name="rating_title">OpenChat ကို နှစ်သက်ပါသလား။</string>
+    <string name="rating_body">သင်၏ ရိုးသားသော အဆင့်သတ်မှတ်ချက်က မည်သည့်နံပါတ်ကိုမဆို တစ်ချက်နှိပ်ရုံဖြင့် ဖွင့်ပေးသော အက်ပ်ကို အခြားသူများ ရှာတွေ့စေရန် ကူညီပါသည်။</string>
+    <plurals name="rating_star_cd">
+        <item quantity="other">ကြယ် ၅ ပွင့်အနက် %d ပွင့်</item>
+    </plurals>
+    <string name="rating_hint_tap">ကြယ်တစ်ပွင့်ကို နှိပ်ပါ</string>
+    <string name="rating_hint_1">ကြားရသည့်အတွက် စိတ်မကောင်းပါ</string>
+    <string name="rating_hint_2">ပိုကောင်းအောင် ကြိုးစားပါမည်</string>
+    <string name="rating_hint_3">ကျေးဇူးတင်ပါသည်၊ ထပ်ပြောပြပေးပါ</string>
+    <string name="rating_hint_4">အဆင်ပြေသည့်အတွက် ဝမ်းသာပါသည်</string>
+    <string name="rating_hint_5">ကျေးဇူးတင်ပါသည်!</string>
+    <string name="rating_later">နောက်မှ</string>
+    <string name="rating_store_title">ကျေးဇူးတင်ပါသည်!</string>
+    <string name="rating_store_body">ထိုအမြင်ကို Google Play တွင်လည်း မျှဝေပေးမလား။ အက်ပ်ငယ်လေးတစ်ခု ကြီးထွားရန် ကူညီရာ ရောက်ပါသည်။</string>
+    <string name="rating_store_cta">Google Play တွင် အဆင့်သတ်မှတ်ရန်</string>
+    <string name="rating_not_now">ယခု မလုပ်ပါ</string>
+    <string name="rating_feedback_title">ကျွန်ုပ်တို့ မည်သို့ ပိုကောင်းအောင် လုပ်နိုင်မလဲ။</string>
+    <string name="rating_feedback_body">မည်သည့်အရာ လိုအပ်နေသည်ကို ပြောပြပါ။ ၎င်းသည် အများမြင် သုံးသပ်ချက် မဟုတ်ဘဲ အဖွဲ့ထံ တိုက်ရိုက် ရောက်ပါသည်။ ကျွန်ုပ်တို့ တစ်ခုချင်းစီကို ဖတ်ပါသည်။</string>
+    <string name="rating_feedback_placeholder">ဘာရှိခဲ့ရင် ဒီအက်ပ်ကို ကြယ် ၅ ပွင့် ပေးဖြစ်မလဲ။</string>
+    <string name="rating_feedback_send">အကြံပြုချက် ပို့ရန်</string>
+    <string name="rating_cancel">မလုပ်တော့ပါ</string>
+    <string name="rating_thanks_title">ကျေးဇူးတင်ပါသည်၊ သင့်အသံကို ကြားပါသည်</string>
+    <string name="rating_thanks_body">သင့်မှတ်ချက်ကို အဖွဲ့ထံ ပို့နေပါပြီ။ ကျွန်ုပ်တို့ နောက်ထပ် ဖန်တီးမည့်အရာများကို ၎င်းက ပုံဖော်ပေးပါသည်။</string>
+    <string name="rating_done">ပြီးပါပြီ</string>
+    <string name="toast_play">Google Play ကို ဖွင့်နေသည်…</string>
+</resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sharing (rulings R11, R16) -->
+    <string name="share_app_text">OpenChat ဖြင့် အဆက်အသွယ် မသိမ်းဘဲ မည်သည့်နံပါတ်နှင့်မဆို ချတ်ဖွင့်နိုင်ပါသည်။ https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding (design map §4.1, §4.2) -->
+    <string name="splash_honesty">အခမဲ့ · ကြော်ငြာမရှိ · အကောင့်မလို</string>
+    <string name="onboarding_skip">ကျော်ရန်</string>
+    <string name="onboarding_1_title">မည်သည့်နံပါတ်နှင့်မဆို ချတ်လုပ်ပါ</string>
+    <string name="onboarding_1_body">နံပါတ်ကို ရိုက်ထည့် သို့မဟုတ် ကူးထည့်ပြီး “မက်ဆေ့ချ် ပို့ရန်” ကို နှိပ်ပါ။ WhatsApp၊ WhatsApp Business သို့မဟုတ် Telegram တွင် ပွင့်လာပါမည်။ သင့်အဆက်အသွယ်များထဲ ဘာမျှ မသိမ်းပါ။</string>
+    <string name="onboarding_1_check">သင့်အဆက်အသွယ်များထဲ မထည့်ပါ</string>
+    <string name="onboarding_1_send">မက်ဆေ့ချ် ပို့ရန်</string>
+    <string name="onboarding_2_title">ကိရိယာ လေးခု၊ ခွင့်ပြုချက် တစ်ခု</string>
+    <string name="onboarding_2_body">blue ticks မပြဘဲ ဖတ်ပါ၊ ပို့သူ ဖျက်လိုက်သည်များကို ပြန်ယူပါ၊ ဒုတိယ အကောင့်ကို သုံးပါ။ အားလုံး ဤဖုန်းပေါ်တွင်သာ ရှိပါသည်။</string>
+    <string name="onboarding_next">ရှေ့သို့</string>
+    <string name="onboarding_start">စတင်ရန်</string>
+
+    <!-- Tool titles (Home tool rows, onboarding slide 2) -->
+    <string name="tool_unseen_title">blue ticks မပြဘဲ ဖတ်ရန်</string>
+    <string name="tool_deleted_title">ဖျက်ထားသော မက်ဆေ့ချ်များ ပြန်ယူရန်</string>
+    <string name="tool_media_title">ဖျက်ထားသော မီဒီယာ ပြန်ယူရန်</string>
+    <string name="tool_second_title">ဒုတိယ အကောင့် ဖွင့်ရန်</string>
+
+    <!-- Notification access gate (design map §4.7) -->
+    <string name="gate_title">အကြောင်းကြားချက် သုံးခွင့် ပေးပါ</string>
+    <string name="gate_body">ဖျက်ထားသော မက်ဆေ့ချ်များနှင့် မီဒီယာများကို WhatsApp အကြောင်းကြားချက်များမှ သိမ်းထားပါသည်။ မည်သည့်အရာမျှ သင့်ဖုန်းမှ ထွက်မသွားပါ။</string>
+    <string name="gate_open_settings">ဆက်တင်များ ဖွင့်ရန်</string>
+    <string name="gate_waiting">Android ကို စောင့်နေသည်…</string>
+    <string name="gate_hint_before">ခွင့်ပြုချက် တစ်ခုတည်းဖြင့် မက်ဆေ့ချ် ပြန်ယူခြင်းနှင့် မီဒီယာ ပြန်ယူခြင်း နှစ်ခုလုံးကို ဖွင့်ပေးပါသည်။</string>
+    <string name="gate_continue">ဆက်လုပ်ရန်</string>
+    <string name="gate_hint_after">ဆက်တင်များတွင် အချိန်မရွေး ပိတ်နိုင်ပါသည်။</string>
+    <string name="gate_bar_messages">မက်ဆေ့ချ်များ</string>
+    <string name="gate_bar_media">ဖျက်ထားသော မီဒီယာ</string>
+    <string name="gate_bar_settings">အကြောင်းကြားချက် သုံးခွင့်</string>
+
+    <!-- Second-account foreground service notification (design map §4.14, §5.4) -->
+    <string name="second_notification_channel">ဒုတိယ အကောင့်</string>
+    <string name="second_notification_title">ဒုတိယ အကောင့် ချိတ်ဆက်ထားသည်</string>
+    <string name="second_notification_text">OpenChat ကို ဖွင့်ရန် နှိပ်ပါ</string>
+    <string name="second_notification_open">ဖွင့်ရန်</string>
+
+    <!-- Time labels (§5.1) -->
+    <string name="time_now">ယခုလေးတင်</string>
+    <string name="time_today">ယနေ့</string>
+    <string name="time_yesterday">မနေ့က</string>
+    <string name="time_minutes_short">%d မိနစ်</string>
+    <string name="time_hours_short">%d နာရီ</string>
+
+    <!-- Shared components (ui/components) -->
+    <string name="cd_back">နောက်သို့</string>
+    <string name="chip_off">ပိတ်ထားသည်</string>
+    <string name="chip_active">ဖွင့်ထားသည်</string>
+    <string name="chip_paused">ခဏရပ်ထားသည်</string>
+    <string name="chip_linked">ချိတ်ဆက်ထားသည်</string>
+</resources>

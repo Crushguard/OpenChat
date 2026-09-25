@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sharing (rulings R11, R16) -->
+    <string name="share_app_text">OpenChat से किसी भी नंबर पर चैट खोलें, कॉन्टैक्ट सेव किए बिना। https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding (design map §4.1, §4.2) -->
+    <string name="splash_honesty">मुफ़्त · बिना विज्ञापन · बिना अकाउंट</string>
+    <string name="onboarding_skip">छोड़ें</string>
+    <string name="onboarding_1_title">किसी भी नंबर से चैट करें</string>
+    <string name="onboarding_1_body">नंबर टाइप या पेस्ट करें, फिर “मैसेज भेजें” पर टैप करें। चैट WhatsApp, WhatsApp Business या Telegram में खुलेगी। आपके कॉन्टैक्ट में कुछ भी सेव नहीं होता।</string>
+    <string name="onboarding_1_check">आपके कॉन्टैक्ट में नहीं जुड़ता</string>
+    <string name="onboarding_1_send">मैसेज भेजें</string>
+    <string name="onboarding_2_title">चार टूल, एक अनुमति</string>
+    <string name="onboarding_2_body">नीले टिक के बिना पढ़ें, भेजने वाला जो डिलीट करे उसे वापस पाएँ, और दूसरा अकाउंट चलाएँ। सब कुछ इसी फ़ोन पर रहता है।</string>
+    <string name="onboarding_next">आगे</string>
+    <string name="onboarding_start">शुरू करें</string>
+
+    <!-- Tool titles (Home tool rows, onboarding slide 2) -->
+    <string name="tool_unseen_title">नीले टिक के बिना पढ़ें</string>
+    <string name="tool_deleted_title">डिलीट हुए मैसेज वापस पाएँ</string>
+    <string name="tool_media_title">डिलीट हुआ मीडिया वापस पाएँ</string>
+    <string name="tool_second_title">दूसरा अकाउंट खोलें</string>
+
+    <!-- Notification access gate (design map §4.7) -->
+    <string name="gate_title">सूचना के ऐक्सेस की अनुमति दें</string>
+    <string name="gate_body">डिलीट हुए मैसेज और मीडिया WhatsApp की सूचनाओं से सेव किए जाते हैं। कुछ भी आपके फ़ोन से बाहर नहीं जाता।</string>
+    <string name="gate_open_settings">सेटिंग्स खोलें</string>
+    <string name="gate_waiting">Android का इंतज़ार है…</string>
+    <string name="gate_hint_before">एक ही अनुमति से मैसेज रिकवरी और मीडिया रिकवरी, दोनों चालू हो जाती हैं।</string>
+    <string name="gate_continue">जारी रखें</string>
+    <string name="gate_hint_after">आप इसे सेटिंग्स में कभी भी बंद कर सकते हैं।</string>
+    <string name="gate_bar_messages">मैसेज</string>
+    <string name="gate_bar_media">डिलीट हुआ मीडिया</string>
+    <string name="gate_bar_settings">सूचना का ऐक्सेस</string>
+
+    <!-- Second-account foreground service notification (design map §4.14, §5.4) -->
+    <string name="second_notification_channel">दूसरा अकाउंट</string>
+    <string name="second_notification_title">दूसरा अकाउंट लिंक है</string>
+    <string name="second_notification_text">OpenChat खोलने के लिए टैप करें</string>
+    <string name="second_notification_open">खोलें</string>
+
+    <!-- Time labels (§5.1) -->
+    <string name="time_now">अभी</string>
+    <string name="time_today">आज</string>
+    <string name="time_yesterday">कल</string>
+    <string name="time_minutes_short">%d मि॰</string>
+    <string name="time_hours_short">%d घं॰</string>
+
+    <!-- Shared components (ui/components) -->
+    <string name="cd_back">वापस</string>
+    <string name="chip_off">बंद</string>
+    <string name="chip_active">चालू</string>
+    <string name="chip_paused">रोकी गई</string>
+    <string name="chip_linked">लिंक है</string>
+</resources>

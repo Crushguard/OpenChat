@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox (design map §4.8) -->
+    <string name="messages_title">消息</string>
+    <plurals name="messages_chip_all">
+        <item quantity="other">全部 · %d条未读</item>
+    </plurals>
+    <string name="messages_chip_deleted">仅看已删除 · %d</string>
+    <string name="messages_info_all">在这里阅读，WhatsApp 不会显示蓝色双勾。通知带有预览时会显示照片；语音消息和文件只显示名称。</string>
+    <string name="messages_info_deleted">仅保留对方删除的消息。已排除的聊天会被完全跳过。</string>
+    <string name="messages_empty_title">暂无内容</string>
+    <string name="messages_empty_body">新消息到达后会显示在这里。已删除的消息会保留在“仅看已删除”中。</string>
+    <string name="messages_tool_settings">工具设置</string>
+
+    <!-- Conversation (design map §4.9) -->
+    <string name="conversation_subtitle_all">%1$s · 不显示已读</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="other">%1$s · 已删除%2$d条</item>
+    </plurals>
+    <string name="conversation_deleted_label">对方已删除</string>
+    <string name="conversation_open">在 WhatsApp 中打开聊天</string>
+    <string name="conversation_hint_all">在 WhatsApp 中打开聊天会发送已读回执。</string>
+    <string name="conversation_hint_deleted">此处仅供阅读，请在 WhatsApp 中回复。</string>
+
+    <!-- Tool settings (§4.10), exclude chats (§4.11), clear confirmations (§4.20) -->
+    <string name="tool_settings_pause">暂停恢复</string>
+    <string name="tool_settings_exclude">排除聊天</string>
+    <string name="tool_settings_clear_messages">清除所有保留的消息</string>
+    <string name="tool_settings_clear_media">删除所有已恢复的媒体</string>
+    <string name="exclude_title">排除聊天</string>
+    <string name="exclude_empty">聊天收到第一条消息后，会显示在这里。</string>
+    <string name="clear_messages_title">清除所有已恢复的消息？</string>
+    <string name="clear_media_title">删除所有已恢复的媒体？</string>
+    <string name="clear_body">仅删除本应用中的副本，WhatsApp 不受影响。</string>
+    <string name="keep">保留</string>
+    <string name="clear">清除</string>
+
+    <!-- Toasts (§4.9, §4.10) -->
+    <string name="toast_paused">已暂停恢复</string>
+    <string name="toast_resumed">已继续恢复</string>
+    <string name="toast_cleared">已清除</string>
+    <string name="toast_opening_whatsapp">正在打开 WhatsApp…</string>
+</resources>
