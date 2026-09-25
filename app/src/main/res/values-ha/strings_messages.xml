@@ -8,13 +8,13 @@
     </plurals>
     <string name="messages_chip_deleted">Waɗanda aka goge · %d</string>
     <string name="messages_info_all">Karanta a nan, WhatsApp ba zai nuna alamar shuɗi ba. Hotuna suna bayyana idan sanarwar tana da samfoti; saƙonnin murya da fayiloli suna nuna sunansu kawai.</string>
-    <string name="messages_info_deleted">Saƙonnin da mai aikawa ya goge kaɗai ake ajiyewa. Ba a ajiye komai daga hirarrakin da aka ware.</string>
+    <string name="messages_info_deleted">Saƙonnin da mai aikawa ya goge kaɗai ake ajiyewa. Ba a ajiye komai daga hirarrakin da aka ware ba.</string>
     <string name="messages_empty_title">Babu komai a nan tukuna</string>
     <string name="messages_empty_body">Sabbin saƙonni suna bayyana a nan da zarar sun iso. Waɗanda aka goge suna zama a “Waɗanda aka goge”.</string>
     <string name="messages_tool_settings">Saitunan kayan aiki</string>
 
     <!-- Conversation -->
-    <string name="conversation_subtitle_all">%1$s · ba wanda ya gani</string>
+    <string name="conversation_subtitle_all">%1$s · ba wanda ya sani</string>
     <plurals name="conversation_subtitle_deleted">
         <item quantity="one">%1$s · an goge %2$d</item>
         <item quantity="other">%1$s · an goge %2$d</item>

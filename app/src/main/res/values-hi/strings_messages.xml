@@ -14,7 +14,7 @@
     <string name="messages_tool_settings">टूल सेटिंग्स</string>
 
     <!-- Conversation (design map §4.9) -->
-    <string name="conversation_subtitle_all">%1$s · किसी ने नहीं देखा</string>
+    <string name="conversation_subtitle_all">%1$s · किसी को पता नहीं</string>
     <plurals name="conversation_subtitle_deleted">
         <item quantity="one">%1$s · %2$d डिलीट हुआ</item>
         <item quantity="other">%1$s · %2$d डिलीट हुए</item>

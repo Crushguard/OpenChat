@@ -28,7 +28,7 @@
         <item quantity="other">本周已恢复%d项</item>
     </plurals>
     <string name="tool_media_status_off">照片、视频、语音消息、文档</string>
-    <string name="tool_second_status_linked">已连接</string>
+    <string name="tool_second_status_linked">已关联</string>
     <string name="tool_second_status_off">在本应用内使用第二个 WhatsApp</string>
 
     <!-- Country picker sheet (design map §4.4) -->

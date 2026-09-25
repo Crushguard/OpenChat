@@ -17,7 +17,7 @@
 
     <!-- Tool titles (Home tool rows, onboarding slide 2) -->
     <string name="tool_unseen_title">blue ticks မပြဘဲ ဖတ်ရန်</string>
-    <string name="tool_deleted_title">ဖျက်ထားသော မက်ဆေ့ချ်များ ပြန်ယူရန်</string>
+    <string name="tool_deleted_title">ဖျက်ထားသော မက်ဆေ့ချ် ပြန်ယူရန်</string>
     <string name="tool_media_title">ဖျက်ထားသော မီဒီယာ ပြန်ယူရန်</string>
     <string name="tool_second_title">ဒုတိယ အကောင့် ဖွင့်ရန်</string>
 
@@ -48,8 +48,8 @@
 
     <!-- Shared components (ui/components) -->
     <string name="cd_back">နောက်သို့</string>
-    <string name="chip_off">ပိတ်ထားသည်</string>
-    <string name="chip_active">ဖွင့်ထားသည်</string>
+    <string name="chip_off">ပိတ်</string>
+    <string name="chip_active">ဖွင့်</string>
     <string name="chip_paused">ခဏရပ်ထားသည်</string>
-    <string name="chip_linked">ချိတ်ဆက်ထားသည်</string>
+    <string name="chip_linked">ချိတ်ထားသည်</string>
 </resources>

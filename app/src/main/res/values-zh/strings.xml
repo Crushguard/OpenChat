@@ -35,7 +35,7 @@
 
     <!-- Second-account foreground service notification (design map §4.14, §5.4) -->
     <string name="second_notification_channel">第二个账号</string>
-    <string name="second_notification_title">第二个账号已连接</string>
+    <string name="second_notification_title">第二个账号已关联</string>
     <string name="second_notification_text">点按即可打开 OpenChat</string>
     <string name="second_notification_open">打开</string>
 
@@ -51,5 +51,5 @@
     <string name="chip_off">已关闭</string>
     <string name="chip_active">已开启</string>
     <string name="chip_paused">已暂停</string>
-    <string name="chip_linked">已连接</string>
+    <string name="chip_linked">已关联</string>
 </resources>

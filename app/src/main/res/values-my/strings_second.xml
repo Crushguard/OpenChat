@@ -5,7 +5,7 @@
     <string name="second_entry_title">ဒုတိယ WhatsApp၊ ဤနေရာတွင်</string>
     <string name="second_entry_body">ဤအက်ပ်ထဲတွင် WhatsApp Web ဆက်ရှင်တစ်ခုကို ချိတ်ဆက်ပေးပါသည်။ ဒုတိယ အကောင့်အတွက် သို့မဟုတ် တူညီသော အကောင့်ကို ဒုတိယ ဖုန်းတွင် သုံးရန် အသုံးပြုနိုင်ပါသည်။</string>
     <string name="second_entry_callout">အခြားဖုန်း လိုအပ်ပါသည်။ ဤနေရာတွင် QR ကုဒ် ပေါ်လာပါမည်။ ထိုဖုန်းရှိ WhatsApp › Linked devices › Link a device တွင် စကင်ဖတ်ပါ။</string>
-    <string name="second_scan">QR စကင်ဖတ်ရန်</string>
+    <string name="second_scan">QR ကုဒ် ပြရန်</string>
     <string name="second_entry_hint">ချိတ်ဆက်ထားစဉ် အကြောင်းကြားချက်တစ်ခု ပေါ်နေပါမည်။ ၎င်းကို Android က လိုအပ်ပါသည်။</string>
 
     <!-- Second account: linking / linked bar -->

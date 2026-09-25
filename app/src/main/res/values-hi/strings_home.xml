@@ -16,8 +16,8 @@
 
     <!-- Home tool rows: status lines (design map §4.3) -->
     <plurals name="tool_unseen_status_granted">
-        <item quantity="one">%d अपठित मैसेज, किसी ने नहीं देखा</item>
-        <item quantity="other">%d अपठित मैसेज, किसी ने नहीं देखे</item>
+        <item quantity="one">%d अपठित मैसेज, किसी को पता नहीं</item>
+        <item quantity="other">%d अपठित मैसेज, किसी को पता नहीं</item>
     </plurals>
     <string name="tool_unseen_status_paused">रोकी गई</string>
     <string name="tool_unseen_status_off">यहाँ पढ़ें, WhatsApp पर कुछ नहीं दिखेगा</string>

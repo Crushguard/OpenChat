@@ -5,7 +5,7 @@
     <string name="second_entry_title">दूसरा WhatsApp, यहीं पर</string>
     <string name="second_entry_body">यह इस ऐप में एक WhatsApp Web सेशन लिंक करता है। इसे दूसरे अकाउंट के लिए इस्तेमाल करें, या अपना वही अकाउंट दूसरे फ़ोन पर चलाने के लिए।</string>
     <string name="second_entry_callout">आपको दूसरे फ़ोन की ज़रूरत होगी। यहाँ एक QR कोड दिखेगा; उसे उस फ़ोन पर WhatsApp › लिंक किए गए डिवाइस › डिवाइस लिंक करें में जाकर स्कैन करें।</string>
-    <string name="second_scan">QR स्कैन करें</string>
+    <string name="second_scan">QR कोड दिखाएँ</string>
     <string name="second_entry_hint">लिंक रहने तक एक सूचना दिखती रहेगी। Android के लिए यह ज़रूरी है।</string>
 
     <!-- Second account: linking / linked bar -->

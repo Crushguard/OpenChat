@@ -3,22 +3,22 @@
     <!-- Second account (design map §4.14): entry state -->
     <string name="second_title">第二个账号</string>
     <string name="second_entry_title">第二个 WhatsApp，就在这里</string>
-    <string name="second_entry_body">在本应用中连接一个 WhatsApp Web 会话。可用于第二个账号，也可以在另一部手机上使用同一个账号。</string>
-    <string name="second_entry_callout">您需要用到另一部手机。这里会显示一个二维码，请在那部手机上依次打开 WhatsApp › 已连接的设备 › 连接新设备，然后扫描它。</string>
-    <string name="second_scan">扫描二维码</string>
-    <string name="second_entry_hint">连接期间会持续显示一条通知，这是 Android 的要求。</string>
+    <string name="second_entry_body">在本应用中关联一个 WhatsApp Web 会话。可用于第二个账号，也可以在另一部手机上使用同一个账号。</string>
+    <string name="second_entry_callout">您需要用到另一部手机。这里会显示一个二维码，请在那部手机上依次打开 WhatsApp › 已关联的设备 › 关联新设备，然后扫描它。</string>
+    <string name="second_scan">显示二维码</string>
+    <string name="second_entry_hint">关联期间会持续显示一条通知，这是 Android 的要求。</string>
 
     <!-- Second account: linking / linked bar -->
-    <string name="second_linking">正在连接…</string>
+    <string name="second_linking">正在关联…</string>
     <string name="second_reload">重新加载</string>
     <string name="second_log_out">退出登录</string>
 
     <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
-    <string name="logout_title">要退出已连接的账号吗？</string>
+    <string name="logout_title">要退出已关联的账号吗？</string>
     <string name="logout_body">此手机上的会话将结束，另一部手机可继续正常使用。</string>
-    <string name="logout_stay">保持连接</string>
+    <string name="logout_stay">保持关联</string>
     <string name="logout_confirm">退出登录</string>
     <string name="toast_reloading">正在重新加载…</string>
     <string name="toast_logged_out">已退出登录</string>
-    <string name="toast_linked">已连接</string>
+    <string name="toast_linked">已关联</string>
 </resources>

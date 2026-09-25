@@ -17,7 +17,7 @@
     <string name="media_empty_stickers">Babu sitika tukuna</string>
     <string name="media_empty_body">Fayilolin da wani ya goge wa kowa ana ajiye su a nan, matuƙar sun riga sun iso wayarka.</string>
     <string name="media_allow">Ba da izinin shiga fayiloli</string>
-    <string name="media_access_off">Izinin shiga fayiloli a kashe yake, don haka ba a ajiye sabbin fayiloli.</string>
+    <string name="media_access_off">Izinin shiga fayiloli a kashe yake, don haka ba za a ajiye sabbin fayiloli ba.</string>
 
     <!-- Media detail -->
     <string name="media_detail_title_photo">Hoto</string>

@@ -16,8 +16,8 @@
 
     <!-- Home tool rows -->
     <plurals name="tool_unseen_status_granted">
-        <item quantity="one">%d ba a karanta ba, ba wanda ya gani</item>
-        <item quantity="other">%d ba a karanta ba, ba wanda ya gani</item>
+        <item quantity="one">%d ba a karanta ba, ba wanda ya sani</item>
+        <item quantity="other">%d ba a karanta ba, ba wanda ya sani</item>
     </plurals>
     <string name="tool_unseen_status_paused">An dakatar</string>
     <string name="tool_unseen_status_off">Karanta a nan, WhatsApp ba ya nuna komai</string>
