@@ -178,7 +178,9 @@ How the language is chosen:
 Caveats:
 
 - The translations were machine-assisted, then reviewed per language group (European; Asian and Hausa;
-  right-to-left and Turkish). A native-speaker pass is recommended, above all for Hausa, Burmese and Pashto.
+  right-to-left and Turkish). A native-speaker pass is recommended, above all for Hausa, Burmese and Pashto,
+  and for three word choices: Italian "Altro account" for Second account, and the Keep button of the clear
+  dialogs as Hebrew «שמירה» and Indonesian "Simpan" (both also read as "Save").
 - In Hausa, WhatsApp's menu names ("Linked devices › Link a device", "Delete for everyone") are unconfirmed
   guesses. Burmese keeps those names, and "blue ticks", in English because WhatsApp's Burmese wording could not
   be confirmed. Pashto keeps them in English because WhatsApp has no Pashto UI.
@@ -188,7 +190,7 @@ Caveats:
   on the Android version, and Persian and Pashto dates use the Gregorian calendar. Beside Arabic-Indic and
   Persian digits a middle dot reads as a zero, so Arabic, Persian and Urdu put counts in parentheses and use
   the Arabic comma between parts, and Pashto uses an en dash.
-- Every translated screen was also checked by eye against English in the screenshot matrix: labels that
+- Every translated screen, in all 18 languages, was also checked by eye against English in the screenshot matrix: labels that
   clipped or wrapped at 390 dp, or would at 360 dp, were shortened. Known leftovers: with WhatsApp Business
   as the default app, the Settings row label wraps onto two lines in a few languages (Hebrew; Spanish,
   Portuguese, French and Italian on 360 dp phones); the onboarding card titles wrap in German, Spanish and
@@ -357,7 +359,8 @@ work resumed from DataStore or I/O threads never touches navigation or lifecycle
 a test fails, the job log prints its full stack trace, and what the host kernel and the emulator recorded if the
 emulator itself went away, and the crash lines of logcat. A system "isn't responding" dialog about another app,
 which a cold-booted emulator often shows for System UI, is answered before each test and while GateTest waits
-for Settings. Artifacts per API level: `device-screens-api<N>` (folders
+for Settings. The emulators run without guest Vulkan (`-feature -Vulkan`): with it, the API 34 emulator vanished
+while SecondAccountTest's WebView rendered web.whatsapp.com. Artifacts per API level: `device-screens-api<N>` (folders
 `api<N>/<tag>/` for the language sweep, `api<N>/flows/` for the tool flows, `api<N>/failures/` for the screen
 when a test failed), `device-test-reports-api<N>` and `device-logcat-api<N>`. Locally, on an emulator
 without the real WhatsApp (the stand-in takes its package name):
