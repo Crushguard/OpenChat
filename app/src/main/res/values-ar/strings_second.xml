@@ -6,7 +6,7 @@
     <string name="second_entry_body">يربط جلسة WhatsApp Web داخل هذا التطبيق. استخدمه لحساب ثانٍ، أو للحساب نفسه على هاتف ثانٍ.</string>
     <!-- WhatsApp's own Arabic menu names: الأجهزة المرتبطة › ربط جهاز -->
     <string name="second_entry_callout">ستحتاج إلى الهاتف الآخر. سيظهر رمز QR هنا؛ امسحه ضوئيًا هناك من WhatsApp › الأجهزة المرتبطة › ربط جهاز.</string>
-    <string name="second_scan">مسح رمز QR</string>
+    <string name="second_scan">عرض رمز QR</string>
     <string name="second_entry_hint">يبقى إشعار ظاهرًا ما دام الحساب مرتبطًا. يتطلب Android ذلك.</string>
 
     <!-- Linking / linked bar -->
@@ -17,7 +17,7 @@
     <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
     <string name="logout_title">تسجيل الخروج من الحساب المرتبط؟</string>
     <string name="logout_body">ستنتهي الجلسة على هذا الهاتف، وسيواصل الهاتف الآخر العمل.</string>
-    <string name="logout_stay">البقاء</string>
+    <string name="logout_stay">البقاء مرتبطًا</string>
     <string name="logout_confirm">تسجيل الخروج</string>
     <string name="toast_reloading">جارٍ إعادة التحميل…</string>
     <string name="toast_logged_out">تم تسجيل الخروج</string>

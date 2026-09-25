@@ -51,7 +51,7 @@
 
     <!-- Rating sheet -->
     <string name="rating_title">נהנים מ-OpenChat?</string>
-    <string name="rating_body">דירוג כן עוזר לאנשים אחרים למצוא אפליקציה שפותחת כל מספר בהקשה אחת.</string>
+    <string name="rating_body">דירוג אמיתי עוזר לאנשים אחרים למצוא אפליקציה שפותחת כל מספר בהקשה אחת.</string>
     <plurals name="rating_star_cd">
         <item quantity="one">כוכב אחד מתוך חמישה</item>
         <item quantity="two">שני כוכבים מתוך חמישה</item>

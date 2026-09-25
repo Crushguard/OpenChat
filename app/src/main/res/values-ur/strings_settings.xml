@@ -50,7 +50,7 @@
 
     <!-- Rating sheet (§4.19). "Five" is written as a word so it never sits next to digits of another script -->
     <string name="rating_title">کیا آپ کو OpenChat پسند آ رہا ہے؟</string>
-    <string name="rating_body">آپ کی دیانتدار ریٹنگ دوسروں کو ایسی ایپ ڈھونڈنے میں مدد دیتی ہے جو ایک ٹیپ میں کوئی بھی نمبر کھول دے۔</string>
+    <string name="rating_body">آپ کی دیانتدارانہ ریٹنگ دوسروں کو ایسی ایپ ڈھونڈنے میں مدد دیتی ہے جو ایک ٹیپ میں کوئی بھی نمبر کھول دے۔</string>
     <plurals name="rating_star_cd">
         <item quantity="one">پانچ میں سے %d ستارہ</item>
         <item quantity="other">پانچ میں سے %d ستارے</item>

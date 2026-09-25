@@ -17,7 +17,7 @@
     <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
     <string name="logout_title">از حساب متصل خارج می‌شوید؟</string>
     <string name="logout_body">نشست روی این گوشی پایان می‌یابد. گوشی دیگر همچنان کار می‌کند.</string>
-    <string name="logout_stay">ماندن</string>
+    <string name="logout_stay">متصل ماندن</string>
     <string name="logout_confirm">خروج</string>
     <string name="toast_reloading">در حال بارگیری مجدد…</string>
     <string name="toast_logged_out">از حساب خارج شدید</string>
