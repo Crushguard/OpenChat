@@ -3,6 +3,7 @@ package com.piptechnologies.openchat.screenshots
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import com.android.resources.Density
+import com.android.resources.LayoutDirection
 
 /**
  * 390 x 844 dp at 3x, the frame every design screen was drawn in. Paparazzi scales recorded
@@ -18,9 +19,24 @@ object ScreenshotDevice {
         density = Density.XXHIGH,
     )
 
+    private const val THEME = "android:Theme.Material.Light.NoActionBar"
+
+    /** The English screenshots: the default values/ strings, left to right. */
     fun paparazzi(): Paparazzi = Paparazzi(
         deviceConfig = config,
-        theme = "android:Theme.Material.Light.NoActionBar",
+        theme = THEME,
         showSystemUi = false,
+    )
+
+    /**
+     * [config] in one translation: the strings of values-<[qualifier]> (a resource qualifier, "pt-rBR", "in", "iw"), laid
+     * out right to left when [rtl]. layoutlib mirrors only an app that supports RTL, as the manifest's
+     * android:supportsRtl="true" declares.
+     */
+    fun paparazzi(qualifier: String, rtl: Boolean): Paparazzi = Paparazzi(
+        deviceConfig = config.copy(locale = qualifier, layoutDirection = if (rtl) LayoutDirection.RTL else LayoutDirection.LTR),
+        theme = THEME,
+        showSystemUi = false,
+        supportsRtl = true,
     )
 }

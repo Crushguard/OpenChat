@@ -1,6 +1,6 @@
 package com.piptechnologies.openchat.screenshots
 
-import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.core.messages.InboxBuilder
@@ -20,7 +20,6 @@ import com.piptechnologies.openchat.ui.messages.MessagesUiState
 import com.piptechnologies.openchat.ui.messages.ToolSettingsSheetContent
 import com.piptechnologies.openchat.ui.messages.clearMessagesSpec
 import com.piptechnologies.openchat.ui.messages.conversationMessages
-import com.piptechnologies.openchat.ui.theme.OpenChatTheme
 import java.util.TimeZone
 import org.junit.After
 import org.junit.Before
@@ -32,42 +31,23 @@ private const val AYU_NUMBER = "+62 812 3456 7890"
 
 /**
  * Messages inbox (All / Deleted only / empty), the conversation in both modes, the tool settings sheet
- * and the clear-all confirmation (design map §4.8–§4.10, §4.20), from the §6 fake data.
+ * and the clear-all confirmation (design map §4.8–§4.10, §4.20), from the §6 fake data. The screens format
+ * times in the default zone: render them in [Fakes.timeZone].
  */
-class MessagesScreenshotTests {
-    @get:Rule
-    val paparazzi = ScreenshotDevice.paparazzi()
-
-    private val defaultZone: TimeZone = TimeZone.getDefault()
-
-    /** The screens format times in the default zone; the fake wall-clock times are UTC. */
-    @Before
-    fun useFakeTimeZone() {
-        TimeZone.setDefault(Fakes.timeZone)
-    }
-
-    @After
-    fun restoreTimeZone() {
-        TimeZone.setDefault(defaultZone)
-    }
-
-    @Test
-    fun unseen_list() = snapshot {
+object MessagesScenes {
+    val unseenList = Scene("unseen_list") {
         MessagesScreen(state = inbox(InboxMode.ALL), callbacks = MessagesCallbacks())
     }
 
-    @Test
-    fun recover_messages_list() = snapshot {
+    val recoverMessagesList = Scene("recover_messages_list") {
         MessagesScreen(state = inbox(InboxMode.DELETED), callbacks = MessagesCallbacks())
     }
 
-    @Test
-    fun messages_empty() = snapshot {
+    val messagesEmpty = Scene("messages_empty") {
         MessagesScreen(state = emptyInbox(), callbacks = MessagesCallbacks())
     }
 
-    @Test
-    fun unseen_conversation() = snapshot {
+    val unseenConversation = Scene("unseen_conversation") {
         ConversationScreen(
             state = ayu(InboxMode.ALL, uiText(R.string.conversation_subtitle_all, ltr(AYU_NUMBER))),
             onBack = {},
@@ -77,8 +57,7 @@ class MessagesScreenshotTests {
         )
     }
 
-    @Test
-    fun recover_messages_conversation() = snapshot {
+    val recoverMessagesConversation = Scene("recover_messages_conversation") {
         ConversationScreen(
             state = ayu(InboxMode.DELETED, pluralText(R.plurals.conversation_subtitle_deleted, 2, ltr(AYU_NUMBER), 2)),
             onBack = {},
@@ -88,17 +67,24 @@ class MessagesScreenshotTests {
         )
     }
 
-    @Test
-    fun tool_settings_sheet() = snapshot {
+    val toolSettingsSheet = Scene("tool_settings_sheet") {
         SheetPreviewFrame(
             screen = { MessagesScreen(state = inbox(InboxMode.DELETED), callbacks = MessagesCallbacks()) },
         ) {
-            ToolSettingsSheetContent("Messages", false, 2, "Clear all kept messages", {}, {}, {})
+            // The texts MessagesRoute gives the sheet.
+            ToolSettingsSheetContent(
+                stringResource(R.string.messages_title),
+                false,
+                2,
+                stringResource(R.string.tool_settings_clear_messages),
+                {},
+                {},
+                {},
+            )
         }
     }
 
-    @Test
-    fun dialog_clear_all() = snapshot {
+    val dialogClearAll = Scene("dialog_clear_all") {
         SheetPreviewFrame(
             topRadius = 26.dp,
             screen = { MessagesScreen(state = inbox(InboxMode.DELETED), callbacks = MessagesCallbacks()) },
@@ -107,13 +93,15 @@ class MessagesScreenshotTests {
         }
     }
 
-    private fun snapshot(content: @Composable () -> Unit) {
-        paparazzi.snapshot {
-            OpenChatTheme {
-                content()
-            }
-        }
-    }
+    val all: List<Scene> = listOf(
+        unseenList,
+        recoverMessagesList,
+        messagesEmpty,
+        unseenConversation,
+        recoverMessagesConversation,
+        toolSettingsSheet,
+        dialogClearAll,
+    )
 
     /** The five fake conversations: 7 unread and 4 deleted messages, recovery active, 2 chats excluded. */
     private fun inbox(mode: InboxMode): MessagesUiState = MessagesUiState(
@@ -151,4 +139,44 @@ class MessagesScreenshotTests {
             nowMs = Fakes.now,
         )
     }
+}
+
+/** [MessagesScenes] in English. */
+class MessagesScreenshotTests {
+    @get:Rule
+    val paparazzi = ScreenshotDevice.paparazzi()
+
+    private val defaultZone: TimeZone = TimeZone.getDefault()
+
+    /** The screens format times in the default zone; the fake wall-clock times are UTC. */
+    @Before
+    fun useFakeTimeZone() {
+        TimeZone.setDefault(Fakes.timeZone)
+    }
+
+    @After
+    fun restoreTimeZone() {
+        TimeZone.setDefault(defaultZone)
+    }
+
+    @Test
+    fun unseen_list() = paparazzi.snapshot(MessagesScenes.unseenList)
+
+    @Test
+    fun recover_messages_list() = paparazzi.snapshot(MessagesScenes.recoverMessagesList)
+
+    @Test
+    fun messages_empty() = paparazzi.snapshot(MessagesScenes.messagesEmpty)
+
+    @Test
+    fun unseen_conversation() = paparazzi.snapshot(MessagesScenes.unseenConversation)
+
+    @Test
+    fun recover_messages_conversation() = paparazzi.snapshot(MessagesScenes.recoverMessagesConversation)
+
+    @Test
+    fun tool_settings_sheet() = paparazzi.snapshot(MessagesScenes.toolSettingsSheet)
+
+    @Test
+    fun dialog_clear_all() = paparazzi.snapshot(MessagesScenes.dialogClearAll)
 }

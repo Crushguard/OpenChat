@@ -14,7 +14,6 @@ import com.piptechnologies.openchat.ui.media.MediaDetailUiState
 import com.piptechnologies.openchat.ui.media.MediaScreen
 import com.piptechnologies.openchat.ui.media.MediaUiState
 import com.piptechnologies.openchat.ui.media.deleteMediaSpec
-import com.piptechnologies.openchat.ui.theme.OpenChatTheme
 import java.util.TimeZone
 import org.junit.After
 import org.junit.Before
@@ -24,30 +23,14 @@ import org.junit.Test
 /**
  * Deleted media (the Photos grid and the empty Audio tab), the media detail of a photo and its delete
  * confirmation (design map §4.12, §4.13, §4.20), from the §6 fake data. Thumbnails and the preview are the
- * hatched placeholders the design draws.
+ * hatched placeholders the design draws. The screens format their times and days in the default zone
+ * (rememberTimeFormatter): render them in [Fakes.timeZone].
  */
-class MediaScreenshotTests {
-    @get:Rule
-    val paparazzi = ScreenshotDevice.paparazzi()
-
-    private val defaultZone: TimeZone = TimeZone.getDefault()
-
-    /** The screens format their times and days in the default zone (rememberTimeFormatter); the fake wall-clock times are UTC. */
-    @Before
-    fun useFakeTimeZone() {
-        TimeZone.setDefault(Fakes.timeZone)
-    }
-
-    @After
-    fun restoreTimeZone() {
-        TimeZone.setDefault(defaultZone)
-    }
-
+object MediaScenes {
     /** The 7 recovered photos (2 today, 5 yesterday), newest first. */
     private val photos: List<RecoveredMedia> = Fakes.media.filter { it.category == MediaCategory.PHOTO }
 
-    @Test
-    fun recover_media_grid() = snapshot {
+    val recoverMediaGrid = Scene("recover_media_grid") {
         MediaScreen(
             state = media(MediaCategory.PHOTO, MediaDayGrouper.group(photos, Fakes.now, Fakes.timeZone)),
             callbacks = MediaCallbacks(),
@@ -55,8 +38,7 @@ class MediaScreenshotTests {
         )
     }
 
-    @Test
-    fun media_empty() = snapshot {
+    val mediaEmpty = Scene("media_empty") {
         MediaScreen(
             state = media(MediaCategory.AUDIO, emptyList()),
             callbacks = MediaCallbacks(),
@@ -64,25 +46,17 @@ class MediaScreenshotTests {
         )
     }
 
-    @Test
-    fun recover_media_detail() = snapshot {
+    val recoverMediaDetail = Scene("recover_media_detail") {
         PhotoDetail()
     }
 
-    @Test
-    fun dialog_delete_media() = snapshot {
+    val dialogDeleteMedia = Scene("dialog_delete_media") {
         SheetPreviewFrame(topRadius = 26.dp, screen = { PhotoDetail() }) {
             ConfirmSheetContent(spec = deleteMediaSpec(MediaCategory.PHOTO), onCancel = {}, onConfirm = {})
         }
     }
 
-    private fun snapshot(content: @Composable () -> Unit) {
-        paparazzi.snapshot {
-            OpenChatTheme {
-                content()
-            }
-        }
-    }
+    val all: List<Scene> = listOf(recoverMediaGrid, mediaEmpty, recoverMediaDetail, dialogDeleteMedia)
 
     /** The grid on [tab] with media access granted, recovery active and no sheet open. */
     private fun media(tab: MediaCategory, groups: List<MediaDayGrouper.Group>): MediaUiState = MediaUiState(
@@ -119,4 +93,35 @@ class MediaScreenshotTests {
             preview = { _, modifier -> HatchedPlaceholder(modifier = modifier, dark = true) },
         )
     }
+}
+
+/** [MediaScenes] in English. */
+class MediaScreenshotTests {
+    @get:Rule
+    val paparazzi = ScreenshotDevice.paparazzi()
+
+    private val defaultZone: TimeZone = TimeZone.getDefault()
+
+    /** The screens format their times and days in the default zone (rememberTimeFormatter); the fake wall-clock times are UTC. */
+    @Before
+    fun useFakeTimeZone() {
+        TimeZone.setDefault(Fakes.timeZone)
+    }
+
+    @After
+    fun restoreTimeZone() {
+        TimeZone.setDefault(defaultZone)
+    }
+
+    @Test
+    fun recover_media_grid() = paparazzi.snapshot(MediaScenes.recoverMediaGrid)
+
+    @Test
+    fun media_empty() = paparazzi.snapshot(MediaScenes.mediaEmpty)
+
+    @Test
+    fun recover_media_detail() = paparazzi.snapshot(MediaScenes.recoverMediaDetail)
+
+    @Test
+    fun dialog_delete_media() = paparazzi.snapshot(MediaScenes.dialogDeleteMedia)
 }

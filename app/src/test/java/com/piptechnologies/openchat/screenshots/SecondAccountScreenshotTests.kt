@@ -9,7 +9,6 @@ import com.piptechnologies.openchat.ui.second.SecondPhase
 import com.piptechnologies.openchat.ui.second.SecondUiState
 import com.piptechnologies.openchat.ui.second.logoutSpec
 import com.piptechnologies.openchat.ui.theme.OcRadius
-import com.piptechnologies.openchat.ui.theme.OpenChatTheme
 import org.junit.Rule
 import org.junit.Test
 
@@ -17,47 +16,34 @@ import org.junit.Test
  * Second account entry and linked states, and the log-out confirmation over the linked state (design map
  * §4.14, §4.20). The WebView is replaced by the design's hatched box.
  */
-class SecondAccountScreenshotTests {
-    @get:Rule
-    val paparazzi = ScreenshotDevice.paparazzi()
+object SecondAccountScenes {
+    val secondAccountEntry = Scene("second_account_entry") {
+        SecondAccountScreen(
+            state = SecondUiState(phase = SecondPhase.ENTRY, confirmLogout = false),
+            onBack = {},
+            onScan = {},
+            onReload = {},
+            onAskLogout = {},
+            web = {},
+        )
+    }
 
-    @Test
-    fun second_account_entry() {
-        paparazzi.snapshot {
-            OpenChatTheme {
-                SecondAccountScreen(
-                    state = SecondUiState(phase = SecondPhase.ENTRY, confirmLogout = false),
-                    onBack = {},
-                    onScan = {},
-                    onReload = {},
-                    onAskLogout = {},
-                    web = {},
-                )
-            }
+    val secondAccountLinked = Scene("second_account_linked") {
+        LinkedScreen(confirmLogout = false)
+    }
+
+    val dialogLogout = Scene("dialog_logout") {
+        SheetPreviewFrame(topRadius = OcRadius.dialog, screen = { LinkedScreen(confirmLogout = true) }) {
+            ConfirmSheetContent(spec = logoutSpec(), onCancel = {}, onConfirm = {})
         }
     }
 
-    @Test
-    fun second_account_linked() {
-        paparazzi.snapshot {
-            OpenChatTheme {
-                LinkedScreen(confirmLogout = false)
-            }
-        }
-    }
+    val all: List<Scene> = listOf(secondAccountEntry, secondAccountLinked, dialogLogout)
 
-    @Test
-    fun dialog_logout() {
-        paparazzi.snapshot {
-            OpenChatTheme {
-                SheetPreviewFrame(topRadius = OcRadius.dialog, screen = { LinkedScreen(confirmLogout = true) }) {
-                    ConfirmSheetContent(spec = logoutSpec(), onCancel = {}, onConfirm = {})
-                }
-            }
-        }
-    }
-
-    /** The linked state with the design's placeholder in the web slot. */
+    /**
+     * The linked state with the design's placeholder in the web slot. Its label is the design's note for WhatsApp Web's
+     * own page, which the app does not translate: the same in every language.
+     */
     @Composable
     private fun LinkedScreen(confirmLogout: Boolean) {
         SecondAccountScreen(
@@ -69,4 +55,19 @@ class SecondAccountScreenshotTests {
             web = { HatchedPlaceholder(it, label = "WHATSAPP WEB · WEBVIEW · FULL HEIGHT") },
         )
     }
+}
+
+/** [SecondAccountScenes] in English. */
+class SecondAccountScreenshotTests {
+    @get:Rule
+    val paparazzi = ScreenshotDevice.paparazzi()
+
+    @Test
+    fun second_account_entry() = paparazzi.snapshot(SecondAccountScenes.secondAccountEntry)
+
+    @Test
+    fun second_account_linked() = paparazzi.snapshot(SecondAccountScenes.secondAccountLinked)
+
+    @Test
+    fun dialog_logout() = paparazzi.snapshot(SecondAccountScenes.dialogLogout)
 }

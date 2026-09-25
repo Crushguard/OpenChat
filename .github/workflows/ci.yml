@@ -45,6 +45,8 @@ jobs:
   screenshots:
     name: screenshots
     runs-on: ubuntu-latest
+    # 34 English screens plus the 612 of the locale matrix (18 languages).
+    timeout-minutes: 60
     permissions:
       contents: write   # force-pushes the screenshots branch
     steps:
@@ -59,18 +61,67 @@ jobs:
       - name: Collect screenshots and write index
         run: |
           set -euo pipefail
-          mkdir -p out/screenshots
+          export LC_ALL=C
           shopt -s nullglob
-          count=0
+          # The 18 translations (Languages.all in ui/settings/Languages.kt, but English): BCP-47 tag|native|English|direction.
+          languages='id|Bahasa Indonesia|Indonesian|LTR
+          pt-BR|Português (Brasil)|Portuguese (Brazil)|LTR
+          pt|Português|Portuguese|LTR
+          ur|اردو|Urdu|RTL
+          hi|हिन्दी|Hindi|LTR
+          tr|Türkçe|Turkish|LTR
+          es|Español|Spanish|LTR
+          ar|العربية|Arabic|RTL
+          fa|فارسی|Persian|RTL
+          ps|پښتو|Pashto|RTL
+          he|עברית|Hebrew|RTL
+          fr|Français|French|LTR
+          de|Deutsch|German|LTR
+          it|Italiano|Italian|LTR
+          ru|Русский|Russian|LTR
+          zh|中文|Chinese (Simplified)|LTR
+          ha|Hausa|Hausa|LTR
+          my|မြန်မာ|Burmese|LTR'
+          languages=$(echo "$languages" | sed 's/^ *//')
+          tags=$(echo "$languages" | cut -d'|' -f1)
+          mkdir -p out/screenshots/locales
+          # English: <package>_<Class>ScreenshotTests_<method>.png -> screenshots/<method>.png.
+          # Translations: <package>_LocaleScreenshotTests_everyScene[<tag>]_<scene>.png -> screenshots/locales/<tag>/<scene>.png.
           for f in app/src/test/snapshots/images/*.png; do
             base=$(basename "$f")
-            name=${base##*ScreenshotTests_}
-            cp "$f" "out/screenshots/$name"
-            count=$((count + 1))
+            case "$base" in
+              *_LocaleScreenshotTests_*)
+                rest=${base#*_LocaleScreenshotTests_}
+                tag=${rest#*\[}
+                tag=${tag%%\]*}
+                name=${rest#*\]_}
+                mkdir -p "out/screenshots/locales/$tag"
+                cp "$f" "out/screenshots/locales/$tag/$name"
+                ;;
+              *)
+                name=${base##*ScreenshotTests_}
+                cp "$f" "out/screenshots/$name"
+                ;;
+            esac
           done
-          echo "collected $count screenshots"
+          pngs() { find "$1" -maxdepth 1 -type f -name '*.png' -printf '%f\n' | sort; }
+          english=$(pngs out/screenshots)
+          echo "collected $(echo "$english" | grep -c .) English screenshots and $(find out/screenshots/locales -name '*.png' | wc -l) translated ones"
           # One PNG per §6 screen/state (docs/design-map.md): a dropped test class must fail the job, not shrink the branch.
-          test "$count" -eq 34
+          test "$(echo "$english" | grep -c .)" -eq 34
+          # Every language folder, and only those, holds the same 34 screens: 612 in all.
+          if [ "$(ls out/screenshots/locales | sort)" != "$(echo "$tags" | sort)" ]; then
+            echo "::error::language folders $(ls out/screenshots/locales | tr '\n' ' ')differ from the 18 languages"
+            exit 1
+          fi
+          for tag in $tags; do
+            if [ "$(pngs "out/screenshots/locales/$tag")" != "$english" ]; then
+              echo "::error::screenshots/locales/$tag does not hold the 34 English screen names"
+              diff <(echo "$english") <(pngs "out/screenshots/locales/$tag") || true
+              exit 1
+            fi
+          done
+          test "$(find out/screenshots/locales -name '*.png' | wc -l)" -eq 612
           {
             echo "# OpenChat screenshots"
             echo
@@ -78,19 +129,53 @@ jobs:
             echo
             echo "| Screen · state | File |"
             echo "|---|---|"
-            for f in out/screenshots/*.png; do
-              n=$(basename "$f")
+            for n in $english; do
               echo "| ${n%.png} | [screenshots/$n](screenshots/$n) |"
             done
             echo
-            for f in out/screenshots/*.png; do
-              n=$(basename "$f")
+            echo "## Languages"
+            echo
+            echo "The same 34 screens in each of the 18 translations, with that language's strings (right to left for Urdu, Arabic, Persian, Pashto and Hebrew): \`screenshots/locales/<tag>/<screen>.png\`."
+            echo
+            echo "| Language | English name | Tag | Direction | Screens |"
+            echo "|---|---|---|---|---|"
+            echo "$languages" | while IFS='|' read -r tag native eng dir; do
+              echo "| $native | $eng | $tag | $dir | [34 screens](screenshots/locales/$tag/README.md) |"
+            done
+            echo
+            echo "### Every screen in every language"
+            echo
+            header="| Screen · state | en |"; rule="|---|---|"
+            for tag in $tags; do header="$header $tag |"; rule="$rule---|"; done
+            echo "$header"
+            echo "$rule"
+            for n in $english; do
+              row="| ${n%.png} | [en](screenshots/$n) |"
+              for tag in $tags; do row="$row [$tag](screenshots/locales/$tag/$n) |"; done
+              echo "$row"
+            done
+            echo
+            for n in $english; do
               echo "## ${n%.png}"
               echo
               echo "![${n%.png}](screenshots/$n)"
               echo
             done
           } > out/README.md
+          echo "$languages" | while IFS='|' read -r tag native eng dir; do
+            {
+              echo "# $native · $eng ($tag)"
+              echo
+              echo "The 34 screens and states of the [index](../../../README.md) in $eng ($dir), rendered by Paparazzi from commit ${GITHUB_SHA}."
+              echo
+              for n in $english; do
+                echo "## ${n%.png}"
+                echo
+                echo "![${n%.png}]($n)"
+                echo
+              done
+            } > "out/screenshots/locales/$tag/README.md"
+          done
       - name: Upload screenshots artifact
         uses: actions/upload-artifact@v4
         with:

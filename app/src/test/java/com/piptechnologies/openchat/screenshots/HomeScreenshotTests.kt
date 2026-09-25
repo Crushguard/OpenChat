@@ -19,31 +19,17 @@ import com.piptechnologies.openchat.ui.home.HomeToolStatus
 import com.piptechnologies.openchat.ui.home.HomeUiState
 import com.piptechnologies.openchat.ui.home.notOnWhatsAppSpec
 import com.piptechnologies.openchat.ui.navigation.HomeTool
-import com.piptechnologies.openchat.ui.theme.OpenChatTheme
 import java.util.TimeZone
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-/** Home and the three overlays it opens: country sheet, Send-with menu, not-on-WhatsApp sheet (design map §4.3–§4.6). */
-class HomeScreenshotTests {
-    @get:Rule
-    val paparazzi = ScreenshotDevice.paparazzi()
-
-    private val savedTimeZone: TimeZone = TimeZone.getDefault()
-
-    /** The recents' "2h" / "Yesterday" labels are computed in the default zone; Fakes writes its times in UTC. */
-    @Before
-    fun pinTimeZone() {
-        TimeZone.setDefault(Fakes.timeZone)
-    }
-
-    @After
-    fun restoreTimeZone() {
-        TimeZone.setDefault(savedTimeZone)
-    }
-
+/**
+ * Home and the three overlays it opens: country sheet, Send-with menu, not-on-WhatsApp sheet (design map §4.3–§4.6).
+ * The recents' "2h" / "Yesterday" labels are computed in the default zone: render them in [Fakes.timeZone].
+ */
+object HomeScenes {
     private val allApps = listOf(MessagingApp.WHATSAPP, MessagingApp.WHATSAPP_BUSINESS, MessagingApp.TELEGRAM)
 
     /** Tool rows before notification access and before a second account is linked ("Read here. WhatsApp shows nothing", …). */
@@ -82,90 +68,102 @@ class HomeScreenshotTests {
         nowMs = Fakes.now,
     )
 
-    /** "+62 812-3456-7890" pasted: the field reads "812 3456 7890", with a message, the clear button and Send enabled. */
+    /**
+     * "+62 812-3456-7890" pasted: the field reads "812 3456 7890", with a message, the clear button and Send enabled.
+     * The message is what the user typed: the same in every language.
+     */
     private val filled = empty.copy(nationalDigits = "81234567890", message = "Hi! Is the blue one still available?")
 
-    @Test
-    fun home_empty() {
-        paparazzi.snapshot {
-            OpenChatTheme {
-                // First run opens Home with the number field focused (§4.2): the 1.5 dp green ring.
-                val focusRequester = remember { FocusRequester() }
-                HomeScreen(state = empty, callbacks = HomeCallbacks(), focusRequester = focusRequester)
-                LaunchedEffect(Unit) { focusRequester.requestFocus() }
-            }
+    val homeEmpty = Scene("home_empty") {
+        // First run opens Home with the number field focused (§4.2): the 1.5 dp green ring.
+        val focusRequester = remember { FocusRequester() }
+        HomeScreen(state = empty, callbacks = HomeCallbacks(), focusRequester = focusRequester)
+        LaunchedEffect(Unit) { focusRequester.requestFocus() }
+    }
+
+    val homeFilled = Scene("home_filled") {
+        HomeScreen(state = filled, callbacks = HomeCallbacks())
+    }
+
+    val homeRecents = Scene("home_recents") {
+        HomeScreen(
+            state = empty.copy(
+                recents = Fakes.recents,
+                firstRun = false,
+                tools = liveTools,
+                accessGranted = true,
+                // The third row (+62 878 1201 5566, Telegram) slid open over its Delete panel.
+                revealedRecentId = Fakes.recents[2].id,
+            ),
+            callbacks = HomeCallbacks(),
+        )
+    }
+
+    val countryPicker = Scene("country_picker") {
+        SheetPreviewFrame(
+            heightFraction = 0.86f,
+            screen = { HomeScreen(state = empty, callbacks = HomeCallbacks()) },
+        ) {
+            CountryPickerSheetContent(
+                query = "",
+                current = Fakes.id,
+                detected = DetectedCountry(Fakes.id, CountrySource.SIM),
+                onQuery = {},
+                onPick = {},
+                onClose = {},
+            )
         }
     }
 
-    @Test
-    fun home_filled() {
-        paparazzi.snapshot {
-            OpenChatTheme {
-                HomeScreen(state = filled, callbacks = HomeCallbacks())
-            }
+    val sendAppSelector = Scene("send_app_selector") {
+        HomeScreen(state = filled.copy(menuOpen = true), callbacks = HomeCallbacks())
+    }
+
+    val notOnWhatsApp = Scene("not_on_whatsapp") {
+        SheetPreviewFrame(
+            topRadius = 26.dp,
+            screen = { HomeScreen(state = filled, callbacks = HomeCallbacks()) },
+        ) {
+            ConfirmSheetContent(spec = notOnWhatsAppSpec("62", "81234567890"), onCancel = {}, onConfirm = {})
         }
     }
 
-    @Test
-    fun home_recents() {
-        paparazzi.snapshot {
-            OpenChatTheme {
-                HomeScreen(
-                    state = empty.copy(
-                        recents = Fakes.recents,
-                        firstRun = false,
-                        tools = liveTools,
-                        accessGranted = true,
-                        // The third row (+62 878 1201 5566, Telegram) slid open over its Delete panel.
-                        revealedRecentId = Fakes.recents[2].id,
-                    ),
-                    callbacks = HomeCallbacks(),
-                )
-            }
-        }
+    val all: List<Scene> = listOf(homeEmpty, homeFilled, homeRecents, countryPicker, sendAppSelector, notOnWhatsApp)
+}
+
+/** [HomeScenes] in English. */
+class HomeScreenshotTests {
+    @get:Rule
+    val paparazzi = ScreenshotDevice.paparazzi()
+
+    private val savedTimeZone: TimeZone = TimeZone.getDefault()
+
+    /** The recents' "2h" / "Yesterday" labels are computed in the default zone; Fakes writes its times in UTC. */
+    @Before
+    fun pinTimeZone() {
+        TimeZone.setDefault(Fakes.timeZone)
+    }
+
+    @After
+    fun restoreTimeZone() {
+        TimeZone.setDefault(savedTimeZone)
     }
 
     @Test
-    fun country_picker() {
-        paparazzi.snapshot {
-            OpenChatTheme {
-                SheetPreviewFrame(
-                    heightFraction = 0.86f,
-                    screen = { HomeScreen(state = empty, callbacks = HomeCallbacks()) },
-                ) {
-                    CountryPickerSheetContent(
-                        query = "",
-                        current = Fakes.id,
-                        detected = DetectedCountry(Fakes.id, CountrySource.SIM),
-                        onQuery = {},
-                        onPick = {},
-                        onClose = {},
-                    )
-                }
-            }
-        }
-    }
+    fun home_empty() = paparazzi.snapshot(HomeScenes.homeEmpty)
 
     @Test
-    fun send_app_selector() {
-        paparazzi.snapshot {
-            OpenChatTheme {
-                HomeScreen(state = filled.copy(menuOpen = true), callbacks = HomeCallbacks())
-            }
-        }
-    }
+    fun home_filled() = paparazzi.snapshot(HomeScenes.homeFilled)
 
     @Test
-    fun not_on_whatsapp() {
-        paparazzi.snapshot {
-            OpenChatTheme {
-                SheetPreviewFrame(
-                    topRadius = 26.dp,
-                    screen = { HomeScreen(state = filled, callbacks = HomeCallbacks()) },
-                ) {
-                    ConfirmSheetContent(spec = notOnWhatsAppSpec("62", "81234567890"), onCancel = {}, onConfirm = {})
-                }
-            }
-        }
-    }
+    fun home_recents() = paparazzi.snapshot(HomeScenes.homeRecents)
+
+    @Test
+    fun country_picker() = paparazzi.snapshot(HomeScenes.countryPicker)
+
+    @Test
+    fun send_app_selector() = paparazzi.snapshot(HomeScenes.sendAppSelector)
+
+    @Test
+    fun not_on_whatsapp() = paparazzi.snapshot(HomeScenes.notOnWhatsApp)
 }
