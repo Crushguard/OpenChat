@@ -48,4 +48,5 @@
     <string name="toast_share">Ouverture du partage…</string>
     <string name="toast_share_failed">Impossible de partager</string>
     <string name="toast_deleted">Supprimé</string>
+    <string name="media_day_count">%1$s · %2$d</string>
 </resources>

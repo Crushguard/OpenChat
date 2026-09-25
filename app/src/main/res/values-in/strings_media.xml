@@ -48,4 +48,5 @@
     <string name="toast_share">Membuka menu berbagi…</string>
     <string name="toast_share_failed">Tidak dapat membagikan</string>
     <string name="toast_deleted">Dihapus</string>
+    <string name="media_day_count">%1$s · %2$d</string>
 </resources>

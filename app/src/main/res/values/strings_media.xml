@@ -33,8 +33,8 @@
     <string name="media_allow">Allow media access</string>
     <!-- Callout above the recovered files while the app may not read the phone's media: the files already here stay, new ones are not kept. -->
     <string name="media_access_off">Media access is off, so new files are not kept.</string>
-    <!-- Heading above each day's files, shown in capitals: the day (%1$s: "Today", "Yesterday" or a date such as "Mon 21 Sep", from the time_* strings and the language's date format) and how many files that day has (%2$d), e.g. "Today · 2". A separator and a number only, so it is not translated. -->
-    <string name="media_day_count" translatable="false">%1$s · %2$d</string>
+    <!-- Heading above each day's files, shown in capitals: the day (%1$s: "Today", "Yesterday" or a date such as "Mon 21 Sep", from the time_* strings and the language's date format) and how many files that day has (%2$d), e.g. "Today · 2". Keep the middle dot unless it could be misread next to your digits: beside Arabic-Indic or Persian digits it looks like zero, so use parentheses, "%1$s (%2$d)", or a dash. -->
+    <string name="media_day_count">%1$s · %2$d</string>
 
     <!-- Media detail (design map §4.13) -->
     <!-- Title of the media detail top bar when the file is a photo. A noun, keep it short. -->

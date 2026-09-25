@@ -51,4 +51,5 @@
     <string name="toast_share">Abrindo o compartilhamento…</string>
     <string name="toast_share_failed">Não foi possível compartilhar</string>
     <string name="toast_deleted">Arquivo excluído</string>
+    <string name="media_day_count">%1$s · %2$d</string>
 </resources>
