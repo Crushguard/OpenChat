@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home (§4.3) -->
-    <string name="home_phone_placeholder">Telefon numarası</string>
+    <!-- "Telefon numarası" does not fit beside the wider "Yapıştır" pill: its second word was silently dropped. -->
+    <string name="home_phone_placeholder">Telefon</string>
     <string name="home_paste">Yapıştır</string>
     <string name="home_message_placeholder">Mesaj (isteğe bağlı)</string>
     <string name="home_send">Mesaj gönder</string>

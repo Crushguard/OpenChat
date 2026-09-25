@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Messages inbox -->
+    <!-- Next to a number, the separator is an en dash (" – "), never a middle dot (·): beside Pashto digits the dot
+         reads as a zero (۰), so "· ۴" looks like "۴۰". Used for every separator that can touch a number. -->
     <string name="messages_title">پیغامونه</string>
     <plurals name="messages_chip_all">
-        <item quantity="one">ټول · %d نوی</item>
-        <item quantity="other">ټول · %d نوي</item>
+        <item quantity="one">ټول – %d نوی</item>
+        <item quantity="other">ټول – %d نوي</item>
     </plurals>
-    <string name="messages_chip_deleted">یوازې ړنګ شوي · %d</string>
+    <string name="messages_chip_deleted">یوازې ړنګ شوي – %d</string>
     <string name="messages_info_all">دلته یې ولولئ او WhatsApp به blue ticks نه ښيي. انځورونه هغه وخت ښکاري چې خبرتیا مخکتنه ولري؛ غږیز پیغامونه او فایلونه په نوم ښودل کېږي.</string>
     <string name="messages_info_deleted">یوازې هغه پیغامونه ساتل کېږي چې لېږونکي ړنګ کړي وي. استثنا شوي چټونه په بشپړ ډول پرېښودل کېږي.</string>
     <string name="messages_empty_title">لا تر اوسه دلته څه نشته</string>
@@ -14,10 +16,10 @@
     <string name="messages_tool_settings">د اوزار تنظیمات</string>
 
     <!-- Conversation -->
-    <string name="conversation_subtitle_all">%1$s · هېڅوک نه خبرېږي</string>
+    <string name="conversation_subtitle_all">%1$s – هېڅوک نه خبرېږي</string>
     <plurals name="conversation_subtitle_deleted">
-        <item quantity="one">%1$s · %2$d ړنګ شوی</item>
-        <item quantity="other">%1$s · %2$d ړنګ شوي</item>
+        <item quantity="one">%1$s – %2$d ړنګ شوی</item>
+        <item quantity="other">%1$s – %2$d ړنګ شوي</item>
     </plurals>
     <string name="conversation_deleted_label">لېږونکي ړنګ کړ</string>
     <string name="conversation_open">چټ په WhatsApp کې پرانیزئ</string>

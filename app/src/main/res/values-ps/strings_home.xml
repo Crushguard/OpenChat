@@ -42,9 +42,11 @@
         <item quantity="one">%d پایله</item>
         <item quantity="other">%d پایلې</item>
     </plurals>
-    <string name="country_detected_sim">ستاسو له SIM څخه معلوم شو: %1$s · %2$s</string>
-    <string name="country_detected_network">ستاسو له شبکې څخه معلوم شو: %1$s · %2$s</string>
-    <string name="country_detected_locale">ستاسو د ژبې او سیمې له تنظیماتو معلوم شو: %1$s · %2$s</string>
+    <!-- An en dash (" – ") before the calling code, as everywhere a number follows a separator in Pashto: a middle
+         dot beside a number reads as a zero (۰). -->
+    <string name="country_detected_sim">ستاسو له SIM څخه معلوم شو: %1$s – %2$s</string>
+    <string name="country_detected_network">ستاسو له شبکې څخه معلوم شو: %1$s – %2$s</string>
+    <string name="country_detected_locale">ستاسو د ژبې او سیمې له تنظیماتو معلوم شو: %1$s – %2$s</string>
     <string name="country_close_cd">بندول</string>
 
     <!-- Not on WhatsApp confirmation sheet -->

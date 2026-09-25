@@ -35,10 +35,11 @@
     <string name="media_size_kb">%s KB</string>
     <string name="media_size_mb">%s MB</string>
     <string name="media_size_gb">%s GB</string>
-    <!-- The day (%2$s / %1$s) is a stand-alone label: "نن", "پرون" or a date, followed by a comma and the time. -->
-    <string name="media_meta_from">له %1$s څخه · %2$s، %3$s · په %4$s ړنګ شو</string>
-    <string name="media_meta_received">ترلاسه شو: %1$s، %2$s · په %3$s ړنګ شو</string>
-    <string name="media_meta_from_kept">له %1$s څخه · %2$s، %3$s</string>
+    <!-- The day (%2$s / %1$s) is a stand-alone label: "نن", "پرون" or a date, followed by a comma and the time.
+         The parts are separated by en dashes (" – "), not middle dots: beside Pashto digits a dot reads as a zero (۰). -->
+    <string name="media_meta_from">له %1$s څخه – %2$s، %3$s – په %4$s ړنګ شو</string>
+    <string name="media_meta_received">ترلاسه شو: %1$s، %2$s – په %3$s ړنګ شو</string>
+    <string name="media_meta_from_kept">له %1$s څخه – %2$s، %3$s</string>
     <string name="media_meta_received_kept">ترلاسه شو: %1$s، %2$s</string>
     <string name="delete_media_title_photo">دا انځور ړنګول غواړئ؟</string>
     <string name="delete_media_title_video">دا ویډیو ړنګول غواړئ؟</string>
