@@ -11,11 +11,13 @@ import androidx.core.os.LocaleListCompat
 import java.util.Locale
 
 /**
- * One UI language (plan 2026-09-24): the BCP-47 [tag] handed to AppCompat and listed in
- * res/xml/locales_config.xml, the [native] name the Language screen shows large, the [english] name,
- * whether it is written right to left, and the resource [qualifier] of its strings (the folder
- * values-<qualifier>, as listed in resourceConfigurations in app/build.gradle.kts; English is the
- * default values/ folder).
+ * One UI language (plan 2026-09-24): its BCP-47 [tag], the [native] name the Language screen shows large,
+ * the [english] name, whether it is written right to left, the resource [qualifier] of its strings (the folder
+ * values-<qualifier>, as listed in resourceConfigurations in app/build.gradle.kts; English is the default
+ * values/ folder), and the [localeTag] handed to AppCompat and listed in res/xml/locales_config.xml. That is
+ * the tag, except for European Portuguese, which Android gets as pt-PT: CLDR's bare "pt" is Brazilian, whose
+ * plural rules count 0 as one ("0 não lida"), while Portugal's read "0 não lidas". Its strings still come
+ * from values-pt.
  */
 data class LanguageOption(
     val tag: String,
@@ -23,6 +25,7 @@ data class LanguageOption(
     val english: String,
     val rtl: Boolean,
     val qualifier: String,
+    val localeTag: String = tag,
 )
 
 /**
@@ -40,7 +43,7 @@ object Languages {
         LanguageOption(tag = "en", native = "English", english = "English", rtl = false, qualifier = "en"),
         LanguageOption(tag = "id", native = "Bahasa Indonesia", english = "Indonesian", rtl = false, qualifier = "in"),
         LanguageOption(tag = "pt-BR", native = "Português (Brasil)", english = "Portuguese (Brazil)", rtl = false, qualifier = "pt-rBR"),
-        LanguageOption(tag = "pt", native = "Português", english = "Portuguese", rtl = false, qualifier = "pt"),
+        LanguageOption(tag = "pt", native = "Português", english = "Portuguese", rtl = false, qualifier = "pt", localeTag = "pt-PT"),
         LanguageOption(tag = "ur", native = "اردو", english = "Urdu", rtl = true, qualifier = "ur"),
         LanguageOption(tag = "hi", native = "हिन्दी", english = "Hindi", rtl = false, qualifier = "hi"),
         LanguageOption(tag = "tr", native = "Türkçe", english = "Turkish", rtl = false, qualifier = "tr"),
@@ -100,13 +103,13 @@ object Languages {
     /**
      * The locale the UI is shown in under [configuration]: the [match] of its locales, which is the language
      * whose strings Android picks (English when none matches), for naming languages with [displayName].
-     * Portuguese is pt-PT: values-pt holds European Portuguese, while a bare "pt" names things in Brazilian
-     * Portuguese.
+     * Portuguese is pt-PT ([LanguageOption.localeTag]): values-pt holds European Portuguese, while a bare "pt"
+     * names things in Brazilian Portuguese.
      */
     fun uiLocale(configuration: Configuration): Locale {
         val locales = configuration.locales
         val option = match((0 until locales.size()).mapNotNull { locales[it] })
-        return Locale.forLanguageTag(if (option.tag == "pt") "pt-PT" else option.tag)
+        return Locale.forLanguageTag(option.localeTag)
     }
 
     /**

@@ -2,15 +2,16 @@
 <!--
     Languages offered by the Android 13+ per-app language setting (android:localeConfig), in the order
     of the Language screen. BCP-47 tags: Indonesian is "id" (folder values-in), Hebrew is "he" (folder
-    values-iw), Brazilian Portuguese "pt-BR" (values-pt-rBR); "pt" is European Portuguese, "zh" Simplified
-    Chinese. Keep in sync with Languages.all (ui/settings/Languages.kt) and resourceConfigurations in
+    values-iw), Brazilian Portuguese "pt-BR" (values-pt-rBR); European Portuguese is "pt-PT" (values-pt), so
+    Android applies Portugal's plural rules rather than bare "pt"'s Brazilian ones; "zh" is Simplified Chinese.
+    Keep in sync with Languages.all (localeTag, ui/settings/Languages.kt) and resourceConfigurations in
     app/build.gradle.kts; LocalesConfigTest fails if they drift.
 -->
 <locale-config xmlns:android="http://schemas.android.com/apk/res/android">
     <locale android:name="en" />
     <locale android:name="id" />
     <locale android:name="pt-BR" />
-    <locale android:name="pt" />
+    <locale android:name="pt-PT" />
     <locale android:name="ur" />
     <locale android:name="hi" />
     <locale android:name="tr" />

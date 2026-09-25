@@ -34,7 +34,15 @@ class LocalesConfigTest {
 
     @Test
     fun localesConfig_listsTheLanguagesInOrder() {
-        assertEquals(Languages.all.map { it.tag }, localeConfigTags())
+        assertEquals(Languages.all.map { it.localeTag }, localeConfigTags())
+    }
+
+    @Test
+    fun europeanPortuguese_isAppliedAsPortugal_everythingElseByItsTag() {
+        // Bare "pt" would give Brazil's plural rules, where 0 is "one": "0 não lida" instead of "0 não lidas".
+        assertEquals("pt-PT", Languages.byTag("pt").localeTag)
+        assertEquals(listOf("pt"), Languages.all.filter { it.localeTag != it.tag }.map { it.tag })
+        for (option in Languages.all) assertEquals(option, Languages.byTag(option.localeTag))
     }
 
     @Test

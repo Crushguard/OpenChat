@@ -47,7 +47,7 @@ class LocaleScreenshotTests(private val tag: String, qualifier: String, rtl: Boo
     @Before
     fun useFakeTimeZoneAndLanguage() {
         TimeZone.setDefault(Fakes.timeZone)
-        Locale.setDefault(Locale.forLanguageTag(tag))
+        Locale.setDefault(Locale.forLanguageTag(Languages.all.first { it.tag == tag }.localeTag))
     }
 
     @After
@@ -71,11 +71,21 @@ class LocaleScreenshotTests(private val tag: String, qualifier: String, rtl: Boo
     }
 
     companion object {
-        /** (BCP-47 tag, resource qualifier, right to left) of every language but English; the tag names the files. */
+        /**
+         * (BCP-47 tag, device locale qualifier, right to left) of every language but English; the tag names the files.
+         * The device locale is the one Android applies ([LanguageOption.localeTag]): European Portuguese renders as
+         * pt-rPT, so its plurals follow Portugal's rules, and its strings still resolve from values-pt.
+         */
         @JvmStatic
         @Parameterized.Parameters(name = "{0}")
         fun languages(): List<Array<Any>> =
-            Languages.all.filter { it.tag != "en" }.map { arrayOf(it.tag, it.qualifier, it.rtl) }
+            Languages.all.filter { it.tag != "en" }.map { arrayOf(it.tag, deviceQualifier(it), it.rtl) }
+
+        /** The resource qualifier of [option]'s [LanguageOption.localeTag]: "pt-rPT" for pt-PT, else its folder's. */
+        private fun deviceQualifier(option: LanguageOption): String {
+            val locale = Locale.forLanguageTag(option.localeTag)
+            return if (option.localeTag == option.tag || locale.country.isEmpty()) option.qualifier else "${option.qualifier}-r${locale.country}"
+        }
 
         @JvmStatic
         @BeforeClass
@@ -99,7 +109,7 @@ class LocaleScreenshotTests(private val tag: String, qualifier: String, rtl: Boo
 private fun InLanguage(language: LanguageOption, content: @Composable () -> Unit) {
     val base = LocalConfiguration.current
     val configuration = remember(base, language) {
-        Configuration(base).apply { setLocales(LocaleList(Locale.forLanguageTag(language.tag))) }
+        Configuration(base).apply { setLocales(LocaleList(Locale.forLanguageTag(language.localeTag))) }
     }
     CompositionLocalProvider(
         LocalConfiguration provides configuration,

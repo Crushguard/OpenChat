@@ -38,7 +38,7 @@ class LanguageViewModel @Inject constructor() : ViewModel() {
             // The native name reads the same in every language, the new one included.
             _toasts.emit(uiText(R.string.toast_language, UiText.Raw(option.native)))
             // viewModelScope runs on the main thread, as AppCompat requires.
-            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(option.tag))
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(option.localeTag))
             delay(TOAST_REPLAY_MS)
             _toasts.resetReplayCache()
         }
