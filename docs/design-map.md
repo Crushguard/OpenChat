@@ -75,7 +75,9 @@ body15, body14_5 (bubbles), body13_5, body13, body12_5, body12, body11_5 (hints)
 mono16 (dial chip), mono14_5 (recent number), mono14 (picker dial), mono12 (version, counter),
 mono11_5 (recent time, conversation subtitle), mono11 (row time), mono10_5 (bubble time), eyebrow11
 (section labels, 700, .08em, uppercase), eyebrow10 ("Send with"), eyebrow9_5 ("Deleted by sender", date
-pill uses mono10 600 .06em), badge10_5.
+pill uses mono10 600 .06em), badge10_5. Mono labels whose text has letters outside Latin, Greek and Cyrillic
+(eyebrows, date pill, "Deleted by sender", mono tags, recent and row times) take Hanken Grotesk without tracking
+(`forScriptOf`): JetBrains Mono has no such glyphs, and its spaces and tracking spread those words apart.
 
 Radii: 6 (split inner) · 10 (chips/menu rows) · 12 (icon buttons, search, tool icon box) · 13
 (secondary/dialog buttons) · 14 (fields, primary button, callouts, tiles) · 16 (cards) · 18 (settings

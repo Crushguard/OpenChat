@@ -30,6 +30,7 @@ import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
 import com.piptechnologies.openchat.ui.theme.OcTheme
+import com.piptechnologies.openchat.ui.theme.forScriptOf
 
 /** Width of the Send-with card (design map §4.5); [HomeScreen] lines its end edge up with the split button's. */
 internal val SendWithMenuWidth: Dp = 238.dp
@@ -66,10 +67,11 @@ fun SendWithMenuContent(
             .pointerInput(Unit) {}
             .padding(6.dp),
     ) {
+        // Capitals by the UI language's rules (Turkish "i" → "İ").
+        val eyebrow = stringResource(R.string.home_send_with).uppercase(uiLocale())
         Text(
-            // Capitals by the UI language's rules (Turkish "i" → "İ").
-            text = stringResource(R.string.home_send_with).uppercase(uiLocale()),
-            style = OcTheme.type.eyebrow10,
+            text = eyebrow,
+            style = OcTheme.type.eyebrow10.forScriptOf(eyebrow),
             color = c.muted,
             modifier = Modifier.padding(start = 10.dp, top = 8.dp, end = 10.dp, bottom = 6.dp),
         )

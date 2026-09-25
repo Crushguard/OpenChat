@@ -54,6 +54,7 @@ import com.piptechnologies.openchat.ui.icons.AppGlyphImage
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcTheme
+import com.piptechnologies.openchat.ui.theme.forScriptOf
 import kotlin.math.roundToInt
 
 /** How far a recent row slides to uncover its Delete panel. */
@@ -184,7 +185,7 @@ private fun RecentRow(
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f),
             )
-            Text(text = timeLabel, style = OcTheme.type.mono11_5, color = c.muted, maxLines = 1)
+            Text(text = timeLabel, style = OcTheme.type.mono11_5.forScriptOf(timeLabel), color = c.muted, maxLines = 1)
         }
     }
 }

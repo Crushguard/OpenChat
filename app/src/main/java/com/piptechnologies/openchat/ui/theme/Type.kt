@@ -67,6 +67,24 @@ fun mono(
     letterSpacing: TextUnit = TextUnit.Unspecified,
 ): TextStyle = style(JetBrainsMono, size, weight, lineHeight, letterSpacing)
 
+/**
+ * This mono style, or Hanken Grotesk without the tracking when [text] has letters in a script JetBrains Mono does not
+ * cover (it has Latin, Greek and Cyrillic). Such letters come from a system font anyway, but the spaces and the
+ * eyebrow tracking stayed the mono font's and spread the words apart ("हाल  के  नंबर", "الأرقام  الأخيرة").
+ */
+fun TextStyle.forScriptOf(text: String): TextStyle =
+    if (fontFamily == JetBrainsMono && text.any { it.isLetter() && !it.isMonoScript() }) {
+        copy(fontFamily = HankenGrotesk, letterSpacing = TextUnit.Unspecified)
+    } else {
+        this
+    }
+
+private fun Char.isMonoScript(): Boolean = when (Character.UnicodeScript.of(code)) {
+    Character.UnicodeScript.LATIN, Character.UnicodeScript.GREEK, Character.UnicodeScript.CYRILLIC,
+    Character.UnicodeScript.COMMON, Character.UnicodeScript.INHERITED -> true
+    else -> false
+}
+
 /** Every text style the screens use, named after the design (size / weight). */
 @Immutable
 data class OcTypography(

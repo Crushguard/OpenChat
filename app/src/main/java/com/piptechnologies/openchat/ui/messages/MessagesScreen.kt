@@ -55,6 +55,7 @@ import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
 import com.piptechnologies.openchat.ui.theme.OcTheme
+import com.piptechnologies.openchat.ui.theme.forScriptOf
 
 /**
  * Messages (design map §4.8): bar with the Active/Paused chip and the tool settings button, the All /
@@ -188,7 +189,7 @@ private fun ConversationRow(conversation: ConversationSummary, mode: InboxMode, 
                         .weight(1f)
                         .alignByBaseline(),
                 )
-                Text(text = time, style = OcTheme.type.mono11, color = c.muted, maxLines = 1, modifier = Modifier.alignByBaseline())
+                Text(text = time, style = OcTheme.type.mono11.forScriptOf(time), color = c.muted, maxLines = 1, modifier = Modifier.alignByBaseline())
             }
             Spacer(Modifier.height(3.dp))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {

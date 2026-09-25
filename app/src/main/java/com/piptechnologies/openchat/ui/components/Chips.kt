@@ -25,6 +25,7 @@ import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
 import com.piptechnologies.openchat.ui.theme.OcTheme
+import com.piptechnologies.openchat.ui.theme.forScriptOf
 import java.text.NumberFormat
 
 /** State chips: Off (amber dot), Active (green check), Paused (amber pause), Linked (green dot). */
@@ -137,6 +138,6 @@ fun MonoTag(text: String, modifier: Modifier = Modifier, bordered: Boolean = fal
             .then(if (bordered) Modifier.border(1.dp, c.border, shape) else Modifier)
             .padding(horizontal = 6.dp, vertical = 3.dp),
     ) {
-        Text(text = text, style = OcTheme.type.eyebrow9, color = if (bordered) c.ink2 else c.muted)
+        Text(text = text, style = OcTheme.type.eyebrow9.forScriptOf(text), color = if (bordered) c.ink2 else c.muted)
     }
 }

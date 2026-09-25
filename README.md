@@ -192,7 +192,11 @@ Caveats:
   clipped or wrapped at 390 dp, or would at 360 dp, were shortened. Known leftovers: with WhatsApp Business
   as the default app, the Settings row label wraps onto two lines in a few languages (Hebrew; Spanish,
   Portuguese, French and Italian on 360 dp phones); the onboarding card titles wrap in German, Spanish and
-  Portuguese; and a few Home status lines may end in "…" on 360 dp phones.
+  Portuguese; and a few Home status lines may end in "…" on 360 dp phones. The Burmese screenshots break some
+  lines inside a word: Paparazzi's renderer has no Burmese word dictionary, and Android on a phone does.
+- Section labels, day pills and short time labels use JetBrains Mono, which covers Latin, Greek and Cyrillic
+  only. In any other script they switch to Hanken Grotesk without the letter spacing, since the mono font's
+  wide spaces and tracking would spread the words apart (`TextStyle.forScriptOf`).
 
 ## Testing each tool by hand
 

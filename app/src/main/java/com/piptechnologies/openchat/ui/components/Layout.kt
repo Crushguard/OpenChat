@@ -37,6 +37,7 @@ import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
 import com.piptechnologies.openchat.ui.theme.OcTheme
 import com.piptechnologies.openchat.ui.theme.ToolTint
+import com.piptechnologies.openchat.ui.theme.forScriptOf
 
 /** Full-screen canvas background with system-bar insets; every screen sits in one of these. */
 @Composable
@@ -102,9 +103,10 @@ fun OcTopBar(
 /** Uppercase mono eyebrow 11/700, letter-spacing .08em, muted. Uppercased with the UI language's rules (Turkish İ). */
 @Composable
 fun SectionEyebrow(text: String, modifier: Modifier = Modifier) {
+    val shown = text.uppercase(currentUiLocale())
     Text(
-        text = text.uppercase(currentUiLocale()),
-        style = OcTheme.type.eyebrow11,
+        text = shown,
+        style = OcTheme.type.eyebrow11.forScriptOf(shown),
         color = OcTheme.colors.muted,
         modifier = modifier.padding(horizontal = 2.dp),
     )

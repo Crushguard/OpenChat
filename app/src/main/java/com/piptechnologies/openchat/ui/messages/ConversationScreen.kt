@@ -54,6 +54,7 @@ import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
 import com.piptechnologies.openchat.ui.theme.OcRadius
 import com.piptechnologies.openchat.ui.theme.OcTheme
+import com.piptechnologies.openchat.ui.theme.forScriptOf
 
 private val BubbleShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp, bottomEnd = 16.dp, bottomStart = 6.dp)
 private val PhotoShape = RoundedCornerShape(10.dp)
@@ -157,9 +158,10 @@ private fun listRows(messages: List<CapturedMessage>, nowMs: Long, formatter: Ti
 private fun DayPill(label: String) {
     val c = OcTheme.colors
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        val shown = label.uppercase(currentUiLocale())
         Text(
-            text = label.uppercase(currentUiLocale()),
-            style = OcTheme.type.eyebrow10.copy(letterSpacing = 0.06.em),
+            text = shown,
+            style = OcTheme.type.eyebrow10.copy(letterSpacing = 0.06.em).forScriptOf(shown),
             color = c.muted,
             modifier = Modifier
                 .clip(RoundedCornerShape(OcRadius.pill))
@@ -228,7 +230,8 @@ private fun DeletedLabel() {
         horizontalArrangement = Arrangement.spacedBy(5.dp),
     ) {
         LucideIconImage(icon = LucideIcon.MessageSquareDashed, size = 12.dp, tint = c.amber, strokeWidth = 2f)
-        Text(text = stringResource(R.string.conversation_deleted_label).uppercase(currentUiLocale()), style = OcTheme.type.eyebrow9_5, color = c.amber)
+        val label = stringResource(R.string.conversation_deleted_label).uppercase(currentUiLocale())
+        Text(text = label, style = OcTheme.type.eyebrow9_5.forScriptOf(label), color = c.amber)
     }
 }
 
