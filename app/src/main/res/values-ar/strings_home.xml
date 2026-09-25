@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (§4.3) -->
+    <string name="home_phone_placeholder">رقم الهاتف</string>
+    <string name="home_paste">لصق</string>
+    <string name="home_message_placeholder">رسالة (اختيارية)</string>
+    <string name="home_send">إرسال رسالة</string>
+    <string name="home_send_with">الإرسال عبر</string>
+    <string name="home_first_run_hint">تُفتح الدردشة في التطبيق الذي تختاره. لا يُحفظ أي شيء في جهات اتصالك.</string>
+    <string name="home_recent">الأرقام الأخيرة</string>
+    <string name="home_delete">حذف</string>
+    <string name="home_settings_cd">الإعدادات</string>
+    <string name="home_country_cd">البلد</string>
+    <string name="home_clear_cd">مسح</string>
+    <string name="home_choose_app_cd">اختيار التطبيق</string>
+
+    <!-- Home tool rows: status line under each tool's title -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="zero">لا رسائل غير مقروءة</item>
+        <item quantity="one">رسالة واحدة غير مقروءة، ولن يعلم أحد</item>
+        <item quantity="two">رسالتان غير مقروءتين، ولن يعلم أحد</item>
+        <item quantity="few">%d رسائل غير مقروءة، ولن يعلم أحد</item>
+        <item quantity="many">%d رسالة غير مقروءة، ولن يعلم أحد</item>
+        <item quantity="other">%d رسالة غير مقروءة، ولن يعلم أحد</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">متوقف مؤقتًا</string>
+    <string name="tool_unseen_status_off">اقرأ هنا، ولن يُظهر WhatsApp شيئًا</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="zero">لا رسائل حذفها المرسل</item>
+        <item quantity="one">رسالة واحدة حذفها المرسل</item>
+        <item quantity="two">رسالتان حذفهما المرسل</item>
+        <item quantity="few">%d رسائل حذفها المرسل</item>
+        <item quantity="many">%d رسالة حذفها المرسل</item>
+        <item quantity="other">%d رسالة حذفها المرسل</item>
+    </plurals>
+    <string name="tool_deleted_status_off">يحتفظ بما حذفه المرسل</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="zero">لم يُستعد أي ملف هذا الأسبوع</item>
+        <item quantity="one">ملف واحد مستعاد هذا الأسبوع</item>
+        <item quantity="two">ملفان مستعادان هذا الأسبوع</item>
+        <item quantity="few">%d ملفات مستعادة هذا الأسبوع</item>
+        <item quantity="many">%d ملفًا مستعادًا هذا الأسبوع</item>
+        <item quantity="other">%d ملف مستعاد هذا الأسبوع</item>
+    </plurals>
+    <string name="tool_media_status_off">صور، فيديوهات، رسائل صوتية، مستندات</string>
+    <string name="tool_second_status_linked">مرتبط</string>
+    <string name="tool_second_status_off">WhatsApp ثانٍ داخل هذا التطبيق</string>
+
+    <!-- Country picker sheet (§4.4) -->
+    <string name="country_title">البلد</string>
+    <string name="country_search">ابحث عن بلد أو رمز</string>
+    <string name="country_all">جميع البلدان</string>
+    <plurals name="country_results">
+        <item quantity="zero">لا نتائج</item>
+        <item quantity="one">نتيجة واحدة</item>
+        <item quantity="two">نتيجتان</item>
+        <item quantity="few">%d نتائج</item>
+        <item quantity="many">%d نتيجة</item>
+        <item quantity="other">%d نتيجة</item>
+    </plurals>
+    <string name="country_detected_sim">اكتُشف من شريحة SIM: %1$s · %2$s</string>
+    <string name="country_detected_network">اكتُشف من شبكة الجوّال: %1$s · %2$s</string>
+    <string name="country_detected_locale">اكتُشف من إعدادات اللغة والمنطقة: %1$s · %2$s</string>
+    <string name="country_close_cd">إغلاق</string>
+
+    <!-- Not on WhatsApp sheet (§4.6) -->
+    <string name="not_on_wa_title">هذا الرقم غير مسجّل في WhatsApp</string>
+    <string name="not_on_wa_body">لا يملك الرقم %s حسابًا على WhatsApp. تأكّد من صحة الرقم، أو أرسل الرسالة نفسها عبر Telegram.</string>
+    <string name="not_on_wa_edit">تعديل الرقم</string>
+    <string name="not_on_wa_telegram">جرّب Telegram</string>
+
+    <!-- Home toasts (§5.1) -->
+    <string name="toast_opening">جارٍ فتح %s…</string>
+    <string name="toast_pasted_country">تم اللصق · تغيّر البلد إلى %s</string>
+    <string name="toast_pasted">تم اللصق</string>
+    <string name="toast_clipboard_empty">الحافظة فارغة</string>
+    <string name="toast_no_app">لا يوجد تطبيق يمكنه فتح هذا الرقم</string>
+</resources>

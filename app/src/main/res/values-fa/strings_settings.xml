@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings (§4.15) -->
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_access">دسترسی به اعلان‌ها</string>
+    <string name="settings_access_on">فعال · ابزارهای پیام و رسانه</string>
+    <string name="settings_access_off">خاموش · برای ابزارهای پیام و رسانه لازم است</string>
+    <string name="settings_preferences">ترجیحات</string>
+    <string name="settings_default_app">برنامه‌ی پیش‌فرض</string>
+    <string name="settings_language">زبان</string>
+    <string name="settings_clear_recents">پاک کردن شماره‌های اخیر</string>
+    <string name="settings_about">درباره</string>
+    <string name="settings_rate">به ما امتیاز دهید</string>
+    <string name="settings_contact">تماس با ما</string>
+    <string name="settings_share">اشتراک‌گذاری برنامه</string>
+    <string name="settings_privacy">سیاست حفظ حریم خصوصی</string>
+    <string name="settings_version">نسخه</string>
+    <string name="settings_honesty">برنامه‌ی OpenChat رایگان است. بدون تبلیغ، بدون حساب، بدون ردیابی. شماره‌ها، پیام‌ها و رسانه‌ها هرگز از گوشی شما بیرون نمی‌روند.</string>
+
+    <!-- Clear recent numbers confirmation (§4.15, §4.20) -->
+    <string name="clear_recents_title">شماره‌های اخیر پاک شوند؟</string>
+    <plurals name="clear_recents_body">
+        <item quantity="one">%d شماره از صفحه‌ی اصلی پاک می‌شود. در WhatsApp چیزی تغییر نمی‌کند.</item>
+        <item quantity="other">%d شماره از صفحه‌ی اصلی پاک می‌شود. در WhatsApp چیزی تغییر نمی‌کند.</item>
+    </plurals>
+    <string name="clear_recents_keep">نگه داشتن</string>
+    <string name="clear_recents_clear">پاک کردن</string>
+    <string name="toast_recents_cleared">شماره‌های اخیر پاک شدند</string>
+
+    <!-- Default app sheet (§4.16) -->
+    <string name="default_app_title">برنامه‌ی پیش‌فرض</string>
+    <string name="toast_default_app">برنامه‌ی پیش‌فرض: %s</string>
+
+    <!-- Language (§4.17) -->
+    <string name="language_title">زبان</string>
+    <string name="language_intro">فقط زبان برنامه را تغییر می‌دهد. پیام‌هایتان را خودتان و به هر زبانی می‌نویسید.</string>
+    <string name="toast_language">زبان: %s</string>
+
+    <!-- Contact us (§4.18) -->
+    <string name="contact_title">تماس با ما</string>
+    <string name="contact_intro">شماره‌ای که باز نمی‌شود، پیامی که بازیابی نشد، یا یک ایده. مستقیم به دست تیم می‌رسد.</string>
+    <string name="contact_placeholder">چه اتفاقی افتاد و در کدام صفحه؟</string>
+    <string name="contact_email_label">ایمیل · اختیاری، فقط اگر پاسخ می‌خواهید</string>
+    <string name="contact_callout">همراه با نسخه‌ی برنامه و نسخه‌ی Android ارسال می‌شود. شماره‌ها و پیام‌های شما هرگز ارسال نمی‌شوند.</string>
+    <string name="contact_send">ارسال</string>
+    <string name="toast_sent">ارسال شد. ممنونیم.</string>
+    <string name="toast_write_first">اول چیزی بنویسید</string>
+    <string name="toast_no_email">برنامه‌ی ایمیلی پیدا نشد</string>
+    <string name="toast_no_app_can_open">هیچ برنامه‌ای نمی‌تواند این را باز کند</string>
+
+    <!-- Rating sheet (§4.19). "Five" is written as a word so it never sits next to digits of another script -->
+    <string name="rating_title">از OpenChat لذت می‌برید؟</string>
+    <string name="rating_body">امتیاز صادقانه‌ی شما به دیگران کمک می‌کند برنامه‌ای پیدا کنند که هر شماره‌ای را با یک ضربه باز می‌کند.</string>
+    <plurals name="rating_star_cd">
+        <item quantity="one">%d از پنج ستاره</item>
+        <item quantity="other">%d از پنج ستاره</item>
+    </plurals>
+    <string name="rating_hint_tap">روی یک ستاره ضربه بزنید</string>
+    <string name="rating_hint_1">از شنیدنش متأسفیم</string>
+    <string name="rating_hint_2">می‌توانیم بهتر باشیم</string>
+    <string name="rating_hint_3">ممنون، بیشتر بگویید</string>
+    <string name="rating_hint_4">خوشحالیم که به کارتان می‌آید</string>
+    <string name="rating_hint_5">ممنونیم!</string>
+    <string name="rating_later">شاید بعداً</string>
+    <string name="rating_store_title">ممنونیم!</string>
+    <string name="rating_store_body">حاضرید نظرتان را در Google Play هم بنویسید؟ به رشد یک برنامه‌ی کوچک کمک می‌کند.</string>
+    <string name="rating_store_cta">امتیاز دادن در Google Play</string>
+    <string name="rating_not_now">الان نه</string>
+    <string name="rating_feedback_title">چطور می‌توانیم بهتر شویم؟</string>
+    <string name="rating_feedback_body">بگویید چه چیزی کم بود. مستقیم به دست تیم می‌رسد، نه به‌صورت نظر عمومی، و ما همه را می‌خوانیم.</string>
+    <string name="rating_feedback_placeholder">چه چیزی این برنامه را پنج‌ستاره می‌کرد؟</string>
+    <string name="rating_feedback_send">ارسال بازخورد</string>
+    <string name="rating_cancel">لغو</string>
+    <string name="rating_thanks_title">ممنونیم، صدایتان را شنیدیم</string>
+    <string name="rating_thanks_body">یادداشت شما در راه تیم است و مسیر کارهای بعدی ما را شکل می‌دهد.</string>
+    <string name="rating_done">تمام</string>
+    <string name="toast_play">در حال باز کردن Google Play…</string>
+</resources>

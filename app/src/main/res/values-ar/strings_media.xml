@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media (§4.12) -->
+    <string name="media_title">الوسائط المحذوفة</string>
+    <string name="media_tool_settings">إعدادات الأداة</string>
+    <string name="media_tab_photos">الصور</string>
+    <string name="media_tab_videos">الفيديوهات</string>
+    <string name="media_tab_audio">الصوتيات</string>
+    <string name="media_tab_documents">المستندات</string>
+    <string name="media_tab_stickers">الملصقات</string>
+    <string name="media_empty_nothing">لم يُستعد أي شيء بعد</string>
+    <string name="media_empty_audio">لا ملفات صوتية بعد</string>
+    <string name="media_empty_documents">لا مستندات بعد</string>
+    <string name="media_empty_stickers">لا ملصقات بعد</string>
+    <string name="media_empty_body">تُحفظ هنا الملفات التي يحذفها أحدهم لدى الجميع، بشرط أن تكون قد وصلتك أولًا.</string>
+    <string name="media_allow">السماح بالوصول إلى الوسائط</string>
+    <string name="media_access_off">الوصول إلى الوسائط متوقف، لذا لا تُحفظ الملفات الجديدة.</string>
+
+    <!-- Media detail (§4.13) -->
+    <string name="media_detail_title_photo">صورة</string>
+    <string name="media_detail_title_video">فيديو</string>
+    <string name="media_detail_title_audio">ملف صوتي</string>
+    <string name="media_detail_title_document">مستند</string>
+    <string name="media_detail_title_sticker">ملصق</string>
+    <string name="media_save">حفظ في المعرض</string>
+    <string name="media_share">مشاركة</string>
+    <string name="media_delete">حذف</string>
+    <string name="media_play">تشغيل</string>
+    <string name="media_pause">إيقاف مؤقت</string>
+    <string name="media_size_bytes">%s بايت</string>
+    <string name="media_size_kb">%s كيلوبايت</string>
+    <string name="media_size_mb">%s ميغابايت</string>
+    <string name="media_size_gb">%s غيغابايت</string>
+    <!-- Label-style line: the day (اليوم / أمس / a date) stands alone, with no preposition before it -->
+    <string name="media_meta_from">من %1$s · %2$s %3$s · الحذف: %4$s</string>
+    <string name="media_meta_received">الاستلام: %1$s %2$s · الحذف: %3$s</string>
+    <string name="media_meta_from_kept">من %1$s · %2$s %3$s</string>
+    <string name="media_meta_received_kept">الاستلام: %1$s %2$s</string>
+    <string name="delete_media_title_photo">حذف هذه الصورة؟</string>
+    <string name="delete_media_title_video">حذف هذا الفيديو؟</string>
+    <string name="delete_media_title_audio">حذف هذا الملف الصوتي؟</string>
+    <string name="delete_media_title_document">حذف هذا المستند؟</string>
+    <string name="delete_media_title_sticker">حذف هذا الملصق؟</string>
+    <string name="delete_media_body">يُزال الملف من «استعادة الوسائط». وإن كنت قد حفظته في المعرض، فستبقى تلك النسخة.</string>
+    <string name="toast_saved">حُفظ في المعرض</string>
+    <string name="toast_save_failed">تعذّر الحفظ</string>
+    <string name="toast_share">جارٍ فتح قائمة المشاركة…</string>
+    <string name="toast_share_failed">تعذّرت المشاركة</string>
+    <string name="toast_deleted">تم الحذف</string>
+</resources>

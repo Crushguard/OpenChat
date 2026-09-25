@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox (§4.8) -->
+    <string name="messages_title">میسجز</string>
+    <plurals name="messages_chip_all">
+        <item quantity="one">تمام · %d بغیر پڑھا</item>
+        <item quantity="other">تمام · %d بغیر پڑھے</item>
+    </plurals>
+    <string name="messages_chip_deleted">صرف حذف شدہ · %d</string>
+    <string name="messages_info_all">یہاں پڑھیں اور WhatsApp نیلے نشان نہیں دکھائے گا۔ تصاویر تب نظر آتی ہیں جب اطلاع میں پیش نظارہ ہو؛ وائس میسجز اور فائلیں اپنے نام سے دکھائی دیتی ہیں۔</string>
+    <string name="messages_info_deleted">صرف وہی میسجز محفوظ ہوتے ہیں جو بھیجنے والے نے حذف کیے۔ خارج کی گئی چیٹس مکمل طور پر نظر انداز کی جاتی ہیں۔</string>
+    <string name="messages_empty_title">ابھی یہاں کچھ نہیں</string>
+    <string name="messages_empty_body">نئے میسجز آتے ہی یہاں نظر آتے ہیں۔ حذف شدہ میسجز \"صرف حذف شدہ\" میں رہتے ہیں۔</string>
+    <string name="messages_tool_settings">ٹول کی ترتیبات</string>
+
+    <!-- Conversation (§4.9) -->
+    <string name="conversation_subtitle_all">%1$s · کسی کو پتا نہیں</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · %2$d حذف شدہ</item>
+        <item quantity="other">%1$s · %2$d حذف شدہ</item>
+    </plurals>
+    <string name="conversation_deleted_label">بھیجنے والے نے حذف کیا</string>
+    <string name="conversation_open">WhatsApp میں چیٹ کھولیں</string>
+    <string name="conversation_hint_all">WhatsApp میں چیٹ کھولنے پر بھیجنے والے کو نیلے نشان نظر آ جائیں گے۔</string>
+    <string name="conversation_hint_deleted">یہاں صرف پڑھا جا سکتا ہے۔ جواب WhatsApp میں دیں۔</string>
+
+    <!-- Tool settings, exclude chats and clear confirmations (§4.10, §4.11, §4.20) -->
+    <string name="tool_settings_pause">بحالی موقوف کریں</string>
+    <string name="tool_settings_exclude">چیٹس خارج کریں</string>
+    <string name="tool_settings_clear_messages">تمام محفوظ میسجز صاف کریں</string>
+    <string name="tool_settings_clear_media">تمام بحال شدہ میڈیا حذف کریں</string>
+    <string name="exclude_title">چیٹس خارج کریں</string>
+    <string name="exclude_empty">چیٹس اپنے پہلے میسج کے بعد یہاں نظر آتی ہیں۔</string>
+    <string name="clear_messages_title">تمام بحال شدہ میسجز صاف کریں؟</string>
+    <string name="clear_media_title">تمام بحال شدہ میڈیا حذف کریں؟</string>
+    <string name="clear_body">صرف اس ایپ کی کاپیاں حذف ہوتی ہیں۔ WhatsApp پر کوئی اثر نہیں پڑتا۔</string>
+    <string name="keep">رکھیں</string>
+    <string name="clear">صاف کریں</string>
+
+    <!-- Toasts (§4.9, §4.10) -->
+    <string name="toast_paused">بحالی موقوف ہو گئی</string>
+    <string name="toast_resumed">بحالی دوبارہ شروع ہو گئی</string>
+    <string name="toast_cleared">صاف ہو گیا</string>
+    <string name="toast_opening_whatsapp">WhatsApp کھل رہا ہے…</string>
+</resources>

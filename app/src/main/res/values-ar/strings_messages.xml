@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox (§4.8) -->
+    <string name="messages_title">الرسائل</string>
+    <!-- 1 and 2 are written as words (واحدة / اثنتان), as Arabic does with a counted noun -->
+    <plurals name="messages_chip_all">
+        <item quantity="zero">الكل</item>
+        <item quantity="one">الكل · واحدة غير مقروءة</item>
+        <item quantity="two">الكل · اثنتان غير مقروءتين</item>
+        <item quantity="few">الكل · %d غير مقروءة</item>
+        <item quantity="many">الكل · %d غير مقروءة</item>
+        <item quantity="other">الكل · %d غير مقروءة</item>
+    </plurals>
+    <string name="messages_chip_deleted">المحذوفة فقط · %d</string>
+    <string name="messages_info_all">اقرأ هنا ولن يُظهر WhatsApp العلامتين الزرقاوين. تظهر الصور عندما يتضمّن الإشعار معاينة، أما الرسائل الصوتية والملفات فتظهر بأسمائها.</string>
+    <string name="messages_info_deleted">لا يُحتفظ إلا بالرسائل التي حذفها المرسل. وتُتجاهل الدردشات المستثناة تمامًا.</string>
+    <string name="messages_empty_title">لا شيء هنا بعد</string>
+    <string name="messages_empty_body">تظهر الرسائل الجديدة هنا فور وصولها، وتبقى المحذوفة منها في «المحذوفة فقط».</string>
+    <string name="messages_tool_settings">إعدادات الأداة</string>
+
+    <!-- Conversation (§4.9) -->
+    <string name="conversation_subtitle_all">%1$s · لن يعلم أحد</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="zero">%1$s · لا رسائل محذوفة</item>
+        <item quantity="one">%1$s · رسالة محذوفة</item>
+        <item quantity="two">%1$s · رسالتان محذوفتان</item>
+        <item quantity="few">%1$s · %2$d رسائل محذوفة</item>
+        <item quantity="many">%1$s · %2$d رسالة محذوفة</item>
+        <item quantity="other">%1$s · %2$d رسالة محذوفة</item>
+    </plurals>
+    <string name="conversation_deleted_label">حذفها المرسل</string>
+    <string name="conversation_open">فتح الدردشة في WhatsApp</string>
+    <string name="conversation_hint_all">فتح الدردشة في WhatsApp يُرسل إشعارات القراءة.</string>
+    <string name="conversation_hint_deleted">هنا للقراءة فقط، والرد يكون في WhatsApp.</string>
+
+    <!-- Tool settings, exclude chats and clear confirmations (§4.10, §4.11, §4.20) -->
+    <string name="tool_settings_pause">إيقاف الاستعادة مؤقتًا</string>
+    <string name="tool_settings_exclude">استثناء الدردشات</string>
+    <string name="tool_settings_clear_messages">مسح كل الرسائل المحفوظة</string>
+    <string name="tool_settings_clear_media">حذف كل الوسائط المستعادة</string>
+    <string name="exclude_title">استثناء الدردشات</string>
+    <string name="exclude_empty">تظهر الدردشات هنا بعد وصول أول رسالة فيها.</string>
+    <string name="clear_messages_title">مسح كل الرسائل المستعادة؟</string>
+    <string name="clear_media_title">حذف كل الوسائط المستعادة؟</string>
+    <string name="clear_body">يحذف النسخ المحفوظة في هذا التطبيق فقط. لا يتأثر WhatsApp.</string>
+    <string name="keep">إبقاء</string>
+    <string name="clear">مسح</string>
+
+    <!-- Toasts (§4.9, §4.10) -->
+    <string name="toast_paused">تم إيقاف الاستعادة مؤقتًا</string>
+    <string name="toast_resumed">تم استئناف الاستعادة</string>
+    <string name="toast_cleared">تم المسح</string>
+    <string name="toast_opening_whatsapp">جارٍ فتح WhatsApp…</string>
+</resources>

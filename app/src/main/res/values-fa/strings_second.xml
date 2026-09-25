@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account (§4.14): entry state -->
+    <string name="second_title">حساب دوم</string>
+    <string name="second_entry_title">یک WhatsApp دوم، همین‌جا</string>
+    <string name="second_entry_body">یک نشست WhatsApp Web را داخل همین برنامه متصل می‌کند. از آن برای یک حساب دوم استفاده کنید، یا برای همان حساب روی گوشی دوم.</string>
+    <!-- WhatsApp's own Persian menu names: دستگاه‌های پیوندشده › پیوند دادن دستگاه -->
+    <string name="second_entry_callout">به گوشی دیگر نیاز دارید. یک کد QR اینجا نمایش داده می‌شود؛ آن را در گوشی دیگر از مسیر WhatsApp › دستگاه‌های پیوندشده › پیوند دادن دستگاه اسکن کنید.</string>
+    <string name="second_scan">اسکن کد QR</string>
+    <string name="second_entry_hint">تا وقتی متصل است، یک اعلان نمایش داده می‌شود. Android این را الزامی می‌کند.</string>
+
+    <!-- Linking / linked bar -->
+    <string name="second_linking">در حال اتصال…</string>
+    <string name="second_reload">بارگیری مجدد</string>
+    <string name="second_log_out">خروج از حساب</string>
+
+    <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
+    <string name="logout_title">از حساب متصل خارج می‌شوید؟</string>
+    <string name="logout_body">نشست روی این گوشی پایان می‌یابد. گوشی دیگر همچنان کار می‌کند.</string>
+    <string name="logout_stay">ماندن</string>
+    <string name="logout_confirm">خروج</string>
+    <string name="toast_reloading">در حال بارگیری مجدد…</string>
+    <string name="toast_logged_out">از حساب خارج شدید</string>
+    <string name="toast_linked">متصل شد</string>
+</resources>

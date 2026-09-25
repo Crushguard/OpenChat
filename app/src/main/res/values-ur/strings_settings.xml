@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings (§4.15) -->
+    <string name="settings_title">ترتیبات</string>
+    <string name="settings_access">اطلاع تک رسائی</string>
+    <string name="settings_access_on">فعال · میسج اور میڈیا ٹولز</string>
+    <string name="settings_access_off">بند · میسج اور میڈیا ٹولز کے لیے ضروری</string>
+    <string name="settings_preferences">ترجیحات</string>
+    <string name="settings_default_app">ڈیفالٹ ایپ</string>
+    <string name="settings_language">زبان</string>
+    <string name="settings_clear_recents">حالیہ نمبرز صاف کریں</string>
+    <string name="settings_about">ایپ کے بارے میں</string>
+    <string name="settings_rate">ریٹ کریں</string>
+    <string name="settings_contact">رابطہ کریں</string>
+    <string name="settings_share">ایپ شیئر کریں</string>
+    <string name="settings_privacy">رازداری کی پالیسی</string>
+    <string name="settings_version">ورژن</string>
+    <string name="settings_honesty">OpenChat مفت ہے۔ نہ اشتہارات، نہ اکاؤنٹ، نہ ٹریکنگ۔ نمبرز، میسجز اور میڈیا کبھی آپ کے فون سے باہر نہیں جاتے۔</string>
+
+    <!-- Clear recent numbers confirmation (§4.15, §4.20) -->
+    <string name="clear_recents_title">حالیہ نمبرز صاف کریں؟</string>
+    <plurals name="clear_recents_body">
+        <item quantity="one">ہوم پر موجود %d نمبر ہٹا دیا جائے گا۔ WhatsApp میں کچھ نہیں بدلتا۔</item>
+        <item quantity="other">ہوم پر موجود %d نمبرز ہٹا دیے جائیں گے۔ WhatsApp میں کچھ نہیں بدلتا۔</item>
+    </plurals>
+    <string name="clear_recents_keep">رکھیں</string>
+    <string name="clear_recents_clear">صاف کریں</string>
+    <string name="toast_recents_cleared">حالیہ نمبرز صاف ہو گئے</string>
+
+    <!-- Default app sheet (§4.16) -->
+    <string name="default_app_title">ڈیفالٹ ایپ</string>
+    <string name="toast_default_app">ڈیفالٹ ایپ: %s</string>
+
+    <!-- Language (§4.17) -->
+    <string name="language_title">زبان</string>
+    <string name="language_intro">صرف ایپ کی زبان بدلتی ہے۔ آپ کے بھیجے گئے میسجز آپ خود لکھتے ہیں، کسی بھی زبان میں۔</string>
+    <string name="toast_language">زبان: %s</string>
+
+    <!-- Contact us (§4.18) -->
+    <string name="contact_title">رابطہ کریں</string>
+    <string name="contact_intro">کوئی نمبر جو نہیں کھلتا، کوئی میسج جو بحال نہیں ہوا، یا کوئی خیال۔ یہ سیدھا ٹیم تک پہنچتا ہے۔</string>
+    <string name="contact_placeholder">کیا ہوا، اور کس اسکرین پر؟</string>
+    <string name="contact_email_label">ای میل · اختیاری، صرف اگر آپ جواب چاہتے ہیں</string>
+    <string name="contact_callout">ایپ ورژن اور Android ورژن کے ساتھ بھیجا جاتا ہے۔ آپ کے نمبرز یا میسجز کبھی نہیں۔</string>
+    <string name="contact_send">بھیجیں</string>
+    <string name="toast_sent">بھیج دیا گیا۔ شکریہ۔</string>
+    <string name="toast_write_first">پہلے کچھ لکھیں</string>
+    <string name="toast_no_email">کوئی ای میل ایپ نہیں ملی</string>
+    <string name="toast_no_app_can_open">کوئی ایپ اسے نہیں کھول سکتی</string>
+
+    <!-- Rating sheet (§4.19). "Five" is written as a word so it never sits next to digits of another script -->
+    <string name="rating_title">کیا آپ کو OpenChat پسند آ رہا ہے؟</string>
+    <string name="rating_body">آپ کی دیانتدار ریٹنگ دوسروں کو ایسی ایپ ڈھونڈنے میں مدد دیتی ہے جو ایک ٹیپ میں کوئی بھی نمبر کھول دے۔</string>
+    <plurals name="rating_star_cd">
+        <item quantity="one">پانچ میں سے %d ستارہ</item>
+        <item quantity="other">پانچ میں سے %d ستارے</item>
+    </plurals>
+    <string name="rating_hint_tap">کسی ستارے پر ٹیپ کریں</string>
+    <string name="rating_hint_1">یہ سن کر افسوس ہوا</string>
+    <string name="rating_hint_2">ہم بہتر کر سکتے ہیں</string>
+    <string name="rating_hint_3">شکریہ، ہمیں مزید بتائیں</string>
+    <string name="rating_hint_4">خوشی ہے کہ سب ٹھیک چل رہا ہے</string>
+    <string name="rating_hint_5">شکریہ!</string>
+    <string name="rating_later">شاید بعد میں</string>
+    <string name="rating_store_title">شکریہ!</string>
+    <string name="rating_store_body">کیا آپ یہی بات Google Play پر بھی شیئر کریں گے؟ اس سے ایک چھوٹی ایپ کو بڑھنے میں مدد ملتی ہے۔</string>
+    <string name="rating_store_cta">Google Play پر ریٹ کریں</string>
+    <string name="rating_not_now">ابھی نہیں</string>
+    <string name="rating_feedback_title">ہم بہتر کیسے کر سکتے ہیں؟</string>
+    <string name="rating_feedback_body">ہمیں بتائیں کہ کیا کمی رہ گئی۔ یہ سیدھا ٹیم تک پہنچتا ہے، عوامی ریویو کے طور پر نہیں، اور ہم ہر ایک پڑھتے ہیں۔</string>
+    <string name="rating_feedback_placeholder">کس چیز سے یہ پانچ اسٹار ایپ بن جاتی؟</string>
+    <string name="rating_feedback_send">فیڈ بیک بھیجیں</string>
+    <string name="rating_cancel">منسوخ کریں</string>
+    <string name="rating_thanks_title">شکریہ، ہم نے آپ کی بات سن لی</string>
+    <string name="rating_thanks_body">آپ کا نوٹ ٹیم کی طرف روانہ ہے۔ اسی سے طے ہوتا ہے کہ ہم آگے کیا بنائیں گے۔</string>
+    <string name="rating_done">ہو گیا</string>
+    <string name="toast_play">Google Play کھل رہا ہے…</string>
+</resources>

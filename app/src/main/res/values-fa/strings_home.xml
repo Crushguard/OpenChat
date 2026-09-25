@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (§4.3) -->
+    <string name="home_phone_placeholder">شماره‌ی تلفن</string>
+    <string name="home_paste">جای‌گذاری</string>
+    <string name="home_message_placeholder">پیام (اختیاری)</string>
+    <string name="home_send">ارسال پیام</string>
+    <string name="home_send_with">ارسال با</string>
+    <string name="home_first_run_hint">گفتگو در برنامه‌ای که انتخاب می‌کنید باز می‌شود. چیزی در مخاطبین شما ذخیره نمی‌شود.</string>
+    <string name="home_recent">شماره‌های اخیر</string>
+    <string name="home_delete">حذف</string>
+    <string name="home_settings_cd">تنظیمات</string>
+    <string name="home_country_cd">کشور</string>
+    <string name="home_clear_cd">پاک کردن</string>
+    <string name="home_choose_app_cd">انتخاب برنامه</string>
+
+    <!-- Home tool rows: status line under each tool's title. Persian "one" also covers 0, so it keeps the number -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">%d پیام خوانده‌نشده، هیچ‌کس نمی‌فهمد</item>
+        <item quantity="other">%d پیام خوانده‌نشده، هیچ‌کس نمی‌فهمد</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">متوقف</string>
+    <string name="tool_unseen_status_off">اینجا بخوانید. WhatsApp چیزی نشان نمی‌دهد</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">%d پیام حذف‌شده از سوی فرستنده</item>
+        <item quantity="other">%d پیام حذف‌شده از سوی فرستنده</item>
+    </plurals>
+    <string name="tool_deleted_status_off">آنچه را فرستنده حذف کرده نگه می‌دارد</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">%d مورد بازیابی‌شده در این هفته</item>
+        <item quantity="other">%d مورد بازیابی‌شده در این هفته</item>
+    </plurals>
+    <string name="tool_media_status_off">عکس‌ها، ویدیوها، پیام‌های صوتی، اسناد</string>
+    <string name="tool_second_status_linked">متصل</string>
+    <string name="tool_second_status_off">یک WhatsApp دوم داخل همین برنامه</string>
+
+    <!-- Country picker sheet (§4.4) -->
+    <string name="country_title">کشور</string>
+    <string name="country_search">جست‌وجوی کشور یا کد</string>
+    <string name="country_all">همه‌ی کشورها</string>
+    <plurals name="country_results">
+        <item quantity="one">%d نتیجه</item>
+        <item quantity="other">%d نتیجه</item>
+    </plurals>
+    <string name="country_detected_sim">شناسایی‌شده از سیم‌کارت شما: %1$s · %2$s</string>
+    <string name="country_detected_network">شناسایی‌شده از شبکه‌ی شما: %1$s · %2$s</string>
+    <string name="country_detected_locale">شناسایی‌شده از تنظیمات زبان و منطقه: %1$s · %2$s</string>
+    <string name="country_close_cd">بستن</string>
+
+    <!-- Not on WhatsApp sheet (§4.6) -->
+    <string name="not_on_wa_title">این شماره در WhatsApp نیست</string>
+    <string name="not_on_wa_body">شماره‌ی %s حساب WhatsApp ندارد. ارقام را بررسی کنید یا همین پیام را در Telegram بفرستید.</string>
+    <string name="not_on_wa_edit">ویرایش شماره</string>
+    <string name="not_on_wa_telegram">ارسال با Telegram</string>
+
+    <!-- Home toasts (§5.1) -->
+    <string name="toast_opening">در حال باز کردن %s…</string>
+    <string name="toast_pasted_country">جای‌گذاری شد · کشور به %s تغییر کرد</string>
+    <string name="toast_pasted">جای‌گذاری شد</string>
+    <string name="toast_clipboard_empty">بریده‌دان خالی است</string>
+    <string name="toast_no_app">هیچ برنامه‌ای نمی‌تواند این شماره را باز کند</string>
+</resources>

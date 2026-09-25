@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media (§4.12) -->
+    <string name="media_title">حذف شدہ میڈیا</string>
+    <string name="media_tool_settings">ٹول کی ترتیبات</string>
+    <string name="media_tab_photos">تصاویر</string>
+    <string name="media_tab_videos">ویڈیوز</string>
+    <string name="media_tab_audio">آڈیو</string>
+    <string name="media_tab_documents">دستاویزات</string>
+    <string name="media_tab_stickers">اسٹیکرز</string>
+    <string name="media_empty_nothing">ابھی کچھ بحال نہیں ہوا</string>
+    <string name="media_empty_audio">ابھی کوئی آڈیو نہیں</string>
+    <string name="media_empty_documents">ابھی کوئی دستاویز نہیں</string>
+    <string name="media_empty_stickers">ابھی کوئی اسٹیکر نہیں</string>
+    <string name="media_empty_body">جو فائلیں کوئی سب کے لیے حذف کر دے، وہ یہاں محفوظ رہتی ہیں، بشرطیکہ پہلے موصول ہو چکی ہوں۔</string>
+    <string name="media_allow">میڈیا تک رسائی کی اجازت دیں</string>
+    <string name="media_access_off">میڈیا تک رسائی بند ہے، اس لیے نئی فائلیں محفوظ نہیں ہوتیں۔</string>
+
+    <!-- Media detail (§4.13) -->
+    <string name="media_detail_title_photo">تصویر</string>
+    <string name="media_detail_title_video">ویڈیو</string>
+    <string name="media_detail_title_audio">آڈیو</string>
+    <string name="media_detail_title_document">دستاویز</string>
+    <string name="media_detail_title_sticker">اسٹیکر</string>
+    <string name="media_save">گیلری میں محفوظ کریں</string>
+    <string name="media_share">شیئر کریں</string>
+    <string name="media_delete">حذف کریں</string>
+    <string name="media_play">چلائیں</string>
+    <string name="media_pause">روکیں</string>
+    <!-- Urdu keeps the Latin KB / MB / GB abbreviations, as Android does -->
+    <string name="media_size_bytes">%s بائٹ</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <!-- Label-style line ("موصول: آج 14:25"): Urdu postpositions cannot follow the stand-alone day label -->
+    <string name="media_meta_from">منجانب %1$s · %2$s %3$s · حذف: %4$s</string>
+    <string name="media_meta_received">موصول: %1$s %2$s · حذف: %3$s</string>
+    <string name="media_meta_from_kept">منجانب %1$s · %2$s %3$s</string>
+    <string name="media_meta_received_kept">موصول: %1$s %2$s</string>
+    <string name="delete_media_title_photo">یہ تصویر حذف کریں؟</string>
+    <string name="delete_media_title_video">یہ ویڈیو حذف کریں؟</string>
+    <string name="delete_media_title_audio">یہ آڈیو حذف کریں؟</string>
+    <string name="delete_media_title_document">یہ دستاویز حذف کریں؟</string>
+    <string name="delete_media_title_sticker">یہ اسٹیکر حذف کریں؟</string>
+    <string name="delete_media_body">یہ فائل میڈیا بحالی سے ہٹا دی جائے گی۔ اگر آپ نے اسے گیلری میں محفوظ کیا ہے تو وہ کاپی موجود رہے گی۔</string>
+    <string name="toast_saved">گیلری میں محفوظ ہو گیا</string>
+    <string name="toast_save_failed">محفوظ نہیں ہو سکا</string>
+    <string name="toast_share">شیئر شیٹ کھل رہی ہے…</string>
+    <string name="toast_share_failed">شیئر نہیں ہو سکا</string>
+    <string name="toast_deleted">حذف ہو گیا</string>
+</resources>

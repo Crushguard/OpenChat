@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sharing -->
+    <string name="share_app_text">يفتح OpenChat دردشة مع أي رقم دون حفظه في جهات الاتصال. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding (design map §4.1, §4.2) -->
+    <string name="splash_honesty">مجاني · بلا إعلانات · بلا حساب</string>
+    <string name="onboarding_skip">تخطّي</string>
+    <string name="onboarding_1_title">راسل أي رقم</string>
+    <string name="onboarding_1_body">اكتب رقمًا أو الصقه، ثم اضغط «إرسال». تُفتح الدردشة في WhatsApp أو WhatsApp Business أو Telegram. لا يُحفظ أي شيء في جهات اتصالك.</string>
+    <string name="onboarding_1_check">لا يُضاف إلى جهات اتصالك</string>
+    <string name="onboarding_1_send">إرسال رسالة</string>
+    <string name="onboarding_2_title">أربع أدوات، إذن واحد</string>
+    <string name="onboarding_2_body">اقرأ دون العلامتين الزرقاوين، واستعِد ما يحذفه المرسلون، وشغّل حسابًا ثانيًا. كل شيء يبقى على هذا الهاتف.</string>
+    <string name="onboarding_next">التالي</string>
+    <string name="onboarding_start">ابدأ</string>
+
+    <!-- Tool titles (Home tool rows, onboarding slide 2) -->
+    <string name="tool_unseen_title">قراءة دون العلامتين الزرقاوين</string>
+    <string name="tool_deleted_title">استعادة الرسائل المحذوفة</string>
+    <string name="tool_media_title">استعادة الوسائط المحذوفة</string>
+    <string name="tool_second_title">فتح حساب ثانٍ</string>
+
+    <!-- Notification access gate (§4.7) -->
+    <string name="gate_title">السماح بالوصول إلى الإشعارات</string>
+    <string name="gate_body">تُحفظ الرسائل والوسائط المحذوفة من خلال إشعارات WhatsApp. لا شيء يغادر هاتفك.</string>
+    <string name="gate_open_settings">فتح الإعدادات</string>
+    <string name="gate_waiting">في انتظار Android…</string>
+    <string name="gate_hint_before">إذن واحد يشمل استعادة الرسائل واستعادة الوسائط.</string>
+    <string name="gate_continue">متابعة</string>
+    <string name="gate_hint_after">يمكنك إيقافه في أي وقت من الإعدادات.</string>
+    <string name="gate_bar_messages">الرسائل</string>
+    <string name="gate_bar_media">الوسائط المحذوفة</string>
+    <string name="gate_bar_settings">الوصول إلى الإشعارات</string>
+
+    <!-- Second-account foreground service notification (§4.14, §5.4) -->
+    <string name="second_notification_channel">الحساب الثاني</string>
+    <string name="second_notification_title">الحساب الثاني مرتبط</string>
+    <string name="second_notification_text">اضغط لفتح OpenChat</string>
+    <string name="second_notification_open">فتح</string>
+
+    <!-- Time labels (§5.1): د and س are the usual short forms of دقيقة and ساعة -->
+    <string name="time_now">الآن</string>
+    <string name="time_today">اليوم</string>
+    <string name="time_yesterday">أمس</string>
+    <string name="time_minutes_short">%d د</string>
+    <string name="time_hours_short">%d س</string>
+
+    <!-- Shared components -->
+    <string name="cd_back">رجوع</string>
+    <string name="chip_off">متوقف</string>
+    <string name="chip_active">نشط</string>
+    <string name="chip_paused">متوقف مؤقتًا</string>
+    <string name="chip_linked">مرتبط</string>
+</resources>

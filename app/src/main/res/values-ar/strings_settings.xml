@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings (§4.15) -->
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_access">الوصول إلى الإشعارات</string>
+    <string name="settings_access_on">نشط · أدوات الرسائل والوسائط</string>
+    <string name="settings_access_off">متوقف · مطلوب لأدوات الرسائل والوسائط</string>
+    <string name="settings_preferences">التفضيلات</string>
+    <string name="settings_default_app">التطبيق الافتراضي</string>
+    <string name="settings_language">اللغة</string>
+    <string name="settings_clear_recents">مسح الأرقام الأخيرة</string>
+    <string name="settings_about">حول</string>
+    <string name="settings_rate">قيّمنا</string>
+    <string name="settings_contact">اتصل بنا</string>
+    <string name="settings_share">مشاركة التطبيق</string>
+    <string name="settings_privacy">سياسة الخصوصية</string>
+    <string name="settings_version">الإصدار</string>
+    <string name="settings_honesty">تطبيق OpenChat مجاني. بلا إعلانات، وبلا حساب، وبلا تتبّع. الأرقام والرسائل والوسائط لا تغادر هاتفك أبدًا.</string>
+
+    <!-- Clear recent numbers confirmation (§4.15, §4.20) -->
+    <string name="clear_recents_title">مسح الأرقام الأخيرة؟</string>
+    <plurals name="clear_recents_body">
+        <item quantity="zero">لا توجد أرقام لإزالتها من الشاشة الرئيسية. لا يتغيّر شيء في WhatsApp.</item>
+        <item quantity="one">يزيل الرقم الوحيد من الشاشة الرئيسية. لا يتغيّر شيء في WhatsApp.</item>
+        <item quantity="two">يزيل الرقمين من الشاشة الرئيسية. لا يتغيّر شيء في WhatsApp.</item>
+        <item quantity="few">يزيل %d أرقام من الشاشة الرئيسية. لا يتغيّر شيء في WhatsApp.</item>
+        <item quantity="many">يزيل %d رقمًا من الشاشة الرئيسية. لا يتغيّر شيء في WhatsApp.</item>
+        <item quantity="other">يزيل %d رقم من الشاشة الرئيسية. لا يتغيّر شيء في WhatsApp.</item>
+    </plurals>
+    <string name="clear_recents_keep">إبقاء</string>
+    <string name="clear_recents_clear">مسح</string>
+    <string name="toast_recents_cleared">تم مسح الأرقام الأخيرة</string>
+
+    <!-- Default app sheet (§4.16) -->
+    <string name="default_app_title">التطبيق الافتراضي</string>
+    <string name="toast_default_app">التطبيق الافتراضي: %s</string>
+
+    <!-- Language (§4.17) -->
+    <string name="language_title">اللغة</string>
+    <string name="language_intro">يغيّر لغة التطبيق فقط. أما الرسائل التي ترسلها فتكتبها بنفسك، بأي لغة.</string>
+    <string name="toast_language">اللغة: %s</string>
+
+    <!-- Contact us (§4.18) -->
+    <string name="contact_title">اتصل بنا</string>
+    <string name="contact_intro">رقم لا يُفتح، أو رسالة لم تُستعد، أو فكرة. تصل رسالتك مباشرة إلى الفريق.</string>
+    <string name="contact_placeholder">ماذا حدث، وفي أي شاشة؟</string>
+    <string name="contact_email_label">البريد الإلكتروني · اختياري، فقط إن أردت ردًا</string>
+    <string name="contact_callout">يُرسل مع إصدار التطبيق وإصدار Android، ولا يتضمّن أرقامك أو رسائلك أبدًا.</string>
+    <string name="contact_send">إرسال</string>
+    <string name="toast_sent">تم الإرسال. شكرًا لك.</string>
+    <string name="toast_write_first">اكتب شيئًا أولًا</string>
+    <string name="toast_no_email">لم يتم العثور على تطبيق بريد إلكتروني</string>
+    <string name="toast_no_app_can_open">لا يوجد تطبيق يمكنه فتح هذا</string>
+
+    <!-- Rating sheet (§4.19). "Five" is written as a word so it never sits next to digits of another script -->
+    <string name="rating_title">هل تستمتع باستخدام OpenChat؟</string>
+    <string name="rating_body">تقييمك الصادق يساعد الآخرين على إيجاد تطبيق يفتح أي رقم بلمسة واحدة.</string>
+    <plurals name="rating_star_cd">
+        <item quantity="zero">صفر من خمس نجوم</item>
+        <item quantity="one">نجمة واحدة من خمس</item>
+        <item quantity="two">نجمتان من خمس</item>
+        <item quantity="few">%d نجوم من خمس</item>
+        <item quantity="many">%d نجمة من خمس</item>
+        <item quantity="other">%d نجمة من خمس</item>
+    </plurals>
+    <string name="rating_hint_tap">اضغط على نجمة</string>
+    <string name="rating_hint_1">يؤسفنا سماع ذلك</string>
+    <string name="rating_hint_2">بإمكاننا أن نتحسّن</string>
+    <string name="rating_hint_3">شكرًا، أخبرنا المزيد</string>
+    <string name="rating_hint_4">يسعدنا أنه يفيدك</string>
+    <string name="rating_hint_5">شكرًا لك!</string>
+    <string name="rating_later">ربما لاحقًا</string>
+    <string name="rating_store_title">شكرًا لك!</string>
+    <string name="rating_store_body">هل تشاركنا رأيك على Google Play؟ فذلك يساعد تطبيقًا صغيرًا على النمو.</string>
+    <string name="rating_store_cta">قيّمنا على Google Play</string>
+    <string name="rating_not_now">ليس الآن</string>
+    <string name="rating_feedback_title">كيف يمكننا أن نتحسّن؟</string>
+    <string name="rating_feedback_body">أخبرنا بما لم يرقَ إلى توقعاتك. تصل ملاحظتك مباشرة إلى الفريق، لا كمراجعة علنية، ونحن نقرأ كل ملاحظة.</string>
+    <string name="rating_feedback_placeholder">ما الذي كان سيجعله تطبيقًا يستحق خمس نجوم؟</string>
+    <string name="rating_feedback_send">إرسال الملاحظات</string>
+    <string name="rating_cancel">إلغاء</string>
+    <string name="rating_thanks_title">شكرًا لك، وصلتنا رسالتك</string>
+    <string name="rating_thanks_body">ملاحظتك في طريقها إلى الفريق، وستساعدنا في تحديد ما نبنيه لاحقًا.</string>
+    <string name="rating_done">تم</string>
+    <string name="toast_play">جارٍ فتح Google Play…</string>
+</resources>

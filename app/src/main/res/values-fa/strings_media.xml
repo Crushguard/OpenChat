@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media (§4.12) -->
+    <string name="media_title">رسانه‌های حذف‌شده</string>
+    <string name="media_tool_settings">تنظیمات ابزار</string>
+    <string name="media_tab_photos">عکس‌ها</string>
+    <string name="media_tab_videos">ویدیوها</string>
+    <string name="media_tab_audio">صدا</string>
+    <string name="media_tab_documents">اسناد</string>
+    <string name="media_tab_stickers">استیکرها</string>
+    <string name="media_empty_nothing">هنوز چیزی بازیابی نشده</string>
+    <string name="media_empty_audio">هنوز صدایی نیست</string>
+    <string name="media_empty_documents">هنوز سندی نیست</string>
+    <string name="media_empty_stickers">هنوز استیکری نیست</string>
+    <string name="media_empty_body">فایل‌هایی که کسی برای همه حذف می‌کند اینجا نگه داشته می‌شوند، به شرطی که پیش از آن دریافت شده باشند.</string>
+    <string name="media_allow">اجازه‌ی دسترسی به رسانه‌ها</string>
+    <string name="media_access_off">دسترسی به رسانه‌ها خاموش است، پس فایل‌های جدید نگه داشته نمی‌شوند.</string>
+
+    <!-- Media detail (§4.13) -->
+    <string name="media_detail_title_photo">عکس</string>
+    <string name="media_detail_title_video">ویدیو</string>
+    <string name="media_detail_title_audio">فایل صوتی</string>
+    <string name="media_detail_title_document">سند</string>
+    <string name="media_detail_title_sticker">استیکر</string>
+    <string name="media_save">ذخیره در گالری</string>
+    <string name="media_share">اشتراک‌گذاری</string>
+    <string name="media_delete">حذف</string>
+    <string name="media_play">پخش</string>
+    <string name="media_pause">مکث</string>
+    <string name="media_size_bytes">%s بایت</string>
+    <string name="media_size_kb">%s کیلوبایت</string>
+    <string name="media_size_mb">%s مگابایت</string>
+    <string name="media_size_gb">%s گیگابایت</string>
+    <!-- Label-style line: the day (امروز / دیروز / a date) stands alone, with no preposition before it -->
+    <string name="media_meta_from">از %1$s · %2$s %3$s · حذف: %4$s</string>
+    <string name="media_meta_received">دریافت: %1$s %2$s · حذف: %3$s</string>
+    <string name="media_meta_from_kept">از %1$s · %2$s %3$s</string>
+    <string name="media_meta_received_kept">دریافت: %1$s %2$s</string>
+    <string name="delete_media_title_photo">این عکس حذف شود؟</string>
+    <string name="delete_media_title_video">این ویدیو حذف شود؟</string>
+    <string name="delete_media_title_audio">این فایل صوتی حذف شود؟</string>
+    <string name="delete_media_title_document">این سند حذف شود؟</string>
+    <string name="delete_media_title_sticker">این استیکر حذف شود؟</string>
+    <string name="delete_media_body">این فایل از «بازیابی رسانه» حذف می‌شود. اگر آن را در گالری ذخیره کرده باشید، آن نسخه باقی می‌ماند.</string>
+    <string name="toast_saved">در گالری ذخیره شد</string>
+    <string name="toast_save_failed">ذخیره نشد</string>
+    <string name="toast_share">در حال باز کردن منوی اشتراک‌گذاری…</string>
+    <string name="toast_share_failed">اشتراک‌گذاری نشد</string>
+    <string name="toast_deleted">حذف شد</string>
+</resources>

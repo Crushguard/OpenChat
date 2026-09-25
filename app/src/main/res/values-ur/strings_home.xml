@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (§4.3) -->
+    <string name="home_phone_placeholder">فون نمبر</string>
+    <string name="home_paste">پیسٹ کریں</string>
+    <string name="home_message_placeholder">میسج (اختیاری)</string>
+    <string name="home_send">میسج بھیجیں</string>
+    <string name="home_send_with">بذریعہ بھیجیں</string>
+    <string name="home_first_run_hint">چیٹ آپ کی منتخب کردہ ایپ میں کھلتی ہے۔ آپ کے رابطوں میں کچھ بھی محفوظ نہیں ہوتا۔</string>
+    <string name="home_recent">حالیہ نمبرز</string>
+    <string name="home_delete">حذف کریں</string>
+    <string name="home_settings_cd">ترتیبات</string>
+    <string name="home_country_cd">ملک</string>
+    <string name="home_clear_cd">صاف کریں</string>
+    <string name="home_choose_app_cd">ایپ منتخب کریں</string>
+
+    <!-- Home tool rows: status line under each tool's title -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">%d بغیر پڑھا میسج، کسی کو پتا نہیں</item>
+        <item quantity="other">%d بغیر پڑھے میسجز، کسی کو پتا نہیں</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">موقوف</string>
+    <string name="tool_unseen_status_off">یہاں پڑھیں۔ WhatsApp کچھ نہیں دکھاتا</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">%d میسج جو بھیجنے والے نے حذف کیا</item>
+        <item quantity="other">%d میسجز جو بھیجنے والے نے حذف کیے</item>
+    </plurals>
+    <string name="tool_deleted_status_off">بھیجنے والا جو حذف کرے، وہ محفوظ رہتا ہے</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">اس ہفتے %d آئٹم بحال ہوا</item>
+        <item quantity="other">اس ہفتے %d آئٹمز بحال ہوئے</item>
+    </plurals>
+    <string name="tool_media_status_off">تصاویر، ویڈیوز، وائس میسجز، دستاویزات</string>
+    <string name="tool_second_status_linked">لنک شدہ</string>
+    <string name="tool_second_status_off">اسی ایپ کے اندر دوسرا WhatsApp</string>
+
+    <!-- Country picker sheet (§4.4) -->
+    <string name="country_title">ملک</string>
+    <string name="country_search">ملک یا کوڈ تلاش کریں</string>
+    <string name="country_all">تمام ممالک</string>
+    <plurals name="country_results">
+        <item quantity="one">%d نتیجہ</item>
+        <item quantity="other">%d نتائج</item>
+    </plurals>
+    <string name="country_detected_sim">آپ کی SIM سے معلوم ہوا: %1$s · %2$s</string>
+    <string name="country_detected_network">آپ کے نیٹ ورک سے معلوم ہوا: %1$s · %2$s</string>
+    <string name="country_detected_locale">زبان اور علاقے کی ترتیبات سے معلوم ہوا: %1$s · %2$s</string>
+    <string name="country_close_cd">بند کریں</string>
+
+    <!-- Not on WhatsApp sheet (§4.6) -->
+    <string name="not_on_wa_title">یہ نمبر WhatsApp پر نہیں ہے</string>
+    <string name="not_on_wa_body">نمبر %s کا کوئی WhatsApp اکاؤنٹ نہیں ہے۔ ہندسے چیک کریں، یا یہی میسج Telegram پر بھیجیں۔</string>
+    <string name="not_on_wa_edit">نمبر میں ترمیم</string>
+    <string name="not_on_wa_telegram">Telegram آزمائیں</string>
+
+    <!-- Home toasts (§5.1) -->
+    <string name="toast_opening">%s کھل رہا ہے…</string>
+    <string name="toast_pasted_country">پیسٹ ہو گیا · ملک %s پر سیٹ ہو گیا</string>
+    <string name="toast_pasted">پیسٹ ہو گیا</string>
+    <string name="toast_clipboard_empty">کلپ بورڈ خالی ہے</string>
+    <string name="toast_no_app">کوئی ایپ یہ نمبر نہیں کھول سکتی</string>
+</resources>

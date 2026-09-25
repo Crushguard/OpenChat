@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sharing -->
+    <string name="share_app_text">ایپ OpenChat کسی بھی نمبر کے ساتھ چیٹ کھول دیتی ہے، رابطہ محفوظ کیے بغیر۔ https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding (design map §4.1, §4.2) -->
+    <string name="splash_honesty">مفت · بغیر اشتہارات · بغیر اکاؤنٹ</string>
+    <string name="onboarding_skip">چھوڑیں</string>
+    <string name="onboarding_1_title">کسی بھی نمبر سے چیٹ کریں</string>
+    <string name="onboarding_1_body">نمبر ٹائپ یا پیسٹ کریں، پھر \"بھیجیں\" پر ٹیپ کریں۔ چیٹ WhatsApp یا WhatsApp Business یا Telegram میں کھلتی ہے۔ آپ کے رابطوں میں کچھ بھی محفوظ نہیں ہوتا۔</string>
+    <string name="onboarding_1_check">آپ کے رابطوں میں شامل نہیں ہوتا</string>
+    <string name="onboarding_1_send">میسج بھیجیں</string>
+    <string name="onboarding_2_title">چار ٹولز، ایک اجازت</string>
+    <string name="onboarding_2_body">نیلے نشان کے بغیر پڑھیں، بھیجنے والے جو حذف کریں اسے بحال کریں، اور دوسرا اکاؤنٹ چلائیں۔ سب کچھ اسی فون پر رہتا ہے۔</string>
+    <string name="onboarding_next">آگے</string>
+    <string name="onboarding_start">شروع کریں</string>
+
+    <!-- Tool titles (Home tool rows, onboarding slide 2) -->
+    <string name="tool_unseen_title">نیلے نشان کے بغیر پڑھیں</string>
+    <string name="tool_deleted_title">حذف شدہ میسجز بحال کریں</string>
+    <string name="tool_media_title">حذف شدہ میڈیا بحال کریں</string>
+    <string name="tool_second_title">دوسرا اکاؤنٹ کھولیں</string>
+
+    <!-- Notification access gate (§4.7) -->
+    <string name="gate_title">اطلاع تک رسائی کی اجازت دیں</string>
+    <string name="gate_body">حذف شدہ میسجز اور میڈیا WhatsApp کی اطلاعات سے محفوظ کیے جاتے ہیں۔ کچھ بھی آپ کے فون سے باہر نہیں جاتا۔</string>
+    <string name="gate_open_settings">ترتیبات کھولیں</string>
+    <string name="gate_waiting">Android کا انتظار ہے…</string>
+    <string name="gate_hint_before">ایک اجازت سے میسج بحالی اور میڈیا بحالی دونوں آن ہو جاتی ہیں۔</string>
+    <string name="gate_continue">جاری رکھیں</string>
+    <string name="gate_hint_after">آپ اسے کسی بھی وقت ترتیبات میں بند کر سکتے ہیں۔</string>
+    <string name="gate_bar_messages">میسجز</string>
+    <string name="gate_bar_media">حذف شدہ میڈیا</string>
+    <string name="gate_bar_settings">اطلاع تک رسائی</string>
+
+    <!-- Second-account foreground service notification (§4.14, §5.4) -->
+    <string name="second_notification_channel">دوسرا اکاؤنٹ</string>
+    <string name="second_notification_title">دوسرا اکاؤنٹ لنک ہے</string>
+    <string name="second_notification_text">ٹیپ کر کے OpenChat کھولیں</string>
+    <string name="second_notification_open">کھولیں</string>
+
+    <!-- Time labels (§5.1) -->
+    <string name="time_now">ابھی</string>
+    <string name="time_today">آج</string>
+    <string name="time_yesterday">کل</string>
+    <string name="time_minutes_short">%d منٹ</string>
+    <string name="time_hours_short">%d گھنٹے</string>
+
+    <!-- Shared components -->
+    <string name="cd_back">واپس</string>
+    <string name="chip_off">بند</string>
+    <string name="chip_active">فعال</string>
+    <string name="chip_paused">موقوف</string>
+    <string name="chip_linked">لنک شدہ</string>
+</resources>
