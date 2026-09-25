@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (design map §4.3) -->
+    <string name="home_phone_placeholder">Número de teléfono</string>
+    <string name="home_paste">Pegar</string>
+    <string name="home_message_placeholder">Mensaje (opcional)</string>
+    <string name="home_send">Enviar mensaje</string>
+    <string name="home_send_with">Enviar con</string>
+    <string name="home_first_run_hint">Abre el chat en la app que elijas. No se guarda nada en tus contactos.</string>
+    <string name="home_recent">Recientes</string>
+    <string name="home_delete">Eliminar</string>
+    <string name="home_settings_cd">Ajustes</string>
+    <string name="home_country_cd">País</string>
+    <string name="home_clear_cd">Borrar</string>
+    <string name="home_choose_app_cd">Elegir app</string>
+
+    <!-- Home tool rows (design map §4.3) -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">%d sin leer, nadie lo sabrá</item>
+        <item quantity="many">%d sin leer, nadie lo sabrá</item>
+        <item quantity="other">%d sin leer, nadie lo sabrá</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">En pausa</string>
+    <string name="tool_unseen_status_off">Lee aquí. WhatsApp no muestra nada</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">%d mensaje eliminado por el remitente</item>
+        <item quantity="many">%d mensajes eliminados por el remitente</item>
+        <item quantity="other">%d mensajes eliminados por el remitente</item>
+    </plurals>
+    <string name="tool_deleted_status_off">Guarda lo que el remitente elimina</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">%d archivo recuperado esta semana</item>
+        <item quantity="many">%d archivos recuperados esta semana</item>
+        <item quantity="other">%d archivos recuperados esta semana</item>
+    </plurals>
+    <string name="tool_media_status_off">Fotos, videos, notas de voz, documentos</string>
+    <string name="tool_second_status_linked">Vinculada</string>
+    <string name="tool_second_status_off">Un segundo WhatsApp en esta app</string>
+
+    <!-- Country picker sheet (design map §4.4) -->
+    <string name="country_title">País</string>
+    <string name="country_search">Buscar país o código</string>
+    <string name="country_all">Todos los países</string>
+    <plurals name="country_results">
+        <item quantity="one">%d resultado</item>
+        <item quantity="many">%d resultados</item>
+        <item quantity="other">%d resultados</item>
+    </plurals>
+    <string name="country_detected_sim">Detectado según tu SIM: %1$s · %2$s</string>
+    <string name="country_detected_network">Detectado según tu red móvil: %1$s · %2$s</string>
+    <string name="country_detected_locale">Detectado según la región de tu teléfono: %1$s · %2$s</string>
+    <string name="country_close_cd">Cerrar</string>
+
+    <!-- Not on WhatsApp confirmation sheet (design map §4.6) -->
+    <string name="not_on_wa_title">Este número no está en WhatsApp</string>
+    <string name="not_on_wa_body">%s no tiene cuenta de WhatsApp. Revisa los dígitos o envía el mismo mensaje por Telegram.</string>
+    <string name="not_on_wa_edit">Editar número</string>
+    <string name="not_on_wa_telegram">Probar Telegram</string>
+
+    <!-- Home toasts (design map §5.1) -->
+    <string name="toast_opening">Abriendo %s…</string>
+    <string name="toast_pasted_country">Pegado · país cambiado a %s</string>
+    <string name="toast_pasted">Pegado</string>
+    <string name="toast_clipboard_empty">El portapapeles está vacío</string>
+    <string name="toast_no_app">Ninguna app puede abrir este número</string>
+</resources>

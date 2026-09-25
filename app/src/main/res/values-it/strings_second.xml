@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account (design map §4.14) -->
+    <string name="second_title">Secondo account</string>
+    <string name="second_entry_title">Un secondo WhatsApp, qui dentro</string>
+    <string name="second_entry_body">Collega una sessione di WhatsApp Web in questa app. Usala per un secondo account o per lo stesso account su un secondo telefono.</string>
+    <string name="second_entry_callout">Ti serve l\'altro telefono. Qui compare un codice QR: scansionalo lì in WhatsApp › Dispositivi collegati › Collega un dispositivo.</string>
+    <string name="second_scan">Scansiona il codice QR</string>
+    <string name="second_entry_hint">Una notifica resta visibile finché l\'account è collegato. Lo richiede Android.</string>
+
+    <!-- Second account: linking / linked bar -->
+    <string name="second_linking">Collegamento…</string>
+    <string name="second_reload">Ricarica</string>
+    <string name="second_log_out">Disconnetti</string>
+
+    <!-- Log out confirmation (§4.20) -->
+    <string name="logout_title">Disconnettere l\'account collegato?</string>
+    <string name="logout_body">La sessione termina su questo telefono. L\'altro telefono continua a funzionare.</string>
+    <string name="logout_stay">Resta collegato</string>
+    <string name="logout_confirm">Disconnetti</string>
+    <string name="toast_reloading">Ricaricamento…</string>
+    <string name="toast_logged_out">Disconnesso</string>
+    <string name="toast_linked">Account collegato</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox (design map §4.8) -->
+    <string name="messages_title">Messaggi</string>
+    <plurals name="messages_chip_all">
+        <item quantity="one">Tutti · %d non letto</item>
+        <item quantity="many">Tutti · %d non letti</item>
+        <item quantity="other">Tutti · %d non letti</item>
+    </plurals>
+    <string name="messages_chip_deleted">Solo eliminati · %d</string>
+    <string name="messages_info_all">Leggi qui e WhatsApp non mostra le spunte blu. Le foto compaiono se la notifica include un\'anteprima; note vocali e file appaiono con il loro nome.</string>
+    <string name="messages_info_deleted">Vengono conservati solo i messaggi eliminati dal mittente. Le chat escluse vengono ignorate del tutto.</string>
+    <string name="messages_empty_title">Non c\'è ancora niente</string>
+    <string name="messages_empty_body">I nuovi messaggi compaiono qui man mano che arrivano. Quelli eliminati restano in “Solo eliminati”.</string>
+    <string name="messages_tool_settings">Impostazioni dello strumento</string>
+
+    <!-- Conversation (design map §4.9) -->
+    <string name="conversation_subtitle_all">%1$s · nessuno lo saprà</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · %2$d eliminato</item>
+        <item quantity="many">%1$s · %2$d eliminati</item>
+        <item quantity="other">%1$s · %2$d eliminati</item>
+    </plurals>
+    <string name="conversation_deleted_label">Eliminato dal mittente</string>
+    <string name="conversation_open">Apri la chat in WhatsApp</string>
+    <string name="conversation_hint_all">Se apri la chat in WhatsApp, vengono inviate le conferme di lettura.</string>
+    <string name="conversation_hint_deleted">Qui puoi solo leggere. Per rispondere usa WhatsApp.</string>
+
+    <!-- Tool settings sheet (§4.10, shared with Deleted media) -->
+    <string name="tool_settings_pause">Sospendi il recupero</string>
+    <string name="tool_settings_exclude">Escludi chat</string>
+    <string name="tool_settings_clear_messages">Cancella i messaggi conservati</string>
+    <string name="tool_settings_clear_media">Elimina i media recuperati</string>
+    <string name="exclude_title">Escludi chat</string>
+    <string name="exclude_empty">Le chat compaiono qui dopo il primo messaggio.</string>
+    <string name="clear_messages_title">Cancellare tutti i messaggi recuperati?</string>
+    <string name="clear_media_title">Eliminare tutti i media recuperati?</string>
+    <string name="clear_body">Elimina le copie di questa app. WhatsApp resta intatto.</string>
+    <string name="keep">Mantieni</string>
+    <string name="clear">Cancella</string>
+
+    <!-- Toasts (§4.9, §4.10) -->
+    <string name="toast_paused">Recupero in pausa</string>
+    <string name="toast_resumed">Recupero ripreso</string>
+    <string name="toast_cleared">Tutto cancellato</string>
+    <string name="toast_opening_whatsapp">Apertura di WhatsApp…</string>
+</resources>

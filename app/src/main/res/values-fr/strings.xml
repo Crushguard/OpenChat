@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Links, sharing and feedback (rulings R11, R16) -->
+    <string name="share_app_text">OpenChat ouvre une discussion avec n\'importe quel numéro, sans enregistrer de contact. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding (design map §4.1, §4.2) -->
+    <string name="splash_honesty">Gratuit · Sans publicité · Sans compte</string>
+    <string name="onboarding_skip">Passer</string>
+    <string name="onboarding_1_title">Écrivez à n\'importe quel numéro</string>
+    <string name="onboarding_1_body">Saisissez ou collez un numéro, puis appuyez sur Envoyer. La discussion s\'ouvre dans WhatsApp, WhatsApp Business ou Telegram. Rien n\'est enregistré dans vos contacts.</string>
+    <string name="onboarding_1_check">Non ajouté à vos contacts</string>
+    <string name="onboarding_1_send">Envoyer un message</string>
+    <string name="onboarding_2_title">Quatre outils, une seule autorisation</string>
+    <string name="onboarding_2_body">Lisez sans coches bleues, récupérez ce que les expéditeurs suppriment, utilisez un second compte. Tout reste sur ce téléphone.</string>
+    <string name="onboarding_next">Suivant</string>
+    <string name="onboarding_start">Commencer</string>
+
+    <!-- Tool titles (Home tool rows, onboarding slide 2) -->
+    <string name="tool_unseen_title">Lire sans coches bleues</string>
+    <string name="tool_deleted_title">Voir les messages supprimés</string>
+    <string name="tool_media_title">Voir les médias supprimés</string>
+    <string name="tool_second_title">Ouvrir un second compte</string>
+
+    <!-- Notification access gate (design map §4.7) -->
+    <string name="gate_title">Autoriser l\'accès aux notifications</string>
+    <string name="gate_body">Les messages et médias supprimés sont conservés grâce aux notifications WhatsApp. Rien ne quitte votre téléphone.</string>
+    <string name="gate_open_settings">Ouvrir les paramètres</string>
+    <string name="gate_waiting">En attente d\'Android…</string>
+    <string name="gate_hint_before">Une seule autorisation active la récupération des messages et des médias.</string>
+    <string name="gate_continue">Continuer</string>
+    <string name="gate_hint_after">Vous pouvez le désactiver à tout moment dans les Paramètres.</string>
+    <string name="gate_bar_messages">Messages</string>
+    <string name="gate_bar_media">Médias supprimés</string>
+    <string name="gate_bar_settings">Accès aux notifications</string>
+
+    <!-- Second-account foreground service notification (design map §4.14, §5.4) -->
+    <string name="second_notification_channel">Second compte</string>
+    <string name="second_notification_title">Second compte connecté</string>
+    <string name="second_notification_text">Appuyez pour ouvrir OpenChat</string>
+    <string name="second_notification_open">Ouvrir</string>
+
+    <!-- Time labels (§5.1) -->
+    <string name="time_now">À l\'instant</string>
+    <string name="time_today">Aujourd\'hui</string>
+    <string name="time_yesterday">Hier</string>
+    <string name="time_minutes_short">%d min</string>
+    <string name="time_hours_short">%d h</string>
+
+    <!-- Shared components (ui/components) -->
+    <string name="cd_back">Retour</string>
+    <string name="chip_off">Désactivé</string>
+    <string name="chip_active">Activé</string>
+    <string name="chip_paused">En pause</string>
+    <string name="chip_linked">Connecté</string>
+</resources>

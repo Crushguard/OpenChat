@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account (design map §4.14) -->
+    <string name="second_title">Segunda cuenta</string>
+    <string name="second_entry_title">Un segundo WhatsApp, aquí mismo</string>
+    <string name="second_entry_body">Vincula una sesión de WhatsApp Web dentro de esta app. Úsala para una segunda cuenta o para la misma cuenta en un segundo teléfono.</string>
+    <string name="second_entry_callout">Necesitas el otro teléfono. Aquí aparece un código QR; escanéalo allí en WhatsApp › Dispositivos vinculados › Vincular un dispositivo.</string>
+    <string name="second_scan">Escanear código QR</string>
+    <string name="second_entry_hint">Una notificación permanece visible mientras la cuenta esté vinculada. Android lo exige.</string>
+
+    <!-- Second account: linking / linked bar -->
+    <string name="second_linking">Vinculando…</string>
+    <string name="second_reload">Recargar</string>
+    <string name="second_log_out">Cerrar sesión</string>
+
+    <!-- Log out confirmation (§4.20) -->
+    <string name="logout_title">¿Cerrar sesión en la cuenta vinculada?</string>
+    <string name="logout_body">La sesión se cierra en este teléfono. El otro teléfono sigue funcionando.</string>
+    <string name="logout_stay">Mantener sesión</string>
+    <string name="logout_confirm">Cerrar sesión</string>
+    <string name="toast_reloading">Recargando…</string>
+    <string name="toast_logged_out">Sesión cerrada</string>
+    <string name="toast_linked">Cuenta vinculada</string>
+</resources>

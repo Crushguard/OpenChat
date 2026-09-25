@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox (design map §4.8) -->
+    <string name="messages_title">Mensajes</string>
+    <plurals name="messages_chip_all">
+        <item quantity="one">Todos · %d sin leer</item>
+        <item quantity="many">Todos · %d sin leer</item>
+        <item quantity="other">Todos · %d sin leer</item>
+    </plurals>
+    <string name="messages_chip_deleted">Solo eliminados · %d</string>
+    <string name="messages_info_all">Lee aquí y WhatsApp no muestra las marcas azules. Las fotos aparecen si la notificación incluye una vista previa; las notas de voz y los archivos se muestran por su nombre.</string>
+    <string name="messages_info_deleted">Solo se guardan los mensajes eliminados por el remitente. Los chats excluidos se omiten por completo.</string>
+    <string name="messages_empty_title">Aún no hay nada aquí</string>
+    <string name="messages_empty_body">Los mensajes nuevos aparecen aquí a medida que llegan. Los eliminados se quedan en “Solo eliminados”.</string>
+    <string name="messages_tool_settings">Ajustes de la herramienta</string>
+
+    <!-- Conversation (design map §4.9) -->
+    <string name="conversation_subtitle_all">%1$s · nadie lo sabrá</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · %2$d eliminado</item>
+        <item quantity="many">%1$s · %2$d eliminados</item>
+        <item quantity="other">%1$s · %2$d eliminados</item>
+    </plurals>
+    <string name="conversation_deleted_label">Eliminado por el remitente</string>
+    <string name="conversation_open">Abrir el chat en WhatsApp</string>
+    <string name="conversation_hint_all">Abrir el chat en WhatsApp envía las confirmaciones de lectura.</string>
+    <string name="conversation_hint_deleted">Aquí solo se puede leer. Para responder, usa WhatsApp.</string>
+
+    <!-- Tool settings sheet (§4.10, shared with Deleted media) -->
+    <string name="tool_settings_pause">Pausar la recuperación</string>
+    <string name="tool_settings_exclude">Excluir chats</string>
+    <string name="tool_settings_clear_messages">Borrar los mensajes guardados</string>
+    <string name="tool_settings_clear_media">Eliminar archivos recuperados</string>
+    <string name="exclude_title">Excluir chats</string>
+    <string name="exclude_empty">Los chats aparecen aquí después de su primer mensaje.</string>
+    <string name="clear_messages_title">¿Borrar todos los mensajes recuperados?</string>
+    <string name="clear_media_title">¿Eliminar todos los archivos recuperados?</string>
+    <string name="clear_body">Elimina las copias de esta app. WhatsApp no se ve afectado.</string>
+    <string name="keep">Conservar</string>
+    <string name="clear">Borrar</string>
+
+    <!-- Toasts (§4.9, §4.10) -->
+    <string name="toast_paused">Recuperación en pausa</string>
+    <string name="toast_resumed">Recuperación reanudada</string>
+    <string name="toast_cleared">Todo borrado</string>
+    <string name="toast_opening_whatsapp">Abriendo WhatsApp…</string>
+</resources>

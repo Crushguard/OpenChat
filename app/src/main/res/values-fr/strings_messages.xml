@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox (design map §4.8) -->
+    <string name="messages_title">Messages</string>
+    <plurals name="messages_chip_all">
+        <item quantity="one">Tous · %d non lu</item>
+        <item quantity="many">Tous · %d non lus</item>
+        <item quantity="other">Tous · %d non lus</item>
+    </plurals>
+    <string name="messages_chip_deleted">Supprimés · %d</string>
+    <string name="messages_info_all">Lisez ici et WhatsApp n\'affiche aucune coche bleue. Les photos apparaissent si la notification contient un aperçu ; les notes vocales et les fichiers s\'affichent sous leur nom.</string>
+    <string name="messages_info_deleted">Seuls les messages supprimés par l\'expéditeur sont conservés. Les discussions exclues sont entièrement ignorées.</string>
+    <string name="messages_empty_title">Rien ici pour l\'instant</string>
+    <string name="messages_empty_body">Les nouveaux messages apparaissent ici dès leur arrivée. Ceux qui sont supprimés restent dans « Supprimés ».</string>
+    <string name="messages_tool_settings">Paramètres de l\'outil</string>
+
+    <!-- Conversation (design map §4.9) -->
+    <string name="conversation_subtitle_all">%1$s · personne ne le saura</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · %2$d supprimé</item>
+        <item quantity="many">%1$s · %2$d supprimés</item>
+        <item quantity="other">%1$s · %2$d supprimés</item>
+    </plurals>
+    <string name="conversation_deleted_label">Supprimé par l\'expéditeur</string>
+    <string name="conversation_open">Ouvrir la discussion dans WhatsApp</string>
+    <string name="conversation_hint_all">Ouvrir la discussion dans WhatsApp envoie les confirmations de lecture.</string>
+    <string name="conversation_hint_deleted">Lecture seule ici. Répondez depuis WhatsApp.</string>
+
+    <!-- Tool settings sheet (§4.10, shared with Deleted media) -->
+    <string name="tool_settings_pause">Suspendre la récupération</string>
+    <string name="tool_settings_exclude">Exclure des discussions</string>
+    <string name="tool_settings_clear_messages">Effacer les messages conservés</string>
+    <string name="tool_settings_clear_media">Supprimer les médias récupérés</string>
+    <string name="exclude_title">Exclure des discussions</string>
+    <string name="exclude_empty">Les discussions apparaissent ici après leur premier message.</string>
+    <string name="clear_messages_title">Effacer tous les messages récupérés ?</string>
+    <string name="clear_media_title">Supprimer tous les médias récupérés ?</string>
+    <string name="clear_body">Supprime les copies de cette application. WhatsApp reste intact.</string>
+    <string name="keep">Conserver</string>
+    <string name="clear">Effacer</string>
+
+    <!-- Toasts (§4.9, §4.10) -->
+    <string name="toast_paused">Récupération en pause</string>
+    <string name="toast_resumed">Récupération reprise</string>
+    <string name="toast_cleared">Tout a été effacé</string>
+    <string name="toast_opening_whatsapp">Ouverture de WhatsApp…</string>
+</resources>

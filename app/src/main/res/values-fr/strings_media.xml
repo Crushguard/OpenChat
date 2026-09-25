@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media (design map §4.12) -->
+    <string name="media_title">Médias supprimés</string>
+    <string name="media_tool_settings">Paramètres de l\'outil</string>
+
+    <!-- Category pills under the Deleted media top bar, one per kind of file -->
+    <string name="media_tab_photos">Photos</string>
+    <string name="media_tab_videos">Vidéos</string>
+    <string name="media_tab_audio">Audio</string>
+    <string name="media_tab_documents">Documents</string>
+    <string name="media_tab_stickers">Stickers</string>
+    <string name="media_empty_nothing">Rien n\'a encore été récupéré</string>
+    <string name="media_empty_audio">Aucun audio pour l\'instant</string>
+    <string name="media_empty_documents">Aucun document pour l\'instant</string>
+    <string name="media_empty_stickers">Aucun sticker pour l\'instant</string>
+    <string name="media_empty_body">Les fichiers que quelqu\'un supprime pour tous sont conservés ici, s\'ils ont bien été reçus avant.</string>
+    <string name="media_allow">Autoriser l\'accès aux médias</string>
+    <string name="media_access_off">L\'accès aux médias est désactivé : les nouveaux fichiers ne sont pas conservés.</string>
+
+    <!-- Media detail (design map §4.13) -->
+    <string name="media_detail_title_photo">Photo</string>
+    <string name="media_detail_title_video">Vidéo</string>
+    <string name="media_detail_title_audio">Audio</string>
+    <string name="media_detail_title_document">Document</string>
+    <string name="media_detail_title_sticker">Sticker</string>
+    <string name="media_save">Enregistrer</string>
+    <string name="media_share">Partager</string>
+    <string name="media_delete">Supprimer</string>
+    <string name="media_play">Lire</string>
+    <string name="media_pause">Mettre en pause</string>
+    <string name="media_size_bytes">%s o</string>
+    <string name="media_size_kb">%s Ko</string>
+    <string name="media_size_mb">%s Mo</string>
+    <string name="media_size_gb">%s Go</string>
+    <string name="media_meta_from">De : %1$s · %2$s à %3$s · Supprimé à %4$s</string>
+    <string name="media_meta_received">Reçu : %1$s à %2$s · Supprimé à %3$s</string>
+    <string name="media_meta_from_kept">De : %1$s · %2$s à %3$s</string>
+    <string name="media_meta_received_kept">Reçu : %1$s à %2$s</string>
+    <string name="delete_media_title_photo">Supprimer cette photo ?</string>
+    <string name="delete_media_title_video">Supprimer cette vidéo ?</string>
+    <string name="delete_media_title_audio">Supprimer ce fichier audio ?</string>
+    <string name="delete_media_title_document">Supprimer ce document ?</string>
+    <string name="delete_media_title_sticker">Supprimer ce sticker ?</string>
+    <string name="delete_media_body">Le fichier est retiré des médias récupérés. Si vous l\'avez enregistré dans la galerie, cette copie reste.</string>
+    <string name="toast_saved">Enregistré dans la galerie</string>
+    <string name="toast_save_failed">Impossible d\'enregistrer</string>
+    <string name="toast_share">Ouverture du partage…</string>
+    <string name="toast_share_failed">Impossible de partager</string>
+    <string name="toast_deleted">Supprimé</string>
+</resources>

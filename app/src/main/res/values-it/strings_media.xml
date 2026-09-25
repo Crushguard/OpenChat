@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media (design map §4.12) -->
+    <string name="media_title">Media eliminati</string>
+    <string name="media_tool_settings">Impostazioni dello strumento</string>
+
+    <!-- Category pills under the Deleted media top bar, one per kind of file -->
+    <string name="media_tab_photos">Foto</string>
+    <string name="media_tab_videos">Video</string>
+    <string name="media_tab_audio">Audio</string>
+    <string name="media_tab_documents">Documenti</string>
+    <string name="media_tab_stickers">Sticker</string>
+    <string name="media_empty_nothing">Ancora niente di recuperato</string>
+    <string name="media_empty_audio">Ancora nessun audio</string>
+    <string name="media_empty_documents">Ancora nessun documento</string>
+    <string name="media_empty_stickers">Ancora nessuno sticker</string>
+    <string name="media_empty_body">I file che qualcuno elimina per tutti vengono conservati qui, purché siano stati ricevuti prima.</string>
+    <string name="media_allow">Consenti accesso ai media</string>
+    <string name="media_access_off">L\'accesso ai media è disattivato, quindi i nuovi file non vengono conservati.</string>
+
+    <!-- Media detail (design map §4.13) -->
+    <string name="media_detail_title_photo">Foto</string>
+    <string name="media_detail_title_video">Video</string>
+    <string name="media_detail_title_audio">Audio</string>
+    <string name="media_detail_title_document">Documento</string>
+    <string name="media_detail_title_sticker">Sticker</string>
+    <string name="media_save">Salva nella galleria</string>
+    <string name="media_share">Condividi</string>
+    <string name="media_delete">Elimina</string>
+    <string name="media_play">Riproduci</string>
+    <string name="media_pause">Metti in pausa</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <string name="media_meta_from">Da %1$s · %2$s alle %3$s · Eliminato alle %4$s</string>
+    <string name="media_meta_received">Ricevuto: %1$s alle %2$s · Eliminato alle %3$s</string>
+    <string name="media_meta_from_kept">Da %1$s · %2$s alle %3$s</string>
+    <string name="media_meta_received_kept">Ricevuto: %1$s alle %2$s</string>
+    <string name="delete_media_title_photo">Eliminare questa foto?</string>
+    <string name="delete_media_title_video">Eliminare questo video?</string>
+    <string name="delete_media_title_audio">Eliminare questo audio?</string>
+    <string name="delete_media_title_document">Eliminare questo documento?</string>
+    <string name="delete_media_title_sticker">Eliminare questo sticker?</string>
+    <string name="delete_media_body">Il file viene rimosso dai media recuperati. Se l\'hai salvato nella galleria, quella copia resta.</string>
+    <string name="toast_saved">Salvato nella galleria</string>
+    <string name="toast_save_failed">Impossibile salvare</string>
+    <string name="toast_share">Apertura della condivisione…</string>
+    <string name="toast_share_failed">Impossibile condividere</string>
+    <string name="toast_deleted">Eliminato</string>
+</resources>

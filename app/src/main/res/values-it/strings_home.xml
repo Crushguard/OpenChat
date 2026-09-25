@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (design map §4.3) -->
+    <string name="home_phone_placeholder">Numero di telefono</string>
+    <string name="home_paste">Incolla</string>
+    <string name="home_message_placeholder">Messaggio (facoltativo)</string>
+    <string name="home_send">Invia messaggio</string>
+    <string name="home_send_with">Invia con</string>
+    <string name="home_first_run_hint">Apre la chat nell\'app che scegli. Nulla viene salvato nei tuoi contatti.</string>
+    <string name="home_recent">Recenti</string>
+    <string name="home_delete">Elimina</string>
+    <string name="home_settings_cd">Impostazioni</string>
+    <string name="home_country_cd">Paese</string>
+    <string name="home_clear_cd">Cancella</string>
+    <string name="home_choose_app_cd">Scegli l\'app</string>
+
+    <!-- Home tool rows (design map §4.3) -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">%d non letto, nessuno lo saprà</item>
+        <item quantity="many">%d non letti, nessuno lo saprà</item>
+        <item quantity="other">%d non letti, nessuno lo saprà</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">In pausa</string>
+    <string name="tool_unseen_status_off">Leggi qui. WhatsApp non mostra nulla</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">%d messaggio eliminato dal mittente</item>
+        <item quantity="many">%d messaggi eliminati dal mittente</item>
+        <item quantity="other">%d messaggi eliminati dal mittente</item>
+    </plurals>
+    <string name="tool_deleted_status_off">Conserva ciò che il mittente elimina</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">%d file recuperato questa settimana</item>
+        <item quantity="many">%d file recuperati questa settimana</item>
+        <item quantity="other">%d file recuperati questa settimana</item>
+    </plurals>
+    <string name="tool_media_status_off">Foto, video, note vocali, documenti</string>
+    <string name="tool_second_status_linked">Collegato</string>
+    <string name="tool_second_status_off">Un secondo WhatsApp in questa app</string>
+
+    <!-- Country picker sheet (design map §4.4) -->
+    <string name="country_title">Paese</string>
+    <string name="country_search">Cerca paese o prefisso</string>
+    <string name="country_all">Tutti i paesi</string>
+    <plurals name="country_results">
+        <item quantity="one">%d risultato</item>
+        <item quantity="many">%d risultati</item>
+        <item quantity="other">%d risultati</item>
+    </plurals>
+    <string name="country_detected_sim">Rilevato dalla tua SIM: %1$s · %2$s</string>
+    <string name="country_detected_network">Rilevato dalla tua rete mobile: %1$s · %2$s</string>
+    <string name="country_detected_locale">Rilevato dalla regione del tuo telefono: %1$s · %2$s</string>
+    <string name="country_close_cd">Chiudi</string>
+
+    <!-- Not on WhatsApp confirmation sheet (design map §4.6) -->
+    <string name="not_on_wa_title">Questo numero non è su WhatsApp</string>
+    <string name="not_on_wa_body">%s non ha un account WhatsApp. Controlla le cifre o invia lo stesso messaggio su Telegram.</string>
+    <string name="not_on_wa_edit">Modifica numero</string>
+    <string name="not_on_wa_telegram">Prova Telegram</string>
+
+    <!-- Home toasts (design map §5.1) -->
+    <string name="toast_opening">Apertura di %s…</string>
+    <string name="toast_pasted_country">Incollato · paese impostato su %s</string>
+    <string name="toast_pasted">Incollato</string>
+    <string name="toast_clipboard_empty">Gli appunti sono vuoti</string>
+    <string name="toast_no_app">Nessuna app può aprire questo numero</string>
+</resources>
