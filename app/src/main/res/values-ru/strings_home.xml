@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home (§4.3) -->
-    <string name="home_phone_placeholder">Номер телефона</string>
+    <string name="home_phone_placeholder">Номер</string>
     <string name="home_paste">Вставить</string>
     <string name="home_message_placeholder">Сообщение (необязательно)</string>
     <string name="home_send">Отправить сообщение</string>
@@ -22,23 +22,23 @@
         <item quantity="other">%d непрочитанного, никто не узнает</item>
     </plurals>
     <string name="tool_unseen_status_paused">На паузе</string>
-    <string name="tool_unseen_status_off">Читайте здесь, WhatsApp промолчит</string>
+    <string name="tool_unseen_status_off">Читайте здесь, никто не узнает</string>
     <plurals name="tool_deleted_status_granted">
-        <item quantity="one">%d сообщение удалено отправителем</item>
-        <item quantity="few">%d сообщения удалены отправителем</item>
-        <item quantity="many">%d сообщений удалено отправителем</item>
-        <item quantity="other">%d сообщения удалено отправителем</item>
+        <item quantity="one">Удалено отправителем: %d</item>
+        <item quantity="few">Удалено отправителем: %d</item>
+        <item quantity="many">Удалено отправителем: %d</item>
+        <item quantity="other">Удалено отправителем: %d</item>
     </plurals>
-    <string name="tool_deleted_status_off">Сохраняет то, что удалил отправитель</string>
+    <string name="tool_deleted_status_off">Хранит то, что удалил отправитель</string>
     <plurals name="tool_media_status_granted">
-        <item quantity="one">%d файл восстановлен за неделю</item>
-        <item quantity="few">%d файла восстановлены за неделю</item>
-        <item quantity="many">%d файлов восстановлено за неделю</item>
-        <item quantity="other">%d файла восстановлено за неделю</item>
+        <item quantity="one">Восстановлено за неделю: %d</item>
+        <item quantity="few">Восстановлено за неделю: %d</item>
+        <item quantity="many">Восстановлено за неделю: %d</item>
+        <item quantity="other">Восстановлено за неделю: %d</item>
     </plurals>
-    <string name="tool_media_status_off">Фото, видео, голосовые, документы</string>
-    <string name="tool_second_status_linked">Привязан</string>
-    <string name="tool_second_status_off">Второй WhatsApp прямо в приложении</string>
+    <string name="tool_media_status_off">Фото, видео, аудио, документы</string>
+    <string name="tool_second_status_linked">Связан</string>
+    <string name="tool_second_status_off">Второй WhatsApp в приложении</string>
 
     <!-- Country picker sheet (§4.4) -->
     <string name="country_title">Страна</string>
@@ -57,7 +57,7 @@
 
     <!-- Not on WhatsApp confirmation sheet (§4.6) -->
     <string name="not_on_wa_title">Этого номера нет в WhatsApp</string>
-    <string name="not_on_wa_body">У номера %s нет аккаунта WhatsApp. Проверьте цифры или отправьте то же сообщение в Telegram.</string>
+    <string name="not_on_wa_body">У номера %s нет аккаунта WhatsApp. Проверьте цифры или отправьте то же сообщение в Telegram.</string>
     <string name="not_on_wa_edit">Изменить номер</string>
     <string name="not_on_wa_telegram">Через Telegram</string>
 

@@ -26,7 +26,7 @@
     <string name="gate_body">Les messages et médias supprimés sont conservés grâce aux notifications WhatsApp. Rien ne quitte votre téléphone.</string>
     <string name="gate_open_settings">Ouvrir les paramètres</string>
     <string name="gate_waiting">En attente d\'Android…</string>
-    <string name="gate_hint_before">Une seule autorisation active la récupération des messages et des médias.</string>
+    <string name="gate_hint_before">Une seule autorisation pour récupérer messages et médias.</string>
     <string name="gate_continue">Continuer</string>
     <string name="gate_hint_after">Vous pouvez le désactiver à tout moment dans les Paramètres.</string>
     <string name="gate_bar_messages">Messages</string>

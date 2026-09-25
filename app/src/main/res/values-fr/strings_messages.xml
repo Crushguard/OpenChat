@@ -23,7 +23,7 @@
     </plurals>
     <string name="conversation_deleted_label">Supprimé par l\'expéditeur</string>
     <string name="conversation_open">Ouvrir la discussion dans WhatsApp</string>
-    <string name="conversation_hint_all">Ouvrir la discussion dans WhatsApp envoie les confirmations de lecture.</string>
+    <string name="conversation_hint_all">L\'ouvrir dans WhatsApp envoie les confirmations de lecture.</string>
     <string name="conversation_hint_deleted">Lecture seule ici. Répondez depuis WhatsApp.</string>
 
     <!-- Tool settings sheet (§4.10, shared with Deleted media) -->

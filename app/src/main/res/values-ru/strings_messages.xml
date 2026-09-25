@@ -8,11 +8,11 @@
         <item quantity="many">Все · %d непрочитанных</item>
         <item quantity="other">Все · %d непрочитанного</item>
     </plurals>
-    <string name="messages_chip_deleted">Только удалённые · %d</string>
+    <string name="messages_chip_deleted">Удалённые · %d</string>
     <string name="messages_info_all">Читайте здесь — WhatsApp не покажет синие галочки. Фото появляются, если в уведомлении есть превью; голосовые сообщения и файлы отображаются по названию.</string>
     <string name="messages_info_deleted">Сохраняются только сообщения, удалённые отправителем. Исключённые чаты полностью пропускаются.</string>
     <string name="messages_empty_title">Пока здесь пусто</string>
-    <string name="messages_empty_body">Новые сообщения появляются здесь по мере поступления. Удалённые остаются в фильтре «Только удалённые».</string>
+    <string name="messages_empty_body">Новые сообщения появляются здесь по мере поступления. Удалённые остаются в фильтре «Удалённые».</string>
     <string name="messages_tool_settings">Настройки функции</string>
 
     <!-- Conversation (§4.9) -->

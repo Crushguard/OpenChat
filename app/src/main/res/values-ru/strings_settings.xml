@@ -6,7 +6,7 @@
     <string name="settings_access_on">Активно · функции сообщений и медиа</string>
     <string name="settings_access_off">Выключено · требуется для функций сообщений и медиа</string>
     <string name="settings_preferences">Параметры</string>
-    <string name="settings_default_app">Приложение по умолчанию</string>
+    <string name="settings_default_app">Мессенджер</string>
     <string name="settings_language">Язык</string>
     <string name="settings_clear_recents">Очистить недавние номера</string>
     <string name="settings_about">О приложении</string>
@@ -15,7 +15,7 @@
     <string name="settings_share">Поделиться приложением</string>
     <string name="settings_privacy">Политика конфиденциальности</string>
     <string name="settings_version">Версия</string>
-    <string name="settings_honesty">OpenChat — бесплатное приложение. Без рекламы, аккаунтов и слежки. Номера, сообщения и медиа никогда не покидают ваш телефон.</string>
+    <string name="settings_honesty">OpenChat — бесплатное приложение. Без рекламы, аккаунтов и слежки. Номера, сообщения и медиа никогда не покидают ваш телефон.</string>
 
     <!-- Clear recent numbers confirmation (§4.15, §4.20) -->
     <string name="clear_recents_title">Очистить недавние номера?</string>
@@ -35,12 +35,12 @@
 
     <!-- Language (§4.17) -->
     <string name="language_title">Язык</string>
-    <string name="language_intro">Меняет язык приложения. Сообщения вы пишете сами — на любом языке.</string>
+    <string name="language_intro">Меняет язык приложения. Сообщения вы пишете сами — на любом языке.</string>
     <string name="toast_language">Язык: %s</string>
 
     <!-- Contact us (§4.18) -->
     <string name="contact_title">Связаться с нами</string>
-    <string name="contact_intro">Номер не открывается, сообщение не восстановилось, есть идея? Всё это попадёт прямо к команде.</string>
+    <string name="contact_intro">Номер не открывается, сообщение не восстановилось, есть идея? Всё это попадёт прямо к команде.</string>
     <string name="contact_placeholder">Что случилось и на каком экране?</string>
     <string name="contact_email_label">Эл. почта · необязательно, только если нужен ответ</string>
     <string name="contact_callout">Отправляется вместе с версиями приложения и Android. Ваши номера и сообщения — никогда.</string>
@@ -71,7 +71,7 @@
     <string name="rating_store_cta">Оценить в Google Play</string>
     <string name="rating_not_now">Не сейчас</string>
     <string name="rating_feedback_title">Как нам стать лучше?</string>
-    <string name="rating_feedback_body">Расскажите, чего не хватило. Это попадёт прямо к команде, а не в публичный отзыв, и мы читаем каждое сообщение.</string>
+    <string name="rating_feedback_body">Расскажите, чего не хватило. Это попадёт прямо к команде, а не в публичный отзыв, и мы читаем каждое сообщение.</string>
     <string name="rating_feedback_placeholder">Чего не хватило приложению до 5 звёзд?</string>
     <string name="rating_feedback_send">Отправить отзыв</string>
     <string name="rating_cancel">Отмена</string>

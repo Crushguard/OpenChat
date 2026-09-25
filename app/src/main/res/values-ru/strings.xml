@@ -22,11 +22,11 @@
     <string name="tool_second_title">Открыть второй аккаунт</string>
 
     <!-- Notification access gate (§4.7) -->
-    <string name="gate_title">Разрешите доступ к уведомлениям</string>
+    <string name="gate_title">Разрешите доступ к уведомлениям</string>
     <string name="gate_body">Удалённые сообщения и медиа сохраняются из уведомлений WhatsApp. Ничего не покидает ваш телефон.</string>
     <string name="gate_open_settings">Открыть настройки</string>
     <string name="gate_waiting">Ждём Android…</string>
-    <string name="gate_hint_before">Одно разрешение включает восстановление и сообщений, и медиа.</string>
+    <string name="gate_hint_before">Одно разрешение на восстановление сообщений и медиа.</string>
     <string name="gate_continue">Продолжить</string>
     <string name="gate_hint_after">Вы можете отключить это в любой момент в настройках.</string>
     <string name="gate_bar_messages">Сообщения</string>
@@ -35,7 +35,7 @@
 
     <!-- Second-account foreground service notification (§4.14, §5.4) -->
     <string name="second_notification_channel">Второй аккаунт</string>
-    <string name="second_notification_title">Второй аккаунт привязан</string>
+    <string name="second_notification_title">Второй аккаунт связан</string>
     <string name="second_notification_text">Нажмите, чтобы открыть OpenChat</string>
     <string name="second_notification_open">Открыть</string>
 
@@ -51,5 +51,5 @@
     <string name="chip_off">Выключено</string>
     <string name="chip_active">Активно</string>
     <string name="chip_paused">На паузе</string>
-    <string name="chip_linked">Привязан</string>
+    <string name="chip_linked">Связан</string>
 </resources>

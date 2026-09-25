@@ -6,7 +6,7 @@
     <string name="second_entry_body">Открывает сеанс WhatsApp Web прямо в приложении. Подходит для второго аккаунта или того же аккаунта на втором телефоне.</string>
     <string name="second_entry_callout">Понадобится другой телефон. Здесь появится QR-код — отсканируйте его там: WhatsApp › Связанные устройства › Привязка устройства.</string>
     <string name="second_scan">Показать QR-код</string>
-    <string name="second_entry_hint">Пока аккаунт привязан, показывается уведомление. Этого требует Android.</string>
+    <string name="second_entry_hint">Пока аккаунт связан, показывается уведомление. Этого требует Android.</string>
 
     <!-- Second account: linking / linked bar -->
     <string name="second_linking">Привязка…</string>
@@ -14,11 +14,11 @@
     <string name="second_log_out">Выйти</string>
 
     <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
-    <string name="logout_title">Выйти из привязанного аккаунта?</string>
+    <string name="logout_title">Выйти из связанного аккаунта?</string>
     <string name="logout_body">Сеанс на этом телефоне завершится. Другой телефон продолжит работать.</string>
     <string name="logout_stay">Не выходить</string>
     <string name="logout_confirm">Выйти</string>
     <string name="toast_reloading">Обновляем…</string>
     <string name="toast_logged_out">Вы вышли из аккаунта</string>
-    <string name="toast_linked">Аккаунт привязан</string>
+    <string name="toast_linked">Аккаунт связан</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home -->
-    <string name="home_phone_placeholder">Telefonnummer</string>
+    <string name="home_phone_placeholder">Nummer</string>
     <string name="home_paste">Einfügen</string>
     <string name="home_message_placeholder">Nachricht (optional)</string>
     <string name="home_send">Nachricht senden</string>
@@ -22,15 +22,15 @@
     <string name="tool_unseen_status_paused">Pausiert</string>
     <string name="tool_unseen_status_off">Hier lesen. WhatsApp zeigt nichts an</string>
     <plurals name="tool_deleted_status_granted">
-        <item quantity="one">%d vom Absender gelöschte Nachricht</item>
-        <item quantity="other">%d vom Absender gelöschte Nachrichten</item>
+        <item quantity="one">%d vom Absender gelöscht</item>
+        <item quantity="other">%d vom Absender gelöscht</item>
     </plurals>
     <string name="tool_deleted_status_off">Behält, was der Absender gelöscht hat</string>
     <plurals name="tool_media_status_granted">
         <item quantity="one">%d Datei diese Woche gerettet</item>
         <item quantity="other">%d Dateien diese Woche gerettet</item>
     </plurals>
-    <string name="tool_media_status_off">Fotos, Videos, Audiodateien, Dokumente</string>
+    <string name="tool_media_status_off">Fotos, Videos, Audio, Dokumente</string>
     <string name="tool_second_status_linked">Verknüpft</string>
     <string name="tool_second_status_off">Ein zweites WhatsApp in dieser App</string>
 

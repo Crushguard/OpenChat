@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home (design map §4.3) -->
-    <string name="home_phone_placeholder">Numéro de téléphone</string>
+    <string name="home_phone_placeholder">Numéro</string>
     <string name="home_paste">Coller</string>
     <string name="home_message_placeholder">Message (facultatif)</string>
     <string name="home_send">Envoyer un message</string>
     <string name="home_send_with">Envoyer avec</string>
     <string name="home_first_run_hint">Ouvre la discussion dans l\'application choisie. Rien n\'est enregistré dans vos contacts.</string>
     <string name="home_recent">Récents</string>
-    <string name="home_delete">Supprimer</string>
+    <string name="home_delete">Effacer</string>
     <string name="home_settings_cd">Paramètres</string>
     <string name="home_country_cd">Pays</string>
     <string name="home_clear_cd">Effacer</string>
@@ -23,9 +23,9 @@
     <string name="tool_unseen_status_paused">En pause</string>
     <string name="tool_unseen_status_off">Lisez ici. WhatsApp n\'affiche rien</string>
     <plurals name="tool_deleted_status_granted">
-        <item quantity="one">%d message supprimé par l\'expéditeur</item>
-        <item quantity="many">%d messages supprimés par l\'expéditeur</item>
-        <item quantity="other">%d messages supprimés par l\'expéditeur</item>
+        <item quantity="one">%d supprimé par l\'expéditeur</item>
+        <item quantity="many">%d supprimés par l\'expéditeur</item>
+        <item quantity="other">%d supprimés par l\'expéditeur</item>
     </plurals>
     <string name="tool_deleted_status_off">Garde ce que l\'expéditeur supprime</string>
     <plurals name="tool_media_status_granted">
@@ -33,7 +33,7 @@
         <item quantity="many">%d fichiers récupérés cette semaine</item>
         <item quantity="other">%d fichiers récupérés cette semaine</item>
     </plurals>
-    <string name="tool_media_status_off">Photos, vidéos, notes vocales, documents</string>
+    <string name="tool_media_status_off">Photos, vidéos, audio, documents</string>
     <string name="tool_second_status_linked">Connecté</string>
     <string name="tool_second_status_off">Un second WhatsApp intégré</string>
 

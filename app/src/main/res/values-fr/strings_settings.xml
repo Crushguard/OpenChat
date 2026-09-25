@@ -68,9 +68,9 @@
     <string name="rating_store_body">Pourriez-vous le dire sur Google Play ? Cela aide une petite application à grandir.</string>
     <string name="rating_store_cta">Noter sur Google Play</string>
     <string name="rating_not_now">Pas maintenant</string>
-    <string name="rating_feedback_title">Comment pouvons-nous nous améliorer ?</string>
+    <string name="rating_feedback_title">Comment faire mieux ?</string>
     <string name="rating_feedback_body">Dites-nous ce qui n\'a pas été à la hauteur. Votre message va directement à l\'équipe, pas dans un avis public, et nous les lisons tous.</string>
-    <string name="rating_feedback_placeholder">Qu\'est-ce qui en aurait fait une application 5 étoiles ?</string>
+    <string name="rating_feedback_placeholder">Qu\'est-ce qui en aurait fait une application 5 étoiles ?</string>
     <string name="rating_feedback_send">Envoyer un commentaire</string>
     <string name="rating_cancel">Annuler</string>
     <string name="rating_thanks_title">Merci, bien reçu</string>

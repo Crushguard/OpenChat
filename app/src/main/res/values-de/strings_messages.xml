@@ -21,7 +21,7 @@
     </plurals>
     <string name="conversation_deleted_label">Vom Absender gelöscht</string>
     <string name="conversation_open">Chat in WhatsApp öffnen</string>
-    <string name="conversation_hint_all">Wenn du den Chat in WhatsApp öffnest, werden Lesebestätigungen gesendet.</string>
+    <string name="conversation_hint_all">Beim Öffnen in WhatsApp werden Lesebestätigungen gesendet.</string>
     <string name="conversation_hint_deleted">Hier kannst du nur lesen. Antworte in WhatsApp.</string>
 
     <!-- Tool settings sheet, exclude chats sheet, clear confirmations -->
