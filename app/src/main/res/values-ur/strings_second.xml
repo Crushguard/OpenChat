@@ -6,7 +6,7 @@
     <string name="second_entry_body">یہ اس ایپ کے اندر WhatsApp Web سیشن لنک کرتا ہے۔ اسے دوسرے اکاؤنٹ کے لیے استعمال کریں، یا اسی اکاؤنٹ کو دوسرے فون پر چلانے کے لیے۔</string>
     <!-- WhatsApp's own Urdu menu names: لنک کردہ آلات › آلہ لنک کریں -->
     <string name="second_entry_callout">آپ کو دوسرے فون کی ضرورت ہوگی۔ یہاں ایک QR کوڈ ظاہر ہوگا؛ اسے دوسرے فون پر WhatsApp › لنک کردہ آلات › آلہ لنک کریں میں جا کر اسکین کریں۔</string>
-    <string name="second_scan">QR اسکین کریں</string>
+    <string name="second_scan">QR کوڈ دکھائیں</string>
     <string name="second_entry_hint">لنک رہنے تک ایک اطلاع نظر آتی رہے گی۔ Android اس کا تقاضا کرتا ہے۔</string>
 
     <!-- Linking / linked bar -->

@@ -5,7 +5,7 @@
     <string name="second_entry_title">Um segundo WhatsApp, aqui mesmo</string>
     <string name="second_entry_body">Associa uma sessão do WhatsApp Web dentro desta aplicação. Use-a para uma segunda conta ou para a mesma conta num segundo telemóvel.</string>
     <string name="second_entry_callout">Precisa do outro telemóvel. Vai aparecer aqui um código QR; leia-o lá em WhatsApp › Dispositivos associados › Associar um dispositivo.</string>
-    <string name="second_scan">Ler código QR</string>
+    <string name="second_scan">Mostrar código QR</string>
     <string name="second_entry_hint">Uma notificação fica visível enquanto a conta estiver associada. O Android assim o exige.</string>
 
     <!-- Linking / linked bar -->

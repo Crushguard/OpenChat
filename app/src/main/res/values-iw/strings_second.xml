@@ -6,7 +6,7 @@
     <string name="second_entry_body">כאן מקשרים את WhatsApp Web בתוך האפליקציה. אפשר להשתמש בו לחשבון שני, או לאותו חשבון בטלפון נוסף.</string>
     <!-- WhatsApp's own Hebrew menu names: מכשירים מקושרים › קישור מכשיר. -->
     <string name="second_entry_callout">צריך את הטלפון השני. כאן יופיע קוד QR, וסורקים אותו בטלפון השני דרך WhatsApp › מכשירים מקושרים › קישור מכשיר.</string>
-    <string name="second_scan">סריקת קוד QR</string>
+    <string name="second_scan">הצגת קוד QR</string>
     <string name="second_entry_hint">כל עוד החשבון מקושר, מוצגת התראה קבועה. זו דרישה של Android.</string>
 
     <!-- Second account: linking / linked bar -->

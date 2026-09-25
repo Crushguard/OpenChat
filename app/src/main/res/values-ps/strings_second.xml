@@ -6,7 +6,7 @@
     <string name="second_entry_body">په همدې اپلیکیشن کې WhatsApp Web وصلوي. د دویم حساب لپاره یې وکاروئ، یا د خپل همغه حساب لپاره په دویم ټیلیفون کې.</string>
     <!-- WhatsApp has no Pashto interface: its menus show in English, so the path keeps WhatsApp's English names. -->
     <string name="second_entry_callout">بل ټیلیفون ته اړتیا ده. دلته یو QR کوډ ښکاره کېږي؛ په هغه ټیلیفون کې یې د «WhatsApp › Linked devices › Link a device» له لارې سکن کړئ.</string>
-    <string name="second_scan">QR کوډ سکن کړئ</string>
+    <string name="second_scan">QR کوډ وښایاست</string>
     <string name="second_entry_hint">تر څو چې حساب وصل وي، یوه خبرتیا ښکاره پاتې کېږي. دا د Android اړتیا ده.</string>
 
     <!-- Second account: linking / linked bar -->

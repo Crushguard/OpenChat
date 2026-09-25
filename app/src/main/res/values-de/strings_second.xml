@@ -5,7 +5,7 @@
     <string name="second_entry_title">Ein zweites WhatsApp, direkt hier</string>
     <string name="second_entry_body">Verknüpft eine Sitzung von WhatsApp Web in dieser App. Nutze sie für ein zweites Konto oder dasselbe Konto auf einem zweiten Handy.</string>
     <string name="second_entry_callout">Du brauchst das andere Handy. Hier erscheint ein QR-Code; scanne ihn dort unter WhatsApp › Verknüpfte Geräte › Gerät hinzufügen.</string>
-    <string name="second_scan">QR-Code scannen</string>
+    <string name="second_scan">QR-Code anzeigen</string>
     <string name="second_entry_hint">Solange das Konto verknüpft ist, bleibt eine Benachrichtigung sichtbar. Android verlangt das.</string>
 
     <!-- Linking / linked bar -->
