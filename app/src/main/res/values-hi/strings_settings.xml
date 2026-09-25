@@ -67,7 +67,7 @@
     <string name="rating_store_cta">Google Play पर रेट करें</string>
     <string name="rating_not_now">अभी नहीं</string>
     <string name="rating_feedback_title">हम और बेहतर कैसे करें?</string>
-    <string name="rating_feedback_body">बताएँ कि कहाँ कमी रह गई। यह सीधे टीम तक पहुँचता है, कोई सार्वजनिक रिव्यू नहीं बनता, और हम हर एक पढ़ते हैं।</string>
+    <string name="rating_feedback_body">बताएँ कि कहाँ कमी रह गई। यह सीधे टीम तक पहुँचता है, कोई सार्वजनिक रिव्यू नहीं बनता, और हम हर फ़ीडबैक पढ़ते हैं।</string>
     <string name="rating_feedback_placeholder">इसे 5-स्टार ऐप बनाने के लिए क्या होना चाहिए था?</string>
     <string name="rating_feedback_send">फ़ीडबैक भेजें</string>
     <string name="rating_cancel">रद्द करें</string>

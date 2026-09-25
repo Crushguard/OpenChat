@@ -33,7 +33,7 @@
     <string name="exclude_empty">किसी चैट का पहला मैसेज आने के बाद वह यहाँ दिखेगी।</string>
     <string name="clear_messages_title">वापस मिले सभी मैसेज मिटाएँ?</string>
     <string name="clear_media_title">वापस मिला सारा मीडिया हटाएँ?</string>
-    <string name="clear_body">सिर्फ़ इस ऐप की कॉपियाँ हटेंगी। WhatsApp पर कोई असर नहीं पड़ता।</string>
+    <string name="clear_body">सिर्फ़ इस ऐप की कॉपियाँ हटेंगी। WhatsApp पर कोई असर नहीं पड़ेगा।</string>
     <string name="keep">रखें</string>
     <string name="clear">मिटाएँ</string>
 
