@@ -48,6 +48,8 @@ abstract class E2eTest {
 
     @Before
     fun startClean() {
+        // A system "isn't responding" dialog left from the emulator's boot would cover whatever the test opens.
+        for (i in 1..3) if (!SystemDialogs.dismissOthers(device)) break
         Grants.forceEnglish()
         Grants.postNotifications(Fixture.PACKAGE)
         Fixture.reset()

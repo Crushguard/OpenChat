@@ -1,5 +1,6 @@
 package com.piptechnologies.openchat.e2e
 
+import android.os.SystemClock
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
@@ -29,10 +30,9 @@ class GateTest : E2eTest() {
 
         compose.tap(hasTextOf(text(R.string.gate_open_settings)))
         val settingsApp = Pattern.compile("(?i).*settings.*")
-        assertTrue(
-            "the system settings opened (in front: ${device.currentPackageName})",
-            device.wait(Until.hasObject(By.pkg(settingsApp).depth(0)), 20_000),
-        )
+        if (!settingsInFront(settingsApp)) {
+            throw AssertionError("the system settings did not open (in front: ${device.currentPackageName}; ${SystemDialogs.focus()})")
+        }
         val inFront = device.currentPackageName
         assertTrue("the settings app is in front, not $inFront", inFront != Grants.APP && inFront.contains("settings", ignoreCase = true))
         Capture.screen("flows", "GateTest-system_settings")
@@ -49,6 +49,19 @@ class GateTest : E2eTest() {
         compose.waitFor(hasDescriptionOf(text(R.string.messages_tool_settings)))
         compose.waitFor(hasTextOf(text(R.string.messages_title)))
         capture("messages")
+    }
+
+    /**
+     * Waits up to 20 s for a settings app at the top of the screen, answering a system "isn't responding" dialog about
+     * another app on the way (the cold-booted emulator's System UI, typically), which would otherwise cover it.
+     */
+    private fun settingsInFront(settingsApp: Pattern): Boolean {
+        val deadline = SystemClock.uptimeMillis() + 20_000
+        while (SystemClock.uptimeMillis() < deadline) {
+            if (device.wait(Until.hasObject(By.pkg(settingsApp).depth(0)), 2_000)) return true
+            SystemDialogs.dismissOthers(device)
+        }
+        return false
     }
 
     /** Back from the settings screen until OpenChat is in front again (bounded: three presses). */
