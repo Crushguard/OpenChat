@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Links, sharing and feedback -->
+    <string name="share_app_text">OpenChat öffnet einen Chat mit jeder Nummer, ohne sie als Kontakt zu speichern. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding -->
+    <string name="splash_honesty">Kostenlos · Ohne Werbung · Ohne Konto</string>
+    <string name="onboarding_skip">Überspringen</string>
+    <string name="onboarding_1_title">Chatte mit jeder Nummer</string>
+    <string name="onboarding_1_body">Gib eine Nummer ein oder füge sie ein und tippe auf Senden. Der Chat öffnet sich in WhatsApp, WhatsApp Business oder Telegram. In deinen Kontakten wird nichts gespeichert.</string>
+    <string name="onboarding_1_check">Nicht zu deinen Kontakten hinzugefügt</string>
+    <string name="onboarding_1_send">Nachricht senden</string>
+    <string name="onboarding_2_title">Vier Tools, eine Berechtigung</string>
+    <string name="onboarding_2_body">Lies ohne blaue Haken, rette, was Absender löschen, und nutze ein zweites Konto. Alles bleibt auf diesem Handy.</string>
+    <string name="onboarding_next">Weiter</string>
+    <string name="onboarding_start">Los geht\'s</string>
+
+    <!-- Tool titles -->
+    <string name="tool_unseen_title">Ohne blaue Haken lesen</string>
+    <string name="tool_deleted_title">Gelöschte Nachrichten retten</string>
+    <string name="tool_media_title">Gelöschte Medien retten</string>
+    <string name="tool_second_title">Zweites Konto öffnen</string>
+
+    <!-- Notification access gate -->
+    <string name="gate_title">Benachrichtigungszugriff erlauben</string>
+    <string name="gate_body">Gelöschte Nachrichten und Medien werden aus WhatsApp-Benachrichtigungen gesichert. Nichts verlässt dein Handy.</string>
+    <string name="gate_open_settings">Einstellungen öffnen</string>
+    <string name="gate_waiting">Warten auf Android…</string>
+    <string name="gate_hint_before">Eine Freigabe gilt für gelöschte Nachrichten und Medien.</string>
+    <string name="gate_continue">Weiter</string>
+    <string name="gate_hint_after">Du kannst das jederzeit in den Einstellungen deaktivieren.</string>
+    <string name="gate_bar_messages">Nachrichten</string>
+    <string name="gate_bar_media">Gelöschte Medien</string>
+    <string name="gate_bar_settings">Benachrichtigungszugriff</string>
+
+    <!-- Second-account foreground service notification -->
+    <string name="second_notification_channel">Zweites Konto</string>
+    <string name="second_notification_title">Zweites Konto verknüpft</string>
+    <string name="second_notification_text">Tippe, um OpenChat zu öffnen</string>
+    <string name="second_notification_open">Öffnen</string>
+
+    <!-- Time labels -->
+    <string name="time_now">Jetzt</string>
+    <string name="time_today">Heute</string>
+    <string name="time_yesterday">Gestern</string>
+    <string name="time_minutes_short">%d Min.</string>
+    <string name="time_hours_short">%d Std.</string>
+
+    <!-- Shared components -->
+    <string name="cd_back">Zurück</string>
+    <string name="chip_off">Aus</string>
+    <string name="chip_active">Aktiv</string>
+    <string name="chip_paused">Pausiert</string>
+    <string name="chip_linked">Verknüpft</string>
+</resources>

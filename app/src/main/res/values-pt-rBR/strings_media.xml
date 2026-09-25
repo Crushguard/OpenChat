@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media -->
+    <string name="media_title">Mídia apagada</string>
+    <string name="media_tool_settings">Configurações da ferramenta</string>
+
+    <!-- Category pills -->
+    <string name="media_tab_photos">Fotos</string>
+    <string name="media_tab_videos">Vídeos</string>
+    <string name="media_tab_audio">Áudios</string>
+    <string name="media_tab_documents">Documentos</string>
+    <string name="media_tab_stickers">Figurinhas</string>
+
+    <!-- Empty states and media access -->
+    <string name="media_empty_nothing">Nada recuperado ainda</string>
+    <string name="media_empty_audio">Nenhum áudio ainda</string>
+    <string name="media_empty_documents">Nenhum documento ainda</string>
+    <string name="media_empty_stickers">Nenhuma figurinha ainda</string>
+    <string name="media_empty_body">Os arquivos que alguém apagar para todos ficam guardados aqui, desde que tenham sido recebidos antes.</string>
+    <string name="media_allow">Permitir acesso à mídia</string>
+    <string name="media_access_off">O acesso à mídia está desativado, então os novos arquivos não são guardados.</string>
+
+    <!-- Media detail -->
+    <string name="media_detail_title_photo">Foto</string>
+    <string name="media_detail_title_video">Vídeo</string>
+    <string name="media_detail_title_audio">Áudio</string>
+    <string name="media_detail_title_document">Documento</string>
+    <string name="media_detail_title_sticker">Figurinha</string>
+    <string name="media_save">Salvar na galeria</string>
+    <string name="media_share">Compartilhar</string>
+    <string name="media_delete">Excluir</string>
+    <string name="media_play">Reproduzir</string>
+    <string name="media_pause">Pausar</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <!-- Label-style lines: the day (Hoje, Ontem or a date) never takes a preposition; "às" goes before the time. -->
+    <string name="media_meta_from">De %1$s · %2$s às %3$s · Apagado às %4$s</string>
+    <string name="media_meta_received">Recebido: %1$s às %2$s · Apagado às %3$s</string>
+    <string name="media_meta_from_kept">De %1$s · %2$s às %3$s</string>
+    <string name="media_meta_received_kept">Recebido: %1$s às %2$s</string>
+    <string name="delete_media_title_photo">Excluir esta foto?</string>
+    <string name="delete_media_title_video">Excluir este vídeo?</string>
+    <string name="delete_media_title_audio">Excluir este áudio?</string>
+    <string name="delete_media_title_document">Excluir este documento?</string>
+    <string name="delete_media_title_sticker">Excluir esta figurinha?</string>
+    <string name="delete_media_body">Sai da recuperação de mídia. Uma cópia salva na galeria não é afetada.</string>
+    <string name="toast_saved">Salvo na galeria</string>
+    <string name="toast_save_failed">Não foi possível salvar</string>
+    <string name="toast_share">Abrindo o compartilhamento…</string>
+    <string name="toast_share_failed">Não foi possível compartilhar</string>
+    <string name="toast_deleted">Arquivo excluído</string>
+</resources>

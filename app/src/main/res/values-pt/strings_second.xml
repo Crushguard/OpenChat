@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account: entry state (WhatsApp menu names as in WhatsApp for Portugal) -->
+    <string name="second_title">Segunda conta</string>
+    <string name="second_entry_title">Um segundo WhatsApp, aqui mesmo</string>
+    <string name="second_entry_body">Associa uma sessão do WhatsApp Web dentro desta aplicação. Use-a para uma segunda conta ou para a mesma conta num segundo telemóvel.</string>
+    <string name="second_entry_callout">Precisa do outro telemóvel. Vai aparecer aqui um código QR; leia-o lá em WhatsApp › Dispositivos associados › Associar um dispositivo.</string>
+    <string name="second_scan">Ler código QR</string>
+    <string name="second_entry_hint">Uma notificação fica visível enquanto a conta estiver associada. O Android assim o exige.</string>
+
+    <!-- Linking / linked bar -->
+    <string name="second_linking">A associar…</string>
+    <string name="second_reload">Recarregar</string>
+    <string name="second_log_out">Terminar sessão</string>
+
+    <!-- Log out confirmation and toasts -->
+    <string name="logout_title">Terminar sessão na conta associada?</string>
+    <string name="logout_body">A sessão termina neste telemóvel. O outro telemóvel continua a funcionar.</string>
+    <string name="logout_stay">Manter sessão</string>
+    <string name="logout_confirm">Terminar sessão</string>
+    <string name="toast_reloading">A recarregar…</string>
+    <string name="toast_logged_out">Sessão terminada</string>
+    <string name="toast_linked">Conta associada</string>
+</resources>

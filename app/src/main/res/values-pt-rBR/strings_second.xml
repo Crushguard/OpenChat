@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account: entry state (WhatsApp menu names as in WhatsApp for Brazil) -->
+    <string name="second_title">Segunda conta</string>
+    <string name="second_entry_title">Um segundo WhatsApp, aqui dentro</string>
+    <string name="second_entry_body">Conecta uma sessão do WhatsApp Web dentro deste app. Use para uma segunda conta ou para a mesma conta em um segundo celular.</string>
+    <string name="second_entry_callout">Você precisa do outro celular. Um código QR vai aparecer aqui; escaneie-o lá em WhatsApp › Aparelhos conectados › Conectar um aparelho.</string>
+    <string name="second_scan">Escanear código QR</string>
+    <string name="second_entry_hint">Uma notificação fica visível enquanto a conta estiver conectada. O Android exige isso.</string>
+
+    <!-- Linking / linked bar -->
+    <string name="second_linking">Conectando…</string>
+    <string name="second_reload">Recarregar</string>
+    <string name="second_log_out">Desconectar</string>
+
+    <!-- Log out confirmation and toasts -->
+    <string name="logout_title">Desconectar esta conta?</string>
+    <string name="logout_body">A sessão termina neste celular. O outro celular continua funcionando.</string>
+    <string name="logout_stay">Manter conexão</string>
+    <string name="logout_confirm">Desconectar</string>
+    <string name="toast_reloading">Recarregando…</string>
+    <string name="toast_logged_out">Conta desconectada</string>
+    <string name="toast_linked">Conta conectada</string>
+</resources>

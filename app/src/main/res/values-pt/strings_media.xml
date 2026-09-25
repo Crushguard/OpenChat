@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media ("media" = "ficheiros", as WhatsApp says in European Portuguese) -->
+    <string name="media_title">Ficheiros apagados</string>
+    <string name="media_tool_settings">Definições da ferramenta</string>
+
+    <!-- Category pills -->
+    <string name="media_tab_photos">Fotos</string>
+    <string name="media_tab_videos">Vídeos</string>
+    <string name="media_tab_audio">Áudios</string>
+    <string name="media_tab_documents">Documentos</string>
+    <string name="media_tab_stickers">Stickers</string>
+
+    <!-- Empty states and media access -->
+    <string name="media_empty_nothing">Ainda nada recuperado</string>
+    <string name="media_empty_audio">Ainda sem áudios</string>
+    <string name="media_empty_documents">Ainda sem documentos</string>
+    <string name="media_empty_stickers">Ainda sem stickers</string>
+    <string name="media_empty_body">Os ficheiros que alguém apagar para todos ficam guardados aqui, desde que tenham sido recebidos antes.</string>
+    <string name="media_allow">Dar acesso aos ficheiros</string>
+    <string name="media_access_off">O acesso aos ficheiros está desativado, por isso os ficheiros novos não são guardados.</string>
+
+    <!-- Media detail -->
+    <string name="media_detail_title_photo">Foto</string>
+    <string name="media_detail_title_video">Vídeo</string>
+    <string name="media_detail_title_audio">Áudio</string>
+    <string name="media_detail_title_document">Documento</string>
+    <string name="media_detail_title_sticker">Sticker</string>
+    <string name="media_save">Guardar na galeria</string>
+    <string name="media_share">Partilhar</string>
+    <string name="media_delete">Eliminar</string>
+    <string name="media_play">Reproduzir</string>
+    <string name="media_pause">Pausar</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <!-- Label-style lines: the day (Hoje, Ontem or a date) never takes a preposition; "às" goes before the time. -->
+    <string name="media_meta_from">De %1$s · %2$s às %3$s · Apagado às %4$s</string>
+    <string name="media_meta_received">Recebido: %1$s às %2$s · Apagado às %3$s</string>
+    <string name="media_meta_from_kept">De %1$s · %2$s às %3$s</string>
+    <string name="media_meta_received_kept">Recebido: %1$s às %2$s</string>
+    <string name="delete_media_title_photo">Eliminar esta foto?</string>
+    <string name="delete_media_title_video">Eliminar este vídeo?</string>
+    <string name="delete_media_title_audio">Eliminar este áudio?</string>
+    <string name="delete_media_title_document">Eliminar este documento?</string>
+    <string name="delete_media_title_sticker">Eliminar este sticker?</string>
+    <string name="delete_media_body">Sai da recuperação de ficheiros. Uma cópia guardada na galeria não é afetada.</string>
+    <string name="toast_saved">Guardado na galeria</string>
+    <string name="toast_save_failed">Não foi possível guardar</string>
+    <string name="toast_share">A abrir as opções de partilha…</string>
+    <string name="toast_share_failed">Não foi possível partilhar</string>
+    <string name="toast_deleted">Ficheiro eliminado</string>
+</resources>

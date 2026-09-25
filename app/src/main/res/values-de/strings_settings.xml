@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings -->
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_access">Benachrichtigungszugriff</string>
+    <string name="settings_access_on">Aktiv · Nachrichten- und Medien-Tools</string>
+    <string name="settings_access_off">Aus · nötig für Nachrichten- und Medien-Tools</string>
+    <string name="settings_preferences">Allgemein</string>
+    <string name="settings_default_app">Standard-App</string>
+    <string name="settings_language">Sprache</string>
+    <string name="settings_clear_recents">Letzte Nummern löschen</string>
+    <string name="settings_about">Über die App</string>
+    <string name="settings_rate">Bewerte uns</string>
+    <string name="settings_contact">Kontakt</string>
+    <string name="settings_share">App teilen</string>
+    <string name="settings_privacy">Datenschutzerklärung</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_honesty">OpenChat ist kostenlos. Keine Werbung, kein Konto, kein Tracking. Nummern, Nachrichten und Medien verlassen nie dein Handy.</string>
+
+    <!-- Clear recent numbers confirmation -->
+    <string name="clear_recents_title">Letzte Nummern löschen?</string>
+    <plurals name="clear_recents_body">
+        <item quantity="one">Entfernt %d Nummer von der Startseite. In WhatsApp ändert sich nichts.</item>
+        <item quantity="other">Entfernt die %d Nummern von der Startseite. In WhatsApp ändert sich nichts.</item>
+    </plurals>
+    <string name="clear_recents_keep">Behalten</string>
+    <string name="clear_recents_clear">Löschen</string>
+    <string name="toast_recents_cleared">Letzte Nummern gelöscht</string>
+
+    <!-- Default app sheet -->
+    <string name="default_app_title">Standard-App</string>
+    <string name="toast_default_app">Standard-App: %s</string>
+
+    <!-- Language -->
+    <string name="language_title">Sprache</string>
+    <string name="language_intro">Ändert die Sprache der App. Nachrichten schreibst du selbst, in jeder Sprache.</string>
+    <string name="toast_language">Sprache: %s</string>
+
+    <!-- Contact us -->
+    <string name="contact_title">Kontakt</string>
+    <string name="contact_intro">Eine Nummer, die sich nicht öffnen lässt, eine Nachricht, die nicht gerettet wurde, eine Idee. Alles geht direkt ans Team.</string>
+    <string name="contact_placeholder">Was ist passiert, und auf welchem Bildschirm?</string>
+    <string name="contact_email_label">E-Mail · optional, nur wenn du eine Antwort möchtest</string>
+    <string name="contact_callout">Wird mit der App- und Android-Version gesendet. Nie mit deinen Nummern oder Nachrichten.</string>
+    <string name="contact_send">Senden</string>
+    <string name="toast_sent">Gesendet. Danke!</string>
+    <string name="toast_write_first">Schreib zuerst etwas</string>
+    <string name="toast_no_email">Keine E-Mail-App gefunden</string>
+    <string name="toast_no_app_can_open">Keine App kann das öffnen</string>
+
+    <!-- Rating sheet -->
+    <string name="rating_title">Gefällt dir OpenChat?</string>
+    <string name="rating_body">Deine ehrliche Bewertung hilft anderen, eine App zu finden, die jede Nummer mit einem Tippen öffnet.</string>
+    <plurals name="rating_star_cd">
+        <item quantity="one">%d von 5 Sternen</item>
+        <item quantity="other">%d von 5 Sternen</item>
+    </plurals>
+    <string name="rating_hint_tap">Tippe auf einen Stern</string>
+    <string name="rating_hint_1">Das tut uns leid</string>
+    <string name="rating_hint_2">Das können wir besser</string>
+    <string name="rating_hint_3">Danke, erzähl uns mehr</string>
+    <string name="rating_hint_4">Schön, dass es funktioniert</string>
+    <string name="rating_hint_5">Danke!</string>
+    <string name="rating_later">Vielleicht später</string>
+    <string name="rating_store_title">Vielen Dank!</string>
+    <string name="rating_store_body">Würdest du das auf Google Play teilen? Das hilft einer kleinen App beim Wachsen.</string>
+    <string name="rating_store_cta">Auf Google Play bewerten</string>
+    <string name="rating_not_now">Jetzt nicht</string>
+    <string name="rating_feedback_title">Was können wir besser machen?</string>
+    <string name="rating_feedback_body">Sag uns, was nicht gepasst hat. Das geht direkt ans Team, nicht in eine öffentliche Bewertung, und wir lesen jede Nachricht.</string>
+    <string name="rating_feedback_placeholder">Was hätte daraus eine 5-Sterne-App gemacht?</string>
+    <string name="rating_feedback_send">Feedback senden</string>
+    <string name="rating_cancel">Abbrechen</string>
+    <string name="rating_thanks_title">Danke, wir hören dir zu</string>
+    <string name="rating_thanks_body">Deine Nachricht ist auf dem Weg zum Team. Sie bestimmt mit, was wir als Nächstes bauen.</string>
+    <string name="rating_done">Fertig</string>
+    <string name="toast_play">Google Play wird geöffnet…</string>
+</resources>

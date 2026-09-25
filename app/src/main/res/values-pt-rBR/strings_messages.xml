@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox -->
+    <string name="messages_title">Mensagens</string>
+    <plurals name="messages_chip_all">
+        <item quantity="one">Todas · %d não lida</item>
+        <item quantity="many">Todas · %d não lidas</item>
+        <item quantity="other">Todas · %d não lidas</item>
+    </plurals>
+    <string name="messages_chip_deleted">Só apagadas · %d</string>
+    <string name="messages_info_all">Leia aqui e o WhatsApp não mostra os tiques azuis. As fotos aparecem quando a notificação traz uma prévia; áudios e arquivos aparecem pelo nome.</string>
+    <string name="messages_info_deleted">Só as mensagens que o remetente apagou são guardadas. As conversas ignoradas ficam totalmente de fora.</string>
+    <string name="messages_empty_title">Nada por aqui ainda</string>
+    <string name="messages_empty_body">Novas mensagens aparecem aqui assim que chegam. As apagadas ficam em “Só apagadas”.</string>
+    <string name="messages_tool_settings">Configurações da ferramenta</string>
+
+    <!-- Conversation -->
+    <string name="conversation_subtitle_all">%1$s · sem ninguém saber</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · %2$d apagada</item>
+        <item quantity="many">%1$s · %2$d apagadas</item>
+        <item quantity="other">%1$s · %2$d apagadas</item>
+    </plurals>
+    <string name="conversation_deleted_label">Apagada pelo remetente</string>
+    <string name="conversation_open">Abrir conversa no WhatsApp</string>
+    <string name="conversation_hint_all">Abrir a conversa no WhatsApp envia confirmações de leitura.</string>
+    <string name="conversation_hint_deleted">Aqui é só para ler. Para responder, use o WhatsApp.</string>
+
+    <!-- Tool settings sheet, exclude chats sheet, clear confirmations.
+         "Exclude" is "Ignorar" here: in Brazil "excluir" reads as "delete". -->
+    <string name="tool_settings_pause">Pausar recuperação</string>
+    <string name="tool_settings_exclude">Ignorar conversas</string>
+    <string name="tool_settings_clear_messages">Limpar mensagens guardadas</string>
+    <string name="tool_settings_clear_media">Excluir mídias recuperadas</string>
+    <string name="exclude_title">Ignorar conversas</string>
+    <string name="exclude_empty">As conversas aparecem aqui depois da primeira mensagem.</string>
+    <string name="clear_messages_title">Limpar todas as mensagens recuperadas?</string>
+    <string name="clear_media_title">Excluir todas as mídias recuperadas?</string>
+    <string name="clear_body">Exclui as cópias deste app. O WhatsApp não é afetado.</string>
+    <string name="keep">Manter</string>
+    <string name="clear">Limpar</string>
+
+    <!-- Toasts -->
+    <string name="toast_paused">Recuperação pausada</string>
+    <string name="toast_resumed">Recuperação retomada</string>
+    <string name="toast_cleared">Tudo limpo</string>
+    <string name="toast_opening_whatsapp">Abrindo o WhatsApp…</string>
+</resources>

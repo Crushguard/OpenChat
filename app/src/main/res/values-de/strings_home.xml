@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home -->
+    <string name="home_phone_placeholder">Telefonnummer</string>
+    <string name="home_paste">Einfügen</string>
+    <string name="home_message_placeholder">Nachricht (optional)</string>
+    <string name="home_send">Nachricht senden</string>
+    <string name="home_send_with">Senden mit</string>
+    <string name="home_first_run_hint">Öffnet den Chat in der App deiner Wahl. In deinen Kontakten wird nichts gespeichert.</string>
+    <string name="home_recent">Zuletzt verwendet</string>
+    <string name="home_delete">Löschen</string>
+    <string name="home_settings_cd">Einstellungen</string>
+    <string name="home_country_cd">Land</string>
+    <string name="home_clear_cd">Eingabe löschen</string>
+    <string name="home_choose_app_cd">App auswählen</string>
+
+    <!-- Home tool rows: status lines (one line, max ~40 characters) -->
+    <plurals name="tool_unseen_status_granted">
+        <item quantity="one">%d ungelesen, von niemandem gesehen</item>
+        <item quantity="other">%d ungelesen, von niemandem gesehen</item>
+    </plurals>
+    <string name="tool_unseen_status_paused">Pausiert</string>
+    <string name="tool_unseen_status_off">Hier lesen. WhatsApp zeigt nichts an</string>
+    <plurals name="tool_deleted_status_granted">
+        <item quantity="one">%d vom Absender gelöschte Nachricht</item>
+        <item quantity="other">%d vom Absender gelöschte Nachrichten</item>
+    </plurals>
+    <string name="tool_deleted_status_off">Behält, was der Absender gelöscht hat</string>
+    <plurals name="tool_media_status_granted">
+        <item quantity="one">%d Datei diese Woche gerettet</item>
+        <item quantity="other">%d Dateien diese Woche gerettet</item>
+    </plurals>
+    <string name="tool_media_status_off">Fotos, Videos, Audiodateien, Dokumente</string>
+    <string name="tool_second_status_linked">Verknüpft</string>
+    <string name="tool_second_status_off">Ein zweites WhatsApp in dieser App</string>
+
+    <!-- Country picker sheet -->
+    <string name="country_title">Land</string>
+    <string name="country_search">Land oder Vorwahl suchen</string>
+    <string name="country_all">Alle Länder</string>
+    <plurals name="country_results">
+        <item quantity="one">%d Ergebnis</item>
+        <item quantity="other">%d Ergebnisse</item>
+    </plurals>
+    <string name="country_detected_sim">Anhand deiner SIM-Karte erkannt: %1$s · %2$s</string>
+    <string name="country_detected_network">Anhand deines Mobilfunknetzes erkannt: %1$s · %2$s</string>
+    <string name="country_detected_locale">Anhand von Sprache und Region erkannt: %1$s · %2$s</string>
+    <string name="country_close_cd">Schließen</string>
+
+    <!-- Not on WhatsApp confirmation sheet -->
+    <string name="not_on_wa_title">Diese Nummer ist nicht bei WhatsApp</string>
+    <string name="not_on_wa_body">%s hat kein WhatsApp-Konto. Prüfe die Ziffern oder sende dieselbe Nachricht über Telegram.</string>
+    <string name="not_on_wa_edit">Nummer ändern</string>
+    <string name="not_on_wa_telegram">Telegram nutzen</string>
+
+    <!-- Home toasts -->
+    <string name="toast_opening">%s wird geöffnet…</string>
+    <string name="toast_pasted_country">Eingefügt · Land: %s</string>
+    <string name="toast_pasted">Eingefügt</string>
+    <string name="toast_clipboard_empty">Die Zwischenablage ist leer</string>
+    <string name="toast_no_app">Keine App kann diese Nummer öffnen</string>
+</resources>

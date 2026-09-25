@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Links, sharing and feedback -->
+    <string name="share_app_text">O OpenChat abre uma conversa com qualquer número, sem salvar o contato. https://play.google.com/store/apps/details?id=com.piptechnologies.openchat</string>
+
+    <!-- Launch and onboarding -->
+    <string name="splash_honesty">Grátis · Sem anúncios · Sem conta</string>
+    <string name="onboarding_skip">Pular</string>
+    <string name="onboarding_1_title">Converse com qualquer número</string>
+    <string name="onboarding_1_body">Digite ou cole um número e toque em Enviar. A conversa abre no WhatsApp, no WhatsApp Business ou no Telegram. Nada é salvo nos seus contatos.</string>
+    <string name="onboarding_1_check">Não é adicionado aos seus contatos</string>
+    <string name="onboarding_1_send">Enviar mensagem</string>
+    <string name="onboarding_2_title">Quatro ferramentas, uma permissão</string>
+    <string name="onboarding_2_body">Leia sem tiques azuis, recupere o que os remetentes apagam e use uma segunda conta. Tudo fica neste celular.</string>
+    <string name="onboarding_next">Próximo</string>
+    <string name="onboarding_start">Começar</string>
+
+    <!-- Tool titles -->
+    <string name="tool_unseen_title">Ler sem tiques azuis</string>
+    <string name="tool_deleted_title">Recuperar mensagens apagadas</string>
+    <string name="tool_media_title">Recuperar mídia apagada</string>
+    <string name="tool_second_title">Abrir uma segunda conta</string>
+
+    <!-- Notification access gate -->
+    <string name="gate_title">Permitir acesso a notificações</string>
+    <string name="gate_body">Mensagens e mídias apagadas são guardadas a partir das notificações do WhatsApp. Nada sai do seu celular.</string>
+    <string name="gate_open_settings">Abrir configurações</string>
+    <string name="gate_waiting">Aguardando o Android…</string>
+    <string name="gate_hint_before">Uma única permissão ativa a recuperação de mensagens e de mídia.</string>
+    <string name="gate_continue">Continuar</string>
+    <string name="gate_hint_after">Você pode desativar isso quando quiser nas Configurações.</string>
+    <string name="gate_bar_messages">Mensagens</string>
+    <string name="gate_bar_media">Mídia apagada</string>
+    <string name="gate_bar_settings">Acesso a notificações</string>
+
+    <!-- Second-account foreground service notification -->
+    <string name="second_notification_channel">Segunda conta</string>
+    <string name="second_notification_title">Segunda conta conectada</string>
+    <string name="second_notification_text">Toque para abrir o OpenChat</string>
+    <string name="second_notification_open">Abrir</string>
+
+    <!-- Time labels -->
+    <string name="time_now">Agora</string>
+    <string name="time_today">Hoje</string>
+    <string name="time_yesterday">Ontem</string>
+    <string name="time_minutes_short">%d min</string>
+    <string name="time_hours_short">%d h</string>
+
+    <!-- Shared components -->
+    <string name="cd_back">Voltar</string>
+    <string name="chip_off">Desativado</string>
+    <string name="chip_active">Ativo</string>
+    <string name="chip_paused">Em pausa</string>
+    <string name="chip_linked">Conectada</string>
+</resources>

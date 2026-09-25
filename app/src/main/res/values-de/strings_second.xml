@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Second account: entry state (WhatsApp menu names as in the German WhatsApp) -->
+    <string name="second_title">Zweites Konto</string>
+    <string name="second_entry_title">Ein zweites WhatsApp, direkt hier</string>
+    <string name="second_entry_body">Verknüpft eine Sitzung von WhatsApp Web in dieser App. Nutze sie für ein zweites Konto oder dasselbe Konto auf einem zweiten Handy.</string>
+    <string name="second_entry_callout">Du brauchst das andere Handy. Hier erscheint ein QR-Code; scanne ihn dort unter WhatsApp › Verknüpfte Geräte › Gerät hinzufügen.</string>
+    <string name="second_scan">QR-Code scannen</string>
+    <string name="second_entry_hint">Solange das Konto verknüpft ist, bleibt eine Benachrichtigung sichtbar. Android verlangt das.</string>
+
+    <!-- Linking / linked bar -->
+    <string name="second_linking">Verknüpfen…</string>
+    <string name="second_reload">Neu laden</string>
+    <string name="second_log_out">Abmelden</string>
+
+    <!-- Log out confirmation and toasts -->
+    <string name="logout_title">Vom verknüpften Konto abmelden?</string>
+    <string name="logout_body">Die Sitzung endet auf diesem Handy. Das andere Handy funktioniert weiter.</string>
+    <string name="logout_stay">Verknüpft lassen</string>
+    <string name="logout_confirm">Abmelden</string>
+    <string name="toast_reloading">Wird neu geladen…</string>
+    <string name="toast_logged_out">Abgemeldet</string>
+    <string name="toast_linked">Konto verknüpft</string>
+</resources>

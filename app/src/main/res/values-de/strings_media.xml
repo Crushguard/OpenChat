@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Deleted media -->
+    <string name="media_title">Gelöschte Medien</string>
+    <string name="media_tool_settings">Tool-Einstellungen</string>
+
+    <!-- Category pills -->
+    <string name="media_tab_photos">Fotos</string>
+    <string name="media_tab_videos">Videos</string>
+    <string name="media_tab_audio">Audio</string>
+    <string name="media_tab_documents">Dokumente</string>
+    <string name="media_tab_stickers">Sticker</string>
+
+    <!-- Empty states and media access -->
+    <string name="media_empty_nothing">Noch nichts gerettet</string>
+    <string name="media_empty_audio">Noch keine Audiodateien</string>
+    <string name="media_empty_documents">Noch keine Dokumente</string>
+    <string name="media_empty_stickers">Noch keine Sticker</string>
+    <string name="media_empty_body">Dateien, die jemand für alle löscht, werden hier aufbewahrt, sofern sie vorher empfangen wurden.</string>
+    <string name="media_allow">Medienzugriff erlauben</string>
+    <string name="media_access_off">Der Medienzugriff ist aus, deshalb werden neue Dateien nicht gesichert.</string>
+
+    <!-- Media detail -->
+    <string name="media_detail_title_photo">Foto</string>
+    <string name="media_detail_title_video">Video</string>
+    <string name="media_detail_title_audio">Audio</string>
+    <string name="media_detail_title_document">Dokument</string>
+    <string name="media_detail_title_sticker">Sticker</string>
+    <string name="media_save">In Galerie speichern</string>
+    <string name="media_share">Teilen</string>
+    <string name="media_delete">Löschen</string>
+    <string name="media_play">Abspielen</string>
+    <string name="media_pause">Pausieren</string>
+    <string name="media_size_bytes">%s B</string>
+    <string name="media_size_kb">%s KB</string>
+    <string name="media_size_mb">%s MB</string>
+    <string name="media_size_gb">%s GB</string>
+    <!-- Label-style lines: the day (Heute, Gestern or a date) never takes a preposition; "um" goes before the time. -->
+    <string name="media_meta_from">Von %1$s · %2$s um %3$s · Gelöscht um %4$s</string>
+    <string name="media_meta_received">Empfangen: %1$s um %2$s · Gelöscht um %3$s</string>
+    <string name="media_meta_from_kept">Von %1$s · %2$s um %3$s</string>
+    <string name="media_meta_received_kept">Empfangen: %1$s um %2$s</string>
+    <string name="delete_media_title_photo">Dieses Foto löschen?</string>
+    <string name="delete_media_title_video">Dieses Video löschen?</string>
+    <string name="delete_media_title_audio">Diese Audiodatei löschen?</string>
+    <string name="delete_media_title_document">Dieses Dokument löschen?</string>
+    <string name="delete_media_title_sticker">Diesen Sticker löschen?</string>
+    <string name="delete_media_body">Die Datei wird aus „Gelöschte Medien“ entfernt. Eine in der Galerie gespeicherte Kopie bleibt erhalten.</string>
+    <string name="toast_saved">In Galerie gespeichert</string>
+    <string name="toast_save_failed">Speichern fehlgeschlagen</string>
+    <string name="toast_share">Teilen-Menü wird geöffnet…</string>
+    <string name="toast_share_failed">Teilen fehlgeschlagen</string>
+    <string name="toast_deleted">Gelöscht</string>
+</resources>

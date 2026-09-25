@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Messages inbox -->
+    <string name="messages_title">Nachrichten</string>
+    <plurals name="messages_chip_all">
+        <item quantity="one">Alle · %d ungelesen</item>
+        <item quantity="other">Alle · %d ungelesen</item>
+    </plurals>
+    <string name="messages_chip_deleted">Nur gelöschte · %d</string>
+    <string name="messages_info_all">Wenn du hier liest, zeigt WhatsApp keine blauen Haken. Fotos erscheinen, wenn die Benachrichtigung eine Vorschau enthält; Sprachnachrichten und Dateien werden mit Namen angezeigt.</string>
+    <string name="messages_info_deleted">Nur Nachrichten, die der Absender gelöscht hat, werden behalten. Ausgeschlossene Chats werden komplett übersprungen.</string>
+    <string name="messages_empty_title">Noch nichts hier</string>
+    <string name="messages_empty_body">Neue Nachrichten landen hier, sobald sie ankommen. Gelöschte bleiben unter „Nur gelöschte“.</string>
+    <string name="messages_tool_settings">Tool-Einstellungen</string>
+
+    <!-- Conversation -->
+    <string name="conversation_subtitle_all">%1$s · von niemandem gesehen</string>
+    <plurals name="conversation_subtitle_deleted">
+        <item quantity="one">%1$s · %2$d gelöscht</item>
+        <item quantity="other">%1$s · %2$d gelöscht</item>
+    </plurals>
+    <string name="conversation_deleted_label">Vom Absender gelöscht</string>
+    <string name="conversation_open">Chat in WhatsApp öffnen</string>
+    <string name="conversation_hint_all">Wenn du den Chat in WhatsApp öffnest, werden Lesebestätigungen gesendet.</string>
+    <string name="conversation_hint_deleted">Hier kannst du nur lesen. Antworte in WhatsApp.</string>
+
+    <!-- Tool settings sheet, exclude chats sheet, clear confirmations -->
+    <string name="tool_settings_pause">Wiederherstellung pausieren</string>
+    <string name="tool_settings_exclude">Chats ausschließen</string>
+    <string name="tool_settings_clear_messages">Alle Nachrichten löschen</string>
+    <string name="tool_settings_clear_media">Alle Medien löschen</string>
+    <string name="exclude_title">Chats ausschließen</string>
+    <string name="exclude_empty">Chats erscheinen hier nach ihrer ersten Nachricht.</string>
+    <string name="clear_messages_title">Alle geretteten Nachrichten löschen?</string>
+    <string name="clear_media_title">Alle geretteten Medien löschen?</string>
+    <string name="clear_body">Löscht nur die Kopien dieser App. WhatsApp bleibt unberührt.</string>
+    <string name="keep">Behalten</string>
+    <string name="clear">Löschen</string>
+
+    <!-- Toasts -->
+    <string name="toast_paused">Wiederherstellung pausiert</string>
+    <string name="toast_resumed">Wiederherstellung fortgesetzt</string>
+    <string name="toast_cleared">Alles gelöscht</string>
+    <string name="toast_opening_whatsapp">WhatsApp wird geöffnet…</string>
+</resources>
