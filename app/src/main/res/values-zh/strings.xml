@@ -11,7 +11,7 @@
     <string name="onboarding_1_check">不会添加到您的通讯录</string>
     <string name="onboarding_1_send">发送消息</string>
     <string name="onboarding_2_title">四个工具，一项权限</string>
-    <string name="onboarding_2_body">阅读不显示蓝色双勾，找回对方删除的内容，还能使用第二个账号。一切都只保存在这部手机上。</string>
+    <string name="onboarding_2_body">阅读不显示蓝色双勾，找回对方删除的内容，还能用第二个账号。一切只保存在本机。</string>
     <string name="onboarding_next">下一步</string>
     <string name="onboarding_start">开始使用</string>
 

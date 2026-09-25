@@ -16,7 +16,7 @@
     <string name="media_empty_audio">暂无音频</string>
     <string name="media_empty_documents">暂无文档</string>
     <string name="media_empty_stickers">暂无贴图</string>
-    <string name="media_empty_body">即使有人“在所有人设备上删除”了文件，只要您此前已收到，文件都会保留在这里。</string>
+    <string name="media_empty_body">对方为所有人删除的文件，只要此前已收到，都会保留在这里。</string>
     <string name="media_allow">允许访问媒体</string>
     <string name="media_access_off">媒体访问权限已关闭，新文件将不会被保存。</string>
 

@@ -15,7 +15,7 @@
 
     <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
     <string name="logout_title">要退出已关联的账号吗？</string>
-    <string name="logout_body">此手机上的会话将结束，另一部手机可继续正常使用。</string>
+    <string name="logout_body">此手机上的会话将结束，另一部手机可继续使用。</string>
     <string name="logout_stay">保持关联</string>
     <string name="logout_confirm">退出登录</string>
     <string name="toast_reloading">正在重新加载…</string>

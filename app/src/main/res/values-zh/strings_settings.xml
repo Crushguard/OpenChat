@@ -20,7 +20,7 @@
     <!-- Clear recent numbers confirmation (design map §4.15, §4.20) -->
     <string name="clear_recents_title">清除最近使用的号码？</string>
     <plurals name="clear_recents_body">
-        <item quantity="other">将移除主页上的%d个号码。WhatsApp 中不会有任何变化。</item>
+        <item quantity="other">将从主页移除这%d个号码，WhatsApp 不受影响。</item>
     </plurals>
     <string name="clear_recents_keep">保留</string>
     <string name="clear_recents_clear">清除</string>
