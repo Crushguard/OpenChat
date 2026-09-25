@@ -355,9 +355,9 @@ the gate and Second account captured. The Compose rule runs the app's compositio
 `StandardTestDispatcher` that the session drains on the main thread, as the app's own dispatcher does, so
 work resumed from DataStore or I/O threads never touches navigation or lifecycles off the main thread. When
 a test fails, the job log prints its full stack trace, and what the host kernel and the emulator recorded if the
-emulator itself went away. On the emulators the WebView renders in software (`--disable-gpu`, set through
-`/data/local/tmp/webview-command-line`), and a system "isn't responding" dialog about another app, which a
-cold-booted emulator often shows for System UI, is answered before each test and while GateTest waits for Settings. Artifacts per API level: `device-screens-api<N>` (folders
+emulator itself went away, and the crash lines of logcat. A system "isn't responding" dialog about another app,
+which a cold-booted emulator often shows for System UI, is answered before each test and while GateTest waits
+for Settings. Artifacts per API level: `device-screens-api<N>` (folders
 `api<N>/<tag>/` for the language sweep, `api<N>/flows/` for the tool flows, `api<N>/failures/` for the screen
 when a test failed), `device-test-reports-api<N>` and `device-logcat-api<N>`. Locally, on an emulator
 without the real WhatsApp (the stand-in takes its package name):

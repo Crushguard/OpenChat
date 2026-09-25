@@ -65,14 +65,10 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-snapshot-save
           # Each line runs on its own in sh: keep every line self-contained.
-          # The WebView renders in software here: both times the API 34 emulator vanished, silently, it was while
-          # SecondAccountTest loaded web.whatsapp.com with GPU rendering (device runs 15 and 19). The flags file is
-          # read on debuggable images such as google_apis.
           # adb gets time limits after the suite: with the emulator gone, "adb logcat" waited for it until the job's
           # timeout (run 19) and the failing tests were never printed.
           script: |
             adb install -r -g e2e-fixture/build/outputs/apk/debug/e2e-fixture-debug.apk
-            adb shell "echo '_ --disable-gpu --disable-gpu-compositing' > /data/local/tmp/webview-command-line" || echo "Could not set the WebView flags"
             ./gradlew :app:connectedDebugAndroidTest --stacktrace || echo "E2E_FAILED=1" >> "$GITHUB_ENV"
             timeout 120 adb pull /sdcard/Download/openchat-e2e e2e-screens || echo "No device screenshots to pull"
             timeout 60 adb logcat -d > logcat.txt || echo "No logcat"
@@ -125,6 +121,11 @@ jobs:
           sudo dmesg -T | grep -iE "out of memory|oom|killed process|segfault|qemu|emulator|general protection" | tail -40 || true
           ls -laR /tmp/android-runner 2>/dev/null | head -40 || true
           free -m || true
+      # Why an app or instrumentation process died ("Test instrumentation process crashed" carries no stack trace).
+      - name: Print the crashes in logcat
+        if: env.E2E_FAILED == '1'
+        run: |
+          grep -n -E "FATAL EXCEPTION|AndroidRuntime|Fatal signal|DEBUG   :|Check failed|F chromium|F libc|am_crash|am_anr|ANR in|lowmemorykiller|Process .* has died" logcat.txt | head -150 || echo "No crash lines in logcat"
       - name: Fail when the suite failed
         if: env.E2E_FAILED == '1'
         run: |
