@@ -37,16 +37,23 @@ class LocaleScreenshotTests(private val tag: String, qualifier: String, rtl: Boo
     val paparazzi: Paparazzi = ScreenshotDevice.paparazzi(qualifier, rtl)
 
     private val defaultZone: TimeZone = TimeZone.getDefault()
+    private val defaultLocale: Locale = Locale.getDefault()
 
-    /** As in the English tests: the screens format times in the default zone; the fake wall-clock times are UTC. */
+    /**
+     * As in the English tests: the screens format times in the default zone; the fake wall-clock times are UTC.
+     * The default locale is the language's, as on a phone once the app shows that language; layoutlib formats
+     * `getString(id, args)` with it (a phone uses the configuration's), so "%d" gets that language's digits.
+     */
     @Before
-    fun useFakeTimeZone() {
+    fun useFakeTimeZoneAndLanguage() {
         TimeZone.setDefault(Fakes.timeZone)
+        Locale.setDefault(Locale.forLanguageTag(tag))
     }
 
     @After
-    fun restoreTimeZone() {
+    fun restoreTimeZoneAndLanguage() {
         TimeZone.setDefault(defaultZone)
+        Locale.setDefault(defaultLocale)
     }
 
     @Test
