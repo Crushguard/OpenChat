@@ -19,7 +19,7 @@
         <item quantity="other">မဖတ်ရသေးသော %d ခု၊ မည်သူမျှ မသိပါ</item>
     </plurals>
     <string name="tool_unseen_status_paused">ခဏရပ်ထားသည်</string>
-    <string name="tool_unseen_status_off">ဤနေရာတွင် ဖတ်ပါ။ WhatsApp တွင် ဘာမျှ မပြပါ</string>
+    <string name="tool_unseen_status_off">WhatsApp တွင် မပြဘဲ ဖတ်ပါ</string>
     <plurals name="tool_deleted_status_granted">
         <item quantity="other">ပို့သူ ဖျက်လိုက်သော မက်ဆေ့ချ် %d ခု</item>
     </plurals>

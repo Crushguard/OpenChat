@@ -3,8 +3,8 @@
     <!-- Settings (design map §4.15) -->
     <string name="settings_title">ဆက်တင်များ</string>
     <string name="settings_access">အကြောင်းကြားချက် သုံးခွင့်</string>
-    <string name="settings_access_on">ဖွင့်ထားသည် · မက်ဆေ့ချ်နှင့် မီဒီယာ ကိရိယာများ</string>
-    <string name="settings_access_off">ပိတ်ထားသည် · မက်ဆေ့ချ်နှင့် မီဒီယာ ကိရိယာများအတွက် လိုအပ်သည်</string>
+    <string name="settings_access_on">ဖွင့်ထားသည် · မက်ဆေ့ချ်၊ မီဒီယာ</string>
+    <string name="settings_access_off">ပိတ်ထားသည် · မက်ဆေ့ချ်၊ မီဒီယာအတွက် လိုအပ်သည်</string>
     <string name="settings_preferences">ရွေးချယ်မှုများ</string>
     <string name="settings_default_app">မူရင်း အက်ပ်</string>
     <string name="settings_language">ဘာသာစကား</string>
@@ -39,7 +39,7 @@
     <string name="contact_title">ဆက်သွယ်ရန်</string>
     <string name="contact_intro">ဖွင့်မရသော နံပါတ်၊ ပြန်မရသော မက်ဆေ့ချ် သို့မဟုတ် အကြံဉာဏ်တစ်ခု။ အဖွဲ့ထံ တိုက်ရိုက် ရောက်ပါသည်။</string>
     <string name="contact_placeholder">ဘာဖြစ်ခဲ့သလဲ။ ဘယ်မျက်နှာပြင်မှာလဲ။</string>
-    <string name="contact_email_label">အီးမေးလ် · မထည့်လည်း ရပါသည်၊ ပြန်စာ လိုချင်မှသာ ထည့်ပါ</string>
+    <string name="contact_email_label">အီးမေးလ် · ပြန်စာ လိုချင်မှသာ ထည့်ပါ</string>
     <string name="contact_callout">အက်ပ်ဗားရှင်းနှင့် Android ဗားရှင်းကို တွဲပို့ပါသည်။ သင့်နံပါတ်များ သို့မဟုတ် မက်ဆေ့ချ်များကို မည်သည့်အခါမျှ မပို့ပါ။</string>
     <string name="contact_send">ပို့ရန်</string>
     <string name="toast_sent">ပို့ပြီးပါပြီ။ ကျေးဇူးတင်ပါသည်။</string>
@@ -62,9 +62,9 @@
     <string name="rating_later">နောက်မှ</string>
     <string name="rating_store_title">ကျေးဇူးတင်ပါသည်!</string>
     <string name="rating_store_body">ထိုအမြင်ကို Google Play တွင်လည်း မျှဝေပေးမလား။ အက်ပ်ငယ်လေးတစ်ခု ကြီးထွားရန် ကူညီရာ ရောက်ပါသည်။</string>
-    <string name="rating_store_cta">Google Play တွင် အဆင့်သတ်မှတ်ရန်</string>
+    <string name="rating_store_cta">Google Play တွင် အဆင့်ပေးရန်</string>
     <string name="rating_not_now">ယခု မလုပ်ပါ</string>
-    <string name="rating_feedback_title">ကျွန်ုပ်တို့ မည်သို့ ပိုကောင်းအောင် လုပ်နိုင်မလဲ။</string>
+    <string name="rating_feedback_title">မည်သို့ ပိုကောင်းအောင် လုပ်နိုင်မလဲ။</string>
     <string name="rating_feedback_body">မည်သည့်အရာ လိုအပ်နေသည်ကို ပြောပြပါ။ ၎င်းသည် အများမြင် သုံးသပ်ချက် မဟုတ်ဘဲ အဖွဲ့ထံ တိုက်ရိုက် ရောက်ပါသည်။ ကျွန်ုပ်တို့ တစ်ခုချင်းစီကို ဖတ်ပါသည်။</string>
     <string name="rating_feedback_placeholder">ဘာရှိခဲ့ရင် ဒီအက်ပ်ကို ကြယ် ၅ ပွင့် ပေးဖြစ်မလဲ။</string>
     <string name="rating_feedback_send">အကြံပြုချက် ပို့ရန်</string>

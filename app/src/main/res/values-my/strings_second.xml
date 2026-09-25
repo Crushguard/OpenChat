@@ -14,7 +14,7 @@
     <string name="second_log_out">ထွက်ရန်</string>
 
     <!-- Log out confirmation (§4.20) and toasts (§4.21) -->
-    <string name="logout_title">ချိတ်ဆက်ထားသော အကောင့်မှ ထွက်မလား။</string>
+    <string name="logout_title">ချိတ်ထားသော အကောင့်မှ ထွက်မလား။</string>
     <string name="logout_body">ဤဖုန်းပေါ်ရှိ ဆက်ရှင် ပြီးဆုံးပါမည်။ အခြားဖုန်းကမူ ပုံမှန်အတိုင်း ဆက်အလုပ်လုပ်ပါမည်။</string>
     <string name="logout_stay">ဆက်ချိတ်ထားရန်</string>
     <string name="logout_confirm">ထွက်ရန်</string>

@@ -43,8 +43,8 @@
     <string name="time_now">ယခုလေးတင်</string>
     <string name="time_today">ယနေ့</string>
     <string name="time_yesterday">မနေ့က</string>
-    <string name="time_minutes_short">%d မိနစ်</string>
-    <string name="time_hours_short">%d နာရီ</string>
+    <string name="time_minutes_short">%d မိနစ်က</string>
+    <string name="time_hours_short">%d နာရီက</string>
 
     <!-- Shared components (ui/components) -->
     <string name="cd_back">နောက်သို့</string>

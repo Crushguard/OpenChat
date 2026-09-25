@@ -5,11 +5,11 @@
     <plurals name="messages_chip_all">
         <item quantity="other">အားလုံး · မဖတ်ရသေး %d ခု</item>
     </plurals>
-    <string name="messages_chip_deleted">ဖျက်ထားသည်များသာ · %d</string>
+    <string name="messages_chip_deleted">ဖျက်ထားသည်သာ · %d</string>
     <string name="messages_info_all">ဤနေရာတွင် ဖတ်လျှင် WhatsApp တွင် blue ticks မပြပါ။ အကြောင်းကြားချက်တွင် အစမ်းကြည့်ပုံ ပါမှသာ ဓာတ်ပုံများ ပေါ်ပါမည်။ အသံမက်ဆေ့ချ်များနှင့် ဖိုင်များကို အမည်ဖြင့်သာ ပြပါမည်။</string>
     <string name="messages_info_deleted">ပို့သူ ဖျက်လိုက်သော မက်ဆေ့ချ်များကိုသာ သိမ်းထားပါသည်။ ချန်လှပ်ထားသော ချတ်များကို လုံးဝ ကျော်သွားပါသည်။</string>
     <string name="messages_empty_title">ဤနေရာတွင် ဘာမျှ မရှိသေးပါ</string>
-    <string name="messages_empty_body">မက်ဆေ့ချ်အသစ်များ ရောက်လာသည်နှင့် ဤနေရာတွင် ပေါ်လာပါမည်။ ဖျက်ထားသည်များကို “ဖျက်ထားသည်များသာ” တွင် ဆက်ထားပါမည်။</string>
+    <string name="messages_empty_body">မက်ဆေ့ချ်အသစ်များ ရောက်လာသည်နှင့် ဤနေရာတွင် ပေါ်လာပါမည်။ ဖျက်ထားသည်များကို “ဖျက်ထားသည်သာ” တွင် ဆက်ထားပါမည်။</string>
     <string name="messages_tool_settings">ကိရိယာ ဆက်တင်များ</string>
 
     <!-- Conversation (design map §4.9) -->
@@ -19,7 +19,7 @@
     </plurals>
     <string name="conversation_deleted_label">ပို့သူက ဖျက်လိုက်သည်</string>
     <string name="conversation_open">WhatsApp တွင် ချတ်ဖွင့်ရန်</string>
-    <string name="conversation_hint_all">WhatsApp တွင် ချတ်ကို ဖွင့်လျှင် Read receipts (blue ticks) ပို့သွားပါမည်။</string>
+    <string name="conversation_hint_all">WhatsApp တွင် ချတ်ဖွင့်လျှင် blue ticks ပြပါမည်။</string>
     <string name="conversation_hint_deleted">ဤနေရာတွင် ဖတ်ရုံသာ ရပါသည်။ WhatsApp တွင် ပြန်စာ ပို့ပါ။</string>
 
     <!-- Tool settings (§4.10), exclude chats (§4.11), clear confirmations (§4.20) -->
@@ -29,7 +29,7 @@
     <string name="tool_settings_clear_media">ပြန်ယူထားသော မီဒီယာအားလုံး ဖျက်ရန်</string>
     <string name="exclude_title">ချတ်များ ချန်လှပ်ရန်</string>
     <string name="exclude_empty">ချတ်တစ်ခု၏ ပထမဆုံး မက်ဆေ့ချ် ရောက်လာပြီးနောက် ၎င်းကို ဤနေရာတွင် ပြပါမည်။</string>
-    <string name="clear_messages_title">ပြန်ယူထားသော မက်ဆေ့ချ်အားလုံးကို ရှင်းမလား။</string>
+    <string name="clear_messages_title">မက်ဆေ့ချ်အားလုံးကို ရှင်းမလား။</string>
     <string name="clear_media_title">ပြန်ယူထားသော မီဒီယာအားလုံးကို ဖျက်မလား။</string>
     <string name="clear_body">ဤအက်ပ်ရှိ မိတ္တူများကိုသာ ဖျက်ပါမည်။ WhatsApp ကို မထိခိုက်ပါ။</string>
     <string name="keep">ဆက်ထားရန်</string>
