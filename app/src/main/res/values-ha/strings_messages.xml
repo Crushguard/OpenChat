@@ -6,11 +6,11 @@
         <item quantity="one">Duka · %d ba a karanta ba</item>
         <item quantity="other">Duka · %d ba a karanta ba</item>
     </plurals>
-    <string name="messages_chip_deleted">Waɗanda aka goge · %d</string>
+    <string name="messages_chip_deleted">An goge · %d</string>
     <string name="messages_info_all">Karanta a nan, WhatsApp ba zai nuna alamar shuɗi ba. Hotuna suna bayyana idan sanarwar tana da samfoti; saƙonnin murya da fayiloli suna nuna sunansu kawai.</string>
     <string name="messages_info_deleted">Saƙonnin da mai aikawa ya goge kaɗai ake ajiyewa. Ba a ajiye komai daga hirarrakin da aka ware ba.</string>
     <string name="messages_empty_title">Babu komai a nan tukuna</string>
-    <string name="messages_empty_body">Sabbin saƙonni suna bayyana a nan da zarar sun iso. Waɗanda aka goge suna zama a “Waɗanda aka goge”.</string>
+    <string name="messages_empty_body">Sabbin saƙonni suna bayyana a nan da zarar sun iso. Waɗanda aka goge suna zama a “An goge”.</string>
     <string name="messages_tool_settings">Saitunan kayan aiki</string>
 
     <!-- Conversation -->

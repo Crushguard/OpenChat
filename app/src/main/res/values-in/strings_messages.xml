@@ -5,11 +5,11 @@
     <plurals name="messages_chip_all">
         <item quantity="other">Semua · %d belum dibaca</item>
     </plurals>
-    <string name="messages_chip_deleted">Hanya yang dihapus · %d</string>
+    <string name="messages_chip_deleted">Dihapus · %d</string>
     <string name="messages_info_all">Baca di sini dan WhatsApp tidak menampilkan centang biru. Foto muncul jika notifikasi menyertakan pratinjau; pesan suara dan file ditampilkan dengan namanya.</string>
     <string name="messages_info_deleted">Hanya pesan yang dihapus pengirim yang disimpan. Chat yang dikecualikan dilewati sepenuhnya.</string>
     <string name="messages_empty_title">Belum ada apa-apa di sini</string>
-    <string name="messages_empty_body">Pesan baru muncul di sini saat masuk. Pesan yang dihapus tetap ada di “Hanya yang dihapus”.</string>
+    <string name="messages_empty_body">Pesan baru muncul di sini saat masuk. Pesan yang dihapus tetap ada di “Dihapus”.</string>
     <string name="messages_tool_settings">Pengaturan fitur</string>
 
     <!-- Conversation (§4.9) -->
