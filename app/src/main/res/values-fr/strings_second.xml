@@ -14,7 +14,7 @@
     <string name="second_log_out">Se déconnecter</string>
 
     <!-- Log out confirmation (§4.20) -->
-    <string name="logout_title">Se déconnecter du compte lié ?</string>
+    <string name="logout_title">Se déconnecter du second compte ?</string>
     <string name="logout_body">La session prend fin sur ce téléphone. L\'autre téléphone continue de fonctionner.</string>
     <string name="logout_stay">Rester connecté</string>
     <string name="logout_confirm">Se déconnecter</string>

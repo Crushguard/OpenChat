@@ -14,7 +14,7 @@
     <string name="messages_tool_settings">Tool-Einstellungen</string>
 
     <!-- Conversation -->
-    <string name="conversation_subtitle_all">%1$s · von niemandem gesehen</string>
+    <string name="conversation_subtitle_all">%1$s · niemand merkt es</string>
     <plurals name="conversation_subtitle_deleted">
         <item quantity="one">%1$s · %2$d gelöscht</item>
         <item quantity="other">%1$s · %2$d gelöscht</item>
@@ -27,8 +27,8 @@
     <!-- Tool settings sheet, exclude chats sheet, clear confirmations -->
     <string name="tool_settings_pause">Wiederherstellung pausieren</string>
     <string name="tool_settings_exclude">Chats ausschließen</string>
-    <string name="tool_settings_clear_messages">Alle Nachrichten löschen</string>
-    <string name="tool_settings_clear_media">Alle Medien löschen</string>
+    <string name="tool_settings_clear_messages">Gerettete Nachrichten löschen</string>
+    <string name="tool_settings_clear_media">Gerettete Medien löschen</string>
     <string name="exclude_title">Chats ausschließen</string>
     <string name="exclude_empty">Chats erscheinen hier nach ihrer ersten Nachricht.</string>
     <string name="clear_messages_title">Alle geretteten Nachrichten löschen?</string>

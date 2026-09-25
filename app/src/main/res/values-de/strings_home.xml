@@ -16,8 +16,8 @@
 
     <!-- Home tool rows: status lines (one line, max ~40 characters) -->
     <plurals name="tool_unseen_status_granted">
-        <item quantity="one">%d ungelesen, von niemandem gesehen</item>
-        <item quantity="other">%d ungelesen, von niemandem gesehen</item>
+        <item quantity="one">%d ungelesen, niemand merkt es</item>
+        <item quantity="other">%d ungelesen, niemand merkt es</item>
     </plurals>
     <string name="tool_unseen_status_paused">Pausiert</string>
     <string name="tool_unseen_status_off">Hier lesen. WhatsApp zeigt nichts an</string>

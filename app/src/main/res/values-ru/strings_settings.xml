@@ -61,11 +61,11 @@
     </plurals>
     <string name="rating_hint_tap">Нажмите на звезду</string>
     <string name="rating_hint_1">Жаль это слышать</string>
-    <string name="rating_hint_2">Мы можем лучше</string>
+    <string name="rating_hint_2">Нам есть куда расти</string>
     <string name="rating_hint_3">Спасибо, расскажите подробнее</string>
     <string name="rating_hint_4">Рады, что всё работает</string>
     <string name="rating_hint_5">Спасибо!</string>
-    <string name="rating_later">Может быть позже</string>
+    <string name="rating_later">Может быть, позже</string>
     <string name="rating_store_title">Спасибо!</string>
     <string name="rating_store_body">Может, поделитесь оценкой в Google Play? Это помогает небольшому приложению расти.</string>
     <string name="rating_store_cta">Оценить в Google Play</string>

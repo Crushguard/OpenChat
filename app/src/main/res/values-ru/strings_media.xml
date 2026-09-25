@@ -33,9 +33,9 @@
     <string name="media_size_kb">%s КБ</string>
     <string name="media_size_mb">%s МБ</string>
     <string name="media_size_gb">%s ГБ</string>
-    <string name="media_meta_from">От %1$s · %2$s, %3$s · Удалено в %4$s</string>
+    <string name="media_meta_from">От: %1$s · %2$s, %3$s · Удалено в %4$s</string>
     <string name="media_meta_received">Получено: %1$s, %2$s · Удалено в %3$s</string>
-    <string name="media_meta_from_kept">От %1$s · %2$s, %3$s</string>
+    <string name="media_meta_from_kept">От: %1$s · %2$s, %3$s</string>
     <string name="media_meta_received_kept">Получено: %1$s, %2$s</string>
     <string name="delete_media_title_photo">Удалить это фото?</string>
     <string name="delete_media_title_video">Удалить это видео?</string>
