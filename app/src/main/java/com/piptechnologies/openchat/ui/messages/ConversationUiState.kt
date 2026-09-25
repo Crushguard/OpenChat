@@ -63,7 +63,7 @@ internal fun conversationSubtitle(summary: ConversationSummary?, mode: InboxMode
  * number as a left-to-right isolate ([ltr]), so right-to-left layouts do not reverse its digit groups
  * ("0417 9922 813 62+"); a name unchanged. Display only.
  */
-internal fun displayTitle(title: String): String = if (NotificationText.phoneNumberFrom(title) != null) ltr(title) else title
+internal fun displayTitle(title: String): String = if (NotificationText.phoneNumberFrom(title) != null) ltr(title) else isolate(title)
 
 /** "+62 812 3456 7890" for the digits of an international number, or null when no dial code prefixes them. */
 internal fun displayPhoneNumber(digits: String): String? {

@@ -239,7 +239,6 @@ object DialCountries {
         DialCountry(iso2 = "AE", name = "United Arab Emirates", dialCode = "971"),
         DialCountry(iso2 = "GB", name = "United Kingdom", dialCode = "44"),
         DialCountry(iso2 = "US", name = "United States", dialCode = "1"),
-        DialCountry(iso2 = "UM", name = "United States Minor Outlying Islands", dialCode = "268"),
         DialCountry(iso2 = "VI", name = "United States Virgin Islands", dialCode = "1340"),
         DialCountry(iso2 = "UY", name = "Uruguay", dialCode = "598"),
         DialCountry(iso2 = "UZ", name = "Uzbekistan", dialCode = "998"),

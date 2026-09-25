@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.piptechnologies.openchat.R
@@ -82,10 +83,16 @@ fun OcTopBar(
             )
         }
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = title, style = titleStyle, color = c.ink, maxLines = 1)
+            Text(text = title, style = titleStyle, color = c.ink, maxLines = 1, overflow = TextOverflow.Ellipsis)
             if (subtitle != null) {
                 Spacer(Modifier.height(1.dp))
-                Text(text = subtitle, style = OcTheme.type.mono11_5, color = c.muted, maxLines = 1)
+                Text(
+                    text = subtitle,
+                    style = OcTheme.type.mono11_5,
+                    color = c.muted,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
         }
         actions()

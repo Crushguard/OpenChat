@@ -49,6 +49,7 @@ import com.piptechnologies.openchat.ui.components.OcTopBar
 import com.piptechnologies.openchat.ui.components.ScreenSurface
 import com.piptechnologies.openchat.ui.components.StateChip
 import com.piptechnologies.openchat.ui.components.TopBarIconButton
+import com.piptechnologies.openchat.ui.components.isolate
 import com.piptechnologies.openchat.ui.components.rememberTimeFormatter
 import com.piptechnologies.openchat.ui.icons.LucideIcon
 import com.piptechnologies.openchat.ui.icons.LucideIconImage
@@ -195,7 +196,8 @@ private fun ConversationRow(conversation: ConversationSummary, mode: InboxMode, 
                     LucideIconImage(icon = LucideIcon.MessageSquareDashed, size = 12.dp, tint = c.amber, strokeWidth = 2f)
                 }
                 Text(
-                    text = conversation.preview,
+                    // The contact's words keep their own direction: an English "…again?" in an RTL row ends with its "?".
+                    text = isolate(conversation.preview),
                     style = OcTheme.type.body13,
                     color = c.ink2,
                     maxLines = 1,
