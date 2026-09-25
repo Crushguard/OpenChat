@@ -83,9 +83,22 @@ fun ComposeTestRule.waitForGone(matcher: SemanticsMatcher, timeoutMs: Long = UI_
     }
 }
 
-/** Waits for a tappable node matching [matcher], scrolls it into view when it sits in a scrolling column, taps it. */
+/**
+ * Waits for a tappable node matching [matcher], scrolls it into view when it sits in a scrolling column, taps it.
+ * The scroll and the tap's handler run as queued coroutines (E2eTest's dispatcher): one frame of the clock after
+ * each lets them run before the next step.
+ */
 fun ComposeTestRule.tap(matcher: SemanticsMatcher, timeoutMs: Long = UI_TIMEOUT_MS) {
     val node = waitFor(matcher and hasClickAction(), timeoutMs)
-    runCatching { node.performScrollTo() } // no scrolling parent: nothing to scroll
+    if (runCatching { node.performScrollTo() }.isSuccess) settle() // no scrolling parent: nothing to scroll
     node.performClick()
+    settle()
+}
+
+/**
+ * One frame of the rule's clock, which also runs the coroutines due now. Needs no OpenChat screen in front (a tap
+ * may just have opened another app), unlike waitForIdle.
+ */
+fun ComposeTestRule.settle() {
+    mainClock.advanceTimeByFrame()
 }

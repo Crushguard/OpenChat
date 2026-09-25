@@ -78,6 +78,7 @@ class SettingsTest : E2eTest() {
             emptySend.assertIsNotEnabled()
         } else {
             emptySend.performClick()
+            compose.settle()
             compose.waitFor(hasTextOf(text(R.string.toast_write_first)))
         }
         capture("contact_empty")

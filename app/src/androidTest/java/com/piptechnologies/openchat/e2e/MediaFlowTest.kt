@@ -48,8 +48,9 @@ class MediaFlowTest : E2eTest() {
         val tile = compose.waitFor(mediaTile)
         capture("grid")
 
-        runCatching { tile.performScrollTo() }
+        if (runCatching { tile.performScrollTo() }.isSuccess) compose.settle()
         tile.performClick()
+        compose.settle()
         compose.tap(hasTextOf(text(R.string.media_save)))
         compose.waitFor(hasTextOf(text(R.string.toast_saved)))
         capture("detail_saved")

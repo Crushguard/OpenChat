@@ -53,9 +53,10 @@ class SendFlowTest : E2eTest() {
         compose.waitFor(hasTextOf(text(R.string.home_recent), ignoreCase = true))
         val recent = hasDigits("6281234567890") and hasClickAction()
         val row = compose.waitFor(recent)
-        runCatching { row.performScrollTo() }
+        if (runCatching { row.performScrollTo() }.isSuccess) compose.settle()
         capture("recent")
         row.performTouchInput { longClick() }
+        compose.settle()
         compose.tap(hasTextOf(text(R.string.home_delete)))
         compose.waitForGone(recent)
         capture("recent_deleted")

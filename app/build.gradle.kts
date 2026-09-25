@@ -112,6 +112,8 @@ dependencies {
     // Keeps Espresso (pulled in by the Compose test rule) on the same release train as the androidx.test libraries.
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.test.uiautomator)
+    // StandardTestDispatcher for the Compose rule's effect context (e2e/E2eTest.kt).
+    androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestUtil(libs.androidx.test.orchestrator)
     androidTestUtil(libs.androidx.test.services)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
