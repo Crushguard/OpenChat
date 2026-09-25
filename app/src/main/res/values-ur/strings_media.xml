@@ -32,10 +32,11 @@
     <string name="media_size_kb">%s KB</string>
     <string name="media_size_mb">%s MB</string>
     <string name="media_size_gb">%s GB</string>
-    <!-- Label-style line ("موصول: آج 14:25"): Urdu postpositions cannot follow the stand-alone day label -->
-    <string name="media_meta_from">منجانب %1$s · %2$s %3$s · حذف: %4$s</string>
-    <string name="media_meta_received">موصول: %1$s %2$s · حذف: %3$s</string>
-    <string name="media_meta_from_kept">منجانب %1$s · %2$s %3$s</string>
+    <!-- Label-style line ("موصول: آج 14:25"): Urdu postpositions cannot follow the stand-alone day label. Parts are
+         separated by the Urdu comma, not "·": beside Urdu digits (ur-IN phones) the middle dot reads as zero -->
+    <string name="media_meta_from">منجانب %1$s، %2$s %3$s، حذف: %4$s</string>
+    <string name="media_meta_received">موصول: %1$s %2$s، حذف: %3$s</string>
+    <string name="media_meta_from_kept">منجانب %1$s، %2$s %3$s</string>
     <string name="media_meta_received_kept">موصول: %1$s %2$s</string>
     <string name="delete_media_title_photo">یہ تصویر حذف کریں؟</string>
     <string name="delete_media_title_video">یہ ویڈیو حذف کریں؟</string>

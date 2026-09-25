@@ -8,7 +8,8 @@
     <string name="home_send_with">اس کے ذریعے بھیجیں</string>
     <string name="home_first_run_hint">چیٹ آپ کی منتخب کردہ ایپ میں کھلتی ہے۔ آپ کے رابطوں میں کچھ بھی محفوظ نہیں ہوتا۔</string>
     <string name="home_recent">حالیہ نمبرز</string>
-    <string name="home_delete">حذف کریں</string>
+    <!-- One short verb: the swiped Delete panel leaves the label about 52 dp, and "حذف کریں" wrapped to "حذف" -->
+    <string name="home_delete">ہٹائیں</string>
     <string name="home_settings_cd">ترتیبات</string>
     <string name="home_country_cd">ملک</string>
     <string name="home_clear_cd">صاف کریں</string>

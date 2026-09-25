@@ -2,22 +2,24 @@
 <resources>
     <!-- Messages inbox (§4.8) -->
     <string name="messages_title">پیام‌ها</string>
+    <!-- Counts go in parentheses, never after a middle dot: beside Persian digits "·" reads as zero ("فقط حذف‌شده‌ها · ۴" looks like ۴۰) -->
     <plurals name="messages_chip_all">
-        <item quantity="one">همه · %d خوانده‌نشده</item>
-        <item quantity="other">همه · %d خوانده‌نشده</item>
+        <item quantity="one">همه (%d خوانده‌نشده)</item>
+        <item quantity="other">همه (%d خوانده‌نشده)</item>
     </plurals>
-    <string name="messages_chip_deleted">فقط حذف‌شده‌ها · %d</string>
+    <string name="messages_chip_deleted">فقط حذف‌شده‌ها (%d)</string>
     <string name="messages_info_all">اینجا بخوانید تا WhatsApp تیک آبی نشان ندهد. عکس‌ها وقتی نمایش داده می‌شوند که اعلان پیش‌نمایش داشته باشد؛ پیام‌های صوتی و فایل‌ها با نامشان نشان داده می‌شوند.</string>
     <string name="messages_info_deleted">فقط پیام‌هایی که فرستنده حذف کرده نگه داشته می‌شوند. گفتگوهای مستثناشده کاملاً نادیده گرفته می‌شوند.</string>
     <string name="messages_empty_title">هنوز چیزی اینجا نیست</string>
-    <string name="messages_empty_body">پیام‌های جدید به محض رسیدن اینجا نمایش داده می‌شوند. پیام‌های حذف‌شده در «فقط حذف‌شده‌ها» می‌مانند.</string>
+    <string name="messages_empty_body">پیام‌های جدید به محض رسیدن اینجا می‌آیند. حذف‌شده‌ها در «فقط حذف‌شده‌ها» می‌مانند.</string>
     <string name="messages_tool_settings">تنظیمات ابزار</string>
 
     <!-- Conversation (§4.9) -->
     <string name="conversation_subtitle_all">%1$s · هیچ‌کس نمی‌فهمد</string>
+    <!-- The count in parentheses, as on the filter chips (no "·" beside a digit) -->
     <plurals name="conversation_subtitle_deleted">
-        <item quantity="one">%1$s · %2$d حذف‌شده</item>
-        <item quantity="other">%1$s · %2$d حذف‌شده</item>
+        <item quantity="one">%1$s (%2$d حذف‌شده)</item>
+        <item quantity="other">%1$s (%2$d حذف‌شده)</item>
     </plurals>
     <string name="conversation_deleted_label">حذف‌شده توسط فرستنده</string>
     <string name="conversation_open">باز کردن گفتگو در WhatsApp</string>

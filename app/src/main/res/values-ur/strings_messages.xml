@@ -2,11 +2,12 @@
 <resources>
     <!-- Messages inbox (§4.8) -->
     <string name="messages_title">میسجز</string>
+    <!-- Counts go in parentheses, never after a middle dot: with the Urdu digits of an ur-IN phone (۰–۹) "·" reads as zero ("۴ ·" looks like ۴۰) -->
     <plurals name="messages_chip_all">
-        <item quantity="one">تمام · %d بغیر پڑھا</item>
-        <item quantity="other">تمام · %d بغیر پڑھے</item>
+        <item quantity="one">تمام (%d بغیر پڑھا)</item>
+        <item quantity="other">تمام (%d بغیر پڑھے)</item>
     </plurals>
-    <string name="messages_chip_deleted">صرف حذف شدہ · %d</string>
+    <string name="messages_chip_deleted">صرف حذف شدہ (%d)</string>
     <string name="messages_info_all">یہاں پڑھیں اور WhatsApp نیلے نشان نہیں دکھائے گا۔ تصاویر تب نظر آتی ہیں جب اطلاع میں پیش نظارہ ہو؛ وائس میسجز اور فائلیں اپنے نام سے دکھائی دیتی ہیں۔</string>
     <string name="messages_info_deleted">صرف وہی میسجز محفوظ ہوتے ہیں جو بھیجنے والے نے حذف کیے۔ خارج کی گئی چیٹس مکمل طور پر نظر انداز کی جاتی ہیں۔</string>
     <string name="messages_empty_title">ابھی یہاں کچھ نہیں</string>
@@ -15,9 +16,10 @@
 
     <!-- Conversation (§4.9) -->
     <string name="conversation_subtitle_all">%1$s · کسی کو پتا نہیں</string>
+    <!-- The count in parentheses, as on the filter chips (no "·" beside a digit) -->
     <plurals name="conversation_subtitle_deleted">
-        <item quantity="one">%1$s · %2$d حذف شدہ</item>
-        <item quantity="other">%1$s · %2$d حذف شدہ</item>
+        <item quantity="one">%1$s (%2$d حذف شدہ)</item>
+        <item quantity="other">%1$s (%2$d حذف شدہ)</item>
     </plurals>
     <string name="conversation_deleted_label">بھیجنے والے نے حذف کیا</string>
     <string name="conversation_open">WhatsApp میں چیٹ کھولیں</string>

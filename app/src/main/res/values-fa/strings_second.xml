@@ -4,8 +4,8 @@
     <string name="second_title">حساب دوم</string>
     <string name="second_entry_title">یک WhatsApp دوم، همین‌جا</string>
     <string name="second_entry_body">یک نشست WhatsApp Web را داخل همین برنامه متصل می‌کند. از آن برای یک حساب دوم استفاده کنید، یا برای همان حساب روی گوشی دوم.</string>
-    <!-- WhatsApp's own Persian menu names: دستگاه‌های پیوندشده › پیوند دادن دستگاه -->
-    <string name="second_entry_callout">به گوشی دیگر نیاز دارید. یک کد QR اینجا نمایش داده می‌شود؛ آن را در گوشی دیگر از مسیر WhatsApp › دستگاه‌های پیوندشده › پیوند دادن دستگاه اسکن کنید.</string>
+    <!-- WhatsApp's own Persian menu names: دستگاه‌های پیوندشده › پیوند دادن دستگاه. A no-break space before each › keeps it at the end of a line, never at the start of the next -->
+    <string name="second_entry_callout">به گوشی دیگر نیاز دارید. یک کد QR اینجا نمایش داده می‌شود؛ آن را در گوشی دیگر از مسیر WhatsApp › دستگاه‌های پیوندشده › پیوند دادن دستگاه اسکن کنید.</string>
     <string name="second_scan">نمایش کد QR</string>
     <string name="second_entry_hint">تا وقتی متصل است، یک اعلان نمایش داده می‌شود. Android این را الزامی می‌کند.</string>
 

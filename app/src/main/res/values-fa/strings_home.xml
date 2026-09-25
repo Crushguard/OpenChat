@@ -20,7 +20,7 @@
         <item quantity="other">%d پیام خوانده‌نشده، هیچ‌کس نمی‌فهمد</item>
     </plurals>
     <string name="tool_unseen_status_paused">متوقف</string>
-    <string name="tool_unseen_status_off">اینجا بخوانید. WhatsApp چیزی نشان نمی‌دهد</string>
+    <string name="tool_unseen_status_off">اینجا بخوانید. WhatsApp خبر نمی‌دهد</string>
     <plurals name="tool_deleted_status_granted">
         <item quantity="one">%d پیام حذف‌شده از سوی فرستنده</item>
         <item quantity="other">%d پیام حذف‌شده از سوی فرستنده</item>

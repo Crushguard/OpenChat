@@ -31,10 +31,11 @@
     <string name="media_size_kb">%s كيلوبايت</string>
     <string name="media_size_mb">%s ميغابايت</string>
     <string name="media_size_gb">%s غيغابايت</string>
-    <!-- Label-style line: the day (اليوم / أمس / a date) stands alone, with no preposition before it -->
-    <string name="media_meta_from">من %1$s · %2$s %3$s · الحذف: %4$s</string>
-    <string name="media_meta_received">الاستلام: %1$s %2$s · الحذف: %3$s</string>
-    <string name="media_meta_from_kept">من %1$s · %2$s %3$s</string>
+    <!-- Label-style line: the day (اليوم / أمس / a date) stands alone, with no preposition before it. Parts are
+         separated by the Arabic comma, not "·": beside the Arabic-Indic digits of a time the middle dot reads as zero -->
+    <string name="media_meta_from">من %1$s، %2$s %3$s، الحذف: %4$s</string>
+    <string name="media_meta_received">الاستلام: %1$s %2$s، الحذف: %3$s</string>
+    <string name="media_meta_from_kept">من %1$s، %2$s %3$s</string>
     <string name="media_meta_received_kept">الاستلام: %1$s %2$s</string>
     <string name="delete_media_title_photo">حذف هذه الصورة؟</string>
     <string name="delete_media_title_video">حذف هذا الفيديو؟</string>
