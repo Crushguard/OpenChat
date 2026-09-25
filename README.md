@@ -138,7 +138,7 @@ so Android 13+ lists them under Settings › Apps › OpenChat › Language) and
 | English | English | en | `values` | LTR |
 | Bahasa Indonesia | Indonesian | id | `values-in` | LTR |
 | Português (Brasil) | Portuguese (Brazil) | pt-BR | `values-pt-rBR` | LTR |
-| Português | Portuguese | pt | `values-pt` | LTR |
+| Português | Portuguese | pt (applied as pt-PT) | `values-pt` | LTR |
 | اردو | Urdu | ur | `values-ur` | RTL |
 | हिन्दी | Hindi | hi | `values-hi` | LTR |
 | Türkçe | Turkish | tr | `values-tr` | LTR |
@@ -155,8 +155,9 @@ so Android 13+ lists them under Settings › Apps › OpenChat › Language) and
 | Hausa | Hausa | ha | `values-ha` | LTR |
 | မြန်မာ | Burmese | my | `values-my` | LTR |
 
-`values-pt` is European Portuguese. `resourceConfigurations` holds these 19 qualifiers plus `zh-rCN` and
-`pt-rPT`, which OpenChat does not ship but AndroidX and Material do (their own strings, such as TalkBack's
+`values-pt` is European Portuguese, and the app hands it to Android as pt-PT (`LanguageOption.localeTag`, also
+the tag in `locales_config.xml`): a bare "pt" would get Brazil's plural rules, where 0 is singular ("0 não lida"
+instead of "0 não lidas"). `resourceConfigurations` holds these 19 qualifiers plus `zh-rCN` and `pt-rPT`, which OpenChat does not ship but AndroidX and Material do (their own strings, such as TalkBack's
 "Selected", would be stripped otherwise). Every other library translation is dropped from the APK.
 
 How the language is chosen:
@@ -184,7 +185,14 @@ Caveats:
 - The second-account button says "Show QR code" in every translation (the phone shows the code, the other
   phone scans it); the English keeps the design's "Scan QR".
 - Digits and calendars come from Android's locale data: Arabic may show Arabic-Indic or Latin digits depending
-  on the Android version, and Persian and Pashto dates use the Gregorian calendar.
+  on the Android version, and Persian and Pashto dates use the Gregorian calendar. Beside Arabic-Indic and
+  Persian digits a middle dot reads as a zero, so Arabic, Persian and Urdu put counts in parentheses and use
+  the Arabic comma between parts, and Pashto uses an en dash.
+- Every translated screen was also checked by eye against English in the screenshot matrix: labels that
+  clipped or wrapped at 390 dp, or would at 360 dp, were shortened. Known leftovers: with WhatsApp Business
+  as the default app, the Settings row label wraps onto two lines in a few languages (Hebrew; Spanish,
+  Portuguese, French and Italian on 360 dp phones); the onboarding card titles wrap in German, Spanish and
+  Portuguese; and a few Home status lines may end in "…" on 360 dp phones.
 
 ## Testing each tool by hand
 
@@ -325,7 +333,8 @@ translation fails the build; reports are in the `unit-test-reports` artifact.
 
 **Screenshots.** Paparazzi renders the 34 English screens and the 612 translated ones as described above;
 `./gradlew recordPaparazziDebug` locally, then `verifyPaparazziDebug` after a change. CI publishes them to the
-`screenshots` branch.
+`screenshots` branch. Each language renders with its own locale as the default one, as on a phone, so
+numbers use that language's digits everywhere; European Portuguese renders as pt-rPT.
 
 **Emulator suite.** [The Device workflow](.github/workflows/device.yml) runs the instrumented tests in
 `app/src/androidTest/java/com/piptechnologies/openchat/e2e/` on emulators at API 30 and 34, on every push to
@@ -338,7 +347,10 @@ message kept under "Deleted by sender" and a system notification ignored; a dele
 and deleted; the second-account WebView opening in "Linking…"; the default-app sheet, clearing recents, the
 rating sheet and Contact us; and every one of the 19 languages picked through the Language screen, with the
 title translated, the back arrow on the right for RTL, and Settings, Language, Home, Messages, Deleted media,
-the gate and Second account captured. Artifacts per API level: `device-screens-api<N>` (folders
+the gate and Second account captured. The Compose rule runs the app's composition coroutines on a
+`StandardTestDispatcher` that the session drains on the main thread, as the app's own dispatcher does, so
+work resumed from DataStore or I/O threads never touches navigation or lifecycles off the main thread. When
+a test fails, the job log prints its full stack trace. Artifacts per API level: `device-screens-api<N>` (folders
 `api<N>/<tag>/` for the language sweep, `api<N>/flows/` for the tool flows, `api<N>/failures/` for the screen
 when a test failed), `device-test-reports-api<N>` and `device-logcat-api<N>`. Locally, on an emulator
 without the real WhatsApp (the stand-in takes its package name):

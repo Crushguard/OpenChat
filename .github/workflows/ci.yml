@@ -3,6 +3,8 @@ name: CI
 on:
   push:
     branches: [main]
+    # Documentation-only pushes need no build and no emulator run (Actions minutes are metered on this repo).
+    paths-ignore: ["**.md", "docs/**"]
   workflow_dispatch:
 
 concurrency:

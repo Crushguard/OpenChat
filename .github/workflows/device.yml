@@ -6,6 +6,8 @@ name: Device
 on:
   push:
     branches: [main]
+    # Documentation-only pushes need no build and no emulator run (Actions minutes are metered on this repo).
+    paths-ignore: ["**.md", "docs/**"]
   workflow_dispatch:
 
 # A running emulator suite is never cancelled (it takes ~20 minutes); newer pushes wait, and GitHub keeps

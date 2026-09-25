@@ -522,13 +522,16 @@ Shown for 2.2 s, 90 dp above the bottom, centred, over any screen. Text per acti
   (with the `in`↔`id`, `iw`↔`he` aliases), else language only (pt-PT → pt, es-MX → es), else English;
   Traditional Chinese (Hant, or zh-TW/HK/MO… without a script) matches nothing, as `values-zh` is
   Simplified. `currentUiLocale()` (`ui/components/UiLocale.kt`) gives the locale for dates, digits and case
-  rules: the matched language (bare pt read as pt-PT), US English on fallback. The 19 languages are declared
-  in `Languages.all`, `res/xml/locales_config.xml` (`android:localeConfig`, listed by Android 13+'s per-app
-  language setting) and `resourceConfigurations` (the 19 qualifiers plus library-only `zh-rCN`, `pt-rPT`);
+  rules: the matched language (bare pt read as pt-PT), US English on fallback. Português is applied as pt-PT
+  (`LanguageOption.localeTag`), so plurals follow Portugal's rules (0 is plural), not bare pt's Brazilian ones.
+  The 19 languages are declared in `Languages.all`, `res/xml/locales_config.xml` (`android:localeConfig`,
+  listed by Android 13+'s per-app language setting) and `resourceConfigurations` (the 19 qualifiers plus library-only `zh-rCN`, `pt-rPT`);
   `LocalesConfigTest` keeps them and the `values-*` folders in sync, `TranslationCompletenessTest` (same
   rules as `tools/i18n/check_translations.py`) fails the build on a missing or broken translation.
-* Translations were machine-assisted and reviewed per language group; a native-speaker pass is still
-  advised for ha, my and ps. In Hausa, WhatsApp's menu names are unconfirmed guesses; Burmese and Pashto keep
+* Translations were machine-assisted, reviewed per language group, then checked screen by screen in the
+  612-image screenshot matrix (clipping, wrapping, digits, right to left); a native-speaker pass is still
+  advised for ha, my and ps. Beside Arabic-Indic and Persian digits a middle dot reads as zero: ar, fa and ur
+  use parentheses and the Arabic comma, ps an en dash (`media_day_count` is translatable for that reason). In Hausa, WhatsApp's menu names are unconfirmed guesses; Burmese and Pashto keep
   them in English. `second_scan` is "Show QR code" in every translation, "Scan QR" (design) in English.
 * Notification access check: `NotificationManagerCompat.getEnabledListenerPackages(context)` contains
   the package.
