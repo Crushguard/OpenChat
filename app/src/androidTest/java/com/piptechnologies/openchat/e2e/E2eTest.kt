@@ -136,6 +136,10 @@ class E2eSession(private val scheduler: TestCoroutineScheduler) : TestRule {
                 throw t
             } finally {
                 close()
+                // Before the Compose rule's own teardown: it runs whatever is still queued on the test thread (its
+                // closing runTest {} advances the scheduler until idle), where a disposed sheet or navigation entry
+                // unregistering from a lifecycle throws "Method removeObserver must be called on the main thread".
+                drain.finish()
                 drain.stop()
             }
         }
@@ -176,6 +180,27 @@ private class MainThreadDrain(private val scheduler: TestCoroutineScheduler) {
         handler.post(tick)
     }
 
+    /**
+     * Once the activity is closed: runs what its disposed composition left queued (cancelled effects, finished
+     * transitions), on the main thread, moving the clock a frame at a time for up to [FINISH_MS]. Bounded, so a
+     * coroutine that keeps rescheduling itself cannot hang the teardown.
+     */
+    fun finish() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            try {
+                scheduler.runCurrent()
+                var elapsed = 0L
+                while (elapsed < FINISH_MS) {
+                    scheduler.advanceTimeBy(FRAME_MS)
+                    scheduler.runCurrent()
+                    elapsed += FRAME_MS
+                }
+            } catch (t: Throwable) {
+                if (failure == null) failure = t
+            }
+        }
+    }
+
     fun stop() {
         running = false
         handler.removeCallbacks(tick)
@@ -183,5 +208,7 @@ private class MainThreadDrain(private val scheduler: TestCoroutineScheduler) {
 
     private companion object {
         const val PERIOD_MS = 50L
+        const val FRAME_MS = 16L
+        const val FINISH_MS = 5_000L
     }
 }
