@@ -63,7 +63,9 @@ jobs:
           # pixel_6 asks for a 6 GB data partition; the app, its tests and the stand-in need a fraction of that.
           disk-size: 4096M
           disable-animations: true
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-snapshot-save
+          # No Vulkan in the guest: the API 34 emulator vanished, silently, both times SecondAccountTest's WebView
+          # rendered web.whatsapp.com through the host's software GPU (device runs 15 and 19). GL still renders.
+          emulator-options: -no-window -gpu swiftshader_indirect -feature -Vulkan -noaudio -no-boot-anim -camera-back none -no-snapshot-save
           # Each line runs on its own in sh: keep every line self-contained.
           # adb gets time limits after the suite: with the emulator gone, "adb logcat" waited for it until the job's
           # timeout (run 19) and the failing tests were never printed.
