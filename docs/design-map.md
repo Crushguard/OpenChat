@@ -535,8 +535,9 @@ Shown for 2.2 s, 90 dp above the bottom, centred, over any screen. Text per acti
   advised for ha, my and ps. Beside Arabic-Indic and Persian digits a middle dot reads as zero: ar, fa and ur
   use parentheses and the Arabic comma, ps an en dash (`media_day_count` is translatable for that reason). In Hausa, WhatsApp's menu names are unconfirmed guesses; Burmese and Pashto keep
   them in English. `second_scan` is "Show QR code" in every translation, "Scan QR" (design) in English.
-* Notification access check: `NotificationManagerCompat.getEnabledListenerPackages(context)` contains
-  the package.
+* Notification access check: on API 27+ `NotificationManager.isNotificationListenerAccessGranted` for the
+  listener component (the system's own record; the `enabled_notification_listeners` setting can trail a
+  revocation); below, `NotificationManagerCompat.getEnabledListenerPackages(context)` contains the package.
 * SIM/locale country: `TelephonyManager.simCountryIso` → `networkCountryIso` → `Locale.getDefault().country`
   → "US".
 

@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.test.platform.app.InstrumentationRegistry
+import com.piptechnologies.openchat.platform.NotificationAccess
 import com.piptechnologies.openchat.platform.StoragePermissions
 
 /** Device state set up through the shell: notification access, runtime permissions, the app's language. */
@@ -24,7 +25,10 @@ object Grants {
                 listenerLive() == allowed
             }
         }
-        if (settled.isSuccess) return
+        if (settled.isSuccess) {
+            awaitAppSees(allowed)
+            return
+        }
         if (allowed) {
             Shell.run("cmd notification disallow_listener $LISTENER")
             Shell.run("cmd notification allow_listener $LISTENER")
@@ -35,6 +39,15 @@ object Grants {
             }
         } catch (e: AssertionError) {
             throw AssertionError("${e.message}; dumpsys notification says:\n${liveListenersSection().joinToString("\n")}", e)
+        }
+        awaitAppSees(allowed)
+    }
+
+    /** Until the app's own check (the test runs in the app's process) reads the new state, as its screens will. */
+    private fun awaitAppSees(allowed: Boolean) {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        Waits.until("OpenChat to see notification access ${if (allowed) "granted" else "revoked"}", timeoutMs = 10_000, pollMs = 100) {
+            NotificationAccess.isGranted(context) == allowed
         }
     }
 

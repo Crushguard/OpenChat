@@ -8,6 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.piptechnologies.openchat.MainActivity
 import com.piptechnologies.openchat.R
+import com.piptechnologies.openchat.platform.NotificationAccess
 import com.piptechnologies.openchat.ui.settings.LanguageOption
 import com.piptechnologies.openchat.ui.settings.Languages
 import java.util.Locale
@@ -103,7 +104,12 @@ class LanguageSweepTest : E2eTest() {
         Grants.notificationListener(allowed = false)
         try {
             openTool(R.string.tool_unseen_title)
-            compose.waitFor(hasTextOf(text(R.string.gate_body)))
+            try {
+                compose.waitFor(hasTextOf(text(R.string.gate_body)))
+            } catch (e: AssertionError) {
+                val granted = NotificationAccess.isGranted(InstrumentationRegistry.getInstrumentation().targetContext)
+                throw AssertionError("[access revoked; the app reads it as granted: $granted] ${e.message}", e)
+            }
             shot(option.tag, "gate")
             back()
             waitForHome()
