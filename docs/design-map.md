@@ -28,6 +28,7 @@ is the visual spec. Where this file says "design says", the value is copied verb
 | R15 | Exclude chats | Tool settings row "Exclude chats" opens a sheet listing known conversations with a switch each; excluded conversations are skipped by the listener. Count shown on the row. |
 | R16 | Privacy policy | Opens `privacy_policy_url` from strings.xml (placeholder https://piptechnologies.com/openchat/privacy). |
 | R17 | Media permission | Notification Access is the one gate for tools 2, 3 and 4 (as the brief says). Copying media additionally needs the storage/media runtime permission; the Deleted media screen asks for it inline (empty state button "Allow media access") the first time. |
+| R18 | "Removed before being read" | The brief also marks a message whose notification was removed before it was read. Android does not say who removed it: the user swiping it away, WhatsApp withdrawing it once the chat is opened on another device, and a deletion all look the same, so marking removals would flag ordinary messages as deleted. Only WhatsApp's own placeholder ("This message was deleted", §5.2) marks a message; a removed notification marks nothing. |
 
 ## 1. Tokens
 
@@ -518,7 +519,7 @@ Shown for 2.2 s, 90 dp above the bottom, centred, over any screen. Text per acti
 
 ### 5.5 Settings and misc
 * DataStore keys: `onboarding_done`, `send_app`, `recovery_paused`, `second_linked`, `send_count`,
-  `rating_shown`, `notif_access_seen`. The older `language` key is still declared but no longer read.
+  `rating_shown`. The older `language` key is still declared but no longer read.
 * Language (R13): AppCompat's application locales are the source of truth (`setApplicationLocales`,
   stored by `AppLocalesMetadataHolderService` with `autoStoreLocales` below Android 13, by the system from
   13). `Languages.current` = the per-app choice, else `Languages.match` of the phone's locales: exact tag
