@@ -42,7 +42,8 @@ fun DefaultAppSheetContent(apps: List<MessagingApp>, current: MessagingApp, onPi
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 12.dp, end = 12.dp, bottom = 20.dp),
+            // Top 6: as the tool settings sheet (SheetColumn), whose padding and handle the design shares.
+            .padding(start = 12.dp, top = 6.dp, end = 12.dp, bottom = 20.dp),
     ) {
         Text(
             text = stringResource(R.string.default_app_title),
