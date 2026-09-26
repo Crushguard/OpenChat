@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.piptechnologies.openchat.R
 import com.piptechnologies.openchat.ui.components.CardColumn
@@ -227,7 +228,8 @@ private fun AccessCard(granted: Boolean, onClick: () -> Unit) {
 @Composable
 private fun SettingsSection(title: String, rows: @Composable ColumnScope.() -> Unit) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        SectionEyebrow(text = title)
+        // The design sets Settings' "Preferences" and "About" at 600, the other eyebrows at 700.
+        SectionEyebrow(text = title, style = OcTheme.type.eyebrow11.copy(fontWeight = FontWeight.SemiBold))
         Spacer(Modifier.height(8.dp))
         CardColumn(content = rows)
     }

@@ -101,13 +101,16 @@ fun OcTopBar(
     }
 }
 
-/** Uppercase mono eyebrow 11/700, letter-spacing .08em, muted. Uppercased with the UI language's rules (Turkish İ). */
+/**
+ * Uppercase mono eyebrow 11/700 (Settings' sections: 11/600), letter-spacing .08em, muted. Uppercased with the UI
+ * language's rules (Turkish İ).
+ */
 @Composable
-fun SectionEyebrow(text: String, modifier: Modifier = Modifier) {
+fun SectionEyebrow(text: String, modifier: Modifier = Modifier, style: TextStyle = OcTheme.type.eyebrow11) {
     val shown = text.uppercase(currentUiLocale())
     Text(
         text = shown,
-        style = OcTheme.type.eyebrow11.forScriptOf(shown),
+        style = style.forScriptOf(shown),
         color = OcTheme.colors.muted,
         modifier = modifier.padding(horizontal = 2.dp),
     )
