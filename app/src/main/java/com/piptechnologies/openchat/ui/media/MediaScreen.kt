@@ -228,7 +228,7 @@ private fun MediaTile(
             LucideIconImage(
                 icon = LucideIcon.Play,
                 size = 20.dp,
-                tint = c.inkMuted,
+                tint = c.ink2,
                 filled = true,
                 modifier = Modifier.align(Alignment.Center),
             )
