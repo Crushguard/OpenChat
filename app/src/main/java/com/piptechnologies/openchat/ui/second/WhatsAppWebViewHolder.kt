@@ -139,7 +139,10 @@ class WhatsAppWebViewHolder @Inject constructor(@ApplicationContext private val 
             useWideViewPort = true
             loadWithOverviewMode = true
             mediaPlaybackRequiresUserGesture = false
-            mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
+            // Design map §5.4: mixed content compatibility off. WhatsApp Web is https throughout.
+            mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
+            // The page has no use for the phone's content:// URIs.
+            allowContentAccess = false
         }
         CookieManager.getInstance().apply {
             setAcceptCookie(true)
