@@ -25,15 +25,18 @@ object NotificationAccess {
         return NotificationManagerCompat.getEnabledListenerPackages(context).contains(context.packageName)
     }
 
-    /** API 30+: the listener's own detail page; below, or when that page cannot be opened, the generic listener list. */
-    fun openSettings(context: Context) {
+    /**
+     * API 30+: the listener's own detail page; below, or when that page cannot be opened, the generic listener list.
+     * False when neither opened (some Android Go builds have no such screen).
+     */
+    fun openSettings(context: Context): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val component = ComponentName(context, LISTENER_CLASS).flattenToString()
             val detail = Intent(Settings.ACTION_NOTIFICATION_LISTENER_DETAIL_SETTINGS)
                 .putExtra(Settings.EXTRA_NOTIFICATION_LISTENER_COMPONENT_NAME, component)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            if (startActivitySafely(context, detail)) return
+            if (startActivitySafely(context, detail)) return true
         }
-        startActivitySafely(context, Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        return startActivitySafely(context, Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
 }

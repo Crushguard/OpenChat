@@ -38,11 +38,11 @@ class GateViewModel @Inject constructor(@ApplicationContext private val context:
     /**
      * Shows the waiting state and opens the notification listener settings. A second tap while
      * waiting is ignored, so a double tap cannot open the settings screen twice; the next resume
-     * ends the wait.
+     * ends the wait, and so does a phone with no such settings screen (else the spinner never stops).
      */
     fun openSettings() {
         if (_state.value.waitingForSystem) return
         _state.update { it.copy(waitingForSystem = true) }
-        NotificationAccess.openSettings(context)
+        if (!NotificationAccess.openSettings(context)) _state.update { it.copy(waitingForSystem = false) }
     }
 }
