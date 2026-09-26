@@ -67,6 +67,9 @@ class MediaDetailViewModel @Inject constructor(
         confirmDelete,
     ) { item, recovered, confirm ->
         if (item != null) lastShown = describe(item, recovered)
+        // No row from the start (restored after process death once the copy was deleted or pruned): close
+        // instead of an empty black screen. Room's first emission is the query result, never a placeholder.
+        if (item == null && lastShown == null) _closed.tryEmit(Unit)
         (lastShown ?: EMPTY).copy(confirmDelete = confirm)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), EMPTY)
 
