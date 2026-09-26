@@ -274,7 +274,7 @@ Bar "Deleted media" + sliders. FilterPills: Photos, Videos, Audio, Documents, St
 gap 8, horizontally scrollable). Grid (padding 0 20 12) grouped by day: eyebrow "Today · N" (margin 2 2 8),
 "Yesterday · N", then dates "Mon 22 Sep · N" (margin 16 2 8); LazyVerticalGrid 3 columns, 8 gap, square
 tiles radius 14, 1 px border, thumbnail (Coil) over a hatched placeholder; videos show play 20 filled
-inkMuted centred; time chip bottom-left (left 8, bottom 7, tileTime9_5 ink2 on 85 % white, padding 2 5,
+ink2 centred; time chip bottom-left (left 8, bottom 7, tileTime9_5 ink2 on 85 % white, padding 2 5,
 radius 5). Audio/Documents/Stickers: same tiles with a type icon (music / file-text / sticker 24 inkMuted)
 and the file name 10.5 mono under the icon. Empty state: image 28; title "Nothing recovered yet" (Photos,
 Videos) or "No audio yet" / "No documents yet" / "No stickers yet"; body "Files someone deletes for
