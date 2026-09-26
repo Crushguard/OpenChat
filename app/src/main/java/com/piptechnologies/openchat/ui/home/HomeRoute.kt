@@ -80,8 +80,7 @@ fun HomeRoute(
     }
     LaunchedEffect(viewModel, context) {
         viewModel.launchRequests.collect { link ->
-            val launched = SendLauncher.launch(context, link)
-            viewModel.onLaunched(link, launched)
+            viewModel.onLaunched(link, SendLauncher.launch(context, link))
         }
     }
     LaunchedEffect(viewModel) {

@@ -44,7 +44,7 @@ object ExternalLinks {
 
     /** With digits: the chat through [SendLauncher]; without (or if that fails): the app itself. False when neither opens. */
     fun openWhatsAppChat(context: Context, e164Digits: String?, app: MessagingApp = MessagingApp.WHATSAPP): Boolean {
-        if (!e164Digits.isNullOrBlank() && SendLauncher.launch(context, SendLinkBuilder.build(app, e164Digits, ""))) {
+        if (!e164Digits.isNullOrBlank() && SendLauncher.launch(context, SendLinkBuilder.build(app, e164Digits, "")) != SendRoute.NONE) {
             return true
         }
         val launch = context.packageManager.getLaunchIntentForPackage(app.packageName) ?: return false

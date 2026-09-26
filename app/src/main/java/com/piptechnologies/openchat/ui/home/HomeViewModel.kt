@@ -25,6 +25,7 @@ import com.piptechnologies.openchat.platform.DetectedCountry
 import com.piptechnologies.openchat.platform.ExternalLinks
 import com.piptechnologies.openchat.platform.InstalledMessagingApps
 import com.piptechnologies.openchat.platform.NotificationAccess
+import com.piptechnologies.openchat.platform.SendRoute
 import com.piptechnologies.openchat.ui.components.UiText
 import com.piptechnologies.openchat.ui.components.pluralText
 import com.piptechnologies.openchat.ui.components.uiText
@@ -236,16 +237,16 @@ class HomeViewModel @Inject constructor(
      * the recents with the app used, the send is counted and [sendCompleted] emits the new count. Only
      * an in-app launch arms the not-on-WhatsApp check; the browser fallback cannot bounce back.
      */
-    fun onLaunched(link: SendLink, success: Boolean) {
+    fun onLaunched(link: SendLink, route: SendRoute) {
         val sent = pendingSend?.takeIf { it.link == link }
         pendingSend = null
-        if (!success) {
+        if (route == SendRoute.NONE) {
             toast(uiText(R.string.toast_no_app))
             return
         }
         // The app's name is a brand name, the same in every language.
         toast(uiText(R.string.toast_opening, link.app.label))
-        lastLaunch = if (link.app in installed) Launch(app = link.app, atMs = System.currentTimeMillis()) else null
+        lastLaunch = if (route == SendRoute.IN_APP) Launch(app = link.app, atMs = System.currentTimeMillis()) else null
         if (sent == null) return
         viewModelScope.launch {
             recents.record(sent.dialCode, sent.nationalNumber, link.app)
