@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -147,9 +148,14 @@ fun IconBox(icon: LucideIcon, tint: ToolTint, size: Dp, radius: Dp, iconSize: Dp
     }
 }
 
-/** Info callout: subtle background, 14 radius, info icon 14 muted, text 12/1.5 ink 2. */
+/** Info callout: subtle background, 14 radius, info icon 14 muted, text 12/1.5 ink 2 (12.5/1.5 on Second account). */
 @Composable
-fun InfoCallout(text: String, modifier: Modifier = Modifier, icon: LucideIcon = LucideIcon.Info) {
+fun InfoCallout(
+    text: String,
+    modifier: Modifier = Modifier,
+    icon: LucideIcon = LucideIcon.Info,
+    textStyle: TextStyle = OcTheme.type.body12,
+) {
     val c = OcTheme.colors
     val shape = RoundedCornerShape(14.dp)
     Row(
@@ -162,7 +168,7 @@ fun InfoCallout(text: String, modifier: Modifier = Modifier, icon: LucideIcon = 
         horizontalArrangement = Arrangement.spacedBy(9.dp),
     ) {
         LucideIconImage(icon = icon, size = 14.dp, tint = c.muted, modifier = Modifier.padding(top = 2.dp))
-        Text(text = text, style = OcTheme.type.body12, color = c.ink2, modifier = Modifier.weight(1f))
+        Text(text = text, style = textStyle, color = c.ink2, modifier = Modifier.weight(1f))
     }
 }
 

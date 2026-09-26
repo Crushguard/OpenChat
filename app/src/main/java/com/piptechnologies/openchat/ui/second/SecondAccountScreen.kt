@@ -103,7 +103,7 @@ private fun EntryContent(onBack: () -> Unit, onScan: () -> Unit) {
                 modifier = Modifier.widthIn(max = 300.dp),
             )
             Spacer(Modifier.height(22.dp))
-            InfoCallout(text = stringResource(R.string.second_entry_callout), icon = LucideIcon.Smartphone)
+            InfoCallout(text = stringResource(R.string.second_entry_callout), icon = LucideIcon.Smartphone, textStyle = OcTheme.type.body12_5)
         }
         Column(
             modifier = Modifier
