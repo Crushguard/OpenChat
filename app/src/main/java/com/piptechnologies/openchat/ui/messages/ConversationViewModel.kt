@@ -79,6 +79,8 @@ class ConversationViewModel @Inject constructor(
         val app = if (key.substringBefore('|') == NotificationText.WHATSAPP_BUSINESS) MessagingApp.WHATSAPP_BUSINESS else MessagingApp.WHATSAPP
         if (ExternalLinks.openWhatsAppChat(context, state.value.phoneDigits, app)) {
             _toasts.tryEmit(uiText(R.string.toast_opening_whatsapp))
+        } else {
+            _toasts.tryEmit(uiText(R.string.toast_no_app_can_open))
         }
     }
 
