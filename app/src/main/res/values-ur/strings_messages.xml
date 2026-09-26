@@ -12,6 +12,7 @@
     <string name="messages_info_deleted">صرف وہی میسجز محفوظ ہوتے ہیں جو بھیجنے والے نے حذف کیے۔ خارج کی گئی چیٹس مکمل طور پر نظر انداز کی جاتی ہیں۔</string>
     <string name="messages_empty_title">ابھی یہاں کچھ نہیں</string>
     <string name="messages_empty_body">نئے میسجز آتے ہی یہاں نظر آتے ہیں۔ حذف شدہ میسجز \"صرف حذف شدہ\" میں رہتے ہیں۔</string>
+    <string name="messages_photo_preview">تصویر</string>
     <string name="messages_tool_settings">ٹول کی ترتیبات</string>
 
     <!-- Conversation (§4.9) -->

@@ -12,6 +12,7 @@
     <string name="messages_info_deleted">فقط پیام‌هایی که فرستنده حذف کرده نگه داشته می‌شوند. گفتگوهای مستثناشده کاملاً نادیده گرفته می‌شوند.</string>
     <string name="messages_empty_title">هنوز چیزی اینجا نیست</string>
     <string name="messages_empty_body">پیام‌های جدید به محض رسیدن اینجا می‌آیند. حذف‌شده‌ها در «فقط حذف‌شده‌ها» می‌مانند.</string>
+    <string name="messages_photo_preview">عکس</string>
     <string name="messages_tool_settings">تنظیمات ابزار</string>
 
     <!-- Conversation (§4.9) -->

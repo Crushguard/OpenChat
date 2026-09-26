@@ -129,7 +129,7 @@ class NotificationParser @Inject constructor() {
     private fun titleOf(raw: CharSequence?): String? =
         raw?.toString()?.replace(UNREAD_COUNT, "")?.trim()?.takeIf { it.isNotEmpty() }
 
-    private companion object {
+    internal companion object {
         /** What an image message without text reads as; NotificationText.kindOf reads it as PHOTO. */
         const val PHOTO_TEXT = "📷 Photo"
 

@@ -206,7 +206,7 @@ private fun MessageBubble(
                     thumbnail(localPath, Modifier.matchParentSize())
                 }
             } else {
-                Text(text = message.text, style = OcTheme.type.body14_5.copy(textDirection = TextDirection.Content), color = c.ink)
+                Text(text = shownText(message.text).asString(), style = OcTheme.type.body14_5.copy(textDirection = TextDirection.Content), color = c.ink)
             }
             Text(
                 text = time,

@@ -12,6 +12,7 @@
     <string name="messages_info_deleted">נשמרות רק הודעות שהשולח מחק. צ\'אטים שהוחרגו לא נשמרים בכלל.</string>
     <string name="messages_empty_title">עדיין אין כאן כלום</string>
     <string name="messages_empty_body">הודעות חדשות יופיעו כאן כשהן מגיעות. הודעות שנמחקו נשארות במסנן \"רק מחוקות\".</string>
+    <string name="messages_photo_preview">תמונה</string>
     <string name="messages_tool_settings">הגדרות הכלי</string>
 
     <!-- Conversation -->

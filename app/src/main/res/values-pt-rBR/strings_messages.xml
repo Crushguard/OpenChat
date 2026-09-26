@@ -12,6 +12,7 @@
     <string name="messages_info_deleted">Só as mensagens que o remetente apagou são guardadas. As conversas ignoradas ficam totalmente de fora.</string>
     <string name="messages_empty_title">Nada por aqui ainda</string>
     <string name="messages_empty_body">Novas mensagens aparecem aqui assim que chegam. As apagadas ficam em “Só apagadas”.</string>
+    <string name="messages_photo_preview">Foto</string>
     <string name="messages_tool_settings">Configurações da ferramenta</string>
 
     <!-- Conversation -->

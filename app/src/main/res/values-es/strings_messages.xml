@@ -12,6 +12,7 @@
     <string name="messages_info_deleted">Solo se guardan los mensajes eliminados por el remitente. Los chats excluidos se omiten por completo.</string>
     <string name="messages_empty_title">Aún no hay nada aquí</string>
     <string name="messages_empty_body">Los mensajes nuevos aparecen aquí a medida que llegan. Los eliminados se quedan en “Solo eliminados”.</string>
+    <string name="messages_photo_preview">Foto</string>
     <string name="messages_tool_settings">Ajustes de la herramienta</string>
 
     <!-- Conversation (design map §4.9) -->

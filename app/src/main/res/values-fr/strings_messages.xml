@@ -12,6 +12,7 @@
     <string name="messages_info_deleted">Seuls les messages supprimés par l\'expéditeur sont conservés. Les discussions exclues sont entièrement ignorées.</string>
     <string name="messages_empty_title">Rien ici pour l\'instant</string>
     <string name="messages_empty_body">Les nouveaux messages apparaissent ici dès leur arrivée. Ceux qui sont supprimés restent dans « Supprimés ».</string>
+    <string name="messages_photo_preview">Photo</string>
     <string name="messages_tool_settings">Paramètres de l\'outil</string>
 
     <!-- Conversation (design map §4.9) -->

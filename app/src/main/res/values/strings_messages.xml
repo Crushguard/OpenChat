@@ -18,6 +18,8 @@
     <string name="messages_empty_title">Nothing here yet</string>
     <!-- Text of the empty Messages screen. "Deleted only" is the name of the filter chip (messages_chip_deleted): use the same words. -->
     <string name="messages_empty_body">New messages land here as they arrive. Deleted ones stay in \"Deleted only\".</string>
+    <!-- Preview line in the Messages list, and the bubble text, of a photo that came without a caption. A noun, keep it short. -->
+    <string name="messages_photo_preview">Photo</string>
     <!-- Accessibility label (read by screen readers) of the sliders button in the Messages top bar; it opens the tool settings sheet (pause, exclude chats, clear). -->
     <string name="messages_tool_settings">Tool settings</string>
 

@@ -17,6 +17,7 @@
     <string name="messages_info_deleted">لا يُحتفظ إلا بالرسائل التي حذفها المرسل. وتُتجاهل الدردشات المستثناة تمامًا.</string>
     <string name="messages_empty_title">لا شيء هنا بعد</string>
     <string name="messages_empty_body">تظهر الرسائل الجديدة هنا فور وصولها، وتبقى المحذوفة منها في «المحذوفة فقط».</string>
+    <string name="messages_photo_preview">صورة</string>
     <string name="messages_tool_settings">إعدادات الأداة</string>
 
     <!-- Conversation (§4.9) -->

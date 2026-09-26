@@ -11,6 +11,7 @@
     <string name="messages_info_deleted">Nur Nachrichten, die der Absender gelöscht hat, werden behalten. Ausgeschlossene Chats werden komplett übersprungen.</string>
     <string name="messages_empty_title">Noch nichts hier</string>
     <string name="messages_empty_body">Neue Nachrichten landen hier, sobald sie ankommen. Gelöschte bleiben unter „Nur gelöschte“.</string>
+    <string name="messages_photo_preview">Foto</string>
     <string name="messages_tool_settings">Tool-Einstellungen</string>
 
     <!-- Conversation -->

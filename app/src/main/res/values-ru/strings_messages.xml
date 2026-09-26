@@ -13,6 +13,7 @@
     <string name="messages_info_deleted">Сохраняются только сообщения, удалённые отправителем. Исключённые чаты полностью пропускаются.</string>
     <string name="messages_empty_title">Пока здесь пусто</string>
     <string name="messages_empty_body">Новые сообщения появляются здесь по мере поступления. Удалённые остаются в фильтре «Удалённые».</string>
+    <string name="messages_photo_preview">Фото</string>
     <string name="messages_tool_settings">Настройки функции</string>
 
     <!-- Conversation (§4.9) -->

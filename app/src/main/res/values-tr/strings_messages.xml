@@ -11,6 +11,7 @@
     <string name="messages_info_deleted">Yalnızca gönderenin sildiği mesajlar saklanır. Hariç tutulan sohbetler tamamen atlanır.</string>
     <string name="messages_empty_title">Burada henüz bir şey yok</string>
     <string name="messages_empty_body">Yeni mesajlar geldikçe burada görünür. Silinenler “Yalnızca silinenler” filtresinde kalır.</string>
+    <string name="messages_photo_preview">Fotoğraf</string>
     <string name="messages_tool_settings">Araç ayarları</string>
 
     <!-- Conversation (§4.9) -->

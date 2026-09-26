@@ -11,6 +11,7 @@
     <string name="messages_info_deleted">Saƙonnin da mai aikawa ya goge kaɗai ake ajiyewa. Ba a ajiye komai daga hirarrakin da aka ware ba.</string>
     <string name="messages_empty_title">Babu komai a nan tukuna</string>
     <string name="messages_empty_body">Sabbin saƙonni suna bayyana a nan da zarar sun iso. Waɗanda aka goge suna zama a “An goge”.</string>
+    <string name="messages_photo_preview">Hoto</string>
     <string name="messages_tool_settings">Saitunan kayan aiki</string>
 
     <!-- Conversation -->

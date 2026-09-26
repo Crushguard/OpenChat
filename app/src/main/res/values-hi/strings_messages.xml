@@ -11,6 +11,7 @@
     <string name="messages_info_deleted">सिर्फ़ वही मैसेज रखे जाते हैं जिन्हें भेजने वाले ने डिलीट किया। बाहर रखी गई चैट पूरी तरह छोड़ दी जाती हैं।</string>
     <string name="messages_empty_title">अभी यहाँ कुछ नहीं है</string>
     <string name="messages_empty_body">नए मैसेज आते ही यहाँ दिखेंगे। डिलीट हुए मैसेज “सिर्फ़ डिलीट हुए” में रहते हैं।</string>
+    <string name="messages_photo_preview">फ़ोटो</string>
     <string name="messages_tool_settings">टूल सेटिंग्स</string>
 
     <!-- Conversation (design map §4.9) -->

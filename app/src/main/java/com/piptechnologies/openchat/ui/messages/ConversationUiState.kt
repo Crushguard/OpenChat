@@ -8,6 +8,7 @@ import com.piptechnologies.openchat.core.messages.MessageKind
 import com.piptechnologies.openchat.core.messages.NotificationText
 import com.piptechnologies.openchat.core.phone.DialCountries
 import com.piptechnologies.openchat.core.phone.PhoneNumberNormalizer
+import com.piptechnologies.openchat.service.NotificationParser
 import com.piptechnologies.openchat.ui.components.UiText
 import com.piptechnologies.openchat.ui.components.isolate
 import com.piptechnologies.openchat.ui.components.ltr
@@ -36,6 +37,13 @@ internal fun conversationMessages(messages: List<CapturedMessage>, mode: InboxMo
     if (mode == InboxMode.DELETED) messages.filter { it.isDeleted } else messages
 
 /** A message shows as a photo only when it is a photo whose image was copied; otherwise its text shows. */
+/**
+ * A message's text as shown. The "📷 Photo" the listener stores for a photo without a caption (and that WhatsApp in
+ * English posts) reads as the UI language's "Photo", as in the design's Messages list.
+ */
+internal fun shownText(text: String): UiText =
+    if (text == NotificationParser.PHOTO_TEXT) uiText(R.string.messages_photo_preview) else UiText.Raw(text)
+
 internal fun isPhotoBubble(message: CapturedMessage): Boolean = message.kind == MessageKind.PHOTO && message.mediaId != null
 
 /**

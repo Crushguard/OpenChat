@@ -10,6 +10,7 @@
     <string name="messages_info_deleted">ပို့သူ ဖျက်လိုက်သော မက်ဆေ့ချ်များကိုသာ သိမ်းထားပါသည်။ ချန်လှပ်ထားသော ချတ်များကို လုံးဝ ကျော်သွားပါသည်။</string>
     <string name="messages_empty_title">ဤနေရာတွင် ဘာမျှ မရှိသေးပါ</string>
     <string name="messages_empty_body">မက်ဆေ့ချ်အသစ်များ ရောက်လာသည်နှင့် ဤနေရာတွင် ပေါ်လာပါမည်။ ဖျက်ထားသည်များကို “ဖျက်ထားသည်သာ” တွင် ဆက်ထားပါမည်။</string>
+    <string name="messages_photo_preview">ဓာတ်ပုံ</string>
     <string name="messages_tool_settings">ကိရိယာ ဆက်တင်များ</string>
 
     <!-- Conversation (design map §4.9) -->

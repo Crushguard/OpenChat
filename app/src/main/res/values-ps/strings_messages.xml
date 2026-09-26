@@ -13,6 +13,7 @@
     <string name="messages_info_deleted">یوازې هغه پیغامونه ساتل کېږي چې لېږونکي ړنګ کړي وي. استثنا شوي چټونه په بشپړ ډول پرېښودل کېږي.</string>
     <string name="messages_empty_title">لا تر اوسه دلته څه نشته</string>
     <string name="messages_empty_body">نوي پیغامونه له رارسېدو سره سم دلته ښکاري. ړنګ شوي پیغامونه په «یوازې ړنګ شوي» کې پاتې کېږي.</string>
+    <string name="messages_photo_preview">انځور</string>
     <string name="messages_tool_settings">د اوزار تنظیمات</string>
 
     <!-- Conversation -->
