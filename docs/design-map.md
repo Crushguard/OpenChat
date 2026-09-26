@@ -63,7 +63,8 @@ Colours (light only, no dark mode). Code: `ui/theme/Color.kt` (`OcColors`, `OcTh
 | destructive | #C4553D | delete, clear, log out |
 | destructiveTint / destructiveBorder | #FBEFEC / #EEDAD3 | destructive icon boxes, swipe reveal |
 | gold | #E0A64B | rating stars |
-| scrim | rgba(20,22,28,.42) | behind sheets/dialogs |
+| scrim | rgba(20,22,28,.42) | behind sheets |
+| dialogScrim | rgba(20,26,40,.4) | behind confirmation dialogs and the rating sheet |
 | tool tints | ticks #D4F1D8/#1C8742 · messages #D2EBFF/#1F74BF · media #ECE2FF/#7F5BB6 · second #C6F2F4/#008892 · orange #FFDFD0/#B2511E | icon boxes, avatars |
 
 Type. Hanken Grotesk 400/500/600/700/800, JetBrains Mono 400/500/600/700. Design px = sp 1:1.

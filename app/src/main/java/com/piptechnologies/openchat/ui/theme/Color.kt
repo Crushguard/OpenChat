@@ -50,8 +50,10 @@ data class OcColors(
     val destructiveTint: Color = Color(0xFFFBEFEC),
     val destructiveBorder: Color = Color(0xFFEEDAD3),
     val gold: Color = Color(0xFFE0A64B),
-    /** rgba(20,22,28,.42): the scrim behind sheets and dialogs. */
+    /** rgba(20,22,28,.42): the scrim behind sheets (country picker, tool settings, default app). */
     val scrim: Color = Color(0x6B14161C),
+    /** rgba(20,26,40,.4): the scrim behind the confirmation dialogs and the rating sheet (26 dp radius). */
+    val dialogScrim: Color = Color(0x66141A28),
     val toolTicks: ToolTint = ToolTint(Color(0xFFD4F1D8), Color(0xFF1C8742)),
     val toolMessages: ToolTint = ToolTint(Color(0xFFD2EBFF), Color(0xFF1F74BF)),
     val toolMedia: ToolTint = ToolTint(Color(0xFFECE2FF), Color(0xFF7F5BB6)),

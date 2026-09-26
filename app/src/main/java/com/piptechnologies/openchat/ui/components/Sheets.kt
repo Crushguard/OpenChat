@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.piptechnologies.openchat.ui.icons.LucideIcon
@@ -52,13 +53,18 @@ fun OcModalSheet(
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         shape = RoundedCornerShape(topStart = topRadius, topEnd = topRadius),
         containerColor = c.surface,
-        scrimColor = c.scrim,
+        scrimColor = scrimFor(topRadius),
         dragHandle = null,
     ) {
         if (showHandle) SheetTopHandle()
         content()
     }
 }
+
+/** The design's two scrims: a confirmation dialog or the rating sheet (the 26 dp radius) dims a little bluer. */
+@Composable
+private fun scrimFor(topRadius: Dp): Color =
+    if (topRadius >= OcRadius.dialog) OcTheme.colors.dialogScrim else OcTheme.colors.scrim
 
 /** The sheet handle: a 36×4 (by default) pill in borderStrong. */
 @Composable
@@ -149,7 +155,7 @@ fun SheetPreviewFrame(
         Box(
             modifier = Modifier
                 .matchParentSize()
-                .background(c.scrim),
+                .background(scrimFor(topRadius)),
         )
         Surface(
             modifier = Modifier
