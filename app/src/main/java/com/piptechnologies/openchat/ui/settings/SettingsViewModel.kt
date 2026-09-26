@@ -221,9 +221,9 @@ class SettingsViewModel @Inject constructor(
         const val STOP_TIMEOUT_MS = 5_000L
         val DEFAULT_APP = MessagingApp.WHATSAPP
 
-        /** The chosen app, else the first installed one, else WhatsApp (as Home resolves it). */
+        /** The chosen app while it is installed (or when none is), else the first installed one, else WhatsApp: as Home resolves it. */
         fun resolveApp(chosen: MessagingApp?, installed: List<MessagingApp>): MessagingApp =
-            chosen ?: installed.firstOrNull() ?: DEFAULT_APP
+            chosen?.takeIf { installed.isEmpty() || it in installed } ?: installed.firstOrNull() ?: DEFAULT_APP
 
         /** The installed apps in enum order, always including [current] so the sheet has a checked row. */
         fun availableApps(installed: List<MessagingApp>, current: MessagingApp): List<MessagingApp> =
